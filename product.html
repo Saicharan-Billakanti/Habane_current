@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HABÄNE — intelligent travel objects and connected travel systems." />
+  <meta name="theme-color" content="#0A0F5A" />
+  <title>HABÄNE — Product</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/brand/favicon-256.png" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="preloader" data-preloader aria-hidden="true">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__center">
+      <img class="preloader__mark" src="assets/brand/icon-white.png" alt="" />
+      <p class="preloader__status">SYSTEM BOOT</p>
+      <div class="preloader__bar"><span></span></div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      var el=document.querySelector('[data-preloader]');
+      if(!el) return;
+      if(sessionStorage.getItem('habane_preloaded')){ el.remove(); return; }
+      try{ sessionStorage.setItem('habane_preloaded','1'); }catch(e){}
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.remove(); return; }
+      setTimeout(function(){ el.classList.add('is-flash') },520);
+      setTimeout(function(){
+        el.classList.add('is-open');
+        setTimeout(function(){
+          el.classList.add('is-done');
+          setTimeout(function(){el.remove()},520);
+        },520);
+      },650);
+    })();
+  </script>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="announcement" data-announcement>
+    <div class="announcement__rotator" data-announcement-rotator aria-live="polite">
+      <span class="announcement__slide is-active">COMPLIMENTARY EU DELIVERY OVER €250</span>
+      <span class="announcement__slide">FIFTEEN OBJECTS. ONE MOVEMENT SYSTEM.</span>
+      <span class="announcement__slide">30-DAY FREE RETURNS, WORLDWIDE</span>
+      <span class="announcement__slide announcement__signal"><i></i> SYSTEM ONLINE</span>
+    </div>
+    <button type="button" data-announcement-close aria-label="Dismiss announcement">×</button>
+  </div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="HABÄNE home">
+      <span class="brand__mark">
+        <img class="brand__icon brand__icon--navy" src="assets/brand/icon-navy.png" alt="" />
+        <img class="brand__icon brand__icon--white" src="assets/brand/icon-white.png" alt="" />
+        <img class="brand__wordmark brand__wordmark--navy" src="assets/brand/wordmark-navy.png" alt="HABÄNE" />
+        <img class="brand__wordmark brand__wordmark--white" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+      </span>
+      <small>CHASE THE MADNESS</small>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="shop.html">All Products</a>
+      <a href="index.html#shop">Objects</a>
+      <a href="index.html#matcher">Find your object</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#ownership">Ownership</a>
+    </nav>
+    <div class="header-actions">
+      <button class="region-button" type="button" data-region aria-label="Shipping region">🌍</button>
+      <button class="icon-button" type="button" data-search-open aria-label="Search">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.2" y2="16.2" /></svg>
+      </button>
+      <button class="icon-button" type="button" data-cart-open aria-label="Bag">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+        <b class="icon-badge" data-cart-count>0</b>
+      </button>
+      <button class="prebook-button" type="button" data-prebook>Pre-book</button>
+      <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <aside class="mobile-menu" data-mobile-menu aria-hidden="true">
+    <div class="mobile-menu__head"><span><img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> / NAVIGATION</span><button type="button" data-menu-close>Close ×</button></div>
+    <nav>
+      <a href="shop.html"><span>00</span><b>All Products</b></a>
+      <a href="index.html#shop"><span>01</span><b>Objects</b></a>
+      <a href="index.html#matcher"><span>02</span><b>Find your object</b></a>
+      <a href="index.html#experience"><span>03</span><b>Experience</b></a>
+      <a href="index.html#ownership"><span>04</span><b>Ownership</b></a>
+    </nav>
+    <p>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</p>
+  </aside>
+
+  <main id="main">
+    <div class="product-page__backwrap"><a class="product-page__back" href="index.html#shop">← Back to shop</a></div>
+    <section class="product-page">
+      <div class="product-dialog__visual" data-product-visual>
+        <p class="product-page__eyebrow"><span data-product-code>OBJ / 01</span> · TECHNICAL BLUEPRINT</p>
+        <div class="product-scene product-scene--airport" data-scene>
+          <div class="product-scene__grid"></div>
+          <div class="experience-object">
+            <img class="product-photo" data-product-shape alt="">
+            <div class="blueprint-layer" data-blueprint aria-hidden="true"></div>
+          </div>
+          <div class="scene-meta"><span data-scene-label>AIRPORT / 05:42</span></div>
+        </div>
+        <div class="scene-switcher" role="group" aria-label="Choose product scene"><button class="is-active" type="button" data-scene-option="airport">Airport</button><button type="button" data-scene-option="night">Night city</button><button type="button" data-scene-option="quiet">Quiet hotel</button></div>
+        <div class="pdp-sound" data-pdp-sound>
+          <div class="sound-head__art" data-sound-art>
+            <img class="sound-head__art-icon" src="assets/brand/icon-white.png" alt="" />
+            <span class="sound-head__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="pdp-sound__meta"><small>SOUNDTRACK</small><b data-playlist-name>Terminal 05:42</b></div>
+          <button class="round-play" type="button" data-playlist-play aria-label="Play soundtrack">
+            <svg class="icon icon--play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l12-7z" /></svg>
+            <svg class="icon icon--pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+          </button>
+        </div>
+      </div>
+      <div class="product-dialog__content">
+        <div class="product-dialog__head"><p data-product-kicker>Flagship cabin object</p><h2 data-product-name>HABÄNE X1 CABIN</h2><p data-product-description></p>
+        <div><strong data-product-price>€899</strong><span>VAT included. Delivery calculated at checkout.</span></div></div>
+        <div class="finish-row"><span>Finish</span><div class="swatches" data-product-swatches></div></div>
+        <div class="experience-tabs" role="tablist"><button class="is-active" role="tab" type="button" data-tab="overview">Overview</button><button role="tab" type="button" data-tab="pack">Pack it</button><button role="tab" type="button" data-tab="passport">Passport</button></div>
+        <div class="tab-panels">
+          <section class="tab-panel is-active" data-panel="overview">
+            <div class="spec-grid" data-product-specs></div>
+            <div class="mood-dna"><div><span>PRODUCT MOOD DNA</span><b data-product-mood-label>Focused / Architectural</b></div><div class="dna-row"><span>Quiet</span><i><b data-dna-quiet></b></i><span>Electric</span></div><div class="dna-row"><span>Urban</span><i><b data-dna-urban></b></i><span>Remote</span></div><div class="dna-row"><span>Short</span><i><b data-dna-trip></b></i><span>Long</span></div></div>
+          </section>
+          <section class="tab-panel" data-panel="pack">
+            <div class="pack-head"><div><span>PACKING SIMULATOR</span><h3>What are you bringing?</h3></div><strong><span data-pack-used>0</span>% full</strong></div>
+            <div class="pack-items" data-pack-items></div>
+            <div class="capacity"><div><span data-capacity-fill></span></div><p data-capacity-message>Select items to test the fit.</p></div>
+            <p class="micro-note">Illustrative only. Final fit depends on item dimensions and packing style.</p>
+          </section>
+          <section class="tab-panel" data-panel="passport">
+            <div class="passport-card"><div class="passport-code"><span>HABÄNE PRODUCT PASSPORT</span><b data-passport-id>HB-X1-001</b></div><div class="passport-grid"><article><span>Materials</span><b data-passport-material>Premium shell / titanium details</b></article><article><span>Service path</span><b data-passport-service>Modular inspection</b></article><article><span>Care rhythm</span><b data-passport-care>Inspect every 12 trips</b></article><article><span>Travel role</span><b data-passport-role>Cabin movement</b></article></div><button type="button" data-passport-save>Save passport to account ↗</button></div>
+          </section>
+        </div>
+        <div class="product-accordion" data-product-accordion>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">PRODUCT DETAILS<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="accordion-item__panel" data-accordion-panel><p data-accordion-details></p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">MATERIALS<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="accordion-item__panel" data-accordion-panel><p data-accordion-materials></p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">CARE &amp; SERVICE<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="accordion-item__panel" data-accordion-panel><p data-accordion-care></p></div>
+          </div>
+        </div>
+        <div class="product-dialog__buy"><button type="button" data-dialog-add><span>Add to bag</span><b data-dialog-price>€899</b></button><button type="button" data-dialog-compare>Add to compare</button></div>
+      </div>
+    </section>
+
+    <section class="pdp-reviews">
+      <div class="pdp-reviews__head">
+        <div><p class="pdp-reviews__eyebrow">CUSTOMER REVIEWS</p><h2>What travelers are saying.</h2></div>
+        <a class="reviews__cta" href="index.html#reviews">SEE ALL REVIEWS <span>→</span></a>
+      </div>
+      <div class="pdp-reviews__grid">
+        <article class="review-card"><div class="review-card__body">
+          <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+          <h3>Exactly what I needed</h3>
+          <p>Fits everything for a long weekend and the build quality is obvious the moment you pick it up.</p>
+          <div class="review-card__author"><span class="review-card__avatar" style="background:#0A0F5A">AK</span><div><b>Arjun K.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div></div>
+        </div></article>
+        <article class="review-card"><div class="review-card__body">
+          <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+          <h3>Worth the investment</h3>
+          <p>Been through three airports with it already — zippers and straps still feel brand new.</p>
+          <div class="review-card__author"><span class="review-card__avatar" style="background:#36D8FF;color:#060935">NP</span><div><b>Neha P.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div></div>
+        </div></article>
+        <article class="review-card"><div class="review-card__body">
+          <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+          <h3>Compliments every trip</h3>
+          <p>Genuinely didn't expect to get stopped and asked about a travel bag this many times.</p>
+          <div class="review-card__author"><span class="review-card__avatar" style="background:#5a6b3f">RS</span><div><b>Rohit S.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div></div>
+        </div></article>
+      </div>
+    </section>
+
+    <section class="pdp-faq">
+      <h2>Questions about this object.</h2>
+      <div class="faq-list">
+        <div class="accordion-item">
+          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">WHAT'S THE DELIVERY TIME?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+          <div class="accordion-item__panel" data-accordion-panel><p>EU delivery typically arrives in 2–4 working days. Complimentary EU delivery applies on orders over €250.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">CAN I RETURN IT IF IT'S NOT RIGHT?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+          <div class="accordion-item__panel" data-accordion-panel><p>Yes — 30-day free returns, worldwide, as long as it's unused with original tags attached.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">HOW SHOULD I CARE FOR THIS OBJECT?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+          <div class="accordion-item__panel" data-accordion-panel><p data-accordion-care-faq></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pdp-related">
+      <div class="pdp-related__head"><p>YOU MAY ALSO LIKE</p><h2>Explore more objects.</h2></div>
+      <div class="product-grid" data-related-products></div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="footer__top"><div class="footer__brand"><span class="footer__brand-mark"><img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" /><img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</span></div><div><h3>Objects</h3><a href="shop.html">Luggage</a><a href="shop.html">Carry</a><a href="shop.html">Systems</a><a href="shop.html">Accessories</a></div><div><h3>Support</h3><a href="mailto:habaneglobal@gmail.com">Contact</a><a href="index.html#ownership">Service & repair</a><a href="index.html#footer">Delivery & returns</a><a href="index.html#footer">Product care</a></div><div><h3>Company</h3><a href="index.html#experience">Philosophy</a><a href="index.html#footer">Journal</a><a href="index.html#footer">Legal</a><a href="index.html#footer">Privacy</a></div></div>
+    <div class="footer__bottom"><span>© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span>CHASE THE MADNESS / BUILT FOR MOVEMENT</span><span>EU / EN</span></div>
+  </footer>
+
+  <aside class="cart-drawer" data-cart-drawer aria-hidden="true">
+    <div class="drawer-head"><div><small>YOUR SELECTION</small><h2>Bag <b data-cart-count>0</b></h2></div><button type="button" data-cart-close>Close ×</button></div>
+    <div class="cart-progress"><span data-cart-progress></span></div><p data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
+    <div class="cart-items" data-cart-items></div>
+    <div class="cart-summary" data-cart-summary hidden><div><span>Subtotal</span><strong data-cart-subtotal>€0</strong></div><p>VAT included. Delivery calculated at checkout.</p><button type="button" data-checkout>Secure checkout <span>→</span></button><small>VISA / MASTERCARD / PAYPAL / KLARNA</small></div>
+  </aside>
+
+  <aside class="compare-drawer" data-compare-drawer aria-hidden="true">
+    <div class="drawer-head"><div><small>OBJECT COMPARISON</small><h2>Compare <b data-compare-count>0</b></h2></div><button type="button" data-compare-close>Close ×</button></div>
+    <div class="compare-content" data-compare-content></div>
+  </aside>
+
+  <section class="search-overlay" data-search-overlay aria-hidden="true">
+    <div class="search-head"><span>SEARCH / <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><button type="button" data-search-close>Close ×</button></div>
+    <form data-search-form><label for="site-search">What are you moving with?</label><div><input id="site-search" autocomplete="off" placeholder="Cabin, rail, backpack..." /><button type="submit">↗</button></div></form>
+    <div class="search-results" data-search-results></div>
+  </section>
+
+  <div class="audio-bar" data-audio-bar aria-hidden="true"><button type="button" data-audio-toggle>Ⅱ</button><div><small data-audio-product>HABÄNE X1</small><b data-audio-track>Glass Terminal</b></div><div class="audio-progress"><span data-audio-progress></span></div><span data-audio-time>0:00</span><button type="button" data-audio-close>×</button></div>
+  <div class="page-scrim" data-scrim></div>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

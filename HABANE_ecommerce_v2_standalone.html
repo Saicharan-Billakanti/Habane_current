@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HABÄNE — intelligent travel objects and connected travel systems." />
+  <meta name="theme-color" content="#0A0F5A" />
+  <title>HABÄNE — Travel, Intelligently.</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/brand/favicon-256.png" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+@font-face{font-family:Conthrax;src:local("Conthrax SemiBold"),local("Conthrax"),url("fonts/Conthrax-SemiBold.woff2") format("woff2");font-display:swap}
+@font-face{font-family:Tungsten;src:local("Tungsten Bold"),local("Tungsten Condensed Bold"),local("Tungsten"),url("fonts/Tungsten-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:Montserrat;src:local("Montserrat");font-display:swap}
+
+.preloader{position:fixed;inset:0;z-index:500;background:var(--midnight-deep);display:grid;place-items:center;visibility:visible;transition:visibility .5s}
+.preloader.is-done{visibility:hidden;pointer-events:none}
+.preloader__panel{position:absolute;top:0;bottom:0;width:50%;background:var(--midnight-deep);transition:transform .5s cubic-bezier(.6,0,.2,1)}
+.preloader__panel--left{left:0;border-right:1px solid rgba(54,216,255,.3)}
+.preloader__panel--right{right:0;border-left:1px solid rgba(54,216,255,.3)}
+.preloader.is-open .preloader__panel--left{transform:translateX(-100%)}
+.preloader.is-open .preloader__panel--right{transform:translateX(100%)}
+.preloader__center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:1;transition:opacity .3s var(--ease)}
+.preloader.is-open .preloader__center{opacity:0}
+.preloader__mark{width:28px;height:auto;filter:drop-shadow(0 0 0 rgba(54,216,255,0));transition:filter .35s}
+.preloader.is-flash .preloader__mark{filter:drop-shadow(0 0 10px var(--aurora)) drop-shadow(0 0 22px rgba(54,216,255,.65))}
+.preloader__status{font-family:var(--font-tech);font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,.5);margin:0}
+.preloader__bar{width:120px;height:1px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
+.preloader__bar span{position:absolute;top:0;left:0;bottom:0;width:0;background:var(--aurora);box-shadow:0 0 6px var(--aurora);animation:gate-fill .6s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes gate-fill{to{width:100%}}
+
+:root{
+  --midnight:#0A0F5A;
+  --midnight-deep:#060935;
+  --graphite:#1B1D24;
+  --graphite-2:#252833;
+  --silver:#B7BCC7;
+  --arctic:#F6F7FA;
+  --white:#fff;
+  --aurora:#36D8FF;
+  --ink:#0e1121;
+  --line:rgba(10,15,90,.16);
+  --line-dark:rgba(255,255,255,.16);
+  --font-display:"Tungsten","Arial Narrow",Impact,sans-serif;
+  --font-tech:"Conthrax","Montserrat",Arial,sans-serif;
+  --font-ui:"Montserrat",Arial,sans-serif;
+  --font-hand:"Caveat",cursive;
+  --radius:0;
+  --ease:cubic-bezier(.2,.75,.2,1);
+  --announcement-h:34px;
+  --header-h:80px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--arctic);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;overflow-x:hidden}
+body.is-locked{overflow:hidden}
+button,input{font:inherit}
+button,a{color:inherit}
+a{text-decoration:none}
+button{border:0;background:none;cursor:pointer}
+img{max-width:100%}
+::selection{background:var(--aurora);color:var(--midnight-deep)}
+.skip-link{position:fixed;left:20px;top:-60px;background:var(--aurora);padding:12px 16px;z-index:999;color:var(--midnight);font-weight:700}.skip-link:focus{top:20px}
+
+.announcement{position:fixed;top:0;left:0;right:0;height:var(--announcement-h);padding:0 44px;background:var(--aurora);color:var(--midnight-deep);display:flex;align-items:center;justify-content:center;font-family:var(--font-tech);font-size:9px;letter-spacing:.13em;font-weight:700;z-index:90;overflow:hidden}.announcement__rotator{position:relative;width:100%;max-width:640px;height:100%}.announcement__slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;opacity:0;transform:translateX(26px);transition:opacity .45s var(--ease),transform .45s var(--ease);pointer-events:none;white-space:nowrap}.announcement__slide.is-active{opacity:1;transform:translateX(0);pointer-events:auto}.announcement__slide.is-leaving{transform:translateX(-18px)}.announcement__signal{display:flex;align-items:center;gap:8px}.announcement__signal i{width:6px;height:6px;border-radius:50%;background:var(--midnight);box-shadow:0 0 0 4px rgba(10,15,90,.12);animation:bloom-soft 1.8s ease-in-out infinite}.announcement button{position:absolute;right:20px;font-size:18px;line-height:1}.announcement.is-hidden{display:none}
+.site-header{position:fixed;top:var(--announcement-h);left:0;right:0;height:var(--header-h);padding:0 32px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;background:transparent;border-bottom:1px solid transparent;z-index:50;transition:top .4s var(--ease),background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease),left .45s var(--ease),right .45s var(--ease),width .45s var(--ease),height .4s var(--ease),padding .4s var(--ease),border-radius .4s var(--ease),transform .45s var(--ease)}
+.site-header.is-condensed{top:calc(var(--announcement-h) + 14px);left:50%;right:auto;transform:translateX(-50%);width:min(460px,92vw);height:58px;padding:0 10px 0 22px;grid-template-columns:auto auto;justify-content:space-between;background:var(--midnight);border-radius:999px;border-bottom-color:transparent;box-shadow:0 22px 48px rgba(6,9,53,.4)}
+.brand{display:inline-flex;flex-direction:column;width:max-content;position:relative;z-index:2}.brand__mark{display:inline-flex;align-items:center;gap:9px}.brand__icon,.brand__wordmark{height:22px;width:auto;display:block}.brand__wordmark{height:14px}.brand__icon--white,.brand__wordmark--white{display:none}.site-header.is-condensed .brand__icon--navy,.site-header.is-condensed .brand__wordmark--navy{display:none}.site-header.is-condensed .brand__icon--white,.site-header.is-condensed .brand__wordmark--white{display:block}.site-header.is-condensed .brand__icon{height:18px}.site-header.is-condensed .brand__wordmark{height:12px}.brand small{font-size:7px;letter-spacing:.2em;margin-top:4px;transition:opacity .25s,height .25s}.site-header.is-condensed .brand small{display:none}
+.desktop-nav{display:flex;align-items:center;gap:34px;justify-self:center;transition:opacity .25s}.desktop-nav a{font-size:11px;font-weight:600;letter-spacing:.04em;position:relative}.desktop-nav a:after{content:"";position:absolute;height:1px;left:0;right:100%;bottom:-8px;background:var(--midnight);transition:right .3s var(--ease)}.desktop-nav a:hover:after{right:0}.site-header.is-condensed .desktop-nav{display:none}
+.header-actions{justify-self:end;display:flex;align-items:center;gap:2px}.site-header.is-condensed .header-actions{border-left:1px solid rgba(255,255,255,.18);padding-left:8px}
+.icon-button{position:relative;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;color:var(--midnight);transition:background .25s,color .25s}.icon-button:hover{background:rgba(10,15,90,.07)}.icon-button .icon{width:18px;height:18px}.site-header.is-condensed .icon-button{width:34px;height:34px;color:#fff}.site-header.is-condensed .icon-button:hover{background:rgba(255,255,255,.14)}.icon-badge{position:absolute;top:1px;right:1px;min-width:14px;height:14px;padding:0 3px;border-radius:999px;background:var(--aurora);color:var(--midnight-deep);font-size:8px;font-weight:700;display:grid;place-items:center;font-family:var(--font-tech)}
+.region-button{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;line-height:1;transition:background .25s}.region-button:hover{background:rgba(10,15,90,.07)}.site-header.is-condensed .region-button:hover{background:rgba(255,255,255,.14)}
+.prebook-button{height:36px;padding:0 16px;margin-left:4px;background:var(--aurora);color:var(--midnight-deep);font-family:var(--font-tech);font-size:10px;font-weight:700;letter-spacing:.04em;border-radius:999px;white-space:nowrap;transition:transform .2s}.prebook-button:hover{transform:translateY(-1px)}.site-header.is-condensed .prebook-button{height:32px;padding:0 13px}
+.menu-button{display:none;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;position:relative;flex-shrink:0}.menu-button span{width:14px;height:1px;background:var(--midnight);position:absolute;left:12px;top:18px}.menu-button span+span{top:22px}.site-header.is-condensed .menu-button{display:block;border-color:rgba(255,255,255,.3)}.site-header.is-condensed .menu-button span{background:#fff}
+.site-header--on-dark:not(.is-condensed) .brand small,.site-header--on-dark:not(.is-condensed) .desktop-nav a,.site-header--on-dark:not(.is-condensed) .icon-button{color:#fff}.site-header--on-dark:not(.is-condensed) .desktop-nav a:after{background:#fff}.site-header--on-dark:not(.is-condensed) .icon-button:hover{background:rgba(255,255,255,.14)}.site-header--on-dark:not(.is-condensed) .menu-button{border-color:rgba(255,255,255,.35)}.site-header--on-dark:not(.is-condensed) .menu-button span{background:#fff}.site-header--on-dark:not(.is-condensed) .brand__icon--navy,.site-header--on-dark:not(.is-condensed) .brand__wordmark--navy{display:none}.site-header--on-dark:not(.is-condensed) .brand__icon--white,.site-header--on-dark:not(.is-condensed) .brand__wordmark--white{display:block}
+.mobile-menu{position:fixed;inset:0;background:var(--midnight-deep);color:#fff;z-index:200;padding:24px;transform:translateY(-105%);transition:transform .55s var(--ease);display:flex;flex-direction:column}.mobile-menu.is-open{transform:none}.mobile-menu__head{display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:9px;letter-spacing:.14em}.mobile-menu__head button{color:#fff}.mobile-menu nav{margin:auto 0;display:grid}.mobile-menu nav a{padding:15px 0;border-bottom:1px solid var(--line-dark);display:flex;align-items:baseline;gap:18px}.mobile-menu nav span{font-family:var(--font-tech);font-size:10px;color:var(--aurora)}.mobile-menu nav b{font-family:var(--font-display);font-size:clamp(44px,14vw,76px);letter-spacing:.02em;line-height:.9}.mobile-menu>p{font-family:var(--font-tech);font-size:9px;letter-spacing:.12em}
+
+#main{padding-top:calc(var(--announcement-h) + var(--header-h));transition:padding-top .4s var(--ease)}
+.system-label{font-family:var(--font-tech);font-size:9px;letter-spacing:.16em;display:flex;align-items:center;gap:10px;font-weight:700}.system-label i{width:7px;height:7px;border-radius:50%;background:var(--aurora);box-shadow:0 0 14px var(--aurora);animation:bloom-aurora 1.8s ease-in-out infinite}.system-label--dark{color:var(--midnight)}
+h1,h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.01em;margin:0;line-height:.79}h1 em,h2 em{font-style:normal;color:var(--aurora)}
+@keyframes bloom-aurora{0%,100%{box-shadow:0 0 3px var(--aurora);opacity:.5;transform:scale(.82)}50%{box-shadow:0 0 18px var(--aurora),0 0 40px rgba(54,216,255,.65),0 0 64px rgba(54,216,255,.35);opacity:1;transform:scale(1.3)}}
+@keyframes bloom-soft{0%,100%{box-shadow:0 0 0 2px rgba(10,15,90,.06);opacity:.55}50%{box-shadow:0 0 0 10px rgba(10,15,90,.3);opacity:1}}
+@keyframes bloom-navy{0%,100%{box-shadow:0 0 3px rgba(10,15,90,.25);opacity:.45;transform:scale(.85)}50%{box-shadow:0 0 20px rgba(10,15,90,.65),0 0 32px rgba(10,15,90,.3);opacity:1;transform:scale(1.4)}}
+.hero-carousel{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--midnight-deep);margin-top:calc(-1 * (var(--announcement-h) + var(--header-h)))}
+.hero-carousel__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease)}.hero-carousel__slide.is-active{opacity:1;z-index:1}
+.hero-carousel__slide img{width:100%;height:100%;object-fit:cover;object-position:center 34%;transform:scale(1.02)}
+.hero-carousel__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,9,53,.8) 0%,rgba(6,9,53,.4) 38%,rgba(6,9,53,.12) 62%,transparent 82%),linear-gradient(180deg,rgba(6,9,53,.55) 0%,rgba(6,9,53,.2) 30%,rgba(6,9,53,.4) 62%,rgba(6,9,53,.9) 100%)}
+.hero-carousel__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(180deg,transparent,#000 55%)}
+.hero-carousel__glow{position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(54,216,255,.16);filter:blur(120px);right:6%;top:8%}
+.hero-carousel__content{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:0 clamp(24px,5vw,78px) 76px}
+.hero-carousel__content .system-label{color:rgba(255,255,255,.75);margin-bottom:18px}
+.hero-carousel__content h1{font-size:clamp(58px,9vw,150px);max-width:900px}
+.hero-carousel__content p{font-size:clamp(14px,1.3vw,18px);max-width:520px;color:rgba(255,255,255,.72);margin:24px 0 30px}
+.hero-carousel__dots{position:absolute;left:50%;transform:translateX(-50%);bottom:28px;z-index:3;display:flex;gap:8px}
+.hero-carousel__dots button{width:22px;height:3px;background:rgba(255,255,255,.3);transition:background .3s,width .3s}.hero-carousel__dots button.is-active{background:var(--aurora);width:34px}
+.hero-carousel__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.28);color:#fff;display:grid;place-items:center;background:rgba(6,9,53,.3);backdrop-filter:blur(6px);transition:background .25s,border-color .25s}
+.hero-carousel__arrow:hover{background:rgba(6,9,53,.6);border-color:rgba(255,255,255,.5)}
+.hero-carousel__arrow .icon{width:18px;height:18px}
+.hero-carousel__arrow--prev{left:clamp(16px,3vw,40px)}.hero-carousel__arrow--next{right:clamp(16px,3vw,40px)}
+@media(max-width:640px){.hero-carousel__arrow{display:none}.hero-carousel__content{padding:0 18px 60px}.hero-carousel__content h1{font-size:clamp(36px,11vw,64px);max-width:100%}.hero-carousel__content p{max-width:100%}.hero-carousel__dots{bottom:20px}}
+.hero{background:var(--midnight-deep);color:#fff;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.82fr);position:relative;overflow:hidden;padding:80px clamp(24px,5vw,78px)}.hero__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,#000 30%,transparent 96%)}.hero:before{content:"";position:absolute;width:550px;height:550px;border-radius:50%;background:rgba(54,216,255,.1);filter:blur(110px);right:8%;top:15%}.hero__copy{position:relative;z-index:2;align-self:center}.hero h1{font-size:clamp(104px,15vw,240px);max-width:800px}.hero__lede{font-size:clamp(16px,1.4vw,21px);max-width:570px;color:rgba(255,255,255,.7);margin:34px 0 28px}.hero__actions{display:flex;gap:12px;flex-wrap:wrap}.button{min-height:54px;padding:0 22px;display:inline-flex;align-items:center;justify-content:space-between;gap:36px;font-size:11px;font-weight:700;letter-spacing:.03em;transition:transform .25s var(--ease),background .25s,color .25s}.button:hover{transform:translateY(-2px)}.button--primary{background:var(--aurora);color:var(--midnight-deep)}.button--ghost{border:1px solid var(--line-dark);color:#fff}.button--light{background:#fff;color:var(--midnight)}.button--full{width:100%}.hero__proof{margin-top:60px;padding-top:20px;border-top:1px solid var(--line-dark);display:flex;gap:38px;max-width:650px}.hero__proof span{font-size:9px;letter-spacing:.08em;color:rgba(255,255,255,.5);text-transform:uppercase}.hero__proof b{display:block;font-family:var(--font-display);font-size:32px;color:white;line-height:1}.hero__visual{position:relative;z-index:2;display:grid;place-items:center;min-height:570px}.hero__halo{position:absolute;width:min(42vw,590px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(54,216,255,.24);box-shadow:inset 0 0 80px rgba(54,216,255,.08),0 0 70px rgba(54,216,255,.05)}.hero__halo:after,.hero__halo:before{content:"";position:absolute;border:1px solid rgba(255,255,255,.08);border-radius:50%;inset:10%}.hero__halo:after{inset:24%}.hero-case{width:250px;height:390px;position:relative;filter:drop-shadow(0 45px 40px rgba(0,0,0,.45));animation:float 5s ease-in-out infinite}.hero-case__handle{position:absolute;width:86px;height:76px;border:9px solid #8c919e;border-bottom:0;left:82px;top:-58px;border-radius:20px 20px 0 0}.hero-case__body{height:100%;border-radius:42px;background:linear-gradient(145deg,#d7dbe2 2%,#8b919e 47%,#eceef2 85%);border:1px solid rgba(255,255,255,.75);position:relative;overflow:hidden;box-shadow:inset 15px 0 25px rgba(255,255,255,.28),inset -20px -12px 30px rgba(17,21,45,.25)}.hero-case__body:before{content:"";position:absolute;inset:12px;border:1px solid rgba(10,15,90,.25);border-radius:33px}.hero-case__rail{position:absolute;width:8px;height:77%;top:11%;border-radius:8px;background:linear-gradient(#555b68,#e5e8ee,#606571);box-shadow:0 0 0 1px rgba(0,0,0,.18)}.hero-case__rail--left{left:34px}.hero-case__rail--right{right:34px}.hero-case__screen{position:absolute;top:83px;left:50%;transform:translateX(-50%);width:88px;height:54px;border-radius:9px;background:#0f1320;color:white;padding:11px;display:flex;flex-direction:column}.hero-case__screen small{font-family:var(--font-tech);font-size:6px;letter-spacing:.1em}.hero-case__screen b{font-size:11px;color:var(--aurora);margin-top:auto}.hero-case__light{position:absolute;bottom:66px;left:50%;transform:translateX(-50%);width:58px;height:3px;background:var(--aurora);box-shadow:0 0 16px var(--aurora);animation:bloom-aurora 1.8s ease-in-out infinite}.hero-case__wheel{position:absolute;width:40px;height:22px;border-radius:0 0 15px 15px;background:#111523;bottom:-15px}.hero-case__wheel--left{left:30px}.hero-case__wheel--right{right:30px}.hero__telemetry{position:absolute;width:100%;max-width:450px;display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:8px;letter-spacing:.12em;color:rgba(255,255,255,.55)}.hero__telemetry b{color:var(--aurora)}.hero__telemetry--top{top:9%}.hero__telemetry--bottom{bottom:8%}.hero__ticker{position:absolute;bottom:0;left:0;right:0;height:38px;border-top:1px solid var(--line-dark);display:flex;align-items:center;overflow:hidden;font-family:var(--font-tech);font-size:8px;letter-spacing:.18em;color:rgba(255,255,255,.45);white-space:nowrap}.hero__ticker span{animation:ticker 28s linear infinite}
+@keyframes float{50%{transform:translateY(-14px) rotate(.7deg)}}@keyframes ticker{to{transform:translateX(-50%)}}
+
+.section-heading{padding:80px clamp(24px,5vw,78px) 52px;display:grid;grid-template-columns:180px minmax(0,1fr) minmax(240px,360px);gap:42px;align-items:end}.section-heading>p:first-child,.ownership__head>p{font-family:var(--font-tech);font-size:8px;letter-spacing:.15em;color:rgba(10,15,90,.55);align-self:start}.section-heading h2{font-size:clamp(80px,9vw,145px);color:var(--midnight);margin-top:18px}.section-heading>p:last-child{color:#5f6370;max-width:330px}.section-heading--compact{padding-bottom:36px}
+.matcher{background:var(--arctic)}.matcher__panel{margin:0 clamp(24px,5vw,78px) 80px;border:1px solid var(--line);display:grid;grid-template-columns:1.45fr .75fr;background:white;min-height:520px}.matcher__steps{display:grid;grid-template-rows:repeat(3,1fr)}.matcher fieldset{border:0;border-bottom:1px solid var(--line);padding:32px;display:grid;grid-template-columns:minmax(170px,1.15fr) repeat(3,1fr);gap:10px;align-items:center;margin:0}.matcher fieldset:last-child{border-bottom:0}.matcher legend{display:contents;font-family:var(--font-tech);font-size:10px;letter-spacing:.08em;font-weight:700}.matcher legend span{display:none}.matcher__legend{display:flex;align-items:center;gap:9px}.matcher__legend-icon{width:16px;height:16px;flex-shrink:0;color:var(--midnight)}.matcher fieldset button{height:58px;border:1px solid var(--line);font-size:11px;font-weight:600;transition:.2s;display:flex;align-items:center;justify-content:center;gap:7px}.matcher fieldset button svg{width:14px;height:14px;flex-shrink:0}.matcher fieldset button:hover,.matcher fieldset button.is-active{background:var(--midnight);border-color:var(--midnight);color:#fff}.matcher__result{background:var(--midnight);color:#fff;padding:24px;display:flex;flex-direction:column}.matcher__result-top{display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:8px;letter-spacing:.14em;color:rgba(255,255,255,.55)}.matcher__object{flex:1;display:grid;place-items:center;min-height:250px}.matcher__object img.product-photo{width:180px;height:230px;object-fit:contain;filter:drop-shadow(0 22px 30px rgba(0,0,0,.35))}.matcher__copy p{font-size:10px;color:rgba(255,255,255,.56);text-transform:uppercase;letter-spacing:.05em}.matcher__copy h3{font-family:var(--font-tech);font-size:17px;letter-spacing:.04em;margin:6px 0}.matcher__copy strong{font-family:var(--font-display);font-size:34px}.matcher__result .button{margin-top:22px}
+
+.product-photo{display:block;border:0}
+
+.shop{padding-bottom:80px}.shop-toolbar{padding:0 clamp(24px,5vw,78px) 22px;display:flex;align-items:center;justify-content:space-between}.filters{display:flex;gap:6px;flex-wrap:wrap}.filters button,.sort{height:40px;padding:0 15px;border:1px solid var(--line);font-size:10px;font-weight:600}.filters button.is-active{background:var(--midnight);color:white;border-color:var(--midnight)}.product-grid{padding:0 clamp(24px,5vw,78px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.product-card{background:white;border:1px solid var(--line);min-width:0;transition:transform .3s var(--ease),box-shadow .3s}.product-card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(10,15,90,.1)}.product-card.is-hidden{display:none}.product-card__media{height:330px;position:relative;display:grid;place-items:center;overflow:hidden;background:#e8eaf0}.product-card__media:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(10,15,90,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(10,15,90,.07) 1px,transparent 1px);background-size:44px 44px}.product-card:nth-child(4n+3) .product-card__media{background:#d9dde4}.product-card__media img.product-photo{position:relative;z-index:2;width:88%;height:88%;object-fit:contain;transition:transform .3s var(--ease);filter:drop-shadow(0 18px 22px rgba(10,15,90,.16))}.product-card:hover .product-card__media img.product-photo{transform:scale(1.04)}.product-badge{position:absolute;left:14px;top:14px;z-index:3;font-family:var(--font-tech);font-size:7px;letter-spacing:.11em;background:rgba(255,255,255,.86);padding:7px 9px;color:var(--midnight)}.product-favourite{position:absolute;right:12px;top:12px;z-index:3;width:34px;height:34px;background:rgba(255,255,255,.85);font-size:18px}.product-favourite.is-saved{color:var(--midnight)}.product-code{position:absolute;left:14px;right:14px;bottom:12px;z-index:3;display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:7px;letter-spacing:.1em;color:rgba(10,15,90,.65)}.product-card:nth-child(4n+2) .product-code,.product-card:nth-child(4n+4) .product-code{color:rgba(255,255,255,.6)}.product-card__body{padding:18px 16px 14px;display:flex;justify-content:space-between;gap:12px}.product-card__body h3{font-family:var(--font-tech);font-size:11px;letter-spacing:.04em;margin:0 0 5px}.product-card__body p{font-size:10px;color:#777b86;margin:0}.product-card__body strong{font-family:var(--font-display);font-size:24px;white-space:nowrap}.product-card__actions{display:grid;grid-template-columns:1fr auto;border-top:1px solid var(--line)}.product-card__actions button{height:48px;padding:0 14px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.product-card__actions button:first-child{text-align:left}.product-card__actions button:last-child{border-left:1px solid var(--line);width:55px;font-size:19px}.product-card__actions button:hover{background:var(--midnight);color:white}
+
+.experience{background:var(--midnight-deep);color:white;display:grid;grid-template-columns:.85fr 1.15fr;padding:80px clamp(24px,5vw,78px);gap:9vw}.experience__copy{align-self:center}.experience__copy>p.experience__kicker{font-family:var(--font-tech);font-size:8px;letter-spacing:.15em;color:rgba(255,255,255,.4);margin:0 0 16px}.experience__copy h2{font-size:clamp(84px,9vw,150px);margin:24px 0 34px}.experience__copy>p:not(.system-label){color:rgba(255,255,255,.62);max-width:520px}.experience__copy .button{margin-top:26px}
+.experience__showcase{align-self:center}
+.experience-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-dark)}.experience-list li{display:flex;gap:28px;padding:26px 0;border-bottom:1px solid var(--line-dark)}.experience-list__num{font-family:var(--font-tech);font-size:10px;color:var(--aurora);flex-shrink:0;padding-top:3px}.experience-list h3{font-family:var(--font-tech);font-size:15px;letter-spacing:.03em;margin:0 0 8px;font-weight:700}.experience-list p{margin:0;max-width:480px;color:rgba(255,255,255,.6)}
+.ownership{padding:80px clamp(24px,5vw,78px);background:#e4e6ec}.ownership__head{display:grid;grid-template-columns:180px 1fr;margin-bottom:55px}.ownership__head h2{font-size:clamp(82px,9vw,145px);color:var(--midnight)}.ownership__grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.ownership__grid article{padding:26px;min-height:290px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column}.ownership__top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:auto}.ownership__grid span{font-family:var(--font-tech);font-size:9px;color:var(--midnight)}.ownership__icon{width:26px;height:26px;color:var(--midnight);opacity:.75}.ownership__grid h3{font-family:var(--font-tech);font-size:13px;letter-spacing:.04em}.ownership__grid p{color:#666b76}.ownership__grid a{font-size:10px;font-weight:700;margin-top:20px}
+
+.reviews{padding:90px clamp(24px,5vw,78px) 100px;background:var(--arctic);display:grid;grid-template-columns:minmax(280px,320px) 1fr;gap:40px;align-items:start}
+.reviews__intro{min-width:0}
+.reviews__intro>p:first-child{font-family:var(--font-tech);font-size:8px;letter-spacing:.15em;color:rgba(10,15,90,.55)}
+.reviews__intro h2{font-size:clamp(30px,4vw,52px);color:var(--midnight);margin:18px 0 16px;overflow-wrap:break-word}
+.reviews__intro>p:nth-of-type(2){color:#5f6370;margin:0 0 24px}
+.reviews__score{display:flex;align-items:baseline;gap:12px}
+.reviews__score strong{font-family:var(--font-display);font-size:56px;color:var(--midnight);line-height:1}
+.reviews__stars{color:var(--aurora);font-size:18px;letter-spacing:2px}
+.reviews__count{color:#5f6370;font-size:12px;margin:6px 0 26px}
+.reviews__cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-tech);font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--midnight);border-bottom:1px solid var(--midnight);padding-bottom:5px}
+.reviews__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.review-card{background:#fff;border-radius:16px;padding:24px;display:flex;gap:20px;box-shadow:0 14px 34px rgba(10,15,90,.08)}
+.review-card__body{flex:1;min-width:0}
+.review-card__stars{color:var(--aurora);font-size:13px;letter-spacing:2px;margin-bottom:12px}
+.review-card h3{font-family:var(--font-tech);font-size:14px;margin:0 0 10px;color:var(--midnight)}
+.review-card p{font-size:12px;color:#5f6370;line-height:1.6;margin:0 0 18px}
+.review-card__author{display:flex;align-items:center;gap:10px}
+.review-card__avatar{width:34px;height:34px;border-radius:50%;color:#fff;display:grid;place-items:center;font-family:var(--font-tech);font-size:10px;font-weight:700;flex-shrink:0}
+.review-card__author b{display:block;font-size:11px;color:var(--midnight);font-weight:700}
+.review-card__author small{display:flex;align-items:center;gap:4px;font-size:9px;color:#8b8f99}
+.review-card__author small svg{width:11px;height:11px;color:var(--aurora)}
+.review-card__photo{width:120px;border-radius:10px;object-fit:cover;flex-shrink:0;align-self:stretch}
+.reviews__stats{grid-column:1/-1;margin-top:20px;background:#fff;border-radius:16px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 14px 34px rgba(10,15,90,.08)}
+.reviews__stats>div{display:flex;align-items:center;gap:12px;padding:26px;border-right:1px solid var(--line)}
+.reviews__stats>div:last-child{border-right:0}
+.reviews__stats svg{width:22px;height:22px;color:var(--midnight);flex-shrink:0}
+.reviews__stats b{display:block;font-family:var(--font-tech);font-size:15px;color:var(--midnight)}
+.reviews__stats span{font-size:10px;color:#8b8f99}
+.reviews__footer{grid-column:1/-1;text-align:center;margin-top:26px;font-size:12px;color:#5f6370}
+.reviews__footer a{color:var(--midnight);font-weight:700;text-decoration:underline}
+.newsletter{background:linear-gradient(165deg,#f5f7fb,#eef1f7);color:var(--ink);padding:90px clamp(24px,5vw,78px);display:grid;grid-template-columns:1fr 1.05fr;gap:6vw;align-items:center}.newsletter .system-label i{background:var(--aurora)}.newsletter .system-label{color:rgba(10,15,90,.6)}
+.newsletter__copy h2{font-size:clamp(52px,6.5vw,96px);color:var(--midnight);margin:20px 0 20px}.newsletter__copy h2 em{color:var(--aurora);font-style:normal}
+.newsletter__lede{font-size:14px;color:#5f6370;max-width:480px;margin:0 0 34px}
+.newsletter__perks-row{display:flex;gap:30px;flex-wrap:wrap;margin-bottom:38px}.perk{display:flex;align-items:flex-start;gap:12px;max-width:170px}.perk__icon{width:34px;height:34px;border:1px solid var(--midnight);border-radius:50%;display:grid;place-items:center;flex-shrink:0;color:var(--midnight)}.perk__icon svg{width:15px;height:15px}.perk b{display:block;font-family:var(--font-tech);font-size:11px;color:var(--midnight);margin-bottom:4px}.perk p{margin:0;font-size:11px;color:#767a86;line-height:1.4}
+.newsletter__slashes{font-family:var(--font-tech);letter-spacing:.25em;color:rgba(10,15,90,.25);margin:0 0 10px;overflow:hidden;white-space:nowrap;font-size:11px}
+.newsletter__hashtag{font-family:var(--font-tech);font-size:10px;letter-spacing:.1em;color:var(--midnight);font-weight:700;margin:0}
+.newsletter__panel{position:relative}
+.newsletter__visual{position:absolute;inset:0;overflow:hidden;pointer-events:none}.newsletter__orbit{position:absolute;top:-10%;right:-8%;width:58%;aspect-ratio:1;border:1px solid rgba(10,15,90,.12);border-radius:50%}.newsletter__orbit--inner{width:36%;top:auto;bottom:-8%;right:auto;left:-6%}.newsletter__dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--aurora);opacity:.55;animation:bloom-navy 2.6s ease-in-out infinite}.newsletter__dot--1{top:16%;right:8%}.newsletter__dot--2{bottom:12%;left:5%;animation-delay:.9s}
+.newsletter__form{position:relative;z-index:2;background:#fff;border-radius:22px;padding:34px;box-shadow:0 30px 70px rgba(10,15,90,.14)}
+.newsletter__form-head{display:flex;align-items:center;gap:14px;margin-bottom:26px}.newsletter__form-icon{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--midnight),var(--aurora));color:#fff;display:grid;place-items:center;flex-shrink:0}.newsletter__form-icon svg{width:19px;height:19px}.newsletter__form-head b{display:block;font-family:var(--font-tech);font-size:14px;color:var(--midnight);margin-bottom:3px}.newsletter__form-head p{margin:0;font-size:11px;color:#8b8f99}
+.newsletter__row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.newsletter__field{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:10px;padding:0 14px;height:48px}.newsletter__field svg{width:15px;height:15px;color:#9296a0;flex-shrink:0}.newsletter__field input,.newsletter__field select{border:0;outline:0;background:none;flex:1;font-size:12px;color:var(--ink);font-family:var(--font-ui);min-width:0}.newsletter__field select{appearance:none;color:#767a86}.newsletter__field--select{position:relative;margin-bottom:18px}.newsletter__field--select svg:last-child{position:absolute;right:14px;width:12px;height:12px;pointer-events:none}
+.newsletter__interest-label{font-size:11px;font-weight:700;color:var(--midnight);margin:0 0 10px}.newsletter__checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}.newsletter__checks label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:10px;color:#5f6370}.newsletter__checks input{width:13px;height:13px;accent-color:var(--midnight)}
+.newsletter__submit{width:100%;height:52px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--midnight),#1450e6);color:#fff;font-family:var(--font-tech);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .2s}.newsletter__submit:hover{transform:translateY(-2px)}
+.newsletter__privacy{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:#9296a0;margin:14px 0 0}.newsletter__privacy svg{width:11px;height:11px}
+.site-footer{background:var(--graphite);color:#fff;padding:70px clamp(24px,5vw,78px) 24px}.footer__top{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:40px;padding-bottom:70px}.footer__brand{display:flex;flex-direction:column;gap:25px}.footer__brand-mark{display:inline-flex;align-items:center;gap:12px}.footer__brand-icon{height:30px;width:auto;display:block}.footer__brand-wordmark{height:20px;width:auto;display:block}.footer__brand span{font-family:var(--font-tech);font-size:9px;letter-spacing:.11em;color:var(--aurora)}.inline-wordmark{height:.85em;width:auto;vertical-align:-.08em;display:inline-block}.footer__top h3{font-size:10px;font-family:var(--font-tech);letter-spacing:.08em;color:#8e939f}.footer__top a{display:block;margin:11px 0;font-size:11px;color:rgba(255,255,255,.72)}.footer__bottom{border-top:1px solid var(--line-dark);padding-top:18px;display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:7px;letter-spacing:.12em;color:rgba(255,255,255,.5)}
+
+.product-dialog{position:relative;width:min(960px,94vw);height:min(640px,86vh);max-width:960px;max-height:640px;border:0;border-radius:6px;padding:0;margin:auto;background:var(--arctic);color:var(--ink);overflow:hidden;box-shadow:0 60px 120px rgba(4,6,20,.5)}.product-dialog::backdrop{background:rgba(4,6,20,.74)}.product-dialog[open]{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(320px,1.15fr)}.dialog-close{position:absolute;right:14px;top:14px;z-index:10;background:var(--ink);color:white;padding:9px 12px;font-size:10px}.product-dialog__visual{background:var(--midnight);display:flex;flex-direction:column;min-height:0}.product-scene{flex:1;position:relative;display:grid;place-items:center;overflow:hidden}.product-scene__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:54px 54px}.product-scene--night{background:linear-gradient(140deg,#050715,#161a45 65%,#0a0f5a)}.product-scene--night:after{content:"";position:absolute;width:70%;height:2px;background:var(--aurora);bottom:23%;left:15%;box-shadow:0 0 28px var(--aurora)}.product-scene--quiet{background:linear-gradient(145deg,#e9ebf0,#adb2bd)}.product-scene--quiet .product-scene__grid{opacity:.35}.product-scene--quiet .scene-meta{color:var(--midnight)}.experience-object{position:relative;z-index:2;transition:transform .6s var(--ease)}.experience-object img.product-photo{width:min(230px,58vw);height:290px;object-fit:contain;filter:drop-shadow(0 26px 34px rgba(0,0,0,.4))}.product-scene:hover .experience-object{transform:translateY(-6px)}.scene-meta{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;color:rgba(255,255,255,.6);font-family:var(--font-tech);font-size:8px;letter-spacing:.13em}.scene-switcher{height:44px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-dark)}.scene-switcher button{color:#fff;border-right:1px solid var(--line-dark);font-size:9px;font-weight:700}.scene-switcher button.is-active{background:var(--aurora);color:var(--midnight)}.product-dialog__content{padding:36px 32px 16px;overflow:auto;display:flex;flex-direction:column}.product-dialog__head>p:first-child{font-family:var(--font-tech);font-size:9px;letter-spacing:.11em;color:var(--midnight)}.product-dialog__head h2{font-family:var(--font-tech);font-size:clamp(22px,2.4vw,32px);line-height:1.05;color:var(--midnight);letter-spacing:.03em;margin:8px 0}.product-dialog__head>p:nth-of-type(2){max-width:720px;color:#686c78}.product-dialog__head>div{display:flex;align-items:baseline;gap:14px;margin-top:12px}.product-dialog__head strong{font-family:var(--font-display);font-size:30px;color:var(--midnight)}.product-dialog__head>div span{font-size:9px;color:#858995}
+.product-dialog__head>div.product-accordion{display:block;margin-top:18px;border-top:1px solid var(--line)}.accordion-item{border-bottom:1px solid var(--line)}.accordion-item__toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 1px;font-family:var(--font-tech);font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--midnight);text-align:left}.accordion-item__icon{position:relative;width:16px;height:16px;flex-shrink:0}.accordion-item__icon i{position:absolute;top:50%;left:50%;background:var(--midnight);transition:transform .25s var(--ease)}.accordion-item__icon i:first-child{width:11px;height:1px;transform:translate(-50%,-50%)}.accordion-item__icon i:last-child{width:1px;height:11px;transform:translate(-50%,-50%)}.accordion-item__toggle[aria-expanded="true"] .accordion-item__icon i:last-child{transform:translate(-50%,-50%) rotate(90deg) scaleY(0)}.accordion-item__panel{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}.accordion-item__panel p{margin:0 0 18px;font-size:13px;line-height:1.65;color:#565a66;max-width:560px}.finish-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:14px;font-size:10px;font-weight:700}.swatches{display:flex;gap:8px}.swatches button{width:24px;height:24px;border-radius:50%;background:#b8bdc7;border:3px solid var(--arctic);box-shadow:0 0 0 1px var(--line)}.swatches button:nth-child(2){background:var(--midnight)}.swatches button:nth-child(3){background:#30333c}.swatches button.is-active{box-shadow:0 0 0 2px var(--midnight)}.experience-tabs{display:flex;border-bottom:1px solid var(--line);margin-top:14px;overflow-x:auto}.experience-tabs button{padding:10px 12px;font-size:9px;font-weight:700;white-space:nowrap;position:relative}.experience-tabs button.is-active:after{content:"";height:2px;position:absolute;left:0;right:0;bottom:-1px;background:var(--midnight)}.tab-panels{flex:1}.tab-panel{display:none;padding:16px 0 8px}.tab-panel.is-active{display:block}.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line)}.spec-grid div{padding:12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.spec-grid small{display:block;font-size:8px;text-transform:uppercase;color:#888c97}.spec-grid b{display:block;font-family:var(--font-tech);font-size:10px;letter-spacing:.04em;margin-top:6px}.mood-dna{margin-top:16px;background:var(--midnight);color:#fff;padding:14px}.mood-dna>div:first-child{display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:8px;letter-spacing:.08em;margin-bottom:17px}.mood-dna>div:first-child b{color:var(--aurora)}.dna-row{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;font-size:8px;text-transform:uppercase;color:rgba(255,255,255,.55);margin:10px 0}.dna-row span:last-child{text-align:right}.dna-row i{height:3px;background:rgba(255,255,255,.13);display:block;position:relative}.dna-row i b{display:block;height:100%;background:var(--aurora);width:50%;box-shadow:0 0 10px var(--aurora)}.pack-head,.sound-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.sound-head>div:not(.sound-head__art){flex:1;min-width:0}
+.sound-head__art{position:relative;width:48px;height:48px;border-radius:12px;background:linear-gradient(150deg,var(--midnight),var(--midnight-deep));display:grid;place-items:center;flex-shrink:0;overflow:hidden}.sound-head__art-icon{width:20px;height:auto;opacity:.5;transition:opacity .3s}.sound-head__bars{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:3px;padding-bottom:11px;opacity:0;transition:opacity .3s}.sound-head__bars i{width:3px;height:5px;background:var(--aurora);border-radius:2px;animation:eq-bounce .85s ease-in-out infinite alternate}.sound-head__bars i:nth-child(2){animation-delay:.18s}.sound-head__bars i:nth-child(3){animation-delay:.34s}.sound-head__art.is-playing .sound-head__bars{opacity:1}.sound-head__art.is-playing .sound-head__art-icon{opacity:.12}
+@keyframes eq-bounce{from{height:4px}to{height:17px}}
+.round-play{position:relative}.round-play .icon{width:18px;height:18px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.round-play .icon--pause{display:none}.round-play.is-playing .icon--play{display:none}.round-play.is-playing .icon--pause{display:block}
+.pdp-sound{position:absolute;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 16px 8px 8px;box-shadow:0 20px 40px rgba(10,15,90,.14)}.pdp-sound .sound-head__art{width:38px;height:38px;border-radius:10px}.pdp-sound .sound-head__art-icon{width:16px}.pdp-sound__meta{display:flex;flex-direction:column;gap:2px}.pdp-sound__meta small{font-family:var(--font-tech);font-size:7px;letter-spacing:.12em;color:#9296a0}.pdp-sound__meta b{font-family:var(--font-tech);font-size:10px;color:var(--midnight);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pdp-sound .round-play{width:36px;height:36px;flex-shrink:0}.pdp-sound .round-play .icon{width:13px;height:13px}
+.sound-progress{height:2px;background:var(--line);margin-top:16px;overflow:hidden}.sound-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--midnight),var(--aurora));transition:width .2s linear}
+.pack-head span,.sound-head span{font-family:var(--font-tech);font-size:8px;letter-spacing:.1em;color:var(--midnight)}.pack-head h3,.sound-head h3{font-family:var(--font-tech);font-size:17px;margin:7px 0}.pack-head strong{font-family:var(--font-display);font-size:34px;color:var(--midnight)}.pack-items{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0}.pack-items button{height:42px;border:1px solid var(--line);padding:0 12px;font-size:9px;font-weight:600}.pack-items button.is-active{background:var(--midnight);color:white}.capacity>div{height:12px;background:#d9dce3;overflow:hidden}.capacity>div span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--midnight),var(--aurora));transition:width .35s}.capacity p{font-size:10px;color:#676b76}.micro-note{font-size:8px;color:#8c9099;margin-top:17px}.round-play{width:56px;height:56px;border-radius:50%;background:var(--midnight);color:white;display:grid;place-items:center}.mood-selector{display:flex;gap:6px;margin:18px 0}.mood-selector button{border:1px solid var(--line);padding:9px 12px;font-size:9px}.mood-selector button.is-active{background:var(--midnight);color:white}.track-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line);counter-reset:tracks}.track-list li{display:grid;grid-template-columns:32px 1fr auto;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:10px}.track-list li:before{counter-increment:tracks;content:"0" counter(tracks);font-family:var(--font-tech);font-size:7px;color:#9296a0}.track-list b{font-size:10px}.track-list span{color:#8b8f99}.passport-card{background:var(--midnight);color:white;padding:23px}.passport-code{display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:8px;letter-spacing:.11em;color:rgba(255,255,255,.54)}.passport-code b{color:var(--aurora)}.passport-grid{display:grid;grid-template-columns:1fr 1fr;margin:22px 0;border-top:1px solid var(--line-dark);border-left:1px solid var(--line-dark)}.passport-grid article{padding:18px;border-right:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}.passport-grid span{display:block;font-size:8px;color:rgba(255,255,255,.45)}.passport-grid b{display:block;font-family:var(--font-tech);font-size:9px;margin-top:8px;letter-spacing:.03em}.passport-card button{color:var(--aurora);font-size:9px;font-weight:700}.product-dialog__buy{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px;position:sticky;bottom:0;background:var(--arctic);padding-top:8px}.product-dialog__buy button{min-height:44px;padding:0 18px;font-size:10px;font-weight:700}.product-dialog__buy button:first-child{background:var(--midnight);color:white;display:flex;justify-content:space-between}.product-dialog__buy button:last-child{border:1px solid var(--line)}
+
+.cart-drawer,.compare-drawer{position:fixed;right:0;top:0;bottom:0;width:min(510px,100vw);background:var(--arctic);z-index:240;transform:translateX(105%);transition:transform .48s var(--ease);display:flex;flex-direction:column}.cart-drawer.is-open,.compare-drawer.is-open{transform:none}.drawer-head{height:92px;padding:20px 24px;display:flex;justify-content:space-between;border-bottom:1px solid var(--line)}.drawer-head small{font-family:var(--font-tech);font-size:8px;letter-spacing:.1em}.drawer-head h2{font-size:40px;color:var(--midnight);margin-top:5px}.drawer-head button{font-size:10px}.cart-progress{height:4px;background:#d7dae2}.cart-progress span{display:block;height:100%;width:0;background:var(--aurora);transition:width .35s}.cart-progress+p{font-size:9px;padding:10px 24px;margin:0;border-bottom:1px solid var(--line)}.cart-items{overflow:auto;flex:1}.empty-state{padding:60px 24px;text-align:center}.empty-state span{font-family:var(--font-display);font-size:100px;color:#d5d8df}.empty-state h3{font-family:var(--font-tech);font-size:12px}.cart-item{padding:18px 24px;display:grid;grid-template-columns:80px 1fr auto;gap:14px;border-bottom:1px solid var(--line)}.cart-item__image{background:#e3e5ea;display:grid;place-items:center;height:90px;overflow:hidden}.cart-item__image img.product-photo{width:80%;height:80%;object-fit:contain}.cart-item h3{font-family:var(--font-tech);font-size:9px;margin:4px 0}.cart-item p{font-size:8px;color:#828690}.cart-item__qty{display:flex;border:1px solid var(--line);width:max-content}.cart-item__qty button,.cart-item__qty span{width:28px;height:28px;display:grid;place-items:center;font-size:10px}.cart-item__end{text-align:right}.cart-item__end strong{font-family:var(--font-display);font-size:24px}.cart-item__end button{display:block;margin-top:30px;font-size:8px;text-decoration:underline}.cart-summary{padding:20px 24px;border-top:1px solid var(--line);background:white}.cart-summary>div{display:flex;justify-content:space-between}.cart-summary strong{font-family:var(--font-display);font-size:30px}.cart-summary p{font-size:8px;color:#858995}.cart-summary>button{width:100%;height:54px;background:var(--midnight);color:white;padding:0 16px;display:flex;justify-content:space-between;font-weight:700;font-size:10px}.cart-summary small{display:block;text-align:center;font-size:7px;margin-top:10px;color:#858995}.compare-content{overflow:auto;padding:18px;flex:1}.compare-empty{padding:60px 20px;text-align:center}.compare-empty h3{font-family:var(--font-tech);font-size:13px}.compare-table{display:grid;grid-template-columns:105px repeat(var(--compare-count),minmax(135px,1fr));min-width:460px;border-top:1px solid var(--line);border-left:1px solid var(--line)}.compare-table>div{padding:13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:9px}.compare-table .label{font-weight:700;background:#e4e6eb}.compare-product h3{font-family:var(--font-tech);font-size:8px}.compare-product button{font-size:8px;text-decoration:underline}.page-scrim{position:fixed;inset:0;background:rgba(5,7,20,.7);z-index:220;opacity:0;pointer-events:none;transition:.3s}.page-scrim.is-visible{opacity:1;pointer-events:auto}
+.search-overlay{position:fixed;inset:0;background:var(--midnight-deep);color:white;z-index:260;transform:translateY(-105%);transition:transform .55s var(--ease);padding:30px clamp(24px,6vw,90px)}.search-overlay.is-open{transform:none}.search-head{display:flex;justify-content:space-between;font-family:var(--font-tech);font-size:9px;letter-spacing:.13em}.search-head button{color:white}.search-overlay form{max-width:1050px;margin:12vh auto 0}.search-overlay label{display:block;font-family:var(--font-display);font-size:clamp(62px,9vw,140px);line-height:.86}.search-overlay form>div{display:flex;border-bottom:2px solid var(--aurora);margin-top:34px}.search-overlay input{flex:1;background:transparent;border:0;outline:0;color:white;font-size:20px;padding:16px 0}.search-overlay input::placeholder{color:rgba(255,255,255,.32)}.search-overlay form button{color:var(--aurora);font-size:28px}.search-results{max-width:1050px;margin:30px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.search-results button{color:white;border:1px solid var(--line-dark);text-align:left;padding:16px}.search-results small{display:block;color:var(--aurora);font-family:var(--font-tech);font-size:7px}.search-results b{display:block;font-family:var(--font-tech);font-size:10px;margin-top:8px}
+.audio-bar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,140%);width:min(720px,calc(100% - 28px));height:64px;background:var(--graphite);color:white;z-index:300;display:grid;grid-template-columns:42px 170px 1fr 42px 26px;gap:12px;align-items:center;padding:0 14px;box-shadow:0 25px 60px rgba(0,0,0,.35);transition:transform .45s var(--ease)}.audio-bar.is-visible{transform:translate(-50%,0)}.audio-bar>button:first-child{width:34px;height:34px;background:var(--aurora);color:var(--midnight);font-weight:800}.audio-bar small{display:block;font-family:var(--font-tech);font-size:6px;color:#8d919b}.audio-bar b{font-size:10px}.audio-progress{height:3px;background:rgba(255,255,255,.12)}.audio-progress span{display:block;height:100%;width:0;background:var(--aurora)}.audio-bar>span{font-size:8px;color:#a5a9b2}.audio-bar>button:last-child{color:white;font-size:17px}.toast{position:fixed;left:50%;top:24px;transform:translate(-50%,-100px);background:var(--aurora);color:var(--midnight);padding:12px 16px;z-index:400;font-family:var(--font-tech);font-size:8px;letter-spacing:.08em;font-weight:700;transition:transform .35s}.toast.is-visible{transform:translate(-50%,0)}
+
+@media(max-width:1180px){.desktop-nav{gap:18px}.product-grid{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr .7fr}.hero-case{transform:scale(.86)}.hero-case{animation:none}.section-heading{grid-template-columns:120px minmax(0,1fr) 260px}.matcher fieldset{grid-template-columns:150px repeat(3,1fr)}.product-dialog[open]{grid-template-columns:.8fr 1.2fr}.product-dialog__content{padding-left:36px;padding-right:36px}}
+@media(max-width:900px){:root{--header-h:70px}.site-header{grid-template-columns:1fr auto;padding:0 20px}.brand{width:auto;min-width:0}.brand small{overflow-wrap:break-word}.desktop-nav,.header-actions [data-search-open]{display:none}.menu-button{display:block}.prebook-button{height:32px;padding:0 12px;margin-left:2px}.hero{grid-template-columns:1fr;padding-top:80px;min-height:auto}.hero__copy{padding-bottom:50px}.hero__visual{min-height:540px}.hero__halo{width:500px}.section-heading{grid-template-columns:1fr;padding-top:75px}.section-heading>p:first-child{display:none}.section-heading>p:last-child{max-width:520px}.matcher__panel{grid-template-columns:1fr}.matcher__result{min-height:470px}.product-grid{grid-template-columns:repeat(2,1fr)}.experience{grid-template-columns:1fr}.ownership__head{grid-template-columns:1fr}.ownership__head>p{display:none}.ownership__grid{grid-template-columns:repeat(2,1fr)}.newsletter{grid-template-columns:1fr}.newsletter__row,.newsletter__checks{grid-template-columns:1fr}.reviews{grid-template-columns:1fr}.reviews__intro{position:static}.reviews__grid{grid-template-columns:1fr}.review-card{flex-direction:column-reverse}.review-card__photo{width:100%;height:160px}.reviews__stats{grid-template-columns:1fr 1fr}.reviews__stats>div{border-right:0;border-bottom:1px solid var(--line)}.product-dialog{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0}.product-dialog[open]{grid-template-columns:1fr;overflow:auto}.product-dialog__visual{min-height:60vh}.product-dialog__content{overflow:visible}.dialog-close{position:fixed}.pdp-sound{display:none}.footer__top{grid-template-columns:2fr 1fr 1fr}.footer__top>div:last-child{grid-column:2}.search-results{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.announcement{padding:0 14px;font-size:7px}.site-header{padding:0 14px}.brand__icon{height:18px}.brand__wordmark{height:11px}.hero{padding:64px 18px}.hero h1{font-size:clamp(86px,29vw,130px)}.hero__lede{font-size:15px}.hero__actions{display:grid}.button{width:100%}.hero__proof{gap:18px;justify-content:space-between}.hero__proof b{font-size:26px}.hero__visual{min-height:440px}.hero__halo{width:390px}.hero-case{transform:scale(.73)}.hero__telemetry{padding:0 8px}.section-heading{padding:65px 18px 34px}.section-heading h2{font-size:clamp(72px,25vw,115px)}.matcher__panel{margin:0 18px 70px}.matcher fieldset{grid-template-columns:1fr 1fr 1fr;padding:20px 16px}.matcher legend{grid-column:1/-1;display:block;margin-bottom:10px}.matcher fieldset button{height:48px;font-size:9px}.matcher__result{min-height:430px}.shop-toolbar{padding:0 18px 16px;align-items:flex-end}.filters{max-width:80%}.filters button{height:35px;padding:0 10px;font-size:8px}.sort{width:42px;font-size:0;padding:0}.sort:after{content:"↕";font-size:15px}.product-grid{padding:0 18px;grid-template-columns:1fr;gap:10px}.product-card__media{height:370px}.experience{padding:75px 18px}.experience__copy h2{font-size:clamp(75px,24vw,112px)}.ownership{padding:75px 18px}.ownership__head h2{font-size:clamp(74px,23vw,110px)}.ownership__grid{grid-template-columns:1fr}.newsletter{padding:64px 18px}.newsletter__copy h2{font-size:clamp(34px,10vw,56px);overflow-wrap:break-word}.newsletter__perks-row{gap:22px}.newsletter__form{padding:26px 20px}.newsletter__row{grid-template-columns:1fr}.newsletter__checks{grid-template-columns:1fr}.site-footer{padding:60px 18px 24px}.footer__top{grid-template-columns:1fr 1fr}.footer__brand{grid-column:1/-1}.footer__top>div:last-child{grid-column:auto}.footer__bottom{display:grid;gap:8px}.product-dialog__visual{min-height:54vh}.product-dialog__content{padding:52px 18px 24px}.product-dialog__head h2{font-size:28px}.spec-grid{grid-template-columns:1fr 1fr}.experience-tabs button{padding:14px 12px}.passport-grid{grid-template-columns:1fr}.product-dialog__buy{grid-template-columns:1fr}.audio-bar{grid-template-columns:38px 1fr 28px 24px;height:62px}.audio-progress{display:none}.audio-bar>span{font-size:0}.audio-bar>span:after{content:"●";font-size:8px;color:var(--aurora)}.search-overlay{padding:22px 18px}.search-overlay form{margin-top:14vh}.search-overlay label{font-size:62px}.search-results{grid-template-columns:1fr}.product-card:hover{transform:none}}
+@media(max-width:380px){.site-header{padding:0 12px;gap:8px}.brand small{display:none}.prebook-button{padding:0 10px;font-size:9px}.header-actions{gap:0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+  </style>
+</head>
+<body>
+  <div class="preloader" data-preloader aria-hidden="true">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__center">
+      <img class="preloader__mark" src="assets/brand/icon-white.png" alt="" />
+      <p class="preloader__status">SYSTEM BOOT</p>
+      <div class="preloader__bar"><span></span></div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      var el=document.querySelector('[data-preloader]');
+      if(!el) return;
+      if(sessionStorage.getItem('habane_preloaded')){ el.remove(); return; }
+      try{ sessionStorage.setItem('habane_preloaded','1'); }catch(e){}
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.remove(); return; }
+      setTimeout(function(){ el.classList.add('is-flash') },520);
+      setTimeout(function(){
+        el.classList.add('is-open');
+        setTimeout(function(){
+          el.classList.add('is-done');
+          setTimeout(function(){el.remove()},520);
+        },520);
+      },650);
+    })();
+  </script>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="announcement" data-announcement>
+    <div class="announcement__rotator" data-announcement-rotator aria-live="polite">
+      <span class="announcement__slide is-active">COMPLIMENTARY EU DELIVERY OVER €250</span>
+      <span class="announcement__slide">FIFTEEN OBJECTS. ONE MOVEMENT SYSTEM.</span>
+      <span class="announcement__slide">30-DAY FREE RETURNS, WORLDWIDE</span>
+      <span class="announcement__slide announcement__signal"><i></i> SYSTEM ONLINE</span>
+    </div>
+    <button type="button" data-announcement-close aria-label="Dismiss announcement">×</button>
+  </div>
+
+  <header class="site-header site-header--on-dark" data-header>
+    <a class="brand" href="#top" aria-label="HABÄNE home">
+      <span class="brand__mark">
+        <img class="brand__icon brand__icon--navy" src="assets/brand/icon-navy.png" alt="" />
+        <img class="brand__icon brand__icon--white" src="assets/brand/icon-white.png" alt="" />
+        <img class="brand__wordmark brand__wordmark--navy" src="assets/brand/wordmark-navy.png" alt="HABÄNE" />
+        <img class="brand__wordmark brand__wordmark--white" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+      </span>
+      <small>DESIGNED IN GERMANY</small>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#shop">Objects</a>
+      <a href="#matcher">Find your object</a>
+      <a href="#experience">Experience</a>
+      <a href="#ownership">Ownership</a>
+    </nav>
+    <div class="header-actions">
+      <button class="region-button" type="button" data-region aria-label="Shipping region">🌍</button>
+      <button class="icon-button" type="button" data-search-open aria-label="Search">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.2" y2="16.2" /></svg>
+      </button>
+      <button class="icon-button" type="button" data-cart-open aria-label="Bag">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+        <b class="icon-badge" data-cart-count>0</b>
+      </button>
+      <button class="prebook-button" type="button" data-prebook>Pre-book</button>
+      <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <aside class="mobile-menu" data-mobile-menu aria-hidden="true">
+    <div class="mobile-menu__head"><span><img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> / NAVIGATION</span><button type="button" data-menu-close>Close ×</button></div>
+    <nav>
+      <a href="#shop"><span>01</span><b>Objects</b></a>
+      <a href="#matcher"><span>02</span><b>Find your object</b></a>
+      <a href="#experience"><span>03</span><b>Experience</b></a>
+      <a href="#ownership"><span>04</span><b>Ownership</b></a>
+    </nav>
+    <p>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</p>
+  </aside>
+
+  <main id="main">
+    <section class="hero-carousel" id="top" data-hero-carousel aria-label="Featured objects">
+      <div class="hero-carousel__slide is-active" data-hero-slide>
+        <img src="assets/products/p1-olive-skyline-duffel.jpg" alt="Olive Skyline Duffel" loading="eager" />
+      </div>
+      <div class="hero-carousel__slide" data-hero-slide>
+        <img src="assets/products/p2-navy-metropolitan-duffel.jpg" alt="Navy Metropolitan Duffel" loading="lazy" />
+      </div>
+      <div class="hero-carousel__slide" data-hero-slide>
+        <img src="assets/products/p3-navy-voyager-duffel.jpg" alt="Navy Voyager Duffel" loading="lazy" />
+      </div>
+      <div class="hero-carousel__grid" aria-hidden="true"></div>
+      <div class="hero-carousel__glow" aria-hidden="true"></div>
+      <div class="hero-carousel__scrim" aria-hidden="true"></div>
+      <div class="hero-carousel__content">
+        <p class="system-label"><i></i> <span data-hero-eyebrow>01 / SIGNATURE CARRY</span></p>
+        <h1 data-hero-heading>TRAVEL<br /><em>INTELLIGENTLY.</em></h1>
+        <p data-hero-sub>Fifteen objects engineered as one coherent movement system.</p>
+        <a class="button button--primary" href="#shop" data-hero-cta>Shop the collection <span>↗</span></a>
+      </div>
+      <button class="hero-carousel__arrow hero-carousel__arrow--prev" type="button" data-hero-prev aria-label="Previous slide">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7" /></svg>
+      </button>
+      <button class="hero-carousel__arrow hero-carousel__arrow--next" type="button" data-hero-next aria-label="Next slide">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7" /></svg>
+      </button>
+      <div class="hero-carousel__dots" data-hero-dots>
+        <button class="is-active" type="button" data-hero-dot="0" aria-label="Slide 1"></button>
+        <button type="button" data-hero-dot="1" aria-label="Slide 2"></button>
+        <button type="button" data-hero-dot="2" aria-label="Slide 3"></button>
+      </div>
+    </section>
+
+    <section class="shop" id="shop">
+      <div class="section-heading section-heading--compact">
+        <p>01 / THE FIFTEEN</p>
+        <div><span class="system-label system-label--dark"><i></i> One system, fifteen entry points.</span><h2>CHOOSE YOUR<br /><em>OBJECT.</em></h2></div>
+        <p>Every product opens into a richer experience: mood, use case, packing logic, care and soundtrack.</p>
+      </div>
+      <div class="shop-toolbar">
+        <div class="filters" role="group" aria-label="Product category">
+          <button class="is-active" type="button" data-filter="all">All / 15</button>
+          <button type="button" data-filter="luggage">Luggage</button>
+          <button type="button" data-filter="carry">Carry</button>
+          <button type="button" data-filter="system">System</button>
+          <button type="button" data-filter="accessory">Accessories</button>
+        </div>
+        <button class="sort" type="button" data-sort>Sort: Featured ↕</button>
+      </div>
+      <div class="product-grid" data-product-grid></div>
+    </section>
+
+    <section class="matcher" id="matcher">
+      <div class="section-heading">
+        <p>02 / PERSONAL MATCH</p>
+        <div><span class="system-label system-label--dark"><i></i> Three decisions. One recommendation.</span><h2>WHAT ARE YOU<br />MOVING <em>TOWARD?</em></h2></div>
+        <p>Instead of making customers decode specifications, this guided match translates trip intent into the right object.</p>
+      </div>
+      <div class="matcher__panel">
+        <div class="matcher__steps" aria-label="Travel preferences">
+          <fieldset data-matcher-group="duration"><legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>Trip length</b><span>01</span></legend><button type="button" class="is-active" data-value="short"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>1–3 days</button><button type="button" data-value="medium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>4–7 days</button><button type="button" data-value="long"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>8+ days</button></fieldset>
+          <fieldset data-matcher-group="mode"><legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 19,21 12,17 5,21" /></svg>Movement mode</b><span>02</span></legend><button type="button" class="is-active" data-value="air"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="2,12 22,4 14,22 11,13 2,12" /></svg>Air</button><button type="button" data-value="rail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="12" rx="3" /><line x1="5" y1="11" x2="19" y2="11" /><circle cx="9" cy="14" r=".6" /><circle cx="15" cy="14" r=".6" /><path d="M8 19l-2 3M16 19l2 3" /></svg>Rail</button><button type="button" data-value="city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="7" height="11" /><rect x="13" y="4" width="7" height="17" /></svg>City</button></fieldset>
+          <fieldset data-matcher-group="mood"><legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" /></svg>Travel mood</b><span>03</span></legend><button type="button" class="is-active" data-value="focused"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="4" /><circle cx="12" cy="12" r=".6" fill="currentColor" /></svg>Focused</button><button type="button" data-value="electric"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13,2 3,14 10,14 9,22 21,10 13,10 13,2" /></svg>Electric</button><button type="button" data-value="slow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20a16 16 0 0 1 16-16 16 16 0 0 1-16 16z" /><path d="M6 18L18 6" /></svg>Unhurried</button></fieldset>
+        </div>
+        <div class="matcher__result" data-match-result>
+          <div class="matcher__result-top"><span>RECOMMENDED OBJECT</span><span data-match-code>OBJ / 01</span></div>
+          <div class="matcher__object"><img class="product-photo" data-match-shape alt=""></div>
+          <div class="matcher__copy"><p data-match-reason>Best for short, focused air travel.</p><h3 data-match-name>HABÄNE X1 CABIN</h3><strong data-match-price>€899</strong></div>
+          <button class="button button--primary button--full" type="button" data-match-open>Open your recommendation <span>↗</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="experience">
+      <div class="experience__copy">
+        <p class="experience__kicker">03 / PRODUCT EXPERIENCE</p>
+        <p class="system-label"><i></i> NOT JUST PRODUCT DETAIL</p>
+        <h2>MAKE EACH<br />OBJECT FEEL<br /><em>PERSONAL.</em></h2>
+        <p>A product page should answer more than “what is it?” It should help the customer imagine how it fits their movement, mood and daily rituals.</p>
+        <button class="button button--light" type="button" data-experience="p1">Open a product experience <span>↗</span></button>
+      </div>
+      <div class="experience__showcase">
+        <ol class="experience-list">
+          <li><span class="experience-list__num">01</span><div><h3>Journey Fit</h3><p>Trip length, transport and pace translated into a product recommendation.</p></div></li>
+          <li><span class="experience-list__num">02</span><div><h3>Pack It Virtually</h3><p>Add common travel items and watch the capacity profile update in real time.</p></div></li>
+          <li><span class="experience-list__num">03</span><div><h3>Departure Frequencies</h3><p>A playlist interface tuned to the object’s personality and the customer’s travel mood.</p></div></li>
+          <li><span class="experience-list__num">04</span><div><h3>Product Passport</h3><p>Materials, service path, care, compatibility and ownership information in one place.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ownership" id="ownership">
+      <div class="ownership__head"><p>04 / OWNERSHIP</p><h2>THE PURCHASE IS<br /><em>ONLY DEPARTURE.</em></h2></div>
+      <div class="ownership__grid">
+        <article><div class="ownership__top"><span>01</span><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.2" /><line x1="7.5" y1="7.5" x2="9.9" y2="9.9" /><line x1="14.1" y1="14.1" x2="16.5" y2="16.5" /><line x1="16.5" y1="7.5" x2="14.1" y2="9.9" /><line x1="9.9" y1="14.1" x2="7.5" y2="16.5" /></svg></div><h3>Direct support</h3><p>Fast access to people who understand the object—not an endless ticket maze.</p><a href="mailto:habaneglobal@gmail.com">Contact service ↗</a></article>
+        <article><div class="ownership__top"><span>02</span><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 11c-2.5 4.65-9.5 9-9.5 9z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="10" y1="11" x2="14" y2="11" /></svg></div><h3>Care intelligence</h3><p>Product-specific care guidance, service reminders and clear wear-component information.</p><a href="#shop">Open product passport ↗</a></article>
+        <article><div class="ownership__top"><span>03</span><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 3v6h-6" /></svg></div><h3>Repair pathways</h3><p>Visible parts logic and practical next steps when something needs attention.</p><a href="#shop">Explore service model ↗</a></article>
+        <article><div class="ownership__top"><span>04</span><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2" /><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" /><line x1="4" y1="13" x2="20" y2="13" /></svg></div><h3>Travel compatibility</h3><p>Clear guidance for cabin, batteries and transport—with final rules always verified by the customer.</p><a href="#footer">Read travel guidance ↗</a></article>
+      </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+      <div class="reviews__intro">
+        <p>05 / COMMUNITY</p>
+        <h2>CUSTOMER<br /><em>REVIEWS.</em></h2>
+        <p>Real reviews from real journeys.</p>
+        <div class="reviews__score"><strong>4.9</strong><span class="reviews__stars" aria-hidden="true">★★★★★</span></div>
+        <p class="reviews__count">Based on 1,248 reviews</p>
+        <a class="reviews__cta" href="#footer">SEE ALL REVIEWS <span>→</span></a>
+      </div>
+      <div class="reviews__grid">
+        <article class="review-card">
+          <div class="review-card__body">
+            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+            <h3>Perfect travel companion!</h3>
+            <p>Took the Metropolitan on a weekend trip—it fits everything I need and looks incredible.</p>
+            <div class="review-card__author">
+              <span class="review-card__avatar" style="background:#0A0F5A">AK</span>
+              <div><b>Arjun K.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+            </div>
+          </div>
+          <img class="review-card__photo" src="assets/products/p2-navy-metropolitan-duffel.jpg" alt="Metropolitan Duffel in navy" loading="lazy" />
+        </article>
+        <article class="review-card">
+          <div class="review-card__body">
+            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+            <h3>Stylish &amp; sturdy</h3>
+            <p>The Olive bag is both rugged and classy. Got so many compliments!</p>
+            <div class="review-card__author">
+              <span class="review-card__avatar" style="background:#36D8FF;color:#060935">NP</span>
+              <div><b>Neha P.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+            </div>
+          </div>
+          <img class="review-card__photo" src="assets/products/p1-olive-skyline-duffel.jpg" alt="Skyline Duffel in olive" loading="lazy" />
+        </article>
+        <article class="review-card">
+          <div class="review-card__body">
+            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+            <h3>Built for weekends</h3>
+            <p>Used the Weekender for a road trip—super spacious and the material is top-notch.</p>
+            <div class="review-card__author">
+              <span class="review-card__avatar" style="background:#5a6b3f">RS</span>
+              <div><b>Rohit S.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+            </div>
+          </div>
+          <img class="review-card__photo" src="assets/products/p5-steel-blue-weekender.jpg" alt="Steel Weekender in steel blue" loading="lazy" />
+        </article>
+        <article class="review-card">
+          <div class="review-card__body">
+            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+            <h3>My go-to duffel</h3>
+            <p>Compact, lightweight and perfect for short getaways. The Voyager is a winner!</p>
+            <div class="review-card__author">
+              <span class="review-card__avatar" style="background:#0A0F5A">SM</span>
+              <div><b>Sneha M.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+            </div>
+          </div>
+          <img class="review-card__photo" src="assets/products/p3-navy-voyager-duffel.jpg" alt="Voyager Duffel in navy" loading="lazy" />
+        </article>
+      </div>
+      <div class="reviews__stats">
+        <div><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,21.5 12,18 5.5,21.5 7,14.5 2,9.5 9,9" /></svg><div><b>4.9/5</b><span>Average Rating</span></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg><div><b>1,248+</b><span>Happy Customers</span></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2" /><circle cx="12" cy="13.5" r="3.5" /><path d="M8 7l1.5-3h5L16 7" /></svg><div><b>890+</b><span>Photos Shared</span></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg><div><b>30-Day</b><span>Money Back Guarantee</span></div></div>
+      </div>
+      <p class="reviews__footer">Have a bag? We'd love to hear your story. <a href="mailto:habaneglobal@gmail.com">WRITE A REVIEW <span>→</span></a></p>
+    </section>
+
+    <section class="hero" id="hero">
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <p class="system-label"><i></i> HABÄNE MOVEMENT SYSTEM / 2026</p>
+        <h1>MOVE<br /><em>BEYOND.</em></h1>
+        <p class="hero__lede">Fifteen objects. One coherent travel system. Engineered to reduce friction before, during and after departure.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#shop">Enter the system <span>↗</span></a>
+          <button class="button button--ghost" type="button" data-experience="p1">Experience Flagship <span>▶</span></button>
+        </div>
+        <div class="hero__proof">
+          <span><b>15</b> travel objects</span>
+          <span><b>04</b> ownership layers</span>
+          <span><b>01</b> movement system</span>
+        </div>
+      </div>
+      <div class="hero__visual" aria-label="Concept visualization of the HABÄNE X1 cabin object">
+        <div class="hero__halo"></div>
+        <div class="hero__telemetry hero__telemetry--top"><span>X1 / CABIN</span><b>READY TO MOVE</b></div>
+        <div class="hero-case">
+          <span class="hero-case__handle"></span>
+          <div class="hero-case__body">
+            <span class="hero-case__rail hero-case__rail--left"></span>
+            <span class="hero-case__rail hero-case__rail--right"></span>
+            <span class="hero-case__screen"><small>HABÄNE</small><b>READY</b></span>
+            <span class="hero-case__light"></span>
+          </div>
+          <span class="hero-case__wheel hero-case__wheel--left"></span>
+          <span class="hero-case__wheel hero-case__wheel--right"></span>
+        </div>
+        <div class="hero__telemetry hero__telemetry--bottom"><span>37 L / CABIN</span><b>OBJ 01 / 15</b></div>
+      </div>
+      <div class="hero__ticker" aria-hidden="true"><span>PRECISION / FREEDOM / AUTONOMY / ELEGANCE / PRECISION / FREEDOM / AUTONOMY / ELEGANCE /</span></div>
+    </section>
+
+    <section class="newsletter">
+      <div class="newsletter__copy">
+        <p class="system-label"><i></i> PRIVATE CHANNEL / PRODUCT DROPS / FIELD NOTES</p>
+        <h2>LEAVE BEFORE<br /><em>EVERYONE ELSE</em></h2>
+        <p class="newsletter__lede">Get early access to limited edition drops, private updates, and stories from the road.</p>
+        <div class="newsletter__perks-row">
+          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13,2 3,14 10,14 9,22 21,10 13,10 13,2" /></svg></span><div><b>Early Access</b><p>Be the first to know about new drops.</p></div></div>
+          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1" /><path d="M3 8h18M12 8v13M7.5 8a2.5 2.5 0 1 1 4.5-2h0a2.5 2.5 0 1 1 4.5 2" /></svg></span><div><b>Exclusive Drops</b><p>Members only. Limited editions.</p></div></div>
+          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg></span><div><b>Member Perks</b><p>Rewards, content and more.</p></div></div>
+        </div>
+        <p class="newsletter__slashes" aria-hidden="true">////////////////////////////</p>
+        <p class="newsletter__hashtag">// CHASE THE MADNESS.</p>
+      </div>
+      <div class="newsletter__panel">
+        <div class="newsletter__visual" aria-hidden="true">
+          <div class="newsletter__orbit"></div>
+          <div class="newsletter__orbit newsletter__orbit--inner"></div>
+          <span class="newsletter__dot newsletter__dot--1"></span>
+          <span class="newsletter__dot newsletter__dot--2"></span>
+        </div>
+        <form data-newsletter-form class="newsletter__form">
+          <div class="newsletter__form-head">
+            <span class="newsletter__form-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13" /><path d="M22 2l-7 20-4-9-9-4 20-7z" /></svg></span>
+            <div><b>Join the movement</b><p data-newsletter-status>No spam. Only meaningful movement.</p></div>
+          </div>
+          <div class="newsletter__row">
+            <label class="newsletter__field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg><input type="text" placeholder="Your name" /></label>
+            <label class="newsletter__field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg><input id="newsletter-email" type="email" placeholder="Email address" required /></label>
+          </div>
+          <label class="newsletter__field newsletter__field--select">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 0 0-14 0c0 4.5 7 12 7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>
+            <select><option value="">Where do you move?</option><option>Air</option><option>Rail</option><option>City</option></select>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9" /></svg>
+          </label>
+          <p class="newsletter__interest-label">I'm interested in:</p>
+          <div class="newsletter__checks">
+            <label><input type="checkbox" name="interest" value="early" /> Early Access</label>
+            <label><input type="checkbox" name="interest" value="drops" /> Exclusive Drops</label>
+            <label><input type="checkbox" name="interest" value="notes" /> Field Notes</label>
+          </div>
+          <button type="submit" class="newsletter__submit">Join now <span>→</span></button>
+          <p class="newsletter__privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg> We respect your privacy.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="footer__top"><div class="footer__brand"><span class="footer__brand-mark"><img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" /><img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</span></div><div><h3>Objects</h3><a href="#shop">Luggage</a><a href="#shop">Carry</a><a href="#shop">Systems</a><a href="#shop">Accessories</a></div><div><h3>Support</h3><a href="mailto:habaneglobal@gmail.com">Contact</a><a href="#ownership">Service & repair</a><a href="#footer">Delivery & returns</a><a href="#footer">Product care</a></div><div><h3>Company</h3><a href="#experience">Philosophy</a><a href="#footer">Journal</a><a href="#footer">Legal</a><a href="#footer">Privacy</a></div></div>
+    <div class="footer__bottom"><span>© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span>DESIGNED IN GERMANY / BUILT FOR MOVEMENT</span><span>EU / EN</span></div>
+  </footer>
+
+  <dialog class="product-dialog" data-product-dialog>
+    <button class="dialog-close" type="button" data-product-close>Close ×</button>
+    <div class="pdp-sound" data-pdp-sound>
+      <div class="sound-head__art" data-sound-art>
+        <img class="sound-head__art-icon" src="assets/brand/icon-white.png" alt="" />
+        <span class="sound-head__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </div>
+      <div class="pdp-sound__meta"><small>SOUNDTRACK</small><b data-playlist-name>Terminal 05:42</b></div>
+      <button class="round-play" type="button" data-playlist-play aria-label="Play soundtrack">
+        <svg class="icon icon--play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l12-7z" /></svg>
+        <svg class="icon icon--pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+      </button>
+    </div>
+    <div class="product-dialog__visual" data-product-visual>
+      <div class="product-scene product-scene--airport" data-scene>
+        <div class="product-scene__grid"></div>
+        <div class="experience-object"><img class="product-photo" data-product-shape alt=""></div>
+        <div class="scene-meta"><span data-product-code>OBJ / 01</span><span data-scene-label>AIRPORT / 05:42</span></div>
+      </div>
+      <div class="scene-switcher" role="group" aria-label="Choose product scene"><button class="is-active" type="button" data-scene-option="airport">Airport</button><button type="button" data-scene-option="night">Night city</button><button type="button" data-scene-option="quiet">Quiet hotel</button></div>
+    </div>
+    <div class="product-dialog__content">
+      <div class="product-dialog__head"><p data-product-kicker>Flagship cabin object</p><h2 data-product-name>HABÄNE X1 CABIN</h2><p data-product-description></p>
+        <div class="product-accordion" data-product-accordion>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">PRODUCT DETAILS<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="accordion-item__panel" data-accordion-panel><p data-accordion-details></p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">MATERIALS<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="accordion-item__panel" data-accordion-panel><p data-accordion-materials></p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">CARE &amp; SERVICE<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="accordion-item__panel" data-accordion-panel><p data-accordion-care></p></div>
+          </div>
+        </div>
+      <div><strong data-product-price>€899</strong><span>VAT included. Delivery calculated at checkout.</span></div></div>
+      <div class="finish-row"><span>Finish</span><div class="swatches"><button class="is-active" type="button" aria-label="Titanium"></button><button type="button" aria-label="Midnight"></button><button type="button" aria-label="Graphite"></button></div></div>
+      <div class="experience-tabs" role="tablist"><button class="is-active" role="tab" type="button" data-tab="overview">Overview</button><button role="tab" type="button" data-tab="pack">Pack it</button><button role="tab" type="button" data-tab="passport">Passport</button></div>
+      <div class="tab-panels">
+        <section class="tab-panel is-active" data-panel="overview">
+          <div class="spec-grid" data-product-specs></div>
+          <div class="mood-dna"><div><span>PRODUCT MOOD DNA</span><b data-product-mood-label>Focused / Architectural</b></div><div class="dna-row"><span>Quiet</span><i><b data-dna-quiet></b></i><span>Electric</span></div><div class="dna-row"><span>Urban</span><i><b data-dna-urban></b></i><span>Remote</span></div><div class="dna-row"><span>Short</span><i><b data-dna-trip></b></i><span>Long</span></div></div>
+        </section>
+        <section class="tab-panel" data-panel="pack">
+          <div class="pack-head"><div><span>PACKING SIMULATOR</span><h3>What are you bringing?</h3></div><strong><span data-pack-used>0</span>% full</strong></div>
+          <div class="pack-items" data-pack-items></div>
+          <div class="capacity"><div><span data-capacity-fill></span></div><p data-capacity-message>Select items to test the fit.</p></div>
+          <p class="micro-note">Illustrative only. Final fit depends on item dimensions and packing style.</p>
+        </section>
+        <section class="tab-panel" data-panel="passport">
+          <div class="passport-card"><div class="passport-code"><span>HABÄNE PRODUCT PASSPORT</span><b data-passport-id>HB-X1-001</b></div><div class="passport-grid"><article><span>Materials</span><b data-passport-material>Premium shell / titanium details</b></article><article><span>Service path</span><b data-passport-service>Modular inspection</b></article><article><span>Care rhythm</span><b data-passport-care>Inspect every 12 trips</b></article><article><span>Travel role</span><b data-passport-role>Cabin movement</b></article></div><button type="button" data-passport-save>Save passport to account ↗</button></div>
+        </section>
+      </div>
+      <div class="product-dialog__buy"><button type="button" data-dialog-add><span>Add to bag</span><b data-dialog-price>€899</b></button><button type="button" data-dialog-compare>Add to compare</button></div>
+    </div>
+  </dialog>
+
+  <aside class="cart-drawer" data-cart-drawer aria-hidden="true">
+    <div class="drawer-head"><div><small>YOUR SELECTION</small><h2>Bag <b data-cart-count>0</b></h2></div><button type="button" data-cart-close>Close ×</button></div>
+    <div class="cart-progress"><span data-cart-progress></span></div><p data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
+    <div class="cart-items" data-cart-items></div>
+    <div class="cart-summary" data-cart-summary hidden><div><span>Subtotal</span><strong data-cart-subtotal>€0</strong></div><p>VAT included. Delivery calculated at checkout.</p><button type="button" data-checkout>Secure checkout <span>→</span></button><small>VISA / MASTERCARD / PAYPAL / KLARNA</small></div>
+  </aside>
+
+  <aside class="compare-drawer" data-compare-drawer aria-hidden="true">
+    <div class="drawer-head"><div><small>OBJECT COMPARISON</small><h2>Compare <b data-compare-count>0</b></h2></div><button type="button" data-compare-close>Close ×</button></div>
+    <div class="compare-content" data-compare-content></div>
+  </aside>
+
+  <section class="search-overlay" data-search-overlay aria-hidden="true">
+    <div class="search-head"><span>SEARCH / <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><button type="button" data-search-close>Close ×</button></div>
+    <form data-search-form><label for="site-search">What are you moving with?</label><div><input id="site-search" autocomplete="off" placeholder="Cabin, rail, backpack..." /><button type="submit">↗</button></div></form>
+    <div class="search-results" data-search-results></div>
+  </section>
+
+  <div class="audio-bar" data-audio-bar aria-hidden="true"><button type="button" data-audio-toggle>Ⅱ</button><div><small data-audio-product>HABÄNE X1</small><b data-audio-track>Glass Terminal</b></div><div class="audio-progress"><span data-audio-progress></span></div><span data-audio-time>0:00</span><button type="button" data-audio-close>×</button></div>
+  <div class="page-scrim" data-scrim></div>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script>
+const products = {
+  p1: {
+    id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Skyline Duffel', price:71, category:'luggage', badge:'BESTSELLER',
+    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png'],
+    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Midnight',hex:'#0b1240'},{name:'Silver',hex:'#9a9ea8'}], sizes:['35L','45L','55L'],
+    subtitle:'Hand-drawn skyline travel bag', kicker:'Signature travel duffel',
+    description:'Our hero carry. Hand-drawn skyline print on water-repellent canvas, leather-trim handles and a vault-grade zipper.',
+    specs:[['Material','Water-repellent canvas'],['Capacity','35–55L'],['Weight','1.4 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Midnight / Silver'],['Sizes','35L / 45L / 55L']],
+    mood:{label:'Adventurous / Grounded',quiet:58,urban:40,trip:70},
+    passportData:{material:'Water-repellent canvas / leather trim',service:'Handle + zipper service path',care:'Wipe canvas after wet trips',role:'Signature carry'},
+    pack:['3 shirts', '2 trousers', 'Shoes', 'Wash kit', 'Jacket', 'Book'],
+    playlists:{
+      focused:{name:'City Skyline',description:'Steady rhythm for city-to-city moves.',tracks:[['Rooftop Line','03:24'],['Grid Walk','03:58'],['Overlook','04:10'],['Departure Sketch','03:41']]},
+      electric:{name:'Night Skyline',description:'Bright pulse for evening departures.',tracks:[['Neon Outline','03:15'],['Skyward','03:47'],['Fast Lanes','03:29'],['City Current','04:02']]},
+      slow:{name:'Quiet Skyline',description:'A calm view for slower travel days.',tracks:[['Morning Haze','04:05'],['Still Rooftop','03:52'],['Wide Window','04:18'],['Soft Horizon','03:44']]}
+    }
+  },
+  p2: {
+    id:'p2', code:'OBJ / 02', passport:'HB-P2-002', name:'Metropolitan Duffel', price:77, category:'luggage', badge:'NEW',
+    image:'assets/products/p2-navy-metropolitan-duffel.png', cardImage:'assets/products/p2-navy-metropolitan-duffel.jpg', images:['assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-steel-duffel.png'],
+    colors:[{name:'Navy',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['40L','50L'],
+    subtitle:'Cabin-friendly city duffel', kicker:'Cityscape travel object',
+    description:'Midnight navy with an ice-blue cityscape and contrast webbing handles. Cabin-friendly with shoulder strap.',
+    specs:[['Material','Tech canvas'],['Capacity','40–50L'],['Weight','1.5 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Ice'],['Sizes','40L / 50L']],
+    mood:{label:'Composed / Cosmopolitan',quiet:64,urban:74,trip:55},
+    passportData:{material:'Tech canvas / webbing handles',service:'Strap + zipper service path',care:'Spot-clean as needed',role:'City travel'},
+    pack:['Laptop', '3 shirts', 'Trousers', 'Shoes', 'Wash kit', 'Cables'],
+    playlists:{
+      focused:{name:'Metro Focus',description:'Clean tempo for cabin-friendly travel.',tracks:[['Platform 3','03:30'],['Ice Line','03:56'],['Navy Transit','04:03'],['Clear Signal','03:22']]},
+      electric:{name:'Metro Night',description:'Cityscape energy after dark.',tracks:[['Blue District','03:41'],['Ice Voltage','03:19'],['Fast Metro','03:53'],['After Hours','04:07']]},
+      slow:{name:'Metro Window',description:'Unhurried motion through the city.',tracks:[['Cloud Cover','04:12'],['Steel Calm','03:48'],['Slow Platform','04:22'],['Ice Light','03:39']]}
+    }
+  },
+  p3: {
+    id:'p3', code:'OBJ / 03', passport:'HB-P3-003', name:'Voyager Duffel', price:75, category:'luggage', badge:null,
+    image:'assets/products/p3-navy-voyager-duffel.png', cardImage:'assets/products/p3-navy-voyager-duffel.jpg', images:['assets/products/p3-navy-voyager-duffel.png','assets/products/p2-navy-metropolitan-duffel.png'],
+    colors:[{name:'Navy',hex:'#0b1240'},{name:'Sky',hex:'#8fd4ec'}], sizes:['40L','50L'],
+    subtitle:'Nautical line-art duffel', kicker:'Voyage-ready travel object',
+    description:'Nautical line-art print across deep navy canvas. Travel duffel for overhead bins and boat decks alike.',
+    specs:[['Material','Canvas + leather trim'],['Capacity','40–50L'],['Weight','1.45 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Sky'],['Sizes','40L / 50L']],
+    mood:{label:'Nautical / Unhurried',quiet:70,urban:35,trip:66},
+    passportData:{material:'Canvas + leather trim',service:'Trim + zipper service path',care:'Air dry after coastal use',role:'Voyage carry'},
+    pack:['3 shirts', 'Trousers', 'Swim shorts', 'Wash kit', 'Sandals', 'Sunglasses'],
+    playlists:{
+      focused:{name:'Voyager Log',description:'Measured sound for coastal movement.',tracks:[['Nautical Line','03:33'],['Harbor Watch','04:01'],['Deck Focus','03:27'],['Compass Set','03:49']]},
+      electric:{name:'Open Water',description:'Forward energy for departures by sea or sky.',tracks:[['Tide Voltage','03:20'],['Wake','03:44'],['Open Route','04:06'],['Bright Coast','03:31']]},
+      slow:{name:'Slow Tide',description:'A drifting soundtrack for unhurried voyages.',tracks:[['Low Tide','04:15'],['Salt Air','03:57'],['Still Harbor','04:24'],['Evening Sail','03:46']]}
+    }
+  },
+  p4: {
+    id:'p4', code:'OBJ / 04', passport:'HB-P4-004', name:'SMART Duffel — Ivory', price:143, category:'system', badge:'SMART',
+    image:'assets/products/p4-smart-duffel-ivory.png', cardImage:'assets/products/p4-smart-duffel-ivory.jpg', images:['assets/products/p4-smart-duffel-ivory.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png'],
+    colors:[{name:'Ivory',hex:'#f6f7f9'},{name:'Navy',hex:'#0b1240'}], sizes:['45L'],
+    subtitle:'The bag that thinks', kicker:'Flagship smart object',
+    description:'The bag that thinks. Fast-charge core, reactive RGB trim, touch media strip and smart check-in panel.',
+    specs:[['Material','Tech canvas DWR'],['Capacity','45L'],['Weight','1.8 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Ivory / Navy'],['Sizes','45L']],
+    mood:{label:'Technical / Alert',quiet:50,urban:60,trip:72},
+    passportData:{material:'Tech canvas DWR / electronics core',service:'Battery + port diagnostics',care:'Charge core every 30 days',role:'Flagship smart carry'},
+    pack:['Laptop', 'Power bank', 'Cables', '3 shirts', 'Wash kit', 'Charger'],
+    playlists:{
+      focused:{name:'Core Online',description:'Clean electronic focus for the bag that thinks.',tracks:[['Charge State','03:19'],['Ivory Circuit','03:52'],['System Ready','03:36'],['Signal Lock','04:00']]},
+      electric:{name:'Full Power',description:'Bright reactive energy matching the RGB trim.',tracks:[['100 Percent','03:06'],['Trim Light','03:34'],['Live Feed','03:48'],['Fast Sync','03:22']]},
+      slow:{name:'Standby Mode',description:'Ambient calm while the core stays charged.',tracks:[['Idle Glow','04:28'],['Soft Port','03:55'],['Quiet Battery','04:14'],['Low Draw','03:41']]}
+    }
+  },
+  p5: {
+    id:'p5', code:'OBJ / 05', passport:'HB-P5-005', name:'Steel Weekender', price:66, category:'luggage', badge:null,
+    image:'assets/products/p5-steel-blue-weekender.png', cardImage:'assets/products/p5-steel-blue-weekender.jpg', images:['assets/products/p5-steel-blue-weekender.png','assets/products/alt-steel-duffel.png'],
+    colors:[{name:'Steel Blue',hex:'#4a6b8a'},{name:'Tan',hex:'#8e6b4a'}], sizes:['38L','48L'],
+    subtitle:'Vintage-washed weekender', kicker:'Classic weekend object',
+    description:'Vintage-washed canvas with full-grain leather handles and antique-brass crossbody strap.',
+    specs:[['Material','Washed canvas'],['Capacity','38–48L'],['Weight','1.3 kg'],['Warranty','Lifetime zipper'],['Colors','Steel Blue / Tan'],['Sizes','38L / 48L']],
+    mood:{label:'Vintage / Relaxed',quiet:66,urban:30,trip:48},
+    passportData:{material:'Washed canvas / brass hardware',service:'Strap + buckle service path',care:'Condition leather twice a year',role:'Weekend carry'},
+    pack:['2 shirts', 'Trousers', 'Wash kit', 'Jacket', 'Boots'],
+    playlists:{
+      focused:{name:'Weekend Plan',description:'Grounded rhythm for short escapes.',tracks:[['Steel Blue','03:28'],['Brass Buckle','03:51'],['Weekend Line','04:04'],['Vintage Wash','03:35']]},
+      electric:{name:'Fast Getaway',description:'Energy for a quick weekend exit.',tracks:[['Quick Pack','03:12'],['Antique Voltage','03:39'],['Last Minute','03:47'],['Steel Drive','04:00']]},
+      slow:{name:'Slow Weekend',description:'A relaxed soundtrack for unhurried escapes.',tracks:[['Tan Leather','04:19'],['Sunday Wash','03:58'],['Quiet Buckle','04:11'],['Soft Denim','03:43']]}
+    }
+  },
+  p6: {
+    id:'p6', code:'OBJ / 06', passport:'HB-P6-006', name:'Midnight Rolltop', price:60, category:'carry', badge:'SALE',
+    image:'assets/products/p6-midnight-rolltop.png', cardImage:'assets/products/p6-midnight-rolltop.jpg', images:['assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png'],
+    colors:[{name:'Midnight',hex:'#0b1240'},{name:'Charcoal',hex:'#14163a'}], sizes:['18L','24L'],
+    subtitle:'Roll-top commuter backpack', kicker:'Daily commuter object',
+    description:'Roll-top commuter with padded 16" laptop sleeve, magnetic buckle and hidden anti-theft zip.',
+    specs:[['Material','Ballistic nylon'],['Capacity','18–24L'],['Weight','0.9 kg'],['Warranty','Lifetime zipper'],['Colors','Midnight / Charcoal'],['Sizes','18L / 24L']],
+    mood:{label:'Efficient / Urban',quiet:55,urban:80,trip:24},
+    passportData:{material:'Ballistic nylon',service:'Zip + buckle service path',care:'Wipe daily-use grime weekly',role:'Daily commute'},
+    pack:['Laptop', 'Notebook', 'Cables', 'Water bottle', 'Umbrella'],
+    playlists:{
+      focused:{name:'Commute Focus',description:'Steady tempo for the daily roll-top ride.',tracks:[['Roll and Go','03:17'],['Magnetic Line','03:45'],['Midnight Commute','03:58'],['Sleeve Mode','03:29']]},
+      electric:{name:'City Sprint',description:'Fast energy for catching the next train.',tracks:[['Platform Rush','03:08'],['Buckle Up','03:31'],['Anti-Theft','03:44'],['Charcoal Pulse','03:20']]},
+      slow:{name:'Late Commute',description:'A softer pace for the evening ride home.',tracks:[['Rolled Down','04:06'],['Quiet Buckle','03:49'],['Charcoal Hour','04:17'],['Soft Magnet','03:52']]}
+    }
+  },
+  p7: {
+    id:'p7', code:'OBJ / 07', passport:'HB-P7-007', name:'Heritage Backpack', price:69, category:'carry', badge:null,
+    image:'assets/products/p7-heritage-backpack.png', cardImage:'assets/products/p7-heritage-backpack.jpg', images:['assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png'],
+    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Tan',hex:'#8e6b4a'}], sizes:['20L','28L'],
+    subtitle:'Waxed canvas heritage pack', kicker:'Heritage travel object',
+    description:'Waxed canvas, dual cargo pockets and leather buckle straps. Built like luggage from another era.',
+    specs:[['Material','Waxed canvas'],['Capacity','20–28L'],['Weight','1.1 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Tan'],['Sizes','20L / 28L']],
+    mood:{label:'Rugged / Timeless',quiet:60,urban:42,trip:36},
+    passportData:{material:'Waxed canvas / leather buckles',service:'Buckle + strap service path',care:'Re-wax canvas yearly',role:'Heritage carry'},
+    pack:['Laptop', 'Notebook', 'Wash kit', 'Jacket', 'Water bottle'],
+    playlists:{
+      focused:{name:'Old World Carry',description:'Grounded sound for heritage travel.',tracks:[['Waxed Canvas','03:26'],['Leather Buckle','03:54'],['Field Notes','04:02'],['Cargo Pocket','03:33']]},
+      electric:{name:'New Ground',description:'Forward energy for modern movement.',tracks:[['Olive Voltage','03:14'],['Buckle Strap','03:41'],['Fast Trail','03:53'],['Tan Current','03:25']]},
+      slow:{name:'Slow Trail',description:'A patient soundtrack for older-era travel.',tracks:[['Dust Road','04:21'],['Canvas Hour','03:56'],['Leather Desk','04:09'],['Soft Buckle','03:47']]}
+    }
+  },
+  p8: {
+    id:'p8', code:'OBJ / 08', passport:'HB-P8-008', name:'City Sling', price:38, category:'carry', badge:'SALE',
+    image:'assets/products/p8-grey-sling.png', cardImage:'assets/products/p8-grey-sling.jpg', images:['assets/products/p8-grey-sling.png','assets/products/alt-black-crossbody.png'],
+    colors:[{name:'Grey',hex:'#7d818c'},{name:'Navy',hex:'#0b1240'}], sizes:['One Size'],
+    subtitle:'Compact essentials sling', kicker:'Fast-access city object',
+    description:'Compact crossbody for essentials — phone, wallet, keys, charger.',
+    specs:[['Material','Canvas + leather'],['Capacity','4L'],['Weight','0.35 kg'],['Warranty','Lifetime zipper'],['Colors','Grey / Navy'],['Sizes','One Size']],
+    mood:{label:'Electric / Immediate',quiet:28,urban:88,trip:14},
+    passportData:{material:'Canvas + leather',service:'Strap replacement path',care:'Spot-clean weekly',role:'Essential carry'},
+    pack:['Phone', 'Wallet', 'Keys', 'Earbuds', 'Cards'],
+    playlists:{
+      focused:{name:'Close Carry',description:'Minimal sound for essentials-only movement.',tracks:[['No Excess','02:48'],['One Pocket','03:22'],['Clear Route','03:19'],['Fast Entry','02:57']]},
+      electric:{name:'Street Voltage',description:'High pulse for compressed city movement.',tracks:[['Signal Green','03:05'],['Corner Speed','03:32'],['Neon Crosswalk','03:18'],['Afterimage','03:49']]},
+      slow:{name:'Pocket Afternoon',description:'A low-key soundtrack for drifting through a city.',tracks:[['Side Street','03:50'],['Museum Hour','04:18'],['Soft Concrete','03:45'],['No Reservation','04:02']]}
+    }
+  },
+  p9: {
+    id:'p9', code:'OBJ / 09', passport:'HB-P9-009', name:'Aero Gym Duffel', price:55, category:'luggage', badge:'SALE',
+    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png'],
+    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Black',hex:'#14163a'}], sizes:['30L','40L'],
+    subtitle:'Lightweight gym-to-office duffel', kicker:'Everyday performance object',
+    description:'Lightweight gym-to-office duffel with ventilated shoe garage and wet pocket.',
+    specs:[['Material','Poly canvas'],['Capacity','30–40L'],['Weight','1.0 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Black'],['Sizes','30L / 40L']],
+    mood:{label:'Active / Unfussy',quiet:40,urban:62,trip:38},
+    passportData:{material:'Poly canvas',service:'Zip + vent service path',care:'Air out after gym use',role:'Performance carry'},
+    pack:['Gym kit', 'Shoes', 'Towel', 'Wash kit', 'Water bottle'],
+    playlists:{
+      focused:{name:'Gym Focus',description:'Efficient tempo for gym-to-office days.',tracks:[['Rep Count','03:10'],['Shoe Garage','03:36'],['Wet Pocket','03:22'],['Reset','03:48']]},
+      electric:{name:'Aero Push',description:'High energy for a fast session.',tracks:[['Full Send','02:59'],['Aero Line','03:14'],['Sweat Voltage','03:27'],['Last Set','03:05']]},
+      slow:{name:'Cool Down',description:'A gentle wind-down soundtrack.',tracks:[['Stretch Room','04:02'],['Quiet Locker','03:44'],['Slow Breath','04:15'],['Recovery','03:38']]}
+    }
+  },
+  p10: {
+    id:'p10', code:'OBJ / 10', passport:'HB-P10-010', name:'Transit Daypack', price:53, category:'carry', badge:'NEW',
+    image:'assets/products/p6-midnight-rolltop.png', cardImage:'assets/products/p6-midnight-rolltop.jpg', images:['assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png'],
+    colors:[{name:'Midnight',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['16L','22L'],
+    subtitle:'Minimal commuter daypack', kicker:'Transit-ready object',
+    description:'Minimal daypack with quick-access top pocket, USB pass-through and luggage pass-through strap.',
+    specs:[['Material','Recycled nylon'],['Capacity','16–22L'],['Weight','0.75 kg'],['Warranty','Lifetime zipper'],['Colors','Midnight / Ice'],['Sizes','16L / 22L']],
+    mood:{label:'Minimal / Punctual',quiet:52,urban:76,trip:20},
+    passportData:{material:'Recycled nylon',service:'Strap + zip service path',care:'Wipe weekly',role:'Transit carry'},
+    pack:['Laptop', 'Notebook', 'Cables', 'Water bottle'],
+    playlists:{
+      focused:{name:'Quick Access',description:'Minimal rhythm for the daily transit hop.',tracks:[['Top Pocket','03:11'],['Pass-Through','03:34'],['Ice Line','03:20'],['Sync Complete','03:42']]},
+      electric:{name:'Fast Transit',description:'Bright energy for a quick city hop.',tracks:[['USB Ready','03:03'],['Ice Voltage','03:27'],['Quick Hop','03:15'],['Charge On','03:36']]},
+      slow:{name:'Slow Transit',description:'A calmer pace for the last leg home.',tracks:[['Soft Ice','04:08'],['Minimal Line','03:51'],['Quiet Pass','04:01'],['Evening Hop','03:47']]}
+    }
+  },
+  p11: {
+    id:'p11', code:'OBJ / 11', passport:'HB-P11-011', name:'Voyager Smart Edition', price:154, category:'system', badge:'SMART',
+    image:'assets/products/p3-navy-voyager-duffel.png', cardImage:'assets/products/p3-navy-voyager-duffel.jpg', images:['assets/products/p3-navy-voyager-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p4-smart-duffel-ivory.png'],
+    colors:[{name:'Navy',hex:'#0b1240'},{name:'Sky',hex:'#8fd4ec'}], sizes:['45L'],
+    subtitle:'Voyager, upgraded', kicker:'Connected travel object',
+    description:'The Voyager, upgraded. Integrated power bank, GPS tracker pocket and reactive trim lighting.',
+    specs:[['Material','Tech canvas DWR'],['Capacity','45L'],['Weight','1.85 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Navy / Sky'],['Sizes','45L']],
+    mood:{label:'Connected / Composed',quiet:56,urban:58,trip:74},
+    passportData:{material:'Tech canvas DWR / electronics core',service:'Battery + GPS diagnostics',care:'Charge core every 30 days',role:'Connected voyage'},
+    pack:['Laptop', 'Power bank', 'GPS tag', '3 shirts', 'Wash kit', 'Cables'],
+    playlists:{
+      focused:{name:'Upgraded Log',description:'Controlled rhythm for the connected voyage.',tracks:[['GPS Lock','03:24'],['Power Route','03:49'],['Sky Signal','03:37'],['Compass Sync','04:03']]},
+      electric:{name:'Voltage Voyage',description:'Reactive energy for the upgraded object.',tracks:[['Trim Voltage','03:11'],['Fast Sky','03:33'],['Live Trace','03:46'],['Bright Route','03:20']]},
+      slow:{name:'Slow Signal',description:'Ambient calm while the tracker stays quiet.',tracks:[['Low Power','04:17'],['Soft Sky','03:59'],['Quiet Compass','04:22'],['Sky Drift','03:44']]}
+    }
+  },
+  p12: {
+    id:'p12', code:'OBJ / 12', passport:'HB-P12-012', name:'Compact Sling Mini', price:31, category:'carry', badge:'SALE',
+    image:'assets/products/p8-grey-sling.png', cardImage:'assets/products/p8-grey-sling.jpg', images:['assets/products/p8-grey-sling.png','assets/products/alt-black-crossbody-front.png'],
+    colors:[{name:'Grey',hex:'#7d818c'},{name:'Tan',hex:'#8e6b4a'}], sizes:['One Size'],
+    subtitle:'The going-out sling', kicker:'Essential night-out object',
+    description:'The going-out sling for nights when you only need the essentials.',
+    specs:[['Material','Canvas'],['Capacity','2.5L'],['Weight','0.28 kg'],['Warranty','Lifetime zipper'],['Colors','Grey / Tan'],['Sizes','One Size']],
+    mood:{label:'Electric / Social',quiet:22,urban:84,trip:10},
+    passportData:{material:'Canvas',service:'Strap replacement path',care:'Spot-clean after use',role:'Night-out carry'},
+    pack:['Phone', 'Wallet', 'Keys', 'Lip balm'],
+    playlists:{
+      focused:{name:'Night Prep',description:'Minimal build-up for the going-out sling.',tracks:[['Small Bag','02:44'],['Keys Down','03:02'],['Lip and Phone','02:51'],['Ready to Go','03:09']]},
+      electric:{name:'Going Out',description:'High pulse for a night on the move.',tracks:[['Grey Voltage','02:58'],['Tan Line','03:14'],['Fast Exit','02:47'],['Night Signal','03:21']]},
+      slow:{name:'Late Night Walk',description:'A low-key soundtrack for the walk home.',tracks:[['Streetlight','03:52'],['Quiet Sling','03:38'],['Soft Tan','04:01'],['Last Call','03:29']]}
+    }
+  },
+  p13: {
+    id:'p13', code:'OBJ / 13', passport:'HB-P13-013', name:'Metropolitan XL', price:88, category:'luggage', badge:null,
+    image:'assets/products/p2-navy-metropolitan-duffel.png', cardImage:'assets/products/p2-navy-metropolitan-duffel.jpg', images:['assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-steel-duffel.png'],
+    colors:[{name:'Navy',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['60L','70L'],
+    subtitle:'Two-week capacity duffel', kicker:'Extended travel object',
+    description:'Two-week capacity Metropolitan with compression straps and separate shoe compartment.',
+    specs:[['Material','Tech canvas'],['Capacity','60–70L'],['Weight','2.1 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Ice'],['Sizes','60L / 70L']],
+    mood:{label:'Expansive / Composed',quiet:62,urban:66,trip:90},
+    passportData:{material:'Tech canvas',service:'Compression + zipper service',care:'Air after long trips',role:'Extended travel'},
+    pack:['6 shirts', '3 trousers', 'Shoes', 'Wash kit', 'Jacket', 'Compression cubes'],
+    playlists:{
+      focused:{name:'Long Metro',description:'Steady rhythm for two-week capacity travel.',tracks:[['Compression Set','03:31'],['Shoe Bay','03:57'],['Ice Line XL','04:05'],['Full Load','03:40']]},
+      electric:{name:'Metro Overdrive',description:'Energy for ambitious packing and long trips.',tracks:[['Extra Day','03:20'],['One More Layer','03:41'],['Zip Pressure','03:18'],['Still Fits','03:52']]},
+      slow:{name:'Slow XL',description:'A patient soundtrack for the long haul.',tracks:[['Wide Load','04:23'],['Soft Compression','04:02'],['Quiet Ice','04:16'],['Steel Rest','03:49']]}
+    }
+  },
+  p14: {
+    id:'p14', code:'OBJ / 14', passport:'HB-P14-014', name:'Trailhead Backpack', price:65, category:'carry', badge:null,
+    image:'assets/products/p7-heritage-backpack.png', cardImage:'assets/products/p7-heritage-backpack.jpg', images:['assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png'],
+    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Charcoal',hex:'#14163a'}], sizes:['24L','32L'],
+    subtitle:'Weekend-trail ready pack', kicker:'Trail-ready object',
+    description:'Weekend-trail ready: hydration sleeve, top-load main and weatherproof base.',
+    specs:[['Material','Ripstop nylon'],['Capacity','24–32L'],['Weight','1.05 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Charcoal'],['Sizes','24L / 32L']],
+    mood:{label:'Rugged / Ready',quiet:58,urban:24,trip:50},
+    passportData:{material:'Ripstop nylon',service:'Base + strap service path',care:'Rinse base after trail use',role:'Trail carry'},
+    pack:['Hydration bottle', 'Rain shell', 'Wash kit', 'Trail snacks', 'First-aid kit'],
+    playlists:{
+      focused:{name:'Trailhead Focus',description:'Grounded tempo for weekend trails.',tracks:[['Ripstop Line','03:22'],['Hydration Check','03:47'],['Base Camp','03:35'],['Trail Ready','03:14']]},
+      electric:{name:'Trail Push',description:'Energy for the climb.',tracks:[['Switchback','03:05'],['Ridge Line','03:29'],['Fast Ascent','03:18'],['Summit Push','03:41']]},
+      slow:{name:'Slow Trail',description:'A patient soundtrack for the way down.',tracks:[['Quiet Descent','04:11'],['Soft Base','03:54'],['Evening Camp','04:19'],['Trail Rest','03:47']]}
+    }
+  },
+  p15: {
+    id:'p15', code:'OBJ / 15', passport:'HB-P15-015', name:'HABÄNE 01 — Lunar Edition', price:176, category:'system', badge:'PREBOOK',
+    image:'assets/products/p4-smart-duffel-ivory.png', cardImage:'assets/products/p4-smart-duffel-ivory.jpg', images:['assets/products/p4-smart-duffel-ivory.png','assets/products/alt-white-duffel.png','assets/products/alt-steel-duffel.png'],
+    colors:[{name:'Lunar',hex:'#e8eaef'},{name:'Eclipse',hex:'#0b1240'}], sizes:['45L'],
+    subtitle:'Numbered first drop', kicker:'Limited flagship object',
+    description:'Our first numbered drop. 300 pieces, each laser-etched with its own Nº. Lunar-grey tech canvas, brass hardware, full smart core — and it never restocks.',
+    specs:[['Material','Lunar tech canvas + brass'],['Capacity','45L'],['Weight','1.75 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Lunar / Eclipse'],['Sizes','45L']],
+    mood:{label:'Rare / Precise',quiet:66,urban:56,trip:68},
+    passportData:{material:'Lunar tech canvas + brass',service:'Numbered unit diagnostics',care:'Charge core every 30 days',role:'Limited flagship'},
+    pack:['Laptop', 'Power bank', 'GPS tag', '3 shirts', 'Wash kit', 'Charger'],
+    playlists:{
+      focused:{name:'Numbered Unit',description:'Precise rhythm for a limited first drop.',tracks:[['Lunar Line','03:29'],['Brass Etch','03:52'],['Unit 01','03:36'],['Eclipse Set','04:04']]},
+      electric:{name:'First Drop',description:'Bright energy for a release that never restocks.',tracks:[['Lunar Voltage','03:10'],['Etched Fast','03:33'],['Rare Signal','03:21'],['Drop Night','03:47']]},
+      slow:{name:'Eclipse Hour',description:'Ambient calm for the numbered edition.',tracks:[['Lunar Glow','04:20'],['Quiet Brass','03:58'],['Soft Eclipse','04:12'],['Last Unit','03:44']]}
+    }
+  }
+};
+
+const state = {
+  activeProduct:'p1',
+  cart:[],
+  compare:[],
+  matcher:{duration:'short',mode:'air',mood:'focused'},
+  packSelected:new Set(),
+  playlistMood:'focused',
+  audio:{playing:false,timer:null,progress:0,trackIndex:0}
+};
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const money=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+const lock=v=>document.body.classList.toggle('is-locked',v);
+function toast(message){const el=$('[data-toast]');el.textContent=message;el.classList.add('is-visible');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('is-visible'),2200)}
+
+function productPhoto(product,extraClass,src){return `<img class="product-photo${extraClass?' '+extraClass:''}" src="${src||product.image}" alt="${product.name}" loading="lazy">`}
+function createProductCards(){
+  const grid=$('[data-product-grid]');
+  const total=Object.keys(products).length;
+  grid.innerHTML=Object.values(products).map((p,index)=>`<article class="product-card" data-category="${p.category}" data-product-card="${p.id}">
+    <div class="product-card__media">${p.badge?`<span class="product-badge">${p.badge}</span>`:''}<button class="product-favourite" type="button" aria-label="Save ${p.name}">♡</button>${productPhoto(p,null,p.cardImage)}<div class="product-code"><span>${p.code}</span><span>${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</span></div></div>
+    <div class="product-card__body"><div><h3>${p.name}</h3><p>${p.subtitle}</p></div><strong>${money(p.price)}</strong></div>
+    <div class="product-card__actions"><button type="button" data-experience="${p.id}">Experience object</button><button type="button" data-card-add="${p.id}" aria-label="Add ${p.name} to bag">+</button></div>
+  </article>`).join('');
+  bindDynamicButtons();
+}
+
+function bindDynamicButtons(){
+  $$('[data-experience]').forEach(btn=>btn.onclick=()=>openProduct(btn.dataset.experience));
+  $$('[data-card-add]').forEach(btn=>btn.onclick=()=>addToCart(btn.dataset.cardAdd));
+  $$('.product-favourite').forEach(btn=>btn.onclick=()=>{btn.classList.toggle('is-saved');btn.textContent=btn.classList.contains('is-saved')?'♥':'♡';toast(btn.classList.contains('is-saved')?'Saved to your movement list':'Removed from movement list')});
+}
+
+function openProduct(id){
+  const p=products[id]; if(!p)return;
+  state.activeProduct=id; state.packSelected=new Set(); state.playlistMood='focused';
+  $('[data-product-code]').textContent=p.code;
+  $('[data-product-kicker]').textContent=p.kicker;
+  $('[data-product-name]').textContent=p.name;
+  $('[data-product-description]').textContent=p.description;
+  if($('[data-product-accordion]')){
+    const spec=label=>{const s=p.specs.find(([k])=>k.toLowerCase()===label.toLowerCase());return s?s[1]:''};
+    $('[data-accordion-details]').textContent=`${p.description} Built for ${p.passportData.role.toLowerCase()}, weighing ${spec('Weight')} with ${spec('Warranty').toLowerCase()}.`;
+    $('[data-accordion-materials]').textContent=`${p.passportData.material}. Available in ${spec('Colors')}, sized ${spec('Sizes')}.`;
+    $('[data-accordion-care]').textContent=`${p.passportData.service}. ${p.passportData.care}.`;
+    $$('[data-accordion-panel]').forEach(panel=>panel.style.maxHeight='0px');
+    $$('[data-accordion-toggle]').forEach(toggle=>toggle.setAttribute('aria-expanded','false'));
+  }
+  $('[data-product-price]').textContent=money(p.price);
+  $('[data-dialog-price]').textContent=money(p.price);
+  const shape=$('[data-product-shape]'); shape.src=p.image; shape.alt=p.name;
+  $('[data-product-specs]').innerHTML=p.specs.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('');
+  $('[data-product-mood-label]').textContent=p.mood.label;
+  $('[data-dna-quiet]').style.width=`${p.mood.quiet}%`;
+  $('[data-dna-urban]').style.width=`${p.mood.urban}%`;
+  $('[data-dna-trip]').style.width=`${p.mood.trip}%`;
+  $('[data-passport-id]').textContent=p.passport;
+  $('[data-passport-material]').textContent=p.passportData.material;
+  $('[data-passport-service]').textContent=p.passportData.service;
+  $('[data-passport-care]').textContent=p.passportData.care;
+  $('[data-passport-role]').textContent=p.passportData.role;
+  renderPackItems(); renderPlaylist(); activateTab('overview'); setScene('airport'); syncSoundArt();
+  const dialog=$('[data-product-dialog]'); if(!dialog.open)dialog.showModal(); lock(true);
+}
+function closeProduct(){const d=$('[data-product-dialog]');if(d.open)d.close();lock(false)}
+
+function activateTab(tab){$$('[data-tab]').forEach(b=>b.classList.toggle('is-active',b.dataset.tab===tab));$$('[data-panel]').forEach(p=>p.classList.toggle('is-active',p.dataset.panel===tab))}
+function renderPackItems(){
+  const p=products[state.activeProduct];
+  $('[data-pack-items]').innerHTML=p.pack.map((item,i)=>`<button type="button" data-pack-item="${i}">${item}</button>`).join('');
+  $('[data-pack-used]').textContent='0'; $('[data-capacity-fill]').style.width='0%'; $('[data-capacity-message]').textContent='Select items to test the fit.';
+  $$('[data-pack-item]').forEach(btn=>btn.onclick=()=>{const i=Number(btn.dataset.packItem);state.packSelected.has(i)?state.packSelected.delete(i):state.packSelected.add(i);btn.classList.toggle('is-active');updateCapacity()});
+}
+function updateCapacity(){
+  const p=products[state.activeProduct]; const count=state.packSelected.size; const usage=Math.min(100,Math.round((count/Math.max(4,p.pack.length))*95));
+  $('[data-pack-used]').textContent=usage; $('[data-capacity-fill]').style.width=`${usage}%`;
+  $('[data-capacity-message]').textContent=usage<45?'Room remains for the unexpected.':usage<80?'Balanced for this object.':'Near capacity—consider a larger object or remove one layer.';
+}
+function renderPlaylist(){
+  const p=products[state.activeProduct], list=p.playlists[state.playlistMood];
+  if($('[data-playlist-name]')) $('[data-playlist-name]').textContent=list.name;
+  if($('[data-playlist-description]')) $('[data-playlist-description]').textContent=list.description;
+  if($('[data-track-list]')) $('[data-track-list]').innerHTML=list.tracks.map(([name,time])=>`<li><b>${name}</b><span>${time}</span></li>`).join('');
+  if($('[data-mood-selector]')) $$('[data-mood]', $('[data-mood-selector]')).forEach(b=>b.classList.toggle('is-active',b.dataset.mood===state.playlistMood));
+}
+function setScene(scene){
+  const el=$('[data-scene]'); el.className=`product-scene product-scene--${scene}`;
+  $('[data-scene-label]').textContent=scene==='airport'?'AIRPORT / 05:42':scene==='night'?'NIGHT CITY / 23:14':'QUIET HOTEL / 08:20';
+  $$('[data-scene-option]').forEach(b=>b.classList.toggle('is-active',b.dataset.sceneOption===scene));
+}
+
+function recommend(){
+  const {duration,mode,mood}=state.matcher;
+  let id='p1';
+  if(duration==='long') id='p13';
+  else if(mode==='city'&&mood==='electric') id='p12';
+  else if(mode==='city') id='p6';
+  else if(mode==='rail'&&duration==='medium') id='p6';
+  else if(mood==='slow'&&duration==='short') id='p6';
+  else if(duration==='medium'&&mode==='air') id='p1';
+  const p=products[id];
+  $('[data-match-code]').textContent=p.code; $('[data-match-name]').textContent=p.name; $('[data-match-price]').textContent=money(p.price);
+  $('[data-match-reason]').textContent=`Best for ${duration==='short'?'short':duration==='medium'?'medium-length':'extended'}, ${mood} ${mode} travel.`;
+  const s=$('[data-match-shape]');s.src=p.image;s.alt=p.name; $('[data-match-open]').dataset.matchId=id;
+}
+
+function addToCart(id){const item=state.cart.find(i=>i.id===id);item?item.qty++:state.cart.push({id,qty:1});updateCart();toast(`${products[id].name} added`)}
+function updateCart(){
+  const count=state.cart.reduce((a,b)=>a+b.qty,0), subtotal=state.cart.reduce((a,b)=>a+products[b.id].price*b.qty,0);
+  $$('[data-cart-count]').forEach(el=>el.textContent=count);
+  const items=$('[data-cart-items]'), summary=$('[data-cart-summary]');
+  if(!count){items.innerHTML='<div class="empty-state"><span>00</span><h3>Your movement system is empty.</h3><button type="button" data-empty-shop>Explore the ten objects →</button></div>';summary.hidden=true;$('[data-cart-progress]').style.width='0%';$('[data-cart-progress-label]').textContent='Add €250 for complimentary EU delivery.';$('[data-empty-shop]').onclick=()=>{closeDrawer();location.hash='shop'};return}
+  items.innerHTML=state.cart.map(item=>{const p=products[item.id];return `<article class="cart-item"><div class="cart-item__image">${productPhoto(p)}</div><div><h3>${p.name}</h3><p>${p.colors[0].name} / ${p.sizes[0]}</p><div class="cart-item__qty"><button data-dec="${p.id}">−</button><span>${item.qty}</span><button data-inc="${p.id}">+</button></div></div><div class="cart-item__end"><strong>${money(p.price*item.qty)}</strong><button data-remove="${p.id}">Remove</button></div></article>`}).join('');
+  summary.hidden=false;$('[data-cart-subtotal]').textContent=money(subtotal);$('[data-cart-progress]').style.width=`${Math.min(100,subtotal/250*100)}%`;$('[data-cart-progress-label]').textContent=subtotal>=250?'Complimentary EU delivery unlocked.':`Add ${money(250-subtotal)} for complimentary EU delivery.`;
+  $$('[data-inc]',items).forEach(b=>b.onclick=()=>{state.cart.find(i=>i.id===b.dataset.inc).qty++;updateCart()});
+  $$('[data-dec]',items).forEach(b=>b.onclick=()=>{const i=state.cart.find(x=>x.id===b.dataset.dec);i.qty--;if(i.qty<1)state.cart=state.cart.filter(x=>x.id!==i.id);updateCart()});
+  $$('[data-remove]',items).forEach(b=>b.onclick=()=>{state.cart=state.cart.filter(i=>i.id!==b.dataset.remove);updateCart()});
+}
+function addCompare(id){if(state.compare.includes(id)){openDrawer('compare');return}if(state.compare.length>=3){toast('Compare up to three objects');return}state.compare.push(id);updateCompare();openDrawer('compare')}
+function updateCompare(){
+  $$('[data-compare-count]').forEach(el=>el.textContent=state.compare.length);
+  const wrap=$('[data-compare-content]');
+  if(!state.compare.length){wrap.innerHTML='<div class="compare-empty"><h3>No objects selected.</h3><p>Add up to three objects from any product experience.</p></div>';return}
+  const rows=['Price','Material','Capacity','Weight','Warranty'];
+  const selected=state.compare.map(id=>products[id]);
+  wrap.innerHTML=`<div class="compare-table" style="--compare-count:${selected.length}"><div class="label">Object</div>${selected.map(p=>`<div class="compare-product"><h3>${p.name}</h3><button data-compare-remove="${p.id}">Remove</button></div>`).join('')}${rows.map((label,row)=>`<div class="label">${label}</div>${selected.map(p=>`<div>${row===0?money(p.price):(p.specs.find(s=>s[0]===label)||['','—'])[1]}</div>`).join('')}`).join('')}</div>`;
+  $$('[data-compare-remove]',wrap).forEach(b=>b.onclick=()=>{state.compare=state.compare.filter(id=>id!==b.dataset.compareRemove);updateCompare()});
+}
+
+function openDrawer(type){closeProduct();const drawer=$(`[data-${type}-drawer]`);drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');$('[data-scrim]').classList.add('is-visible');lock(true)}
+function closeDrawer(){$$('[data-cart-drawer],[data-compare-drawer]').forEach(d=>{d.classList.remove('is-open');d.setAttribute('aria-hidden','true')});$('[data-scrim]').classList.remove('is-visible');lock(false)}
+function openSearch(){$('[data-search-overlay]').classList.add('is-open');$('[data-search-overlay]').setAttribute('aria-hidden','false');lock(true);renderSearchResults(Object.values(products).slice(0,6));setTimeout(()=>$('#site-search').focus(),350)}
+function closeSearch(){$('[data-search-overlay]').classList.remove('is-open');$('[data-search-overlay]').setAttribute('aria-hidden','true');lock(false)}
+function renderSearchResults(list){$('[data-search-results]').innerHTML=list.slice(0,6).map(p=>`<button type="button" data-search-product="${p.id}"><small>${p.code} / ${p.category}</small><b>${p.name}</b><span>${money(p.price)}</span></button>`).join('');$$('[data-search-product]').forEach(b=>b.onclick=()=>{closeSearch();openProduct(b.dataset.searchProduct)})}
+
+function syncSoundArt(){const art=$('[data-sound-art]');if(art) art.classList.toggle('is-playing',state.audio.playing);const btn=$('[data-playlist-play]');if(btn) btn.classList.toggle('is-playing',state.audio.playing)}
+function startPlaylist(){
+  const p=products[state.activeProduct], playlist=p.playlists[state.playlistMood];state.audio.playing=true;state.audio.progress=0;state.audio.trackIndex=0;
+  $('[data-audio-product]').textContent=p.name;$('[data-audio-track]').textContent=playlist.tracks[0][0];$('[data-audio-bar]').classList.add('is-visible');$('[data-audio-bar]').setAttribute('aria-hidden','false');$('[data-audio-toggle]').textContent='Ⅱ';syncSoundArt();
+  clearInterval(state.audio.timer);state.audio.timer=setInterval(()=>{if(!state.audio.playing)return;state.audio.progress+=.7;if(state.audio.progress>=100){state.audio.progress=0;state.audio.trackIndex=(state.audio.trackIndex+1)%playlist.tracks.length;$('[data-audio-track]').textContent=playlist.tracks[state.audio.trackIndex][0]}$('[data-audio-progress]').style.width=`${state.audio.progress}%`;const soundProgress=$('[data-sound-progress]');if(soundProgress)soundProgress.style.width=`${state.audio.progress}%`;const seconds=Math.floor(state.audio.progress*2.4);$('[data-audio-time]').textContent=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`},700);
+}
+function stopAudio(){clearInterval(state.audio.timer);state.audio.playing=false;$('[data-audio-bar]').classList.remove('is-visible');$('[data-audio-bar]').setAttribute('aria-hidden','true');syncSoundArt()}
+
+createProductCards(); updateCart(); updateCompare(); recommend();
+
+$('[data-announcement-close]').onclick=()=>{$('[data-announcement]').classList.add('is-hidden');document.documentElement.style.setProperty('--announcement-h','0px')};
+window.addEventListener('scroll',()=>{$('[data-header]').classList.toggle('is-condensed',scrollY>60)},{passive:true});
+
+(function announcementRotator(){
+  const slides=$$('.announcement__slide');
+  if(slides.length<2) return;
+  let active=slides.findIndex(s=>s.classList.contains('is-active'));
+  if(active<0) active=0;
+  setInterval(()=>{
+    const next=(active+1)%slides.length;
+    slides[active].classList.remove('is-active');
+    slides[active].classList.add('is-leaving');
+    slides[next].classList.add('is-active');
+    setTimeout(()=>slides[active].classList.remove('is-leaving'),500);
+    active=next;
+  },4200);
+})();
+$('[data-menu-open]').onclick=()=>{$('[data-mobile-menu]').classList.add('is-open');$('[data-mobile-menu]').setAttribute('aria-hidden','false');lock(true)};
+$('[data-menu-close]').onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');$('[data-mobile-menu]').setAttribute('aria-hidden','true');lock(false)};
+$$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');lock(false)});
+
+$$('[data-matcher-group]').forEach(group=>$$('button',group).forEach(btn=>btn.onclick=()=>{$$('button',group).forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active');state.matcher[group.dataset.matcherGroup]=btn.dataset.value;recommend()}));
+$('[data-match-open]').onclick=e=>openProduct(e.currentTarget.dataset.matchId||'p1');
+
+$$('[data-filter]').forEach(btn=>btn.onclick=()=>{$$('[data-filter]').forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active');$$('[data-product-card]').forEach(card=>card.classList.toggle('is-hidden',btn.dataset.filter!=='all'&&card.dataset.category!==btn.dataset.filter))});
+$('[data-sort]').onclick=()=>{const grid=$('[data-product-grid]');$$('[data-product-card]',grid).reverse().forEach(card=>grid.appendChild(card));toast('Product order reversed')};
+
+$('[data-product-close]').onclick=closeProduct;
+$('[data-product-dialog]').addEventListener('click',e=>{if(e.target===$('[data-product-dialog]'))closeProduct()});
+$$('[data-tab]').forEach(btn=>btn.onclick=()=>activateTab(btn.dataset.tab));
+$$('[data-scene-option]').forEach(btn=>btn.onclick=()=>setScene(btn.dataset.sceneOption));
+$$('.swatches button').forEach(btn=>btn.onclick=()=>{$$('.swatches button').forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active')});
+$$('[data-mood]').forEach(btn=>btn.onclick=()=>{state.playlistMood=btn.dataset.mood;renderPlaylist()});
+$('[data-playlist-play]').onclick=()=>{
+  if($('[data-audio-bar]').classList.contains('is-visible')){
+    state.audio.playing=!state.audio.playing;
+    $('[data-audio-toggle]').textContent=state.audio.playing?'Ⅱ':'▶';
+    syncSoundArt();
+  } else {
+    startPlaylist();
+  }
+};
+$('[data-dialog-add]').onclick=()=>{addToCart(state.activeProduct);closeProduct();openDrawer('cart')};
+$('[data-dialog-compare]').onclick=()=>addCompare(state.activeProduct);
+$('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
+$$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
+  const panel=toggle.nextElementSibling;
+  const open=toggle.getAttribute('aria-expanded')==='true';
+  toggle.setAttribute('aria-expanded',String(!open));
+  panel.style.maxHeight=open?'0px':panel.scrollHeight+'px';
+});
+
+$('[data-cart-open]').onclick=()=>openDrawer('cart');$('[data-cart-close]').onclick=closeDrawer;$('[data-compare-close]').onclick=closeDrawer;$('[data-scrim]').onclick=closeDrawer;
+$('[data-checkout]').onclick=()=>toast('Checkout is intentionally disabled in this prototype');
+
+$('[data-search-open]').onclick=openSearch;$('[data-search-close]').onclick=closeSearch;
+$('[data-search-form]').onsubmit=e=>{e.preventDefault();const term=$('#site-search').value.trim().toLowerCase();const matches=Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category} ${p.description}`.toLowerCase().includes(term));renderSearchResults(matches.length?matches:Object.values(products).slice(0,6))};
+$('#site-search').addEventListener('input',e=>{const term=e.target.value.trim().toLowerCase();renderSearchResults(Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category}`.toLowerCase().includes(term)))})
+
+$('[data-audio-toggle]').onclick=()=>{state.audio.playing=!state.audio.playing;$('[data-audio-toggle]').textContent=state.audio.playing?'Ⅱ':'▶';syncSoundArt()};$('[data-audio-close]').onclick=stopAudio;
+$('[data-newsletter-form]').onsubmit=e=>{e.preventDefault();$('[data-newsletter-status]').textContent='You are inside the movement.';e.target.reset()};
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('[data-search-overlay]').classList.contains('is-open'))closeSearch();else if($('[data-cart-drawer]').classList.contains('is-open')||$('[data-compare-drawer]').classList.contains('is-open'))closeDrawer();else if($('[data-product-dialog]').open)closeProduct()}});
+
+if($('[data-region]')){
+  const regionBtn=$('[data-region]');
+  let regionCode='US',regionName='your region';
+  try{
+    const loc=navigator.language||'en-US';
+    regionCode=(loc.split('-')[1]||'US').toUpperCase();
+    regionBtn.textContent=regionCode.replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)));
+    regionName=new Intl.DisplayNames([loc],{type:'region'}).of(regionCode);
+    regionBtn.setAttribute('aria-label',`Shipping region: ${regionName}`);
+  }catch(e){}
+  regionBtn.onclick=()=>toast(`Shipping to ${regionName}`);
+}
+if($('[data-prebook]')) $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon — join the movement to get notified.');
+
+if($('[data-hero-carousel]')){
+  const heroSlidesData=[
+    {eyebrow:'01 / SIGNATURE CARRY',heading:'TRAVEL<br><em>INTELLIGENTLY.</em>',sub:'Fifteen objects engineered as one coherent movement system.',cta:'Shop the collection',href:'#shop'},
+    {eyebrow:'02 / CITY TO CITY',heading:'BUILT FOR<br><em>THE MOVE.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.',cta:'Find your object',href:'#matcher'},
+    {eyebrow:'03 / DEPARTURE READY',heading:'PACK ONCE.<br><em>MOVE OFTEN.</em>',sub:'Modular systems that adapt from a weekend to a full departure.',cta:'Explore ownership',href:'#ownership'}
+  ];
+  const heroSlides=$$('[data-hero-slide]');
+  const heroDots=$$('[data-hero-dot]');
+  let heroIndex=0,heroTimer;
+  function showHero(i){
+    heroSlides[heroIndex].classList.remove('is-active');
+    heroDots[heroIndex].classList.remove('is-active');
+    heroIndex=(i+heroSlides.length)%heroSlides.length;
+    heroSlides[heroIndex].classList.add('is-active');
+    heroDots[heroIndex].classList.add('is-active');
+    const d=heroSlidesData[heroIndex];
+    $('[data-hero-eyebrow]').textContent=d.eyebrow;
+    $('[data-hero-heading]').innerHTML=d.heading;
+    $('[data-hero-sub]').textContent=d.sub;
+    const cta=$('[data-hero-cta]'); cta.href=d.href; cta.innerHTML=`${d.cta} <span>↗</span>`;
+  }
+  function nextHero(){showHero(heroIndex+1)}
+  function restartHeroTimer(){clearInterval(heroTimer);heroTimer=setInterval(nextHero,6000)}
+  $('[data-hero-prev]').onclick=()=>{showHero(heroIndex-1);restartHeroTimer()};
+  $('[data-hero-next]').onclick=()=>{showHero(heroIndex+1);restartHeroTimer()};
+  heroDots.forEach((dot,i)=>dot.onclick=()=>{showHero(i);restartHeroTimer()});
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) restartHeroTimer();
+}
+
+  </script>
+</body>
+</html>
