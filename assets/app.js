@@ -539,8 +539,9 @@ window.addEventListener('scroll',()=>{$('[data-header]').classList.toggle('is-co
     active=next;
   },4200);
 })();
-$('[data-menu-open]').onclick=()=>{$('[data-mobile-menu]').classList.add('is-open');$('[data-mobile-menu]').setAttribute('aria-hidden','false');lock(true)};
-$('[data-menu-close]').onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');$('[data-mobile-menu]').setAttribute('aria-hidden','true');lock(false)};
+$('[data-menu-open]').onclick=()=>{$('[data-mobile-menu]').classList.add('is-open');$('[data-mobile-menu]').setAttribute('aria-hidden','false');$('[data-scrim]').classList.add('is-visible');lock(true)};
+$('[data-menu-close]').onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');$('[data-mobile-menu]').setAttribute('aria-hidden','true');$('[data-scrim]').classList.remove('is-visible');lock(false)};
+$('[data-scrim]').addEventListener('click',()=>{if($('[data-mobile-menu]').classList.contains('is-open'))$('[data-menu-close]').click()});
 $$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');lock(false)});
 
 if($('[data-matcher-group]')){
