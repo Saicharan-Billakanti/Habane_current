@@ -603,14 +603,25 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('[data-search-
 
 if($('[data-region]')){
   const regionBtn=$('[data-region]');
-  let regionCode='US',regionName='your region';
-  try{
-    const loc=navigator.language||'en-US';
-    regionCode=(loc.split('-')[1]||'US').toUpperCase();
-    regionBtn.textContent=regionCode.replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)));
-    regionName=new Intl.DisplayNames([loc],{type:'region'}).of(regionCode);
+  let regionName='your region';
+  function flagUrl(code){
+    const points=code.toUpperCase().split('').map(c=>(0x1F1E6+(c.charCodeAt(0)-65)).toString(16)).join('-');
+    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${points}.svg`;
+  }
+  function setRegion(code,loc){
+    try{
+      regionName=new Intl.DisplayNames([loc||'en'],{type:'region'}).of(code)||code;
+    }catch(e){ regionName=code; }
+    regionBtn.innerHTML=`<img src="${flagUrl(code)}" alt="" width="18" height="18" style="border-radius:50%;object-fit:cover" />`;
     regionBtn.setAttribute('aria-label',`Shipping region: ${regionName}`);
-  }catch(e){}
+  }
+  const loc=navigator.language||'en-US';
+  const fallbackCode=(loc.split('-')[1]||'US').toUpperCase();
+  setRegion(fallbackCode,loc);
+  fetch('https://get.geojs.io/v1/ip/geo.json',{signal:AbortSignal.timeout?AbortSignal.timeout(4000):undefined})
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(data=>{ if(data&&data.country_code) setRegion(data.country_code,loc); })
+    .catch(()=>{});
   regionBtn.onclick=()=>toast(`Shipping to ${regionName}`);
 }
 if($('[data-prebook]')) $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon — join the movement to get notified.');
