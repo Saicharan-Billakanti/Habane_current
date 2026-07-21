@@ -615,7 +615,7 @@ if(document.querySelector('.hero-carousel') && 'IntersectionObserver' in window)
     entries.forEach(entry=>{
       if(entry.isIntersecting){ entry.target.classList.add('is-revealed'); revealObserver.unobserve(entry.target); }
     });
-  },{threshold:0.12,rootMargin:'0px 0px -80px 0px'});
+  },{threshold:0,rootMargin:'0px 0px 400px 0px'});
   revealTargets.forEach(el=>revealObserver.observe(el));
 }
 
