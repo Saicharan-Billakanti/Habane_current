@@ -287,6 +287,75 @@ const money=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',ma
 const lock=v=>document.body.classList.toggle('is-locked',v);
 function toast(message){const el=$('[data-toast]');el.textContent=message;el.classList.add('is-visible');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('is-visible'),2200)}
 
+const blogPosts=[
+  {slug:'art-of-packing-light',tag:'PACKING',date:'12 JUL 2026',readTime:'4 min read',image:'assets/products/p1-olive-skyline-duffel.jpg',
+    title:'The art of packing light, without leaving anything behind.',
+    excerpt:'Three trips, one carry-on. How a tighter packing logic changes the way you move through an airport.',
+    body:['Packing light isn’t about owning less — it’s about knowing exactly what earns its place in the bag. Every object in the HABÄNE system was designed around that idea: modular compartments, compression points, and a shape that forces a decision at the zipper rather than at the check-in counter.','Start with the base layer: two days of clothing, repeatable and neutral. Add the wildcard — one item that only makes sense for this specific trip. Everything else is negotiable.','The result isn’t a smaller trip. It’s a faster one — through security, across a platform, into a taxi — because the bag was never fighting you in the first place.']},
+  {slug:'inside-the-workshop',tag:'CRAFT',date:'02 JUL 2026',readTime:'5 min read',image:'assets/products/p2-navy-metropolitan-duffel.jpg',
+    title:'Inside the workshop: what a lifetime zipper actually means.',
+    excerpt:'A close look at the vault-grade hardware and stitching decisions that sit behind every HABÄNE warranty.',
+    body:['A zipper fails in one of three ways: the teeth, the pull, or the tape it’s sewn to. Most warranties only cover one of those. Ours covers all three, because a bag that’s otherwise perfect is useless the moment its zipper gives out on a jet bridge.','Vault-grade hardware means oversized teeth, a reinforced pull with a secondary stitch point, and tape sewn with a box-and-cross pattern rather than a single straight line. It costs more per unit. It also means the zipper is very rarely the reason an object comes back to us.','This is the part of the object nobody photographs. It’s also the part that decides whether it survives ten trips or two hundred.']},
+  {slug:'five-cities-metropolitan',tag:'FIELD NOTES',date:'24 JUN 2026',readTime:'6 min read',image:'assets/products/p2-navy-metropolitan-duffel.jpg',
+    title:'Five cities that are made for the Metropolitan Duffel.',
+    excerpt:'Cabin-friendly, city-first — a short list of departures where this object earns its name.',
+    body:['Some objects are built for a single kind of trip. The Metropolitan was built for the 48-hour city loop: one cabin bag, no checked luggage, a schedule dense enough that you don’t want to think about logistics twice.','Tokyo, for the way it rewards a bag that fits in a coin locker. Lisbon, for hills that punish anything with bad straps. Amsterdam, for a city built at bicycle scale. New York, obviously. And Berlin, where the Metropolitan was first sketched, on a napkin, on a train that was eleven minutes late.','None of this is a rule. It’s just where the object has quietly proven itself, trip after trip.']},
+  {slug:'carry-vs-luggage',tag:'GUIDE',date:'15 JUN 2026',readTime:'4 min read',image:'assets/products/p6-midnight-rolltop.png',
+    title:'Carry or luggage? How to actually decide.',
+    excerpt:'A short framework for choosing between the carry and luggage categories — before you fall for the wrong bag.',
+    body:['The honest answer is: it’s rarely about capacity. Most people who buy luggage for a 3-day trip end up filling it anyway, because empty space invites more packing, not less.','Ask instead: does this trip involve more than one mode of movement? A carry object — duffel, backpack, sling — is built for trips where you’re walking with the bag more than wheeling it. Luggage is built for the opposite: long transfers, hard floors, one main haul from door to gate.','If you’re still unsure, our matcher on the homepage will ask you three questions and get there faster than this article will.']},
+  {slug:'science-of-a-lifetime-zipper',tag:'CRAFT',date:'03 JUN 2026',readTime:'3 min read',image:'assets/products/p3-navy-voyager-duffel.jpg',
+    title:'Why we test every zipper to 20,000 cycles.',
+    excerpt:'The unglamorous engineering behind a claim we make on every single product page.',
+    body:['Twenty thousand cycles is roughly what a well-used travel bag sees over a decade of regular trips. We test to that number before a zipper ever ships on a HABÄNE object, and we test it under load, not just open-and-close in a vacuum.','It’s a slow, repetitive, unglamorous part of the process. It’s also the reason we can put "lifetime zipper" on a product page without a line of small print underneath it.']},
+  {slug:'airport-to-boarding-in-8-minutes',tag:'FIELD NOTES',date:'21 MAY 2026',readTime:'5 min read',image:'assets/products/p4-smart-duffel-ivory.jpg',
+    title:'Field notes: airport to boarding gate in eight minutes.',
+    excerpt:'What actually changes when your carry-on is built around the security line instead of around you.',
+    body:['Eight minutes, door of the taxi to seated at the gate, security included. It only works with a specific kind of preparation: laptop sleeve that opens flat without unpacking anything else, no loose cables, one liquids pouch you can see through without opening.','The SMART Duffel’s check-in panel and dedicated laptop compartment exist because of exactly this kind of trip — the one where you’re not touring, you’re moving, and every extra motion at the tray table costs you time you don’t have.','It’s a small, specific kind of design problem. Most luggage ignores it entirely.']}
+];
+function renderBlogGrid(filter){
+  const grid=$('[data-blog-grid]'); if(!grid) return;
+  const list=filter&&filter!=='all'?blogPosts.filter(p=>p.tag===filter):blogPosts;
+  grid.innerHTML=list.map(p=>`<article class="blog-card">
+    <a class="blog-card__media" href="blog-post.html?slug=${p.slug}"><span class="blog-card__tag">${p.tag}</span><img src="${p.image}" alt="${p.title}" loading="lazy"></a>
+    <div class="blog-card__body">
+      <span class="blog-card__meta">${p.date} · ${p.readTime}</span>
+      <h3><a href="blog-post.html?slug=${p.slug}">${p.title}</a></h3>
+      <p>${p.excerpt}</p>
+      <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>→</span></a>
+    </div>
+  </article>`).join('');
+}
+if($('[data-blog-grid]')){
+  renderBlogGrid('all');
+  $$('[data-blog-filter]').forEach(btn=>btn.onclick=()=>{
+    $$('[data-blog-filter]').forEach(b=>b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderBlogGrid(btn.dataset.blogFilter);
+  });
+}
+if($('[data-blog-post]')){
+  const slug=new URLSearchParams(location.search).get('slug');
+  const post=blogPosts.find(p=>p.slug===slug)||blogPosts[0];
+  $('[data-blog-post-tag]').textContent=post.tag;
+  $('[data-blog-post-date]').textContent=`${post.date} · ${post.readTime}`;
+  $('[data-blog-post-title]').textContent=post.title;
+  $('[data-blog-post-image]').src=post.image;
+  $('[data-blog-post-image]').alt=post.title;
+  $('[data-blog-post-body]').innerHTML=post.body.map(para=>`<p>${para}</p>`).join('');
+  document.title=`${post.title} — HABÄNE Journal`;
+  const others=blogPosts.filter(p=>p.slug!==post.slug).slice(0,3);
+  const moreEl=$('[data-blog-post-more]');
+  if(moreEl) moreEl.innerHTML=others.map(p=>`<article class="blog-card">
+    <a class="blog-card__media" href="blog-post.html?slug=${p.slug}"><span class="blog-card__tag">${p.tag}</span><img src="${p.image}" alt="${p.title}" loading="lazy"></a>
+    <div class="blog-card__body">
+      <span class="blog-card__meta">${p.date} · ${p.readTime}</span>
+      <h3><a href="blog-post.html?slug=${p.slug}">${p.title}</a></h3>
+      <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>→</span></a>
+    </div>
+  </article>`).join('');
+}
+
 function productPhoto(product,extraClass,src){return `<img class="product-photo${extraClass?' '+extraClass:''}" src="${src||product.image}" alt="${product.name}" loading="lazy">`}
 function createProductCards(){
   const grid=$('[data-product-grid]');
@@ -511,6 +580,17 @@ $$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
 
 $('[data-cart-open]').onclick=()=>openDrawer('cart');$('[data-cart-close]').onclick=closeDrawer;$('[data-compare-close]').onclick=closeDrawer;$('[data-scrim]').onclick=closeDrawer;
 $('[data-checkout]').onclick=()=>toast('Checkout is intentionally disabled in this prototype');
+
+if(document.querySelector('.hero-carousel') && 'IntersectionObserver' in window){
+  const revealTargets=$$('main > section:not(.hero-carousel)');
+  revealTargets.forEach(el=>el.classList.add('reveal'));
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-revealed'); revealObserver.unobserve(entry.target); }
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -80px 0px'});
+  revealTargets.forEach(el=>revealObserver.observe(el));
+}
 
 $('[data-search-open]').onclick=openSearch;$('[data-search-close]').onclick=closeSearch;
 $('[data-search-form]').onsubmit=e=>{e.preventDefault();const term=$('#site-search').value.trim().toLowerCase();const matches=Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category} ${p.description}`.toLowerCase().includes(term));renderSearchResults(matches.length?matches:Object.values(products).slice(0,6))};

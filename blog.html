@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="HABÄNE — the full catalog of intelligent travel objects." />
+  <meta name="description" content="HABÄNE Journal — field notes, craft stories and travel guides from the movement system." />
   <meta name="theme-color" content="#0A0F5A" />
-  <title>HABÄNE — All Products</title>
+  <title>HABÄNE — Journal</title>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="256x256" href="assets/brand/favicon-256.png" />
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
@@ -69,7 +69,6 @@
       <a href="index.html#shop">Objects</a>
       <a href="index.html#matcher">Find your object</a>
       <a href="blog.html">Journal</a>
-      <a href="index.html#experience">Experience</a>
       <a href="index.html#ownership">Ownership</a>
     </nav>
     <div class="header-actions">
@@ -93,31 +92,25 @@
       <a href="index.html#shop"><span>01</span><b>Objects</b></a>
       <a href="index.html#matcher"><span>02</span><b>Find your object</b></a>
       <a href="blog.html"><span>03</span><b>Journal</b></a>
-      <a href="index.html#experience"><span>04</span><b>Experience</b></a>
-      <a href="index.html#ownership"><span>05</span><b>Ownership</b></a>
+      <a href="index.html#ownership"><span>04</span><b>Ownership</b></a>
     </nav>
     <p>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</p>
   </aside>
 
   <main id="main">
-    <section class="shop" id="shop">
-      <div class="section-heading section-heading--compact">
-        <p>ALL OBJECTS</p>
-        <div><span class="system-label system-label--dark"><i></i> Fifteen entry points.</span><h2>THE FULL<br /><em>RANGE.</em></h2></div>
-        <p>Every HABÄNE object in one place — filter by category or sort to find your next movement system.</p>
-      </div>
-      <div class="shop-toolbar">
-        <div class="filters" role="group" aria-label="Product category">
-          <button class="is-active" type="button" data-filter="all">All / 15</button>
-          <button type="button" data-filter="luggage">Luggage</button>
-          <button type="button" data-filter="carry">Carry</button>
-          <button type="button" data-filter="system">System</button>
-          <button type="button" data-filter="accessory">Accessories</button>
-        </div>
-        <button class="sort" type="button" data-sort>Sort: Featured ↕</button>
-      </div>
-      <div class="product-grid" data-product-grid></div>
+    <section class="blog-hero">
+      <p class="blog-hero__eyebrow">07 / JOURNAL</p>
+      <h1>FIELD<br /><em>NOTES.</em></h1>
+      <p class="lede">Craft stories, packing guides and dispatches from the road — everything behind the fifteen objects.</p>
     </section>
+    <div class="blog-filters filters" role="group" aria-label="Filter journal by topic">
+      <button class="is-active" type="button" data-blog-filter="all">All</button>
+      <button type="button" data-blog-filter="FIELD NOTES">Field Notes</button>
+      <button type="button" data-blog-filter="CRAFT">Craft</button>
+      <button type="button" data-blog-filter="PACKING">Packing</button>
+      <button type="button" data-blog-filter="GUIDE">Guides</button>
+    </div>
+    <div class="blog-grid" data-blog-grid></div>
   </main>
 
   <footer class="site-footer" id="footer">
