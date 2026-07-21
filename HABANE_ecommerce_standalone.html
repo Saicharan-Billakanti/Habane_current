@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HABÄNE — intelligent travel objects engineered for movement." />
+  <meta name="theme-color" content="#070b47" />
+  <title>HABÄNE — Travel, Intelligently.</title>
+  <style>
+:root {
+  --midnight: #0a0f5a;
+  --midnight-deep: #05083e;
+  --titanium: #b7bcc7;
+  --arctic: #f6f7fa;
+  --paper: #eceff3;
+  --graphite: #1b1d24;
+  --aurora: #36d8ff;
+  --ink-muted: rgba(10,15,90,.6);
+  --line: rgba(10,15,90,.15);
+  --line-light: rgba(246,247,250,.16);
+  --gutter: clamp(18px, 3.2vw, 56px);
+  --max: 1720px;
+  --ease: cubic-bezier(.2,.78,.2,1);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--arctic);color:var(--midnight);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}body.is-locked{overflow:hidden}button,input{font:inherit}button{color:inherit}a{color:inherit;text-decoration:none}svg{fill:none;stroke:currentColor;stroke-width:1.7}::selection{background:var(--aurora);color:var(--graphite)}.skip-link{position:fixed;z-index:999;left:16px;top:-60px;background:var(--aurora);padding:12px 16px}.skip-link:focus{top:16px}.announcement{height:34px;padding:0 var(--gutter);display:flex;align-items:center;justify-content:center;background:var(--aurora);color:var(--graphite);font:650 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;position:relative}.announcement button{position:absolute;right:var(--gutter);border:0;background:none;font-size:18px;cursor:pointer}.announcement.is-hidden{display:none}.site-header{height:82px;position:absolute;z-index:80;left:0;right:0;top:34px;padding:0 var(--gutter);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--arctic);border-bottom:1px solid var(--line-light);transition:height .3s,background .3s,color .3s,backdrop-filter .3s}.announcement.is-hidden~.site-header{top:0}.site-header.is-fixed{position:fixed;top:0;height:68px;background:rgba(246,247,250,.9);color:var(--midnight);border-bottom-color:var(--line);backdrop-filter:blur(18px)}.wordmark{width:max-content;display:flex;align-items:baseline;gap:15px}.wordmark>span{font-size:18px;font-weight:820;letter-spacing:.28em}.wordmark small{font:600 7px/1 ui-monospace,monospace;letter-spacing:.12em;opacity:.62}.desktop-nav{display:flex;gap:clamp(22px,3.5vw,62px)}.desktop-nav a{font-size:11px;letter-spacing:.11em;text-transform:uppercase;position:relative}.desktop-nav a:after{content:"";height:1px;position:absolute;left:0;right:100%;bottom:-9px;background:currentColor;transition:right .25s}.desktop-nav a:hover:after{right:0}.header-tools{justify-self:end;display:flex;align-items:center;gap:10px}.icon-button,.language-toggle,.cart-button,.menu-button{height:42px;border:0;background:transparent;cursor:pointer}.icon-button{width:42px;display:grid;place-items:center}.icon-button svg{width:20px}.language-toggle{font:700 10px/1 ui-monospace,monospace;letter-spacing:.1em}.cart-button{display:flex;align-items:center;gap:10px;padding:0 13px;font-size:11px;text-transform:uppercase;letter-spacing:.11em;border:1px solid currentColor}.cart-button b{display:grid;place-items:center;width:20px;height:20px;background:var(--arctic);color:var(--midnight);font:700 9px/1 ui-monospace,monospace}.is-fixed .cart-button b{background:var(--midnight);color:var(--arctic)}.menu-button{display:none;width:42px}.menu-button span{display:block;width:20px;height:1px;margin:5px auto;background:currentColor}.mobile-menu{position:fixed;z-index:120;inset:0;background:var(--midnight);color:var(--arctic);padding:26px var(--gutter) 34px;transform:translateY(-105%);transition:transform .55s var(--ease);display:grid;grid-template-rows:auto 1fr auto}.mobile-menu.is-open{transform:none}.mobile-menu__top{display:flex;justify-content:space-between;font:600 9px/1 ui-monospace,monospace;letter-spacing:.14em}.mobile-menu__top button{border:0;background:none;color:inherit;text-transform:uppercase;font-size:10px}.mobile-menu nav{align-self:center}.mobile-menu nav a{display:grid;grid-template-columns:50px 1fr;align-items:center;border-bottom:1px solid var(--line-light);padding:19px 0}.mobile-menu nav span{font:600 9px/1 ui-monospace,monospace;opacity:.45}.mobile-menu nav b{font-size:clamp(36px,11vw,76px);letter-spacing:-.05em;text-transform:uppercase}.mobile-menu__footer{font:600 10px/1.6 ui-monospace,monospace;letter-spacing:.13em;color:rgba(246,247,250,.48)}
+.commerce-hero{min-height:calc(100svh - 34px);position:relative;overflow:hidden;background:radial-gradient(circle at 72% 43%,rgba(54,216,255,.13),transparent 24%),linear-gradient(135deg,var(--midnight-deep),var(--midnight) 54%,#151d7c);color:var(--arctic);padding:82px var(--gutter) 0;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);grid-template-rows:1fr auto}.hero-grid{position:absolute;inset:82px var(--gutter) 0;background:repeating-linear-gradient(90deg,transparent 0 calc(8.333% - 1px),rgba(255,255,255,.055) calc(8.333% - 1px) 8.333%);border-inline:1px solid rgba(255,255,255,.05)}.hero-copy{position:relative;z-index:2;align-self:center;padding:clamp(72px,12vh,150px) 0 90px;max-width:860px}.eyebrow{margin:0;display:flex;align-items:center;gap:12px;font:650 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;text-transform:uppercase;color:rgba(246,247,250,.64)}.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--aurora);box-shadow:0 0 16px var(--aurora)}.eyebrow.dark{color:rgba(10,15,90,.52)}.commerce-hero h1,.section-intro h2,.system-copy h2,.editorial-head h2,.service-heading h2,.newsletter h2{font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif;font-stretch:condensed;text-transform:uppercase;letter-spacing:-.065em}.commerce-hero h1{margin:26px 0 32px;font-size:clamp(72px,10.3vw,180px);line-height:.78}.commerce-hero h1 em{font-style:normal;color:var(--aurora)}.hero-lede{max-width:570px;margin:0;color:rgba(246,247,250,.68);font-size:clamp(16px,1.35vw,22px);line-height:1.55}.hero-actions{display:flex;align-items:center;gap:32px;margin-top:40px;flex-wrap:wrap}.primary-button{min-height:56px;border:0;background:var(--arctic);color:var(--midnight);padding:0 22px;display:inline-flex;align-items:center;gap:40px;text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:700;cursor:pointer;transition:background .25s,transform .25s}.primary-button:hover{background:var(--aurora);transform:translateY(-3px)}.text-link{display:inline-flex;align-items:center;gap:18px;padding-bottom:7px;border-bottom:1px solid currentColor;text-transform:uppercase;font:700 10px/1 ui-monospace,monospace;letter-spacing:.09em}.text-link.dark{color:var(--midnight)}.hero-product{position:relative;z-index:2;min-height:600px;display:grid;place-items:center;perspective:1400px}.telemetry{position:absolute;display:flex;justify-content:space-between;width:85%;font:600 8px/1 ui-monospace,monospace;letter-spacing:.15em;color:rgba(246,247,250,.45)}.telemetry b{color:var(--aurora);font-weight:600}.telemetry--top{top:13%}.telemetry--bottom{bottom:12%}.hero-orbit{position:absolute;border:1px solid rgba(246,247,250,.17);border-radius:50%;transform:rotateX(66deg) rotateZ(-15deg)}.hero-orbit--a{width:min(520px,78%);aspect-ratio:1;animation:spin 24s linear infinite}.hero-orbit--b{width:min(350px,54%);aspect-ratio:1;border-color:rgba(54,216,255,.28);animation:spin-reverse 13s linear infinite}.x1-render{width:clamp(210px,21vw,345px);position:relative;filter:drop-shadow(0 55px 40px rgba(0,0,0,.26));transform:rotateY(-10deg) rotateX(2deg);animation:float 5.3s ease-in-out infinite}.x1-handle{position:absolute;left:50%;top:-65px;width:42%;height:88px;border:6px solid #8991a3;border-bottom:0;border-radius:15px 15px 0 0;transform:translateX(-50%);opacity:.85}.x1-body{aspect-ratio:.72;border-radius:34px;position:relative;overflow:hidden;background:linear-gradient(120deg,#eef0f4 0,#8f97a8 18%,#f8f9fb 42%,#7f8799 72%,#d6dae3 100%);box-shadow:inset 0 0 0 9px rgba(10,15,90,.12),inset 0 0 50px rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.62)}.x1-body:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 31px,rgba(10,15,90,.05) 32px 33px)}.x1-rail{position:absolute;z-index:2;top:0;bottom:0;width:7px;background:rgba(10,15,90,.85)}.x1-rail--left{left:11%}.x1-rail--right{right:11%}.x1-screen{position:absolute;z-index:3;top:15%;left:50%;transform:translateX(-50%);width:46%;aspect-ratio:1.9;border-radius:8px;background:var(--graphite);padding:10px;display:flex;align-items:flex-end;justify-content:space-between;color:var(--aurora);font:650 7px/1 ui-monospace,monospace;box-shadow:0 0 18px rgba(54,216,255,.22)}.x1-screen b{font-size:8px;color:var(--arctic)}.x1-light{position:absolute;z-index:3;left:19%;right:19%;bottom:12%;height:3px;background:var(--aurora);box-shadow:0 0 14px var(--aurora)}.x1-mark{position:absolute;z-index:3;left:50%;top:51%;transform:translate(-50%,-50%);font:850 18px/1 Arial;color:rgba(10,15,90,.7)}.x1-wheel{position:absolute;bottom:-17px;width:30px;height:30px;border-radius:50%;background:#101426;border:5px solid #7a8293}.x1-wheel--left{left:13%}.x1-wheel--right{right:13%}.hero-data{grid-column:1/-1;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-light)}.hero-data>div{padding:20px 22px;border-right:1px solid var(--line-light);display:grid;gap:8px}.hero-data>div:last-child{border-right:0}.hero-data small{font:600 8px/1 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,247,250,.38)}.hero-data b{font-size:11px;letter-spacing:.06em;text-transform:uppercase}.hero-data b i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--aurora);margin-right:8px;box-shadow:0 0 11px var(--aurora)}
+.shop-section{padding:150px var(--gutter);background:var(--arctic)}.section-intro{display:grid;grid-template-columns:minmax(80px,.4fr) minmax(0,1.7fr) minmax(260px,.9fr);gap:clamp(24px,4vw,72px);align-items:end}.section-index{margin:0;align-self:start;font:650 9px/1.3 ui-monospace,monospace;letter-spacing:.13em;color:rgba(10,15,90,.44)}.section-index.light{color:rgba(246,247,250,.38)}.section-intro h2{font-size:clamp(58px,7.7vw,128px);line-height:.82;margin:22px 0 0}.intro-copy{margin:0;color:var(--ink-muted);font-size:16px;line-height:1.65;max-width:430px}.shop-toolbar{margin-top:88px;border-block:1px solid var(--line);min-height:64px;display:flex;justify-content:space-between;align-items:center}.filter-group{display:flex;gap:6px}.filter-group button,.sort-button{border:0;background:none;padding:16px 18px;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.09em;cursor:pointer}.filter-group button{color:rgba(10,15,90,.48)}.filter-group button.is-active{background:var(--midnight);color:var(--arctic)}.sort-button{display:flex;align-items:center;gap:16px}.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}.product-card{background:var(--arctic);min-width:0}.product-card.is-hidden{display:none}.product-card--wide{grid-column:1/-1}.product-card__media{position:relative;overflow:hidden;min-height:520px;display:grid;place-items:center}.product-card--wide .product-card__media{min-height:600px}.product-card__media--midnight{background:radial-gradient(circle at 50% 45%,rgba(54,216,255,.14),transparent 27%),linear-gradient(145deg,#05083e,#0a0f5a)}.product-card__media--ice{background:linear-gradient(140deg,#f9fafc,#d9dee6)}.product-card__media--graphite{background:radial-gradient(circle at 50% 40%,rgba(54,216,255,.1),transparent 30%),#1b1d24}.product-card__media--titanium{background:linear-gradient(135deg,#9da4b1,#eef0f4 38%,#9ba2af 76%,#dce0e7)}.product-card__media--aurora{background:linear-gradient(125deg,#dff9ff,#36d8ff 42%,#0a0f5a)}.product-badge{position:absolute;z-index:3;top:22px;left:22px;padding:9px 11px;background:var(--arctic);color:var(--midnight);text-transform:uppercase;font:700 8px/1 ui-monospace,monospace;letter-spacing:.11em}.product-favourite{position:absolute;z-index:3;right:20px;top:18px;width:38px;height:38px;border:1px solid rgba(246,247,250,.35);border-radius:50%;background:rgba(246,247,250,.05);color:var(--arctic);font-size:21px;cursor:pointer;backdrop-filter:blur(8px)}.product-card__media--ice .product-favourite,.product-card__media--titanium .product-favourite{color:var(--midnight);border-color:rgba(10,15,90,.18)}.product-favourite.is-saved{background:var(--aurora);color:var(--graphite);border-color:var(--aurora)}.media-code{position:absolute;left:22px;right:22px;bottom:20px;display:flex;justify-content:space-between;color:rgba(246,247,250,.5);font:600 8px/1 ui-monospace,monospace;letter-spacing:.13em}.product-card__media--ice .media-code,.product-card__media--titanium .media-code{color:rgba(10,15,90,.42)}.card-object{position:relative;z-index:2;transition:transform .6s var(--ease);filter:drop-shadow(25px 35px 30px rgba(0,0,0,.18))}.product-card:hover .card-object{transform:translateY(-12px) rotateY(-7deg)}.card-object--case{width:220px;height:310px;border-radius:28px;background:linear-gradient(120deg,#eef0f4,#8d95a5 24%,#fafbfc 48%,#7f8798 79%,#d8dce4);box-shadow:inset 0 0 0 8px rgba(10,15,90,.12)}.card-object--case:before{content:"";position:absolute;left:50%;top:-52px;width:40%;height:65px;border:5px solid #81899a;border-bottom:0;border-radius:12px 12px 0 0;transform:translateX(-50%)}.card-object--case:after{content:"";position:absolute;left:18%;right:18%;bottom:12%;height:3px;background:var(--aurora);box-shadow:0 0 12px var(--aurora)}.card-object--case span{position:absolute;left:50%;top:18%;transform:translateX(-50%);width:43%;height:48px;border-radius:7px;background:var(--graphite);box-shadow:0 0 16px rgba(54,216,255,.2)}.card-object--navy{background:linear-gradient(125deg,#141a75,#05083e 68%,#1b238c);box-shadow:inset 0 0 0 8px rgba(255,255,255,.08)}.card-object--large{width:250px;height:360px}.card-object--pack{width:250px;height:300px;border-radius:55px 55px 25px 25px;clip-path:polygon(15% 0,85% 0,100% 18%,94% 100%,6% 100%,0 18%);background:linear-gradient(125deg,#3f4350,#12141a);box-shadow:inset 0 0 0 2px rgba(255,255,255,.11)}.card-object--pack:after{content:"";position:absolute;left:18%;right:18%;top:21%;height:2px;background:var(--aurora);box-shadow:0 0 12px var(--aurora)}.card-object--pack span{position:absolute;left:20%;right:20%;bottom:15%;height:35%;border:1px solid rgba(255,255,255,.12);border-radius:15px}.card-object--pack i{position:absolute;left:50%;top:8%;width:42%;height:14%;border:5px solid #22252e;border-bottom:0;border-radius:14px 14px 0 0;transform:translateX(-50%)}.card-object--module{width:330px;height:150px;border-radius:22px;background:linear-gradient(135deg,#131722,#444b5a 45%,#171a23);box-shadow:inset 0 0 0 2px rgba(255,255,255,.1)}.card-object--module:after{content:"";position:absolute;top:18%;bottom:18%;right:11%;width:3px;background:var(--aurora);box-shadow:0 0 13px var(--aurora)}.card-object--module span{position:absolute;left:9%;top:25%;width:40%;height:50%;border:1px solid rgba(255,255,255,.16);border-radius:9px}.card-object--module i{position:absolute;left:55%;top:42%;width:23%;height:16%;background:rgba(255,255,255,.09);border-radius:99px}.accessory-scene{position:relative;width:min(720px,75%);height:300px}.accessory{position:absolute;background:linear-gradient(135deg,#101427,#0a0f5a);box-shadow:25px 35px 40px rgba(10,15,90,.24),inset 0 0 0 2px rgba(255,255,255,.08);transition:transform .55s var(--ease)}.accessory--one{width:260px;height:160px;border-radius:24px;left:6%;top:20%;transform:rotate(-8deg)}.accessory--two{width:310px;height:210px;border-radius:28px;left:36%;top:4%;transform:rotate(5deg)}.accessory--three{width:170px;height:115px;border-radius:18px;right:3%;bottom:6%;transform:rotate(-4deg)}.product-card:hover .accessory--one{transform:rotate(-12deg) translate(-10px,-6px)}.product-card:hover .accessory--two{transform:rotate(8deg) translateY(-10px)}.product-card:hover .accessory--three{transform:rotate(-7deg) translate(8px,7px)}.product-card__body{min-height:92px;padding:22px;display:flex;justify-content:space-between;gap:20px}.product-card__body p{margin:0 0 8px;font-size:14px;font-weight:760;letter-spacing:.02em}.product-card__body small{color:var(--ink-muted);font-size:12px}.product-card__body strong{font-size:14px}.product-card__actions{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}.product-card__actions button{min-height:54px;border:0;background:transparent;text-align:left;padding:0 22px;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.09em;cursor:pointer}.product-card__actions button+button{border-left:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:var(--midnight);color:var(--arctic)}.product-card__actions button:hover{background:var(--aurora);color:var(--graphite)}
+.system-section{display:grid;grid-template-columns:1.06fr .94fr;min-height:980px;background:var(--graphite);color:var(--arctic)}.system-visual{position:relative;overflow:hidden;min-height:760px;border-right:1px solid var(--line-light);padding:40px var(--gutter)}.system-lines{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),rgba(255,255,255,.05) calc(12.5% - 1px) 12.5%),repeating-linear-gradient(0deg,transparent 0 calc(12.5% - 1px),rgba(255,255,255,.04) calc(12.5% - 1px) 12.5%)}.system-object{position:absolute;inset:0;display:grid;place-items:center}.exploded-part{position:absolute;display:block;transition:transform .4s}.exploded-part--shell{width:260px;height:370px;border-radius:32px;background:linear-gradient(130deg,#c7ccd5,#6e7688 24%,#edf0f4 49%,#687083 77%,#aeb4c0);box-shadow:inset 0 0 0 8px rgba(10,15,90,.13),0 50px 50px rgba(0,0,0,.28)}.exploded-part--handle{width:115px;height:115px;border:7px solid #8d95a5;border-bottom:0;border-radius:15px 15px 0 0;transform:translateY(-250px)}.exploded-part--module{width:145px;height:64px;border-radius:10px;background:var(--graphite);box-shadow:0 0 0 1px rgba(255,255,255,.15);transform:translate(225px,-45px)}.exploded-part--module:after{content:"";position:absolute;right:10px;top:10px;bottom:10px;width:3px;background:var(--aurora);box-shadow:0 0 12px var(--aurora)}.exploded-part--wheel-a,.exploded-part--wheel-b{width:48px;height:48px;border:8px solid #747c8c;background:#0f121b;border-radius:50%;transform:translate(-95px,260px)}.exploded-part--wheel-b{transform:translate(95px,260px)}.system-caption{position:absolute;left:var(--gutter);bottom:35px;font:600 8px/1 ui-monospace,monospace;letter-spacing:.14em;color:rgba(246,247,250,.4)}.system-copy{padding:130px clamp(32px,5vw,90px);display:flex;flex-direction:column;justify-content:center}.system-copy h2{font-size:clamp(58px,6.7vw,118px);line-height:.82;margin:25px 0 36px}.system-copy h2 em{font-style:normal;color:var(--aurora)}.system-copy>p:not(.eyebrow){max-width:590px;margin:0;color:rgba(246,247,250,.62);line-height:1.65;font-size:16px}.system-points{margin-top:70px;border-top:1px solid var(--line-light)}.system-points article{display:grid;grid-template-columns:55px 150px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid var(--line-light);align-items:start}.system-points article span{font:600 9px/1 ui-monospace,monospace;color:var(--aurora)}.system-points h3{margin:0;font-size:14px;text-transform:uppercase;letter-spacing:.04em}.system-points p{margin:0;color:rgba(246,247,250,.55);font-size:13px;line-height:1.5}
+.editorial-section{padding:150px var(--gutter);background:var(--paper)}.editorial-head{display:grid;grid-template-columns:minmax(90px,.4fr) 1.7fr auto;gap:50px;align-items:end}.editorial-head h2{margin:0;font-size:clamp(58px,7.4vw,124px);line-height:.82}.editorial-grid{margin-top:85px;display:grid;grid-template-columns:1.3fr .85fr .85fr;gap:1px;background:var(--line);border:1px solid var(--line)}.story-card{background:var(--arctic)}.story-image{height:380px;position:relative;overflow:hidden}.story-card--large .story-image{height:560px}.story-image span{position:absolute;left:18px;bottom:18px;color:rgba(246,247,250,.62);font:600 8px/1 ui-monospace,monospace;letter-spacing:.13em}.story-image--station{background:linear-gradient(135deg,transparent 0 42%,rgba(54,216,255,.55) 42% 43%,transparent 43%),repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 80px),linear-gradient(155deg,#080b2f,#3a4058)}.story-image--station:after{content:"";position:absolute;left:16%;right:12%;top:20%;bottom:0;border-top:1px solid rgba(255,255,255,.2);border-left:28px solid rgba(255,255,255,.08);transform:skewX(-12deg)}.story-image--material{background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.7),transparent 18%),linear-gradient(120deg,#939ba8,#f4f5f7 40%,#737b8a 75%,#c5cad2)}.story-image--night{background:radial-gradient(circle at 70% 25%,var(--aurora) 0 2px,transparent 3px),radial-gradient(circle at 35% 46%,rgba(54,216,255,.7) 0 1px,transparent 2px),linear-gradient(145deg,#02041d,#0a0f5a 55%,#28309c)}.story-image--night:after{content:"";position:absolute;left:15%;right:15%;bottom:0;height:68%;background:linear-gradient(90deg,transparent 0 8%,rgba(255,255,255,.08) 8% 9%,transparent 9% 20%,rgba(255,255,255,.06) 20% 22%,transparent 22%),linear-gradient(155deg,transparent 0 48%,rgba(54,216,255,.28) 48% 49%,transparent 49%)}.story-copy{padding:24px}.story-copy small{font:650 8px/1 ui-monospace,monospace;letter-spacing:.12em;color:rgba(10,15,90,.42)}.story-copy h3{margin:18px 0 34px;font-size:clamp(24px,2.4vw,42px);line-height:1.05;letter-spacing:-.04em}.story-copy p{margin:0;text-transform:uppercase;font:650 8px/1 ui-monospace,monospace;letter-spacing:.1em}
+.service-section{background:var(--midnight);color:var(--arctic);padding:140px var(--gutter)}.service-heading{display:grid;grid-template-columns:minmax(90px,.4fr) 1fr 1fr;gap:45px;align-items:end}.service-heading h2{grid-column:2/-1;margin:22px 0 0;font-size:clamp(75px,13.2vw,225px);line-height:.72}.service-grid{margin-top:100px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line-light)}.service-grid article{min-height:330px;padding:26px;border-right:1px solid var(--line-light);display:flex;flex-direction:column}.service-grid article:last-child{border-right:0}.service-grid span{font:650 9px/1 ui-monospace,monospace;color:var(--aurora)}.service-grid h3{margin:80px 0 15px;font-size:20px;text-transform:uppercase}.service-grid p{margin:0;color:rgba(246,247,250,.58);font-size:14px;line-height:1.6}.service-grid a{margin-top:auto;font:650 9px/1 ui-monospace,monospace;letter-spacing:.09em;text-transform:uppercase}.newsletter{min-height:680px;padding:120px var(--gutter);position:relative;overflow:hidden;background:var(--arctic);display:grid;grid-template-columns:1.2fr .8fr;gap:80px;align-items:center}.newsletter-mark{position:absolute;right:-3vw;top:48%;transform:translateY(-50%);font:900 min(65vw,960px)/.7 Arial;color:rgba(10,15,90,.035);letter-spacing:-.15em}.newsletter>div:not(.newsletter-mark),.newsletter form{position:relative;z-index:2}.newsletter h2{margin:25px 0 0;font-size:clamp(68px,9vw,150px);line-height:.78}.newsletter form{align-self:end}.newsletter label{display:block;margin-bottom:18px;font:650 9px/1 ui-monospace,monospace;letter-spacing:.11em;text-transform:uppercase}.newsletter form>div{display:grid;grid-template-columns:1fr auto;border-bottom:2px solid var(--midnight)}.newsletter input{height:62px;border:0;background:transparent;font-size:20px;color:var(--midnight);outline:none}.newsletter form button{border:0;background:var(--midnight);color:var(--arctic);padding:0 24px;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.09em;cursor:pointer}.newsletter form>p{color:var(--ink-muted);font-size:12px;margin-top:16px}.site-footer{background:var(--graphite);color:var(--arctic);padding:90px var(--gutter) 24px}.footer-top{display:grid;grid-template-columns:1.7fr repeat(3,1fr);gap:50px;padding-bottom:100px}.footer-brand b{display:block;font-size:27px;letter-spacing:.3em}.footer-brand span{display:block;margin-top:28px;color:rgba(246,247,250,.42);font:650 9px/1.6 ui-monospace,monospace;letter-spacing:.12em}.footer-top h3{margin:0 0 25px;font:650 9px/1 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,247,250,.4)}.footer-top a{display:block;width:max-content;margin:13px 0;font-size:13px;color:rgba(246,247,250,.72)}.footer-top a:hover{color:var(--aurora)}.footer-bottom{padding-top:22px;border-top:1px solid var(--line-light);display:flex;justify-content:space-between;font:650 8px/1 ui-monospace,monospace;letter-spacing:.12em;color:rgba(246,247,250,.4)}
+.quickview{width:min(1180px,calc(100% - 36px));max-height:calc(100svh - 36px);padding:0;border:0;background:var(--arctic);color:var(--midnight);grid-template-columns:1fr 1fr;overflow:auto}.quickview[open]{display:grid;animation:dialog-in .35s var(--ease)}.quickview::backdrop{background:rgba(4,6,28,.8);backdrop-filter:blur(8px)}.dialog-close{position:fixed;z-index:3;right:max(26px,calc((100vw - min(1180px,calc(100% - 36px)))/2 + 18px));top:max(26px,calc((100vh - min(820px,calc(100vh - 36px)))/2 + 18px));border:0;background:rgba(246,247,250,.9);color:var(--midnight);padding:12px;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.08em;cursor:pointer}.quickview__media{min-height:760px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at center,rgba(54,216,255,.15),transparent 27%),linear-gradient(145deg,#05083e,#0a0f5a);overflow:hidden}.quickview__media:after{content:"";position:absolute;width:68%;aspect-ratio:1;border:1px solid rgba(246,247,250,.15);border-radius:50%;transform:rotateX(66deg)}.quickview__media>p{position:absolute;left:25px;bottom:24px;color:rgba(246,247,250,.48);font:650 8px/1 ui-monospace,monospace;letter-spacing:.13em}.quickview-object{position:relative;z-index:2;width:230px;height:330px;border-radius:30px;background:linear-gradient(125deg,#e9ebef,#8e96a6 22%,#fafbfc 46%,#788193 75%,#d0d5dd);box-shadow:inset 0 0 0 8px rgba(10,15,90,.12),25px 45px 40px rgba(0,0,0,.26)}.quickview-object:before{content:"";position:absolute;left:50%;top:-55px;width:42%;height:70px;border:6px solid #81899a;border-bottom:0;border-radius:13px 13px 0 0;transform:translateX(-50%)}.quickview-object:after{content:"";position:absolute;left:18%;right:18%;bottom:12%;height:3px;background:var(--aurora);box-shadow:0 0 13px var(--aurora)}.quickview-object span{position:absolute;left:50%;top:17%;transform:translateX(-50%);width:44%;height:50px;border-radius:7px;background:var(--graphite)}.quickview-object.is-x2{height:370px;width:255px;background:linear-gradient(130deg,#151b75,#05083e 72%,#222ba0);box-shadow:inset 0 0 0 8px rgba(255,255,255,.08),25px 45px 40px rgba(0,0,0,.26)}.quickview-object.is-p1{width:250px;height:300px;border-radius:55px 55px 25px 25px;clip-path:polygon(15% 0,85% 0,100% 18%,94% 100%,6% 100%,0 18%);background:linear-gradient(125deg,#424653,#11131a)}.quickview-object.is-p1:before{display:none}.quickview-object.is-m1{width:350px;height:155px;border-radius:22px;background:linear-gradient(135deg,#111520,#464d5b 45%,#171a23)}.quickview-object.is-m1:before{display:none}.quickview-object.is-a1{width:340px;height:210px;border-radius:28px;background:linear-gradient(135deg,#111528,#0a0f5a)}.quickview-object.is-a1:before{display:none}.quickview__content{padding:85px clamp(30px,5vw,72px) 45px}.quickview__content h2{font:820 clamp(42px,4.5vw,76px)/.9 "Arial Narrow",Arial,sans-serif;letter-spacing:-.055em;margin:24px 0}.quickview__description{color:var(--ink-muted);line-height:1.6}.quickview__price{margin:30px 0;display:grid;gap:7px}.quickview__price strong{font-size:24px}.quickview__price span{font-size:11px;color:var(--ink-muted)}.quickview fieldset{border:0;padding:0;margin:32px 0}.quickview legend{margin-bottom:15px;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.1em}.swatches{display:flex;gap:7px;flex-wrap:wrap}.swatches button{height:42px;border:1px solid var(--line);background:transparent;padding:0 13px;display:flex;align-items:center;gap:9px;font-size:11px;cursor:pointer}.swatches button.is-active{border-color:var(--midnight)}.swatch{width:15px;height:15px;border-radius:50%}.swatch--silver{background:linear-gradient(135deg,#f7f7f8,#848b99)}.swatch--navy{background:var(--midnight)}.swatch--graphite{background:var(--graphite)}.quickview__specs{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line);margin:30px 0}.quickview__specs div{padding:18px 12px 18px 0}.quickview__specs small{display:block;margin-bottom:9px;text-transform:uppercase;font:700 8px/1 ui-monospace,monospace;letter-spacing:.1em;color:rgba(10,15,90,.44)}.quickview__specs b{font-size:12px}.quickview__add{width:100%;min-height:58px;border:0;background:var(--midnight);color:var(--arctic);display:flex;align-items:center;justify-content:space-between;padding:0 20px;text-transform:uppercase;font:700 10px/1 ui-monospace,monospace;letter-spacing:.09em;cursor:pointer}.quickview__add:hover{background:var(--aurora);color:var(--graphite)}.quickview__note{display:flex;gap:10px;color:var(--ink-muted);font-size:10px;line-height:1.5}.quickview__note i{flex:0 0 7px;height:7px;border-radius:50%;background:var(--aurora);margin-top:4px}.cart-drawer{position:fixed;z-index:130;right:0;top:0;bottom:0;width:min(520px,100%);background:var(--arctic);transform:translateX(105%);transition:transform .45s var(--ease);display:grid;grid-template-rows:auto auto auto 1fr auto}.cart-drawer.is-open{transform:none}.cart-drawer__head{padding:26px 25px 22px;display:flex;justify-content:space-between;border-bottom:1px solid var(--line)}.cart-drawer__head small{font:650 8px/1 ui-monospace,monospace;letter-spacing:.11em;text-transform:uppercase;color:rgba(10,15,90,.45)}.cart-drawer__head h2{margin:8px 0 0;text-transform:uppercase;font:800 28px/1 "Arial Narrow",Arial,sans-serif;letter-spacing:-.03em}.cart-drawer__head h2 b{font-size:12px;color:var(--aurora)}.cart-drawer__head button{border:0;background:none;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;cursor:pointer}.cart-progress{height:3px;background:var(--paper)}.cart-progress span{display:block;height:100%;width:0;background:var(--aurora);transition:width .3s}.cart-progress__label{padding:13px 25px;margin:0;border-bottom:1px solid var(--line);font-size:10px;color:var(--ink-muted)}.cart-items{overflow:auto;padding:0 25px}.empty-cart{height:100%;display:flex;flex-direction:column;justify-content:center}.empty-cart span{font:650 9px/1 ui-monospace,monospace;color:rgba(10,15,90,.35)}.empty-cart h3{max-width:330px;margin:20px 0 35px;font:800 52px/.9 "Arial Narrow",Arial,sans-serif;letter-spacing:-.05em;text-transform:uppercase}.empty-cart a{text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.1em}.cart-item{display:grid;grid-template-columns:110px 1fr auto;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.cart-item__image{height:135px;background:var(--paper);display:grid;place-items:center}.cart-mini-object{width:50px;height:75px;border-radius:8px;background:linear-gradient(130deg,#d5d9df,#7e8798);position:relative}.cart-mini-object:after{content:"";position:absolute;left:10px;right:10px;bottom:9px;height:2px;background:var(--aurora)}.cart-item h3{font-size:13px;margin:4px 0 8px}.cart-item p{font-size:10px;color:var(--ink-muted);margin:0}.cart-item__qty{display:flex;align-items:center;margin-top:24px;border:1px solid var(--line);width:max-content}.cart-item__qty button{width:28px;height:28px;border:0;background:transparent;cursor:pointer}.cart-item__qty span{font-size:10px;width:26px;text-align:center}.cart-item__end{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between}.cart-item__end strong{font-size:12px}.cart-item__end button{border:0;background:none;text-decoration:underline;font-size:9px;cursor:pointer}.cart-summary{border-top:1px solid var(--line);padding:22px 25px 25px}.cart-summary>div{display:flex;justify-content:space-between;text-transform:uppercase;font-size:13px}.cart-summary>p{font-size:10px;color:var(--ink-muted)}.cart-summary>button{width:100%;height:56px;border:0;background:var(--midnight);color:var(--arctic);display:flex;justify-content:space-between;align-items:center;padding:0 18px;text-transform:uppercase;font:700 9px/1 ui-monospace,monospace;letter-spacing:.1em;cursor:pointer}.cart-summary>small{display:block;text-align:center;margin-top:13px;font:650 7px/1 ui-monospace,monospace;letter-spacing:.1em;color:rgba(10,15,90,.4)}.page-scrim{position:fixed;z-index:110;inset:0;background:rgba(4,6,28,.7);backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:.3s}.page-scrim.is-visible{opacity:1;visibility:visible}.search-overlay{position:fixed;z-index:140;inset:0;background:var(--arctic);padding:28px var(--gutter) 50px;transform:translateY(-105%);transition:transform .5s var(--ease);overflow:auto}.search-overlay.is-open{transform:none}.search-overlay__head{display:flex;justify-content:space-between;padding-bottom:25px;border-bottom:1px solid var(--line);font:650 9px/1 ui-monospace,monospace;letter-spacing:.13em}.search-overlay__head button{border:0;background:none;text-transform:uppercase;font:inherit;cursor:pointer}.search-overlay form{max-width:1200px;margin:12vh auto 70px}.search-overlay label{display:block;margin-bottom:25px;text-transform:uppercase;font:800 clamp(32px,6vw,90px)/.9 "Arial Narrow",Arial,sans-serif;letter-spacing:-.05em}.search-overlay form>div{display:grid;grid-template-columns:1fr 70px;border-bottom:3px solid var(--midnight)}.search-overlay input{height:78px;border:0;background:transparent;outline:none;font-size:clamp(22px,3vw,44px);color:var(--midnight)}.search-overlay form button{border:0;background:none;font-size:28px;cursor:pointer}.search-results{max-width:1200px;margin:auto;border-top:1px solid var(--line)}.search-results>p{font:650 9px/1 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,15,90,.4)}.search-results button{width:100%;display:grid;grid-template-columns:60px 1fr auto;align-items:center;padding:20px 0;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;cursor:pointer}.search-results button:hover{color:#4250d0}.search-results span{font:650 9px/1 ui-monospace,monospace;color:rgba(10,15,90,.4)}.search-results b{font-size:24px}.search-results small{font-size:12px}.toast{position:fixed;z-index:180;left:50%;bottom:28px;transform:translate(-50%,35px);opacity:0;visibility:hidden;background:var(--aurora);color:var(--graphite);padding:14px 18px;text-transform:uppercase;font:750 9px/1 ui-monospace,monospace;letter-spacing:.09em;transition:.3s}.toast.is-visible{transform:translate(-50%,0);opacity:1;visibility:visible}
+@keyframes float{50%{transform:rotateY(-6deg) rotateX(1deg) translateY(-16px)}}@keyframes spin{to{transform:rotateX(66deg) rotateZ(345deg)}}@keyframes spin-reverse{to{transform:rotateX(66deg) rotateZ(-375deg)}}@keyframes dialog-in{from{opacity:0;transform:translateY(18px)}}
+@media (max-width:1050px){.desktop-nav{display:none}.site-header{grid-template-columns:1fr auto}.menu-button{display:block}.commerce-hero{grid-template-columns:1fr}.hero-copy{padding-bottom:30px}.hero-product{min-height:620px}.hero-data{grid-template-columns:repeat(2,1fr)}.section-intro{grid-template-columns:80px 1fr}.intro-copy{grid-column:2;margin-top:20px}.system-section{grid-template-columns:1fr}.system-visual{border-right:0;border-bottom:1px solid var(--line-light)}.editorial-head{grid-template-columns:80px 1fr}.editorial-head .text-link{grid-column:2;width:max-content}.editorial-grid{grid-template-columns:1fr 1fr}.story-card--large{grid-column:1/-1}.service-heading{grid-template-columns:80px 1fr}.service-heading .eyebrow{grid-column:2}.service-heading h2{grid-column:2}.service-grid{grid-template-columns:repeat(2,1fr)}.service-grid article:nth-child(2){border-right:0}.service-grid article:nth-child(-n+2){border-bottom:1px solid var(--line-light)}.newsletter{grid-template-columns:1fr}.footer-top{grid-template-columns:1.4fr 1fr 1fr}.footer-top>div:last-child{grid-column:2}.quickview{grid-template-columns:1fr}.quickview__media{min-height:560px}.dialog-close{position:fixed;right:28px;top:28px}}
+@media (max-width:720px){.announcement{justify-content:flex-start;padding-right:50px;font-size:8px}.site-header{height:70px}.wordmark small{display:none}.wordmark>span{font-size:15px}.language-toggle,.icon-button{display:none}.cart-button{border:0;padding:0}.commerce-hero{padding-top:70px}.hero-grid{inset:70px 18px 0}.hero-copy{padding-top:80px}.commerce-hero h1{font-size:clamp(66px,22vw,110px)}.hero-product{min-height:500px}.telemetry{width:100%}.x1-render{width:210px}.hero-orbit--a{width:400px}.hero-data>div{padding:16px 10px}.shop-section,.editorial-section{padding:100px 18px}.section-intro,.editorial-head{grid-template-columns:1fr}.section-index{margin-bottom:34px}.intro-copy,.editorial-head .text-link{grid-column:1}.section-intro h2,.editorial-head h2{font-size:clamp(52px,18vw,84px)}.shop-toolbar{overflow:auto}.filter-group{min-width:max-content}.sort-button{display:none}.product-grid{grid-template-columns:1fr}.product-card--wide{grid-column:auto}.product-card__media,.product-card--wide .product-card__media{min-height:430px}.accessory-scene{width:100%;transform:scale(.7)}.system-section{min-height:auto}.system-visual{min-height:690px;padding:30px 18px}.exploded-part--shell{width:210px;height:300px}.exploded-part--handle{transform:translateY(-210px)}.exploded-part--module{transform:translate(155px,-25px)}.exploded-part--wheel-a{transform:translate(-75px,215px)}.exploded-part--wheel-b{transform:translate(75px,215px)}.system-copy{padding:90px 18px}.system-copy h2{font-size:clamp(56px,17vw,90px)}.system-points article{grid-template-columns:35px 110px 1fr}.editorial-grid{grid-template-columns:1fr}.story-card--large{grid-column:auto}.story-image,.story-card--large .story-image{height:390px}.service-section{padding:90px 18px}.service-heading{grid-template-columns:1fr}.service-heading .eyebrow,.service-heading h2{grid-column:1}.service-heading h2{font-size:22vw;margin-top:55px}.service-grid{grid-template-columns:1fr}.service-grid article{border-right:0!important;border-bottom:1px solid var(--line-light)}.newsletter{padding:90px 18px;min-height:620px}.newsletter h2{font-size:18vw}.newsletter form>div{grid-template-columns:1fr}.newsletter form button{height:50px}.footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1;margin-bottom:35px}.footer-top>div:last-child{grid-column:auto}.footer-bottom{gap:14px;flex-direction:column}.quickview{width:100%;max-height:100svh}.quickview__media{min-height:420px}.quickview__content{padding:55px 22px 35px}.quickview__specs{grid-template-columns:1fr 1fr}.dialog-close{right:15px;top:15px}.search-overlay form{margin-top:10vh}.search-overlay label{font-size:13vw}.search-results b{font-size:17px}.cart-item{grid-template-columns:80px 1fr auto}.cart-item__image{height:105px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="announcement" data-announcement>
+    <span data-i18n="announcement">Complimentary EU delivery on orders over €250</span>
+    <button type="button" aria-label="Dismiss announcement" data-announcement-close>×</button>
+  </div>
+
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#top" aria-label="HABÄNE home">
+      <!-- Replace this text fallback with the approved official HABÄNE SVG in production. -->
+      <span>HABÄNE</span>
+      <small>DESIGNED IN GERMANY</small>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#shop" data-i18n="navShop">Shop</a>
+      <a href="#system" data-i18n="navSystem">The system</a>
+      <a href="#journal" data-i18n="navJournal">Journal</a>
+      <a href="#service" data-i18n="navService">Service</a>
+    </nav>
+
+    <div class="header-tools">
+      <button class="language-toggle" type="button" data-language aria-label="Switch language">DE</button>
+      <button class="icon-button" type="button" data-search-open aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+      </button>
+      <button class="cart-button" type="button" data-cart-open aria-label="Open cart">
+        <span data-i18n="cart">Cart</span>
+        <b data-cart-count>0</b>
+      </button>
+      <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <aside class="mobile-menu" data-mobile-menu aria-hidden="true">
+    <div class="mobile-menu__top">
+      <span>HABÄNE / 2026</span>
+      <button type="button" data-menu-close>Close ×</button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <a href="#shop"><span>01</span><b data-i18n="navShop">Shop</b></a>
+      <a href="#system"><span>02</span><b data-i18n="navSystem">The system</b></a>
+      <a href="#journal"><span>03</span><b data-i18n="navJournal">Journal</b></a>
+      <a href="#service"><span>04</span><b data-i18n="navService">Service</b></a>
+    </nav>
+    <div class="mobile-menu__footer">BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</div>
+  </aside>
+
+  <main id="main">
+    <section class="commerce-hero" id="top">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><i></i><span data-i18n="heroEyebrow">The intelligent cabin object / X1</span></p>
+        <h1><span data-i18n="heroLine1">TRAVEL,</span><br /><em data-i18n="heroLine2">INTELLIGENTLY.</em></h1>
+        <p class="hero-lede" data-i18n="heroLede">A new system for movement. Engineered around precision, modularity and the freedom to keep moving.</p>
+        <div class="hero-actions">
+          <button class="primary-button" type="button" data-quickview="x1"><span data-i18n="configure">Configure X1</span><b>↗</b></button>
+          <a class="text-link" href="#shop"><span data-i18n="exploreCollection">Explore collection</span><b>↓</b></a>
+        </div>
+      </div>
+
+      <div class="hero-product" aria-label="HABÄNE X1 product visualization">
+        <div class="telemetry telemetry--top"><span>SYS / 01</span><b>READY TO MOVE</b></div>
+        <div class="hero-orbit hero-orbit--a"></div>
+        <div class="hero-orbit hero-orbit--b"></div>
+        <div class="x1-render">
+          <span class="x1-handle"></span>
+          <div class="x1-body">
+            <span class="x1-rail x1-rail--left"></span>
+            <span class="x1-rail x1-rail--right"></span>
+            <span class="x1-screen"><small>HABÄNE X1</small><b>READY</b></span>
+            <span class="x1-light"></span>
+            <span class="x1-mark">H</span>
+          </div>
+          <span class="x1-wheel x1-wheel--left"></span>
+          <span class="x1-wheel x1-wheel--right"></span>
+        </div>
+        <div class="telemetry telemetry--bottom"><span>37 L / CABIN</span><b>OBJECT 01</b></div>
+      </div>
+
+      <div class="hero-data">
+        <div><small data-i18n="status">Status</small><b><i></i><span data-i18n="preorderConcept">Pre-order concept</span></b></div>
+        <div><small data-i18n="origin">Origin</small><b data-i18n="designedGermany">Designed in Germany</b></div>
+        <div><small data-i18n="architecture">Architecture</small><b data-i18n="modular">Modular / serviceable</b></div>
+        <div><small data-i18n="from">From</small><b>€899</b></div>
+      </div>
+    </section>
+
+    <section class="shop-section" id="shop">
+      <div class="section-intro">
+        <p class="section-index">01 / OBJECTS</p>
+        <div>
+          <p class="eyebrow dark"><i></i><span data-i18n="shopEyebrow">The movement collection</span></p>
+          <h2 data-i18n="shopTitle">OBJECTS WITH<br />A REASON TO EXIST.</h2>
+        </div>
+        <p class="intro-copy" data-i18n="shopIntro">A focused system of travel objects. No decorative features. No noise. Every detail earns its place.</p>
+      </div>
+
+      <div class="shop-toolbar">
+        <div class="filter-group" role="group" aria-label="Product category">
+          <button class="is-active" type="button" data-filter="all" data-i18n="filterAll">All objects</button>
+          <button type="button" data-filter="luggage" data-i18n="filterLuggage">Luggage</button>
+          <button type="button" data-filter="carry" data-i18n="filterCarry">Carry</button>
+          <button type="button" data-filter="system" data-i18n="filterSystem">System</button>
+        </div>
+        <button class="sort-button" type="button" data-sort>
+          <span data-i18n="sortFeatured">Sort: Featured</span><b>↕</b>
+        </button>
+      </div>
+
+      <div class="product-grid" data-product-grid>
+        <article class="product-card product-card--feature" data-category="luggage" data-product-card="x1">
+          <div class="product-card__media product-card__media--midnight">
+            <span class="product-badge" data-i18n="flagship">Flagship</span>
+            <button class="product-favourite" type="button" aria-label="Save X1 Cabin">♡</button>
+            <div class="card-object card-object--case card-object--silver"><span></span></div>
+            <div class="media-code"><span>OBJ / 01</span><span>X1 / CABIN</span></div>
+          </div>
+          <div class="product-card__body">
+            <div><p>HABÄNE X1 CABIN</p><small data-i18n="x1Subtitle">Intelligent cabin mobility</small></div>
+            <strong>€899</strong>
+          </div>
+          <div class="product-card__actions">
+            <button type="button" data-quickview="x1" data-i18n="quickView">Quick view</button>
+            <button type="button" data-add="x1"><span data-i18n="addToCart">Add to cart</span><b>+</b></button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="luggage" data-product-card="x2">
+          <div class="product-card__media product-card__media--ice">
+            <span class="product-badge" data-i18n="newObject">New object</span>
+            <button class="product-favourite" type="button" aria-label="Save X2 Check-In">♡</button>
+            <div class="card-object card-object--case card-object--navy card-object--large"><span></span></div>
+            <div class="media-code"><span>OBJ / 02</span><span>X2 / CHECK-IN</span></div>
+          </div>
+          <div class="product-card__body">
+            <div><p>HABÄNE X2 CHECK-IN</p><small data-i18n="x2Subtitle">Extended travel architecture</small></div>
+            <strong>€1,099</strong>
+          </div>
+          <div class="product-card__actions">
+            <button type="button" data-quickview="x2" data-i18n="quickView">Quick view</button>
+            <button type="button" data-add="x2"><span data-i18n="addToCart">Add to cart</span><b>+</b></button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="carry" data-product-card="p1">
+          <div class="product-card__media product-card__media--graphite">
+            <span class="product-badge" data-i18n="dailySystem">Daily system</span>
+            <button class="product-favourite" type="button" aria-label="Save P1 Transit Pack">♡</button>
+            <div class="card-object card-object--pack"><span></span><i></i></div>
+            <div class="media-code"><span>OBJ / 03</span><span>P1 / TRANSIT</span></div>
+          </div>
+          <div class="product-card__body">
+            <div><p>HABÄNE P1 TRANSIT</p><small data-i18n="p1Subtitle">Architectural travel pack</small></div>
+            <strong>€249</strong>
+          </div>
+          <div class="product-card__actions">
+            <button type="button" data-quickview="p1" data-i18n="quickView">Quick view</button>
+            <button type="button" data-add="p1"><span data-i18n="addToCart">Add to cart</span><b>+</b></button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="system" data-product-card="m1">
+          <div class="product-card__media product-card__media--titanium">
+            <span class="product-badge" data-i18n="module">Module</span>
+            <button class="product-favourite" type="button" aria-label="Save M1 Power Core">♡</button>
+            <div class="card-object card-object--module"><span></span><i></i></div>
+            <div class="media-code"><span>SYS / 01</span><span>M1 / POWER</span></div>
+          </div>
+          <div class="product-card__body">
+            <div><p>HABÄNE M1 POWER CORE</p><small data-i18n="m1Subtitle">Removable energy module</small></div>
+            <strong>€129</strong>
+          </div>
+          <div class="product-card__actions">
+            <button type="button" data-quickview="m1" data-i18n="quickView">Quick view</button>
+            <button type="button" data-add="m1"><span data-i18n="addToCart">Add to cart</span><b>+</b></button>
+          </div>
+        </article>
+
+        <article class="product-card product-card--wide" data-category="system" data-product-card="a1">
+          <div class="product-card__media product-card__media--aurora">
+            <span class="product-badge" data-i18n="travelKit">Travel kit</span>
+            <button class="product-favourite" type="button" aria-label="Save A1 Accessory System">♡</button>
+            <div class="accessory-scene">
+              <span class="accessory accessory--one"></span>
+              <span class="accessory accessory--two"></span>
+              <span class="accessory accessory--three"></span>
+            </div>
+            <div class="media-code"><span>SYS / 02</span><span>A1 / KIT</span></div>
+          </div>
+          <div class="product-card__body">
+            <div><p>HABÄNE A1 ACCESSORY SYSTEM</p><small data-i18n="a1Subtitle">Organised essentials, without compromise</small></div>
+            <strong>€89</strong>
+          </div>
+          <div class="product-card__actions">
+            <button type="button" data-quickview="a1" data-i18n="quickView">Quick view</button>
+            <button type="button" data-add="a1"><span data-i18n="addToCart">Add to cart</span><b>+</b></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="system-section" id="system">
+      <div class="system-visual">
+        <div class="system-lines" aria-hidden="true"></div>
+        <p class="section-index light">02 / SYSTEM</p>
+        <div class="system-object" aria-hidden="true">
+          <span class="exploded-part exploded-part--handle"></span>
+          <span class="exploded-part exploded-part--shell"></span>
+          <span class="exploded-part exploded-part--module"></span>
+          <span class="exploded-part exploded-part--wheel-a"></span>
+          <span class="exploded-part exploded-part--wheel-b"></span>
+        </div>
+        <p class="system-caption">EXPLODED ARCHITECTURE / X1</p>
+      </div>
+      <div class="system-copy">
+        <p class="eyebrow"><i></i><span data-i18n="systemEyebrow">Less friction. More freedom.</span></p>
+        <h2 data-i18n="systemTitle">BUILT AS A<br />SYSTEM.<br /><em>NOT A SEASON.</em></h2>
+        <p data-i18n="systemBody">The best travel object is one you can understand, maintain and keep. HABÄNE is conceived around replaceable components, clear ownership and a quieter relationship with technology.</p>
+        <div class="system-points">
+          <article><span>01</span><h3 data-i18n="serviceableTitle">Serviceable</h3><p data-i18n="serviceableBody">High-wear parts designed to be replaced instead of hiding failure.</p></article>
+          <article><span>02</span><h3 data-i18n="modularTitle">Modular</h3><p data-i18n="modularBody">Power, carry and accessory elements work as one coherent system.</p></article>
+          <article><span>03</span><h3 data-i18n="traceableTitle">Traceable</h3><p data-i18n="traceableBody">A clear product identity supports care, service and ownership history.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="editorial-section" id="journal">
+      <div class="editorial-head">
+        <p class="section-index">03 / MOVEMENT</p>
+        <h2 data-i18n="journalTitle">THE WORLD DOES NOT<br />MOVE IN STRAIGHT LINES.</h2>
+        <a href="#newsletter" class="text-link dark"><span data-i18n="openJournal">Open journal</span><b>↗</b></a>
+      </div>
+      <div class="editorial-grid">
+        <article class="story-card story-card--large">
+          <div class="story-image story-image--station"><span>BER / 05:42</span></div>
+          <div class="story-copy"><small>FIELD NOTE / 001</small><h3 data-i18n="storyOne">The architecture of departure</h3><p data-i18n="readFive">Read / 5 min</p></div>
+        </article>
+        <article class="story-card">
+          <div class="story-image story-image--material"><span>MAT / 01</span></div>
+          <div class="story-copy"><small>OBJECT NOTE / 002</small><h3 data-i18n="storyTwo">Why materials should age honestly</h3><p data-i18n="readThree">Read / 3 min</p></div>
+        </article>
+        <article class="story-card">
+          <div class="story-image story-image--night"><span>MOVE / 23:14</span></div>
+          <div class="story-copy"><small>CULTURE / 003</small><h3 data-i18n="storyThree">Movement after dark</h3><p data-i18n="readFour">Read / 4 min</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="service-section" id="service">
+      <div class="service-heading">
+        <p class="section-index light">04 / OWNERSHIP</p>
+        <p class="eyebrow"><i></i><span data-i18n="serviceEyebrow">The purchase is only the beginning</span></p>
+        <h2 data-i18n="serviceTitle">KEEP MOVING.</h2>
+      </div>
+      <div class="service-grid">
+        <article><span>01</span><h3 data-i18n="supportTitle">Direct support</h3><p data-i18n="supportBody">Clear answers from people who understand the object—not an endless ticket maze.</p><a href="mailto:habaneglobal@gmail.com" data-i18n="contactService">Contact service ↗</a></article>
+        <article><span>02</span><h3 data-i18n="repairTitle">Repair pathways</h3><p data-i18n="repairBody">A practical route for parts, diagnostics and future product care.</p><a href="#newsletter" data-i18n="learnCare">Learn about care ↗</a></article>
+        <article><span>03</span><h3 data-i18n="deliveryTitle">EU delivery</h3><p data-i18n="deliveryBody">Transparent delivery estimates, tracked fulfilment and no hidden theatre.</p><a href="#footer" data-i18n="deliveryInfo">Delivery information ↗</a></article>
+        <article><span>04</span><h3 data-i18n="returnsTitle">Considered returns</h3><p data-i18n="returnsBody">A straightforward return experience designed around confidence, not friction.</p><a href="#footer" data-i18n="returnsInfo">Returns information ↗</a></article>
+      </div>
+    </section>
+
+    <section class="newsletter" id="newsletter">
+      <div class="newsletter-mark" aria-hidden="true">H</div>
+      <div>
+        <p class="eyebrow"><i></i><span data-i18n="newsletterEyebrow">HABÄNE movement / private channel</span></p>
+        <h2 data-i18n="newsletterTitle">LEAVE BEFORE<br />EVERYONE ELSE.</h2>
+      </div>
+      <form data-newsletter-form>
+        <label for="newsletter-email" data-i18n="emailLabel">Email address</label>
+        <div><input id="newsletter-email" type="email" required placeholder="you@example.com" /><button type="submit" data-i18n="joinMovement">Join the movement ↗</button></div>
+        <p data-newsletter-status data-i18n="newsletterPrivacy">Product drops, field notes and no unnecessary noise.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand"><b>HABÄNE</b><span>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</span></div>
+      <div><h3 data-i18n="footerShop">Shop</h3><a href="#shop">X1 Cabin</a><a href="#shop">X2 Check-In</a><a href="#shop">P1 Transit</a><a href="#shop">Modules</a></div>
+      <div><h3 data-i18n="footerHelp">Help</h3><a href="mailto:habaneglobal@gmail.com" data-i18n="contact">Contact</a><a href="#service" data-i18n="serviceRepair">Service & repair</a><a href="#footer" data-i18n="deliveryReturns">Delivery & returns</a><a href="#footer" data-i18n="productCare">Product care</a></div>
+      <div><h3 data-i18n="footerCompany">Company</h3><a href="#journal" data-i18n="journal">Journal</a><a href="#system" data-i18n="philosophy">Philosophy</a><a href="#footer" data-i18n="legal">Legal</a><a href="#footer" data-i18n="privacy">Privacy</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 HABÄNE</span><span>DESIGNED IN GERMANY / BUILT FOR MOVEMENT</span><span>EU / EN</span></div>
+  </footer>
+
+  <dialog class="quickview" data-quickview-dialog>
+    <button class="dialog-close" type="button" data-quickview-close aria-label="Close quick view">Close ×</button>
+    <div class="quickview__media" data-qv-media><div class="quickview-object" data-qv-object><span></span></div><p data-qv-code>OBJ / 01</p></div>
+    <div class="quickview__content">
+      <p class="eyebrow dark"><i></i><span data-qv-kicker>Flagship cabin object</span></p>
+      <h2 data-qv-name>HABÄNE X1 CABIN</h2>
+      <p class="quickview__description" data-qv-description></p>
+      <div class="quickview__price"><strong data-qv-price>€899</strong><span data-i18n="vatIncluded">VAT included. Delivery calculated at checkout.</span></div>
+      <fieldset><legend data-i18n="finish">Finish</legend><div class="swatches"><button class="is-active" type="button" aria-label="Titanium"><i class="swatch swatch--silver"></i>Titanium</button><button type="button" aria-label="Midnight"><i class="swatch swatch--navy"></i>Midnight</button><button type="button" aria-label="Graphite"><i class="swatch swatch--graphite"></i>Graphite</button></div></fieldset>
+      <div class="quickview__specs" data-qv-specs></div>
+      <button class="quickview__add" type="button" data-qv-add><span data-i18n="addToCart">Add to cart</span><b data-qv-price-copy>€899</b></button>
+      <p class="quickview__note"><i></i><span data-i18n="mockNote">Concept-store interface. Confirm production specifications, claims and pricing before launch.</span></p>
+    </div>
+  </dialog>
+
+  <aside class="cart-drawer" data-cart-drawer aria-hidden="true">
+    <div class="cart-drawer__head"><div><small data-i18n="yourSelection">Your selection</small><h2><span data-i18n="cart">Cart</span> <b data-cart-count>0</b></h2></div><button type="button" data-cart-close>Close ×</button></div>
+    <div class="cart-progress"><span data-cart-progress></span></div>
+    <p class="cart-progress__label" data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
+    <div class="cart-items" data-cart-items><div class="empty-cart"><span>0 / 05</span><h3 data-i18n="emptyCart">Your movement system is empty.</h3><a href="#shop" data-cart-close data-i18n="exploreObjects">Explore objects →</a></div></div>
+    <div class="cart-summary" data-cart-summary hidden>
+      <div><span data-i18n="subtotal">Subtotal</span><strong data-cart-subtotal>€0</strong></div>
+      <p data-i18n="taxDelivery">VAT included. Delivery calculated at checkout.</p>
+      <button type="button" data-checkout><span data-i18n="checkout">Secure checkout</span><b>→</b></button>
+      <small>VISA / MASTERCARD / PAYPAL / KLARNA</small>
+    </div>
+  </aside>
+  <div class="page-scrim" data-scrim></div>
+
+  <section class="search-overlay" data-search-overlay aria-hidden="true">
+    <div class="search-overlay__head"><span>SEARCH / HABÄNE</span><button type="button" data-search-close>Close ×</button></div>
+    <form data-search-form><label for="site-search" data-i18n="searchLabel">What are you moving with?</label><div><input id="site-search" autocomplete="off" placeholder="X1, cabin, power..." /><button type="submit">↗</button></div></form>
+    <div class="search-results" data-search-results>
+      <p data-i18n="searchSuggestions">Suggested objects</p>
+      <button type="button" data-quickview="x1"><span>01</span><b>X1 Cabin</b><small>€899</small></button>
+      <button type="button" data-quickview="p1"><span>02</span><b>P1 Transit</b><small>€249</small></button>
+      <button type="button" data-quickview="m1"><span>03</span><b>M1 Power Core</b><small>€129</small></button>
+    </div>
+  </section>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <script>
+const products = {
+  x1: { id:'x1', name:'HABÄNE X1 CABIN', price:899, kicker:'Flagship cabin object', description:'An intelligent cabin object conceived around modular movement, a removable power architecture and a calm, legible interface.', code:'OBJ / 01', className:'', specs:[['Volume','37 L'],['Format','Cabin'],['System','Modular']] },
+  x2: { id:'x2', name:'HABÄNE X2 CHECK-IN', price:1099, kicker:'Extended travel object', description:'A larger travel architecture for longer departures, with the same disciplined material language and service-first thinking.', code:'OBJ / 02', className:'is-x2', specs:[['Format','Check-in'],['Shell','Premium'],['System','Modular']] },
+  p1: { id:'p1', name:'HABÄNE P1 TRANSIT', price:249, kicker:'Architectural daily carry', description:'A structured travel pack designed to move cleanly between airport, rail, work and the city without visual noise.', code:'OBJ / 03', className:'is-p1', specs:[['Use','Daily'],['Carry','Transit'],['System','Expandable']] },
+  m1: { id:'m1', name:'HABÄNE M1 POWER CORE', price:129, kicker:'Removable system module', description:'A compact power concept that makes energy, handling and future service more understandable.', code:'SYS / 01', className:'is-m1', specs:[['Type','Module'],['Interface','Clear'],['Design','Removable']] },
+  a1: { id:'a1', name:'HABÄNE A1 ACCESSORY SYSTEM', price:89, kicker:'Organised travel kit', description:'A coherent family of organisers for the objects that usually disappear into the bottom of a bag.', code:'SYS / 02', className:'is-a1', specs:[['Pieces','3'],['Use','Organise'],['System','Compatible']] }
+};
+
+const translations = {
+  en: {
+    announcement:'Complimentary EU delivery on orders over €250', navShop:'Shop', navSystem:'The system', navJournal:'Journal', navService:'Service', cart:'Cart', heroEyebrow:'The intelligent cabin object / X1', heroLine1:'TRAVEL,', heroLine2:'INTELLIGENTLY.', heroLede:'A new system for movement. Engineered around precision, modularity and the freedom to keep moving.', configure:'Configure X1', exploreCollection:'Explore collection', status:'Status', preorderConcept:'Pre-order concept', origin:'Origin', designedGermany:'Designed in Germany', architecture:'Architecture', modular:'Modular / serviceable', from:'From', shopEyebrow:'The movement collection', shopTitle:'OBJECTS WITH A REASON TO EXIST.', shopIntro:'A focused system of travel objects. No decorative features. No noise. Every detail earns its place.', filterAll:'All objects', filterLuggage:'Luggage', filterCarry:'Carry', filterSystem:'System', sortFeatured:'Sort: Featured', flagship:'Flagship', newObject:'New object', dailySystem:'Daily system', module:'Module', travelKit:'Travel kit', x1Subtitle:'Intelligent cabin mobility', x2Subtitle:'Extended travel architecture', p1Subtitle:'Architectural travel pack', m1Subtitle:'Removable energy module', a1Subtitle:'Organised essentials, without compromise', quickView:'Quick view', addToCart:'Add to cart', systemEyebrow:'Less friction. More freedom.', systemTitle:'BUILT AS A SYSTEM. NOT A SEASON.', systemBody:'The best travel object is one you can understand, maintain and keep. HABÄNE is conceived around replaceable components, clear ownership and a quieter relationship with technology.', serviceableTitle:'Serviceable', serviceableBody:'High-wear parts designed to be replaced instead of hiding failure.', modularTitle:'Modular', modularBody:'Power, carry and accessory elements work as one coherent system.', traceableTitle:'Traceable', traceableBody:'A clear product identity supports care, service and ownership history.', journalTitle:'THE WORLD DOES NOT MOVE IN STRAIGHT LINES.', openJournal:'Open journal', storyOne:'The architecture of departure', storyTwo:'Why materials should age honestly', storyThree:'Movement after dark', readFive:'Read / 5 min', readThree:'Read / 3 min', readFour:'Read / 4 min', serviceEyebrow:'The purchase is only the beginning', serviceTitle:'KEEP MOVING.', supportTitle:'Direct support', supportBody:'Clear answers from people who understand the object—not an endless ticket maze.', contactService:'Contact service ↗', repairTitle:'Repair pathways', repairBody:'A practical route for parts, diagnostics and future product care.', learnCare:'Learn about care ↗', deliveryTitle:'EU delivery', deliveryBody:'Transparent delivery estimates, tracked fulfilment and no hidden theatre.', deliveryInfo:'Delivery information ↗', returnsTitle:'Considered returns', returnsBody:'A straightforward return experience designed around confidence, not friction.', returnsInfo:'Returns information ↗', newsletterEyebrow:'HABÄNE movement / private channel', newsletterTitle:'LEAVE BEFORE EVERYONE ELSE.', emailLabel:'Email address', joinMovement:'Join the movement ↗', newsletterPrivacy:'Product drops, field notes and no unnecessary noise.', footerShop:'Shop', footerHelp:'Help', footerCompany:'Company', contact:'Contact', serviceRepair:'Service & repair', deliveryReturns:'Delivery & returns', productCare:'Product care', journal:'Journal', philosophy:'Philosophy', legal:'Legal', privacy:'Privacy', vatIncluded:'VAT included. Delivery calculated at checkout.', finish:'Finish', mockNote:'Concept-store interface. Confirm production specifications, claims and pricing before launch.', yourSelection:'Your selection', emptyCart:'Your movement system is empty.', exploreObjects:'Explore objects →', subtotal:'Subtotal', taxDelivery:'VAT included. Delivery calculated at checkout.', checkout:'Secure checkout', searchLabel:'What are you moving with?', searchSuggestions:'Suggested objects'
+  },
+  de: {
+    announcement:'Kostenlose EU-Lieferung ab €250', navShop:'Shop', navSystem:'Das System', navJournal:'Journal', navService:'Service', cart:'Warenkorb', heroEyebrow:'Das intelligente Kabinenobjekt / X1', heroLine1:'REISEN,', heroLine2:'INTELLIGENT.', heroLede:'Ein neues System für Bewegung. Entwickelt für Präzision, Modularität und die Freiheit, weiterzugehen.', configure:'X1 konfigurieren', exploreCollection:'Kollektion entdecken', status:'Status', preorderConcept:'Vorbestellungs-Konzept', origin:'Herkunft', designedGermany:'In Deutschland gestaltet', architecture:'Architektur', modular:'Modular / wartbar', from:'Ab', shopEyebrow:'Die Bewegungskollektion', shopTitle:'OBJEKTE MIT EINEM GRUND ZU EXISTIEREN.', shopIntro:'Ein fokussiertes System von Reiseobjekten. Keine Dekoration. Kein Lärm. Jedes Detail verdient seinen Platz.', filterAll:'Alle Objekte', filterLuggage:'Gepäck', filterCarry:'Carry', filterSystem:'System', sortFeatured:'Sortierung: Empfohlen', flagship:'Flaggschiff', newObject:'Neues Objekt', dailySystem:'Tagessystem', module:'Modul', travelKit:'Reiseset', x1Subtitle:'Intelligente Kabinenmobilität', x2Subtitle:'Erweiterte Reisearchitektur', p1Subtitle:'Architektonischer Reiserucksack', m1Subtitle:'Entnehmbares Energiemodul', a1Subtitle:'Organisierte Essentials ohne Kompromisse', quickView:'Schnellansicht', addToCart:'In den Warenkorb', systemEyebrow:'Weniger Reibung. Mehr Freiheit.', systemTitle:'ALS SYSTEM GEBAUT. NICHT ALS SAISON.', systemBody:'Das beste Reiseobjekt kann man verstehen, pflegen und behalten. HABÄNE ist um austauschbare Komponenten, klare Verantwortung und eine ruhigere Beziehung zur Technologie gedacht.', serviceableTitle:'Wartbar', serviceableBody:'Verschleißteile sind für Austausch konzipiert, statt Fehler zu verstecken.', modularTitle:'Modular', modularBody:'Energie-, Carry- und Zubehörteile arbeiten als ein kohärentes System.', traceableTitle:'Nachvollziehbar', traceableBody:'Eine klare Produktidentität unterstützt Pflege, Service und Besitzhistorie.', journalTitle:'DIE WELT BEWEGT SICH NICHT IN GERADEN LINIEN.', openJournal:'Journal öffnen', storyOne:'Die Architektur der Abreise', storyTwo:'Warum Materialien ehrlich altern sollten', storyThree:'Bewegung nach Einbruch der Dunkelheit', readFive:'Lesen / 5 Min', readThree:'Lesen / 3 Min', readFour:'Lesen / 4 Min', serviceEyebrow:'Der Kauf ist nur der Anfang', serviceTitle:'WEITER BEWEGEN.', supportTitle:'Direkter Support', supportBody:'Klare Antworten von Menschen, die das Objekt verstehen—kein endloses Ticketsystem.', contactService:'Service kontaktieren ↗', repairTitle:'Reparaturwege', repairBody:'Ein praktischer Weg für Teile, Diagnose und zukünftige Produktpflege.', learnCare:'Pflege entdecken ↗', deliveryTitle:'EU-Lieferung', deliveryBody:'Transparente Lieferzeiten, Sendungsverfolgung und kein verstecktes Theater.', deliveryInfo:'Lieferinformationen ↗', returnsTitle:'Klare Rückgabe', returnsBody:'Eine unkomplizierte Rückgabe, gestaltet für Vertrauen statt Reibung.', returnsInfo:'Rückgabeinformationen ↗', newsletterEyebrow:'HABÄNE Bewegung / privater Kanal', newsletterTitle:'GEH, BEVOR ALLE ANDEREN ES TUN.', emailLabel:'E-Mail-Adresse', joinMovement:'Der Bewegung beitreten ↗', newsletterPrivacy:'Produkt-Drops, Field Notes und kein unnötiger Lärm.', footerShop:'Shop', footerHelp:'Hilfe', footerCompany:'Unternehmen', contact:'Kontakt', serviceRepair:'Service & Reparatur', deliveryReturns:'Lieferung & Rückgabe', productCare:'Produktpflege', journal:'Journal', philosophy:'Philosophie', legal:'Impressum', privacy:'Datenschutz', vatIncluded:'Inkl. MwSt. Lieferung wird im Checkout berechnet.', finish:'Finish', mockNote:'Konzept-Store. Produktionsdaten, Aussagen und Preise vor dem Launch bestätigen.', yourSelection:'Deine Auswahl', emptyCart:'Dein Bewegungssystem ist leer.', exploreObjects:'Objekte entdecken →', subtotal:'Zwischensumme', taxDelivery:'Inkl. MwSt. Lieferung wird im Checkout berechnet.', checkout:'Sicher bezahlen', searchLabel:'Womit bewegst du dich?', searchSuggestions:'Vorgeschlagene Objekte'
+  }
+};
+
+let language = 'en';
+let cart = [];
+let activeQuickview = 'x1';
+const qs = (s, root=document) => root.querySelector(s);
+const qsa = (s, root=document) => [...root.querySelectorAll(s)];
+const money = value => new Intl.NumberFormat(language === 'de' ? 'de-DE' : 'en-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(value);
+
+function lockPage(lock){ document.body.classList.toggle('is-locked', lock); }
+function toast(message){ const el=qs('[data-toast]'); el.textContent=message; el.classList.add('is-visible'); clearTimeout(toast.timer); toast.timer=setTimeout(()=>el.classList.remove('is-visible'),2200); }
+
+const announcement = qs('[data-announcement]');
+qs('[data-announcement-close]').addEventListener('click',()=>{announcement.classList.add('is-hidden');});
+window.addEventListener('scroll',()=>qs('[data-header]').classList.toggle('is-fixed',window.scrollY>45),{passive:true});
+
+const mobileMenu=qs('[data-mobile-menu]');
+function toggleMobile(open){mobileMenu.classList.toggle('is-open',open);mobileMenu.setAttribute('aria-hidden',String(!open));lockPage(open)}
+qs('[data-menu-open]').addEventListener('click',()=>toggleMobile(true));
+qs('[data-menu-close]').addEventListener('click',()=>toggleMobile(false));
+qsa('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>toggleMobile(false)));
+
+qsa('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
+  qsa('[data-filter]').forEach(b=>b.classList.remove('is-active')); button.classList.add('is-active');
+  const category=button.dataset.filter;
+  qsa('[data-product-card]').forEach(card=>card.classList.toggle('is-hidden',category!=='all'&&card.dataset.category!==category));
+}));
+
+qs('[data-sort]').addEventListener('click',()=>{
+  const grid=qs('[data-product-grid]'); const cards=qsa('[data-product-card]',grid);
+  cards.reverse().forEach(card=>grid.appendChild(card)); toast(language==='de'?'Sortierung geändert':'Sort order changed');
+});
+qsa('.product-favourite').forEach(button=>button.addEventListener('click',()=>{button.classList.toggle('is-saved');button.textContent=button.classList.contains('is-saved')?'♥':'♡';toast(button.classList.contains('is-saved')?(language==='de'?'Gespeichert':'Saved'):(language==='de'?'Entfernt':'Removed'));}));
+
+const quickview=qs('[data-quickview-dialog]');
+function openQuickview(id){
+  const p=products[id]; if(!p)return; activeQuickview=id;
+  qs('[data-qv-kicker]').textContent=p.kicker; qs('[data-qv-name]').textContent=p.name; qs('[data-qv-description]').textContent=p.description; qs('[data-qv-price]').textContent=money(p.price); qs('[data-qv-price-copy]').textContent=money(p.price); qs('[data-qv-code]').textContent=p.code;
+  const obj=qs('[data-qv-object]'); obj.className=`quickview-object ${p.className}`;
+  qs('[data-qv-specs]').innerHTML=p.specs.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('');
+  if(!quickview.open)quickview.showModal(); lockPage(true);
+}
+qsa('[data-quickview]').forEach(button=>button.addEventListener('click',()=>{closeSearch();openQuickview(button.dataset.quickview)}));
+qs('[data-quickview-close]').addEventListener('click',()=>{quickview.close();lockPage(false)});
+quickview.addEventListener('click',e=>{if(e.target===quickview){quickview.close();lockPage(false)}});
+qsa('.swatches button').forEach(button=>button.addEventListener('click',()=>{qsa('.swatches button').forEach(b=>b.classList.remove('is-active'));button.classList.add('is-active')}));
+
+function addToCart(id){
+  const existing=cart.find(item=>item.id===id); if(existing)existing.qty++; else cart.push({id,qty:1}); updateCart(); toast(`${products[id].name} ${language==='de'?'hinzugefügt':'added'}`);
+}
+qsa('[data-add]').forEach(button=>button.addEventListener('click',()=>addToCart(button.dataset.add)));
+qs('[data-qv-add]').addEventListener('click',()=>{addToCart(activeQuickview);quickview.close();lockPage(false);openCart()});
+
+const cartDrawer=qs('[data-cart-drawer]'), scrim=qs('[data-scrim]');
+function openCart(){cartDrawer.classList.add('is-open');cartDrawer.setAttribute('aria-hidden','false');scrim.classList.add('is-visible');lockPage(true)}
+function closeCart(){cartDrawer.classList.remove('is-open');cartDrawer.setAttribute('aria-hidden','true');scrim.classList.remove('is-visible');lockPage(false)}
+qsa('[data-cart-open]').forEach(b=>b.addEventListener('click',openCart));
+qsa('[data-cart-close]').forEach(b=>b.addEventListener('click',closeCart)); scrim.addEventListener('click',closeCart);
+function updateCart(){
+  const count=cart.reduce((s,i)=>s+i.qty,0), subtotal=cart.reduce((s,i)=>s+products[i.id].price*i.qty,0);
+  qsa('[data-cart-count]').forEach(el=>el.textContent=count); qs('[data-cart-subtotal]').textContent=money(subtotal);
+  const items=qs('[data-cart-items]'), summary=qs('[data-cart-summary]');
+  if(!cart.length){items.innerHTML=`<div class="empty-cart"><span>0 / 05</span><h3>${translations[language].emptyCart}</h3><a href="#shop" data-cart-close>${translations[language].exploreObjects}</a></div>`;summary.hidden=true;qs('[data-cart-progress]').style.width='0%';qs('[data-cart-progress-label]').textContent=language==='de'?'Noch €250 bis zur kostenlosen EU-Lieferung.':'Add €250 for complimentary EU delivery.';qs('[data-cart-close]',items).addEventListener('click',closeCart);return;}
+  items.innerHTML=cart.map(item=>{const p=products[item.id];return `<article class="cart-item"><div class="cart-item__image"><span class="cart-mini-object"></span></div><div><h3>${p.name}</h3><p>Titanium / Standard</p><div class="cart-item__qty"><button data-dec="${p.id}" aria-label="Decrease">−</button><span>${item.qty}</span><button data-inc="${p.id}" aria-label="Increase">+</button></div></div><div class="cart-item__end"><strong>${money(p.price*item.qty)}</strong><button data-remove="${p.id}">${language==='de'?'Entfernen':'Remove'}</button></div></article>`}).join('');
+  summary.hidden=false;const threshold=250, remaining=Math.max(0,threshold-subtotal);qs('[data-cart-progress]').style.width=`${Math.min(100,subtotal/threshold*100)}%`;qs('[data-cart-progress-label]').textContent=remaining?`${language==='de'?'Noch':'Add'} ${money(remaining)} ${language==='de'?'bis zur kostenlosen EU-Lieferung.':'for complimentary EU delivery.'}`:(language==='de'?'Kostenlose EU-Lieferung freigeschaltet.':'Complimentary EU delivery unlocked.');
+  qsa('[data-inc]',items).forEach(b=>b.addEventListener('click',()=>{cart.find(i=>i.id===b.dataset.inc).qty++;updateCart()}));
+  qsa('[data-dec]',items).forEach(b=>b.addEventListener('click',()=>{const i=cart.find(x=>x.id===b.dataset.dec);i.qty--;if(i.qty<1)cart=cart.filter(x=>x.id!==i.id);updateCart()}));
+  qsa('[data-remove]',items).forEach(b=>b.addEventListener('click',()=>{cart=cart.filter(i=>i.id!==b.dataset.remove);updateCart()}));
+}
+qs('[data-checkout]').addEventListener('click',()=>toast(language==='de'?'Checkout ist in diesem Mockup deaktiviert':'Checkout is disabled in this mockup'));
+
+const search=qs('[data-search-overlay]');
+function openSearch(){search.classList.add('is-open');search.setAttribute('aria-hidden','false');lockPage(true);setTimeout(()=>qs('#site-search').focus(),400)}
+function closeSearch(){search.classList.remove('is-open');search.setAttribute('aria-hidden','true');lockPage(false)}
+qs('[data-search-open]').addEventListener('click',openSearch);qs('[data-search-close]').addEventListener('click',closeSearch);
+qs('[data-search-form]').addEventListener('submit',e=>{e.preventDefault();const term=qs('#site-search').value.toLowerCase();const match=Object.values(products).find(p=>p.name.toLowerCase().includes(term)||p.description.toLowerCase().includes(term));if(match){closeSearch();openQuickview(match.id)}else toast(language==='de'?'Kein Objekt gefunden':'No object found')});
+
+qs('[data-language]').addEventListener('click',()=>{
+  language=language==='en'?'de':'en'; document.documentElement.lang=language; qs('[data-language]').textContent=language==='en'?'DE':'EN';
+  qsa('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(translations[language][key])el.innerHTML=translations[language][key]}); updateCart();
+});
+
+qs('[data-newsletter-form]').addEventListener('submit',e=>{e.preventDefault();const status=qs('[data-newsletter-status]');status.textContent=language==='de'?'Du bist in der Bewegung.':'You are inside the movement.';e.target.reset()});
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(search.classList.contains('is-open'))closeSearch();if(cartDrawer.classList.contains('is-open'))closeCart();if(mobileMenu.classList.contains('is-open'))toggleMobile(false)}});
+updateCart();
+
+</script>
+</body>
+</html>
