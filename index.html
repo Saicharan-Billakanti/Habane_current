@@ -313,33 +313,77 @@
     </section>
 
     <section class="faq" id="faq">
-      <div class="faq__head">
-        <p>06 / QUESTIONS</p>
-        <span class="system-label system-label--dark"><i></i> Before you depart.</span>
-        <h2>FREQUENTLY <em>ASKED.</em></h2>
-        <p class="faq__lede">Shipping, returns, sizing and care — the essentials before you commit.</p>
+      <p class="faq__num">06 / QUESTIONS</p>
+      <div class="faq__layout">
+        <div class="faq__head">
+          <span class="system-label system-label--dark"><i></i> Before you depart.</span>
+          <h2>FREQUENTLY <em>ASKED.</em></h2>
+          <p class="faq__lede">Shipping, returns, sizing and care — the essentials before you commit.</p>
+          <span class="faq__accent" aria-hidden="true"></span>
+        </div>
+        <div class="faq-list">
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="14" height="10" rx="1" /><path d="M15 10h4l3 3v4h-7z" /><circle cx="6" cy="19" r="1.6" /><circle cx="17.5" cy="19" r="1.6" /></svg></span>
+              <span class="accordion-item__q">HOW LONG DOES DELIVERY TAKE?</span>
+              <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <div class="accordion-item__panel" data-accordion-panel><p>EU delivery typically arrives in 2–4 working days. International orders take 5–9 working days. Complimentary EU delivery applies on orders over €250.</p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z" /><path d="M3 9v7l9 5 9-5V9" /><path d="M8.5 13.5l-2 2 2 2" /><path d="M6.5 15.5H10" /></svg></span>
+              <span class="accordion-item__q">WHAT IS YOUR RETURNS POLICY?</span>
+              <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <div class="accordion-item__panel" data-accordion-panel><p>30-day free returns, worldwide. Items must be unused with original tags. Refunds are issued to your original payment method within 5 working days of us receiving the return.</p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16L16 3l5 5-13 13H3v-5z" /><path d="M13 6l5 5" /><path d="M9 10l1.5 1.5M6 13l1.5 1.5" /></svg></span>
+              <span class="accordion-item__q">HOW DO I CHOOSE THE RIGHT SIZE?</span>
+              <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <div class="accordion-item__panel" data-accordion-panel><p>Use the Find Your Object matcher above — three quick questions translate your trip length and travel mode into a sizing recommendation. Every product page also lists exact capacity and dimensions.</p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" /><path d="M17 5l1 1.6-1 1.6" /><path d="M19.5 4.4l.7 1.2-.7 1.2" /></svg></span>
+              <span class="accordion-item__q">HOW DO I CARE FOR MY OBJECT?</span>
+              <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <div class="accordion-item__panel" data-accordion-panel><p>Each object ships with product-specific care guidance in its Product Passport. As a rule: spot-clean canvas, condition leather twice a year, and use the service path listed for hardware and zippers.</p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18M4.5 7.5h15M4.5 16.5h15" /></svg></span>
+              <span class="accordion-item__q">DO YOU SHIP OUTSIDE THE EU?</span>
+              <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <div class="accordion-item__panel" data-accordion-panel><p>Yes — we ship worldwide. Duties and import taxes, where applicable, are calculated at checkout so there are no surprises on delivery.</p></div>
+          </div>
+        </div>
       </div>
-      <div class="faq-list">
-        <div class="accordion-item">
-          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">HOW LONG DOES DELIVERY TAKE?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
-          <div class="accordion-item__panel" data-accordion-panel><p>EU delivery typically arrives in 2–4 working days. International orders take 5–9 working days. Complimentary EU delivery applies on orders over €250.</p></div>
+    </section>
+
+    <section class="movement-banner">
+      <div class="movement-banner__content">
+        <span class="movement-banner__accent" aria-hidden="true"></span>
+        <h2>BUILT FOR<br /><em>EVERY JOURNEY.</em></h2>
+        <p class="movement-banner__lede">Premium materials. Smart features. Built to go the distance.</p>
+        <div class="movement-banner__features">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" /><path d="M17 5l1 1.6-1 1.6" /></svg><b>Water Resistant</b><p>Ready for anything.</p></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg><b>Premium Materials</b><p>Made to last.</p></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8V6a4 4 0 0 1 8 0v2" /><rect x="5" y="8" width="14" height="12" rx="2" /><path d="M12 13v3" /></svg><b>Secure Zippers</b><p>Travel with confidence.</p></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-2 7-18 3z" /><path d="M9 12L6 5l3-1 5 7" /></svg><b>Cabin Friendly</b><p>Fly without worries.</p></div>
         </div>
-        <div class="accordion-item">
-          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">WHAT IS YOUR RETURNS POLICY?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
-          <div class="accordion-item__panel" data-accordion-panel><p>30-day free returns, worldwide. Items must be unused with original tags. Refunds are issued to your original payment method within 5 working days of us receiving the return.</p></div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">HOW DO I CHOOSE THE RIGHT SIZE?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
-          <div class="accordion-item__panel" data-accordion-panel><p>Use the Find Your Object matcher above — three quick questions translate your trip length and travel mode into a sizing recommendation. Every product page also lists exact capacity and dimensions.</p></div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">HOW DO I CARE FOR MY OBJECT?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
-          <div class="accordion-item__panel" data-accordion-panel><p>Each object ships with product-specific care guidance in its Product Passport. As a rule: spot-clean canvas, condition leather twice a year, and use the service path listed for hardware and zippers.</p></div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">DO YOU SHIP OUTSIDE THE EU?<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>
-          <div class="accordion-item__panel" data-accordion-panel><p>Yes — we ship worldwide. Duties and import taxes, where applicable, are calculated at checkout so there are no surprises on delivery.</p></div>
-        </div>
+        <a class="button button--primary" href="shop.html">Explore collection <span>→</span></a>
+      </div>
+      <div class="movement-banner__visual">
+        <div class="movement-banner__grid" aria-hidden="true"></div>
+        <img src="assets/products/p1-olive-skyline-duffel.png" alt="HABÄNE Skyline Duffel" />
+        <div class="blueprint-dim blueprint-dim--width" style="left:16%;top:90%;width:64%"><span class="blueprint-dim__line"></span>50 cm</div>
+        <div class="blueprint-dim blueprint-dim--height" style="left:6%;top:16%;height:60%"><span class="blueprint-dim__line"></span>30 cm</div>
       </div>
     </section>
 
