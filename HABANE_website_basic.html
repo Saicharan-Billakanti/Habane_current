@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HABÄNE — intelligent travel objects engineered for movement." />
+  <title>HABÄNE — Chase the Madness</title>
+  <style>
+:root {
+  --midnight: #0a0f5a;
+  --midnight-deep: #05083e;
+  --titanium: #b7bcc7;
+  --arctic: #f6f7fa;
+  --paper: #eef0f4;
+  --graphite: #1b1d24;
+  --aurora: #36d8ff;
+  --line: rgba(10, 15, 90, 0.18);
+  --max: 1600px;
+  --gutter: clamp(20px, 3vw, 52px);
+  --ease: cubic-bezier(.2,.75,.2,1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--arctic);
+  color: var(--midnight);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body.menu-open { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { color: inherit; }
+::selection { background: var(--aurora); color: var(--graphite); }
+
+.site-shell { overflow: clip; }
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  min-height: 82px;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1.2fr;
+  align-items: center;
+  gap: 24px;
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid rgba(246, 247, 250, .16);
+  color: var(--arctic);
+  transition: background .35s ease, color .35s ease, border-color .35s ease, min-height .35s ease;
+}
+.site-header.is-scrolled {
+  min-height: 66px;
+  background: rgba(246,247,250,.93);
+  color: var(--midnight);
+  border-color: var(--line);
+  backdrop-filter: blur(18px);
+}
+.brand-label { display: inline-flex; align-items: baseline; gap: 14px; width: fit-content; }
+.brand-label__name { font-size: 17px; letter-spacing: .32em; font-weight: 760; }
+.brand-label__meta { font: 500 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace; opacity: .7; letter-spacing: .12em; }
+.site-nav { justify-self: center; display: flex; gap: clamp(24px, 4vw, 64px); }
+.site-nav a { position: relative; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
+.site-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -8px; height: 1px; background: currentColor; transition: right .25s ease; }
+.site-nav a:hover::after { right: 0; }
+.header-cta { justify-self: end; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; display: flex; gap: 14px; align-items: center; }
+.menu-toggle { display: none; border: 0; background: none; text-transform: uppercase; letter-spacing: .12em; font-size: 11px; }
+
+.section-grid {
+  display: grid;
+  grid-template-columns: minmax(70px, .42fr) minmax(0, 2.58fr);
+  column-gap: clamp(22px, 4vw, 70px);
+  padding-inline: var(--gutter);
+}
+.side-label { font: 500 9px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; }
+.eyebrow { margin: 0; font: 600 10px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; }
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--aurora); margin-right: 10px; box-shadow: 0 0 18px rgba(54,216,255,.9); }
+
+.hero {
+  min-height: 100svh;
+  position: relative;
+  grid-template-rows: 1fr auto;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px) 0 0 / 8.333% 100%,
+    radial-gradient(circle at 75% 50%, rgba(54,216,255,.14), transparent 26%),
+    linear-gradient(135deg, var(--midnight-deep), var(--midnight) 52%, #141a75);
+  color: var(--arctic);
+  padding-top: 82px;
+}
+.hero::after { content: ""; position: absolute; inset: 82px var(--gutter) 0; border-left: 1px solid rgba(255,255,255,.12); border-right: 1px solid rgba(255,255,255,.08); pointer-events: none; }
+.hero__index { position: relative; z-index: 2; padding-top: clamp(70px, 12vh, 140px); color: rgba(246,247,250,.55); }
+.hero__content { align-self: center; position: relative; z-index: 2; padding: clamp(70px, 11vh, 130px) 0 90px; max-width: 870px; }
+.hero h1, .statement h2, .objects h2, .manifesto h2, .service h2, .closing h2 {
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-stretch: condensed;
+  text-transform: uppercase;
+  letter-spacing: -.065em;
+}
+.hero h1 { margin: 24px 0 26px; font-size: clamp(72px, 11.8vw, 205px); line-height: .77; font-weight: 850; }
+.hero h1 em, .closing h2 em { color: var(--aurora); font-style: normal; }
+.hero__lede { max-width: 510px; font-size: clamp(16px, 1.4vw, 22px); line-height: 1.42; color: rgba(246,247,250,.7); margin: 0; }
+.hero__actions { margin-top: 40px; display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+.button { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 22px; border: 1px solid transparent; background: transparent; text-transform: uppercase; letter-spacing: .12em; font-size: 11px; cursor: pointer; transition: transform .25s var(--ease), background .25s ease, color .25s ease, border-color .25s ease; }
+.button:hover { transform: translateY(-3px); }
+.button--primary { background: var(--arctic); color: var(--midnight); }
+.button--primary:hover { background: var(--aurora); }
+.button--text { color: var(--arctic); padding-inline: 0; }
+.play-icon { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; font-size: 8px; }
+.hero__visual { position: absolute; z-index: 1; top: 82px; right: var(--gutter); bottom: 70px; width: min(48vw, 760px); overflow: hidden; }
+.object-stage { position: absolute; inset: 0; display: grid; place-items: center; perspective: 1300px; }
+.orbit { position: absolute; border: 1px solid rgba(246,247,250,.16); border-radius: 50%; transform: rotateX(65deg) rotateZ(-16deg); }
+.orbit--one { width: 70%; aspect-ratio: 1; animation: orbit 18s linear infinite; }
+.orbit--two { width: 48%; aspect-ratio: 1; border-color: rgba(54,216,255,.3); animation: orbitReverse 11s linear infinite; }
+.case { position: relative; width: clamp(190px, 21vw, 340px); filter: drop-shadow(0 42px 35px rgba(0,0,0,.25)); transform: rotateY(-9deg) rotateX(2deg); animation: float 5s ease-in-out infinite; }
+.case__handle { position: absolute; z-index: 0; top: -64px; left: 50%; width: 44%; height: 82px; border: 5px solid #8e95a4; border-bottom: 0; border-radius: 12px 12px 0 0; transform: translateX(-50%); opacity: .8; }
+.case__shell { position: relative; z-index: 1; aspect-ratio: .72; border-radius: 32px; overflow: hidden; background: linear-gradient(115deg,#e6e8ed 0%,#9aa2b2 18%,#f7f8fb 42%,#8991a1 67%,#d8dce4 100%); border: 1px solid rgba(255,255,255,.5); box-shadow: inset 0 0 0 9px rgba(15,18,34,.13), inset 0 0 55px rgba(255,255,255,.65); }
+.case__shell::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(10,15,90,.05) 29px 30px); mix-blend-mode: multiply; }
+.case__rail { position: absolute; top: 0; bottom: 0; width: 7px; background: rgba(10,15,90,.78); }
+.case__rail--left { left: 11%; }
+.case__rail--right { right: 11%; }
+.case__display { position: absolute; top: 16%; left: 50%; transform: translateX(-50%); width: 44%; aspect-ratio: 1.8; padding: 10px; border-radius: 8px; background: var(--graphite); display: flex; align-items: flex-end; justify-content: space-between; color: var(--aurora); font: 500 7px/1 ui-monospace, monospace; box-shadow: 0 0 20px rgba(54,216,255,.18); }
+.case__display b { color: var(--arctic); font-size: 8px; }
+.case__signal { position: absolute; left: 20%; right: 20%; bottom: 12%; height: 3px; background: var(--aurora); box-shadow: 0 0 13px var(--aurora); }
+.case__wheel { position: absolute; bottom: -17px; width: 28px; height: 28px; border-radius: 50%; background: #111528; border: 5px solid #777f91; }
+.case__wheel--left { left: 13%; }.case__wheel--right { right: 13%; }
+.object-code { position: absolute; right: 2%; bottom: 12%; display: grid; gap: 8px; color: rgba(246,247,250,.45); font: 500 8px/1 ui-monospace, monospace; letter-spacing: .16em; }
+.scan-line { position: absolute; z-index: 3; inset: 0 auto 0 0; width: 1px; background: linear-gradient(transparent, var(--aurora), transparent); opacity: .55; animation: scan 6s ease-in-out infinite; }
+.hero__footer { grid-column: 1 / -1; z-index: 4; border-top: 1px solid rgba(255,255,255,.14); display: grid; grid-template-columns: repeat(4, 1fr); }
+.data-strip span { padding: 22px var(--gutter); border-right: 1px solid rgba(255,255,255,.1); font: 500 9px/1.3 ui-monospace, monospace; text-transform: uppercase; letter-spacing: .11em; color: rgba(246,247,250,.6); }
+
+.statement { position: relative; min-height: 820px; padding-top: 150px; padding-bottom: 150px; background: var(--arctic); }
+.statement::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--gutter) + minmax(70px, .42fr)); border-left: 1px solid var(--line); }
+.statement > .side-label { padding-top: 8px; }
+.statement__number { position: absolute; right: -1vw; top: 8%; font: 850 clamp(160px, 29vw, 500px)/.8 "Arial Narrow", Arial, sans-serif; letter-spacing: -.08em; color: rgba(10,15,90,.035); user-select: none; }
+.statement__content { grid-column: 2; position: relative; z-index: 2; max-width: 970px; }
+.statement h2 { margin: 24px 0 34px; font-size: clamp(58px, 8.2vw, 136px); line-height: .83; }
+.statement__content > p:last-child { max-width: 620px; color: rgba(10,15,90,.65); font-size: clamp(16px, 1.4vw, 21px); line-height: 1.55; }
+.statement__rules { grid-column: 2; align-self: end; margin-top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.statement__rules div { min-height: 150px; padding: 24px 30px 20px 0; border-right: 1px solid var(--line); }
+.statement__rules span { font: 500 10px/1 ui-monospace, monospace; color: rgba(10,15,90,.45); }
+.statement__rules p { max-width: 180px; margin: 45px 0 0; font-size: 15px; line-height: 1.35; }
+
+.objects { background: var(--paper); padding: 150px 0; border-top: 1px solid var(--line); }
+.objects__head { grid-template-columns: minmax(70px,.42fr) minmax(0,1.65fr) minmax(250px,.93fr); align-items: end; }
+.objects h2 { font-size: clamp(56px, 7.3vw, 118px); line-height: .85; margin: 22px 0 0; }
+.objects__intro { margin: 0; max-width: 430px; color: rgba(10,15,90,.62); font-size: 16px; line-height: 1.55; }
+.product-workbench { margin: 90px var(--gutter) 0; display: grid; grid-template-columns: minmax(240px,.72fr) minmax(0,2.28fr); min-height: 760px; border: 1px solid var(--line); background: var(--arctic); }
+.product-tabs { display: grid; grid-template-rows: repeat(5, 1fr); border-right: 1px solid var(--line); }
+.product-tab { border: 0; border-bottom: 1px solid var(--line); background: transparent; padding: 26px; text-align: left; display: grid; grid-template-columns: 34px 1fr; gap: 4px 12px; align-content: center; cursor: pointer; transition: background .25s ease, color .25s ease; }
+.product-tab:last-child { border-bottom: 0; }
+.product-tab span { grid-row: 1 / 3; font: 500 10px/1 ui-monospace, monospace; color: rgba(10,15,90,.42); }
+.product-tab b { font-size: 15px; letter-spacing: .01em; }
+.product-tab small { font: 500 9px/1.4 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; opacity: .55; }
+.product-tab:hover, .product-tab.is-active { background: var(--midnight); color: var(--arctic); }
+.product-tab.is-active span { color: var(--aurora); }
+.product-display { min-width: 0; display: grid; grid-template-rows: auto 1fr auto auto; }
+.product-display__topline { min-height: 58px; padding: 0 28px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; font: 500 9px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: .1em; color: rgba(10,15,90,.55); }
+.product-display__visual { position: relative; min-height: 380px; display: grid; place-items: center; overflow: hidden; background: linear-gradient(135deg,rgba(10,15,90,.03),transparent 55%), repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 1px), rgba(10,15,90,.07) calc(12.5% - 1px) 12.5%); }
+.product-display__visual::after { content: ""; position: absolute; width: 58%; aspect-ratio: 1; border: 1px solid rgba(10,15,90,.12); border-radius: 50%; transform: rotateX(66deg); }
+.product-silhouette { position: relative; z-index: 2; background: linear-gradient(130deg,#141a75,#05083e); box-shadow: 30px 36px 45px rgba(10,15,90,.18), inset 0 0 0 2px rgba(255,255,255,.09); transition: width .35s var(--ease), height .35s var(--ease), border-radius .35s var(--ease), clip-path .35s var(--ease); }
+.product-silhouette::before { content: ""; position: absolute; background: var(--aurora); box-shadow: 0 0 20px rgba(54,216,255,.8); }
+.product-silhouette--x1 { width: 190px; height: 270px; border-radius: 26px; }
+.product-silhouette--x1::before { left: 18%; right: 18%; bottom: 14%; height: 3px; }
+.product-silhouette--m1 { width: 300px; height: 130px; border-radius: 18px; }
+.product-silhouette--m1::before { top: 20%; bottom: 20%; right: 11%; width: 3px; }
+.product-silhouette--p1 { width: 210px; height: 250px; border-radius: 50px 50px 25px 25px; clip-path: polygon(14% 0,86% 0,100% 18%,94% 100%,6% 100%,0 18%); }
+.product-silhouette--p1::before { left: 22%; right: 22%; bottom: 11%; height: 3px; }
+.product-silhouette--t1 { width: 300px; height: 230px; border-radius: 30px; }
+.product-silhouette--t1::before { left: 12%; right: 12%; top: 17%; height: 3px; }
+.product-silhouette--a1 { width: 280px; height: 80px; border-radius: 999px; }
+.product-silhouette--a1::before { width: 18px; height: 18px; border-radius: 50%; right: 11%; top: 50%; transform: translateY(-50%); }
+.measure { position: absolute; z-index: 3; color: rgba(10,15,90,.42); font: 500 8px/1 ui-monospace, monospace; letter-spacing: .12em; }
+.measure--v { left: 8%; top: 50%; transform: rotate(-90deg); }
+.measure--h { bottom: 8%; left: 50%; transform: translateX(-50%); }
+.product-display__copy { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; padding: 34px 28px; border-top: 1px solid var(--line); }
+.product-display h3 { max-width: 660px; margin: 14px 0 0; font: 760 clamp(28px,3vw,54px)/1.02 "Arial Narrow", Arial, sans-serif; letter-spacing: -.045em; }
+.product-display__copy > div:last-child p { margin: 0 0 22px; color: rgba(10,15,90,.62); line-height: 1.55; }
+.inline-link { font: 600 10px/1.2 ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 1px solid currentColor; }
+.spec-row { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line); }
+.spec-row span { padding: 20px 28px; border-right: 1px solid var(--line); display: grid; gap: 9px; }
+.spec-row span:last-child { border-right: 0; }
+.spec-row small { font: 500 8px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: .1em; opacity: .48; }
+.spec-row b { font-size: 13px; }
+
+.manifesto { min-height: 940px; position: relative; display: grid; place-items: center; padding: 120px var(--gutter); background: var(--graphite); color: var(--arctic); overflow: hidden; }
+.manifesto::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 48%,rgba(54,216,255,.13),transparent 26%), repeating-linear-gradient(90deg,transparent 0 calc(8.333% - 1px),rgba(255,255,255,.05) calc(8.333% - 1px) 8.333%); }
+.manifesto__rail { position: absolute; left: 0; right: 0; top: 32px; display: flex; justify-content: space-around; font: 500 8px/1 ui-monospace, monospace; letter-spacing: .18em; color: rgba(246,247,250,.35); }
+.manifesto__content { position: relative; z-index: 2; text-align: center; }
+.manifesto h2 { margin: 30px 0; font-size: clamp(74px, 12.2vw, 210px); line-height: .76; }
+.manifesto h2 span { -webkit-text-stroke: 1px rgba(246,247,250,.55); color: transparent; }
+.manifesto__content > p:last-child { max-width: 590px; margin: 0 auto; color: rgba(246,247,250,.62); font-size: 18px; line-height: 1.55; }
+.manifesto__quote { position: absolute; z-index: 2; right: var(--gutter); bottom: 50px; display: flex; gap: 16px; align-items: flex-start; }
+.manifesto__quote span { font-size: 50px; line-height: .7; color: var(--aurora); }
+.manifesto__quote p { margin: 0; font: 500 10px/1.55 ui-monospace, monospace; letter-spacing: .09em; text-transform: uppercase; color: rgba(246,247,250,.55); }
+
+.service { padding-top: 150px; padding-bottom: 150px; background: var(--arctic); }
+.service__intro { grid-column: 2; }
+.service h2 { margin: 24px 0 70px; font-size: clamp(58px,7.8vw,128px); line-height: .83; }
+.service__cards { grid-column: 2; display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.service__cards article { min-height: 360px; padding: 28px; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.service__cards article:last-child { border-right: 0; }
+.service__cards span { font: 500 9px/1 ui-monospace, monospace; opacity: .45; }
+.service__cards h3 { margin: auto 0 22px; font: 760 clamp(28px,3vw,46px)/1 "Arial Narrow", Arial, sans-serif; letter-spacing: -.04em; }
+.service__cards p { max-width: 270px; margin: 0; color: rgba(10,15,90,.62); line-height: 1.52; }
+
+.closing { min-height: 820px; padding: 130px var(--gutter) 44px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; background: var(--midnight); color: var(--arctic); position: relative; }
+.closing::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg,transparent 55%,rgba(54,216,255,.12)), repeating-linear-gradient(90deg,transparent 0 calc(8.333% - 1px),rgba(255,255,255,.05) calc(8.333% - 1px) 8.333%); }
+.closing > * { position: relative; z-index: 2; }
+.closing h2 { margin: 28px 0 46px; font-size: clamp(74px, 12.6vw, 210px); line-height: .76; }
+.button--light { background: var(--arctic); color: var(--midnight); }
+.button--light:hover { background: var(--aurora); }
+.closing__meta { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 30px; display: flex; justify-content: space-between; font: 500 8px/1 ui-monospace, monospace; letter-spacing: .13em; opacity: .48; }
+
+.site-footer { min-height: 95px; padding: 0 var(--gutter); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 30px; background: var(--graphite); color: rgba(246,247,250,.55); font: 500 8px/1 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
+.site-footer div { display: flex; gap: 34px; }
+.site-footer > span:last-child { justify-self: end; }
+
+.film-dialog { width: min(1100px, 90vw); max-width: none; border: 0; padding: 0; background: var(--graphite); color: var(--arctic); box-shadow: 0 40px 120px rgba(0,0,0,.45); }
+.film-dialog::backdrop { background: rgba(5,8,62,.78); backdrop-filter: blur(8px); }
+.film-dialog__close { position: absolute; z-index: 2; top: 20px; right: 20px; background: var(--arctic); color: var(--midnight); border: 0; padding: 12px 15px; text-transform: uppercase; letter-spacing: .1em; font-size: 9px; cursor: pointer; }
+.film-dialog__screen { min-height: 620px; display: grid; place-content: center; text-align: center; position: relative; overflow: hidden; }
+.film-dialog__screen::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(8.333% - 1px), rgba(255,255,255,.05) calc(8.333% - 1px) 8.333%), radial-gradient(circle, rgba(54,216,255,.15), transparent 35%); }
+.film-dialog__screen p { position: relative; z-index: 1; margin: 0 0 12px; font: 760 clamp(38px,6vw,86px)/.9 "Arial Narrow", Arial, sans-serif; text-transform: uppercase; letter-spacing: -.045em; }
+.film-dialog__screen span { position: relative; z-index: 1; color: rgba(246,247,250,.55); }
+.film-dialog__pulse { position: absolute; width: 170px; aspect-ratio: 1; border: 1px solid var(--aurora); border-radius: 50%; animation: pulse 2.3s ease-out infinite; }
+
+@keyframes float { 0%,100% { transform: rotateY(-9deg) rotateX(2deg) translateY(0); } 50% { transform: rotateY(-4deg) rotateX(0) translateY(-18px); } }
+@keyframes orbit { to { transform: rotateX(65deg) rotateZ(344deg); } }
+@keyframes orbitReverse { to { transform: rotateX(65deg) rotateZ(-376deg); } }
+@keyframes scan { 0%,100% { left: 3%; opacity: 0; } 20%,80% { opacity: .55; } 50% { left: 96%; } }
+@keyframes pulse { 0% { transform: scale(.35); opacity: 0; } 25% { opacity: .8; } 100% { transform: scale(4); opacity: 0; } }
+
+@media (max-width: 980px) {
+  .site-header { grid-template-columns: 1fr auto; }
+  .header-cta { display: none; }
+  .menu-toggle { display: flex; gap: 12px; align-items: center; justify-self: end; color: inherit; cursor: pointer; }
+  .menu-toggle__line { width: 30px; height: 1px; background: currentColor; }
+  .site-nav { position: fixed; inset: 66px 0 0; width: 100vw; max-width: none; justify-self: stretch; background: var(--arctic); color: var(--midnight); padding: 60px var(--gutter); display: flex; flex-direction: column; align-items: flex-start; gap: 34px; transform: translateX(100vw); transition: transform .35s var(--ease); }
+  .site-nav a { font-size: clamp(34px,7vw,60px); font-family: "Arial Narrow", Arial, sans-serif; font-weight: 760; letter-spacing: -.04em; }
+  .site-header.menu-active .site-nav { transform: translateX(0); }
+  .hero { grid-template-columns: minmax(48px,.25fr) minmax(0,2.75fr); }
+  .hero__visual { opacity: .58; width: 60vw; right: -10vw; }
+  .hero__content { max-width: 720px; }
+  .hero__footer { grid-template-columns: repeat(2,1fr); }
+  .data-strip span:nth-child(2) { border-right: 0; }
+  .data-strip span:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
+  .objects__head { grid-template-columns: minmax(48px,.25fr) minmax(0,2.75fr); }
+  .objects__intro { grid-column: 2; margin-top: 35px; }
+  .product-workbench { grid-template-columns: 1fr; }
+  .product-tabs { grid-template-columns: repeat(5, minmax(160px,1fr)); grid-template-rows: auto; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+  .product-tab { min-height: 120px; border-right: 1px solid var(--line); border-bottom: 0; }
+  .service__cards article { min-height: 300px; }
+}
+
+@media (max-width: 720px) {
+  :root { --gutter: 20px; }
+  .site-header { min-height: 66px; }
+  .brand-label__meta { display: none; }
+  .brand-label__name { font-size: 14px; }
+  .section-grid { grid-template-columns: 1fr; }
+  .side-label { grid-column: 1; margin-bottom: 36px; }
+  .hero { padding-top: 66px; grid-template-rows: auto 1fr auto; }
+  .hero::after { inset: 66px 20px 0; }
+  .hero__index { padding-top: 44px; }
+  .hero__content { grid-column: 1; padding: 26px 0 110px; align-self: end; }
+  .hero h1 { font-size: clamp(70px,22vw,112px); }
+  .hero__lede { max-width: 82%; font-size: 16px; }
+  .hero__visual { inset: 66px -31vw 180px auto; width: 100vw; }
+  .case { width: 210px; }
+  .hero__footer { grid-template-columns: 1fr 1fr; }
+  .data-strip span { padding: 16px 14px; font-size: 7px; }
+  .statement { min-height: auto; padding-top: 95px; padding-bottom: 95px; }
+  .statement::before { display: none; }
+  .statement__content, .statement__rules { grid-column: 1; }
+  .statement h2 { font-size: clamp(56px,17vw,86px); }
+  .statement__rules { margin-top: 70px; grid-template-columns: 1fr; }
+  .statement__rules div { min-height: 120px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .statement__rules p { margin-top: 28px; }
+  .objects { padding: 95px 0; }
+  .objects__head { grid-template-columns: 1fr; }
+  .objects__head > *, .objects__intro { grid-column: 1; }
+  .objects h2 { font-size: clamp(55px,16vw,83px); }
+  .product-workbench { margin-top: 58px; min-height: 0; }
+  .product-tabs { grid-template-columns: repeat(5, 145px); }
+  .product-display__topline { padding: 0 16px; font-size: 7px; }
+  .product-display__visual { min-height: 340px; }
+  .product-display__copy { grid-template-columns: 1fr; padding: 28px 18px; }
+  .product-display h3 { font-size: 37px; }
+  .spec-row { grid-template-columns: repeat(2,1fr); }
+  .spec-row span:nth-child(2) { border-right: 0; }
+  .spec-row span:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .manifesto { min-height: 720px; padding-block: 90px; }
+  .manifesto h2 { font-size: clamp(70px,20vw,112px); }
+  .manifesto__quote { left: 20px; right: auto; }
+  .service { padding-top: 95px; padding-bottom: 95px; }
+  .service__intro, .service__cards { grid-column: 1; }
+  .service h2 { font-size: clamp(55px,16vw,84px); }
+  .service__cards { grid-template-columns: 1fr; }
+  .service__cards article { min-height: 250px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .service__cards article:last-child { border-bottom: 0; }
+  .closing { min-height: 720px; padding-top: 100px; }
+  .closing h2 { font-size: clamp(73px,20vw,112px); }
+  .closing__meta { font-size: 6px; gap: 15px; }
+  .site-footer { grid-template-columns: 1fr auto; min-height: 120px; }
+  .site-footer div { display: none; }
+  .site-footer > span:last-child { justify-self: end; }
+  .film-dialog__screen { min-height: 70svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header" data-header>
+      <a class="brand-label" href="#top" aria-label="HABÄNE home">
+        <span class="brand-label__name">HABÄNE</span>
+        <span class="brand-label__meta">GER / 2026</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span>Menu</span>
+        <span class="menu-toggle__line"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#objects">Objects</a>
+        <a href="#system">System</a>
+        <a href="#culture">Journal</a>
+        <a href="#service">Service</a>
+      </nav>
+
+      <a class="header-cta" href="#objects">Enter the system <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero section-grid" aria-labelledby="hero-title">
+        <div class="hero__index side-label" aria-hidden="true">01 — DEPARTURE</div>
+
+        <div class="hero__content">
+          <p class="eyebrow"><span class="status-dot"></span> Smart mobility / Designed in Germany</p>
+          <h1 id="hero-title">CHASE<br />THE <em>MADNESS.</em></h1>
+          <p class="hero__lede">Travel objects built with obsessive precision for people already moving.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#objects">Explore objects</a>
+            <button class="button button--text" type="button" data-film-button>
+              Play movement film <span class="play-icon" aria-hidden="true">▶</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-label="Abstract smart suitcase concept">
+          <div class="scan-line" aria-hidden="true"></div>
+          <div class="object-stage">
+            <div class="orbit orbit--one" aria-hidden="true"></div>
+            <div class="orbit orbit--two" aria-hidden="true"></div>
+            <div class="case" aria-hidden="true">
+              <div class="case__handle"></div>
+              <div class="case__shell">
+                <div class="case__rail case__rail--left"></div>
+                <div class="case__rail case__rail--right"></div>
+                <div class="case__display">
+                  <span>NAV</span>
+                  <b>READY</b>
+                </div>
+                <div class="case__signal"></div>
+              </div>
+              <div class="case__wheel case__wheel--left"></div>
+              <div class="case__wheel case__wheel--right"></div>
+            </div>
+            <div class="object-code" aria-hidden="true">
+              <span>HBN–X1</span>
+              <span>37 L</span>
+              <span>04.8 KG</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__footer data-strip" aria-label="Product summary">
+          <span>Cabin format</span>
+          <span>Replaceable wheels</span>
+          <span>Removable power module</span>
+          <span>Connected travel system</span>
+        </div>
+      </section>
+
+      <section class="statement section-grid" id="system" aria-labelledby="statement-title">
+        <div class="side-label">02 — PRINCIPLE</div>
+        <div class="statement__number" aria-hidden="true">90 / 10</div>
+        <div class="statement__content">
+          <p class="eyebrow">German discipline. Beautiful disruption.</p>
+          <h2 id="statement-title">A strict system.<br />One irrational pulse.</h2>
+          <p>Every interaction is calm, precise and useful. Every interruption is there to make movement feel unforgettable.</p>
+        </div>
+        <div class="statement__rules" aria-label="Design principles">
+          <div><span>01</span><p>Clarity before decoration.</p></div>
+          <div><span>02</span><p>Motion with mechanical intent.</p></div>
+          <div><span>03</span><p>Emotion, never noise.</p></div>
+        </div>
+      </section>
+
+      <section class="objects" id="objects" aria-labelledby="objects-title">
+        <div class="objects__head section-grid">
+          <div class="side-label">03 — OBJECTS</div>
+          <div>
+            <p class="eyebrow">The movement collection</p>
+            <h2 id="objects-title">Five objects.<br />One travel system.</h2>
+          </div>
+          <p class="objects__intro">Built as a modular family, not a row of products. Select an object to inspect its intent.</p>
+        </div>
+
+        <div class="product-workbench">
+          <div class="product-tabs" role="tablist" aria-label="Product concepts">
+            <button class="product-tab is-active" role="tab" aria-selected="true" data-product="x1">
+              <span>01</span><b>X1 / Cabin</b><small>Autonomous carry</small>
+            </button>
+            <button class="product-tab" role="tab" aria-selected="false" data-product="m1">
+              <span>02</span><b>M1 / Module</b><small>Power + identity</small>
+            </button>
+            <button class="product-tab" role="tab" aria-selected="false" data-product="p1">
+              <span>03</span><b>P1 / Pack</b><small>City transit</small>
+            </button>
+            <button class="product-tab" role="tab" aria-selected="false" data-product="t1">
+              <span>04</span><b>T1 / Trunk</b><small>Long distance</small>
+            </button>
+            <button class="product-tab" role="tab" aria-selected="false" data-product="a1">
+              <span>05</span><b>A1 / Access</b><small>Travel hardware</small>
+            </button>
+          </div>
+
+          <article class="product-display" aria-live="polite">
+            <div class="product-display__topline">
+              <span data-product-kicker>Object 01 / Cabin mobility</span>
+              <span data-product-status>Prototype system</span>
+            </div>
+            <div class="product-display__visual" data-product-visual="x1">
+              <div class="product-silhouette product-silhouette--x1" aria-hidden="true"></div>
+              <div class="measure measure--v" aria-hidden="true">55 CM</div>
+              <div class="measure measure--h" aria-hidden="true">40 CM</div>
+            </div>
+            <div class="product-display__copy">
+              <div>
+                <p class="eyebrow" data-product-label>HABÄNE X1</p>
+                <h3 data-product-title>Standing still was never the objective.</h3>
+              </div>
+              <div>
+                <p data-product-description>A cabin object engineered around effortless movement, serviceable parts and a removable power architecture.</p>
+                <a href="#service" class="inline-link">Inspect the architecture <span>↗</span></a>
+              </div>
+            </div>
+            <div class="spec-row" data-spec-row>
+              <span><small>Volume</small><b>37 L</b></span>
+              <span><small>Frame</small><b>Aluminium</b></span>
+              <span><small>System</small><b>Modular</b></span>
+              <span><small>Status</small><b>Concept</b></span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="manifesto" id="culture" aria-labelledby="manifesto-title">
+        <div class="manifesto__rail" aria-hidden="true">
+          <span>BERLIN</span><span>LEMGO</span><span>FRA</span><span>ANYWHERE</span>
+        </div>
+        <div class="manifesto__content">
+          <p class="eyebrow">A travel culture for the beautifully obsessed</p>
+          <h2 id="manifesto-title">WE DO NOT<br />SELL <span>LUGGAGE.</span></h2>
+          <p>We build objects, rituals and systems for people who refuse to move normally.</p>
+        </div>
+        <div class="manifesto__quote">
+          <span>“</span>
+          <p>Precision is the discipline.<br />Madness is the reason.</p>
+        </div>
+      </section>
+
+      <section class="service section-grid" id="service" aria-labelledby="service-title">
+        <div class="side-label">04 — OWNERSHIP</div>
+        <div class="service__intro">
+          <p class="eyebrow">Built beyond the first journey</p>
+          <h2 id="service-title">Keep the object.<br />Replace the friction.</h2>
+        </div>
+        <div class="service__cards">
+          <article>
+            <span>01</span>
+            <h3>Replaceable</h3>
+            <p>Wheels, power modules and wear components designed for future service.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Traceable</h3>
+            <p>Digital product identity for care, support and ownership history.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Responsible</h3>
+            <p>Clear repair pathways and honest technical information without inflated claims.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="closing" aria-labelledby="closing-title">
+        <p class="eyebrow">Next departure</p>
+        <h2 id="closing-title">YOUR JOURNEY<br />DESERVES <em>INTENT.</em></h2>
+        <a class="button button--light" href="mailto:habaneglobal@gmail.com">Join the first movement <span>↗</span></a>
+        <div class="closing__meta">
+          <span>HABÄNE / BEAUTIFULLY OBSESSED</span>
+          <span>DESIGNED IN GERMANY</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 HABÄNE</span>
+      <div><a href="#">Instagram</a><a href="#">Contact</a><a href="#">Legal</a></div>
+      <span>CHASE THE MADNESS.</span>
+    </footer>
+  </div>
+
+  <dialog class="film-dialog" data-film-dialog>
+    <button type="button" class="film-dialog__close" data-film-close aria-label="Close movement film">Close ×</button>
+    <div class="film-dialog__screen">
+      <div class="film-dialog__pulse"></div>
+      <p>Movement film placeholder</p>
+      <span>Replace this layer with your launch video.</span>
+    </div>
+  </dialog>
+  <script>
+const header = document.querySelector('[data-header]');
+const menuButton = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('.site-nav');
+const filmButton = document.querySelector('[data-film-button]');
+const filmDialog = document.querySelector('[data-film-dialog]');
+const filmClose = document.querySelector('[data-film-close]');
+
+const products = {
+  x1: {
+    kicker: 'Object 01 / Cabin mobility',
+    status: 'Prototype system',
+    label: 'HABÄNE X1',
+    title: 'Standing still was never the objective.',
+    description: 'A cabin object engineered around effortless movement, serviceable parts and a removable power architecture.',
+    className: 'product-silhouette--x1',
+    specs: [['Volume', '37 L'], ['Frame', 'Aluminium'], ['System', 'Modular'], ['Status', 'Concept']]
+  },
+  m1: {
+    kicker: 'Object 02 / Power architecture',
+    status: 'Removable module',
+    label: 'HABÄNE M1',
+    title: 'Power that leaves when you do.',
+    description: 'A removable travel power module designed to keep energy, service and airline handling understandable.',
+    className: 'product-silhouette--m1',
+    specs: [['Type', 'Module'], ['Interface', 'USB-C'], ['Access', 'Tool-free'], ['Status', 'Concept']]
+  },
+  p1: {
+    kicker: 'Object 03 / Urban transit',
+    status: 'Daily movement',
+    label: 'HABÄNE P1',
+    title: 'The city is also a departure gate.',
+    description: 'A compact travel pack with architectural structure, fast access and a quiet technical silhouette.',
+    className: 'product-silhouette--p1',
+    specs: [['Volume', '22 L'], ['Shell', 'Hybrid'], ['Access', 'Dual'], ['Status', 'Concept']]
+  },
+  t1: {
+    kicker: 'Object 04 / Long distance',
+    status: 'Extended travel',
+    label: 'HABÄNE T1',
+    title: 'For the journeys that change the person.',
+    description: 'A larger trunk format built around protected volume, balanced handling and replaceable contact points.',
+    className: 'product-silhouette--t1',
+    specs: [['Volume', '78 L'], ['Frame', 'Reinforced'], ['Wheels', 'Replaceable'], ['Status', 'Concept']]
+  },
+  a1: {
+    kicker: 'Object 05 / Travel hardware',
+    status: 'System accessory',
+    label: 'HABÄNE A1',
+    title: 'The smallest object can carry the ritual.',
+    description: 'A hardware family for identity, charging, attachment and small moments of engineered order.',
+    className: 'product-silhouette--a1',
+    specs: [['Family', 'Hardware'], ['Material', 'Titanium'], ['System', 'Universal'], ['Status', 'Concept']]
+  }
+};
+
+function updateHeader() {
+  header?.classList.toggle('is-scrolled', window.scrollY > 30);
+}
+
+function closeMenu() {
+  header?.classList.remove('menu-active');
+  document.body.classList.remove('menu-open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+}
+
+menuButton?.addEventListener('click', () => {
+  const open = !header.classList.contains('menu-active');
+  header.classList.toggle('menu-active', open);
+  document.body.classList.toggle('menu-open', open);
+  menuButton.setAttribute('aria-expanded', String(open));
+});
+
+navigation?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
+
+const tabs = document.querySelectorAll('.product-tab');
+const visual = document.querySelector('.product-silhouette');
+const kicker = document.querySelector('[data-product-kicker]');
+const status = document.querySelector('[data-product-status]');
+const label = document.querySelector('[data-product-label]');
+const title = document.querySelector('[data-product-title]');
+const description = document.querySelector('[data-product-description]');
+const specRow = document.querySelector('[data-spec-row]');
+
+function selectProduct(key, tab) {
+  const product = products[key];
+  if (!product) return;
+
+  tabs.forEach(item => {
+    const active = item === tab;
+    item.classList.toggle('is-active', active);
+    item.setAttribute('aria-selected', String(active));
+  });
+
+  visual.className = `product-silhouette ${product.className}`;
+  kicker.textContent = product.kicker;
+  status.textContent = product.status;
+  label.textContent = product.label;
+  title.textContent = product.title;
+  description.textContent = product.description;
+  specRow.innerHTML = product.specs
+    .map(([name, value]) => `<span><small>${name}</small><b>${value}</b></span>`)
+    .join('');
+}
+
+tabs.forEach(tab => tab.addEventListener('click', () => selectProduct(tab.dataset.product, tab)));
+
+filmButton?.addEventListener('click', () => {
+  if (typeof filmDialog.showModal === 'function') filmDialog.showModal();
+});
+filmClose?.addEventListener('click', () => filmDialog.close());
+filmDialog?.addEventListener('click', event => {
+  const bounds = filmDialog.getBoundingClientRect();
+  const clickedOutside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+  if (clickedOutside) filmDialog.close();
+});
+
+  </script>
+</body>
+</html>
