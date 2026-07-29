@@ -287,6 +287,15 @@ const money=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',ma
 const lock=v=>document.body.classList.toggle('is-locked',v);
 function toast(message){const el=$('[data-toast]');el.textContent=message;el.classList.add('is-visible');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('is-visible'),2200)}
 
+if($$('[data-footer-time]').length){
+  const updateFooterTime=()=>{
+    const text=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    $$('[data-footer-time]').forEach(el=>el.textContent=text);
+  };
+  updateFooterTime();
+  setInterval(updateFooterTime,15000);
+}
+
 const blogPosts=[
   {slug:'art-of-packing-light',tag:'PACKING',date:'12 JUL 2026',readTime:'4 min read',image:'assets/products/p1-olive-skyline-duffel.jpg',
     title:'The art of packing light, without leaving anything behind.',
@@ -359,8 +368,10 @@ if($('[data-blog-post]')){
 function productPhoto(product,extraClass,src){return `<img class="product-photo${extraClass?' '+extraClass:''}" src="${src||product.image}" alt="${product.name}" loading="lazy">`}
 function createProductCards(){
   const grid=$('[data-product-grid]');
-  const total=Object.keys(products).length;
-  grid.innerHTML=Object.values(products).map((p,index)=>`<article class="product-card" data-category="${p.category}" data-product-card="${p.id}">
+  const limit=grid.dataset.limit?parseInt(grid.dataset.limit,10):Infinity;
+  const list=Object.values(products).slice(0,limit);
+  const total=list.length;
+  grid.innerHTML=list.map((p,index)=>`<article class="product-card" data-category="${p.category}" data-product-card="${p.id}">
     <div class="product-card__media">${p.badge?`<span class="product-badge">${p.badge}</span>`:''}<button class="product-favourite" type="button" aria-label="Save ${p.name}">♡</button>${productPhoto(p,null,p.cardImage)}<div class="product-code"><span>${p.code}</span><span>${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</span></div></div>
     <div class="product-card__body"><div><h3>${p.name}</h3><p>${p.subtitle}</p></div><strong>${money(p.price)}</strong></div>
     <div class="product-card__actions"><button type="button" data-experience="${p.id}">Experience object</button><button type="button" data-card-add="${p.id}" aria-label="Add ${p.name} to bag">+</button></div>
@@ -595,7 +606,7 @@ if($('[data-product-name]')){
     }
   };
   $('[data-dialog-add]').onclick=()=>{addToCart(state.activeProduct);openDrawer('cart')};
-  $('[data-dialog-compare]').onclick=()=>addCompare(state.activeProduct);
+  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);toast('Checkout is intentionally disabled in this prototype')};
   $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
 }
 $$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
@@ -639,7 +650,7 @@ if($('[data-region]')){
     try{
       regionName=new Intl.DisplayNames([loc||'en'],{type:'region'}).of(code)||code;
     }catch(e){ regionName=code; }
-    regionBtn.innerHTML=`<img src="${flagUrl(code)}" alt="" width="18" height="18" style="border-radius:50%;object-fit:cover" />`;
+    regionBtn.innerHTML=`<img src="${flagUrl(code)}" alt="" width="22" height="16" style="border-radius:3px;object-fit:cover;display:block" />`;
     regionBtn.setAttribute('aria-label',`Shipping region: ${regionName}`);
     $$('[data-menu-region]').forEach(el=>el.textContent=regionName);
   }
