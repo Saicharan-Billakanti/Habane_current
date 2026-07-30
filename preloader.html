@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HABÄNE — preloader animation demo." />
+  <title>HABÄNE — Preloader</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <style>
+    :root{
+      --midnight-deep:#060935;
+      --aurora:#36D8FF;
+      --font-tech:"Conthrax","Montserrat",Arial,sans-serif;
+      --font-ui:"Montserrat",Arial,sans-serif;
+      --ease:cubic-bezier(.2,.75,.2,1);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--midnight-deep);overflow:hidden;font-family:var(--font-ui)}
+
+    .stage{position:fixed;inset:0;display:grid;place-items:center}
+
+    .preloader{position:fixed;inset:0;z-index:500;background:var(--midnight-deep);display:grid;place-items:center;visibility:visible;transition:visibility .5s}
+    .preloader.is-done{visibility:hidden;pointer-events:none}
+    .preloader__panel{position:absolute;top:0;bottom:0;width:50%;background:var(--midnight-deep);transition:transform .5s cubic-bezier(.6,0,.2,1)}
+    .preloader__panel--left{left:0;border-right:1px solid rgba(54,216,255,.3)}
+    .preloader__panel--right{right:0;border-left:1px solid rgba(54,216,255,.3)}
+    .preloader.is-open .preloader__panel--left{transform:translateX(-100%)}
+    .preloader.is-open .preloader__panel--right{transform:translateX(100%)}
+    .preloader__center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:1;transition:opacity .3s var(--ease)}
+    .preloader.is-open .preloader__center{opacity:0}
+    .preloader__mark{width:28px;height:auto;filter:drop-shadow(0 0 0 rgba(54,216,255,0));transition:filter .35s}
+    .preloader.is-flash .preloader__mark{filter:drop-shadow(0 0 10px var(--aurora)) drop-shadow(0 0 22px rgba(54,216,255,.65))}
+    .preloader__status{font-family:var(--font-tech);font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,.5);margin:0}
+    .preloader__bar{width:120px;height:1px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
+    .preloader__bar span{position:absolute;top:0;left:0;bottom:0;width:0;background:var(--aurora);box-shadow:0 0 6px var(--aurora);animation:gate-fill .6s cubic-bezier(.4,0,.2,1) forwards}
+    @keyframes gate-fill{to{width:100%}}
+
+    .reveal-mark{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:opacity .5s var(--ease) .2s}
+    .reveal-mark.is-visible{opacity:1}
+    .reveal-mark img{height:26px;width:auto}
+    .reveal-mark small{font-family:var(--font-tech);font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,.4)}
+
+    .controls{position:fixed;bottom:34px;left:50%;transform:translateX(-50%);z-index:600;display:flex;gap:10px}
+    .replay-btn{background:transparent;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.75);font-family:var(--font-tech);font-size:9px;letter-spacing:.14em;padding:13px 26px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s,border-color .25s;text-transform:uppercase}
+    .replay-btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.45)}
+    .replay-btn svg{width:11px;height:11px;vertical-align:-1px;margin-right:7px}
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="reveal-mark" id="revealMark">
+      <img src="assets/brand/icon-white.png" alt="HABÄNE" />
+      <small>HABÄNE / DESIGNED IN GERMANY</small>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="replay-btn" type="button" id="replayBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 3v6h-6" /></svg>Replay
+    </button>
+  </div>
+
+  <template id="preloaderTemplate">
+    <div class="preloader" data-preloader aria-hidden="true">
+      <div class="preloader__panel preloader__panel--left"></div>
+      <div class="preloader__panel preloader__panel--right"></div>
+      <div class="preloader__center">
+        <img class="preloader__mark" src="assets/brand/icon-white.png" alt="" />
+        <p class="preloader__status">SYSTEM BOOT</p>
+        <div class="preloader__bar"><span></span></div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    var stage = document.getElementById('stage');
+    var template = document.getElementById('preloaderTemplate');
+    var revealMark = document.getElementById('revealMark');
+    var replayBtn = document.getElementById('replayBtn');
+    var timers = [];
+
+    function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+    function playPreloader(){
+      clearTimers();
+      revealMark.classList.remove('is-visible');
+      var existing = stage.querySelector('[data-preloader]');
+      if (existing) existing.remove();
+      stage.appendChild(template.content.cloneNode(true));
+      var el = stage.querySelector('[data-preloader]');
+
+      timers.push(setTimeout(function(){ el.classList.add('is-flash') }, 520));
+      timers.push(setTimeout(function(){
+        el.classList.add('is-open');
+        timers.push(setTimeout(function(){
+          el.classList.add('is-done');
+          revealMark.classList.add('is-visible');
+        }, 520));
+      }, 650));
+    }
+
+    replayBtn.addEventListener('click', playPreloader);
+    playPreloader();
+  </script>
+</body>
+</html>
