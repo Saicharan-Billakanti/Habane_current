@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -69,7 +69,6 @@
       <a href="#matcher">Find your object</a>
       <a href="blog.html">Journal</a>
       <a href="#experience">Experience</a>
-      <a href="#ownership">Ownership</a>
     </nav>
     <div class="header-actions">
       <button class="region-button" type="button" data-region aria-label="Shipping region">🌍</button>
@@ -80,12 +79,15 @@
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
         <b class="icon-badge" data-cart-count>0</b>
       </button>
+      <button class="icon-button" type="button" data-login-open aria-label="Log in">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg>
+      </button>
       <button class="prebook-button" type="button" data-prebook>Pre-book</button>
       <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
     </div>
   </header>
 
-  <aside class="mobile-menu" data-mobile-menu aria-hidden="true">
+  <aside class="mobile-menu" data-mobile-menu data-lenis-prevent aria-hidden="true">
     <div class="mobile-menu__head"><span class="mobile-menu__brand">HABÄNE</span><button class="mobile-menu__close" type="button" data-menu-close aria-label="Close menu"><span></span><span></span></button></div>
     <nav>
       <a href="shop.html"><span class="mobile-menu__num">00</span><b>All Products</b><i class="mobile-menu__arrow">↗</i></a>
@@ -93,10 +95,10 @@
       <a href="#matcher"><span class="mobile-menu__num">02</span><b>Find your object</b><i class="mobile-menu__arrow">↗</i></a>
       <a href="blog.html"><span class="mobile-menu__num">03</span><b>Journal</b><i class="mobile-menu__arrow">↗</i></a>
       <a href="#experience"><span class="mobile-menu__num">04</span><b>Experience</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="#ownership"><span class="mobile-menu__num">05</span><b>Ownership</b><i class="mobile-menu__arrow">↗</i></a>
     </nav>
     <div class="mobile-menu__footer">
       <div class="mobile-menu__social">
+        <a href="#" data-login-open>Log in</a>
         <a href="#" data-social="Instagram">Instagram</a>
         <a href="#" data-social="Pinterest">Pinterest</a>
         <a href="#ownership">Support</a>
@@ -148,7 +150,7 @@
       </div>
       <div class="shop-toolbar">
         <div class="filters" role="group" aria-label="Product category">
-          <button class="is-active" type="button" data-filter="all">All / 12</button>
+          <button class="is-active" type="button" data-filter="all">All / 8</button>
           <button type="button" data-filter="luggage">Luggage</button>
           <button type="button" data-filter="carry">Carry</button>
           <button type="button" data-filter="system">System</button>
@@ -156,7 +158,7 @@
         </div>
         <button class="sort" type="button" data-sort>Sort: Featured ↕</button>
       </div>
-      <div class="product-grid" data-product-grid data-limit="12"></div>
+      <div class="product-grid" data-product-grid data-limit="8"></div>
     </section>
 
     <section class="matcher" id="matcher">
@@ -284,7 +286,7 @@
         <p class="hero__lede">Fifteen objects. One coherent travel system. Engineered to reduce friction before, during and after departure.</p>
         <div class="hero__actions">
           <a class="button button--primary" href="HABANE_website_basic.html">Enter the system <span>↗</span></a>
-          <button class="button button--ghost" type="button" data-experience="p1">Express X1 <span>▶</span></button>
+          <button class="button button--ghost" type="button" data-experience="p1">Experience X1 <span>▶</span></button>
         </div>
         <div class="hero__proof">
           <span><b>15</b> travel objects</span>
@@ -391,7 +393,7 @@
           <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg></span><div><b>Member Perks</b><p>Rewards, content and more.</p></div></div>
         </div>
         <p class="newsletter__slashes" aria-hidden="true">////////////////////////////</p>
-        <p class="newsletter__hashtag">// CHASE THE MADNESS.</p>
+        <p class="newsletter__hashtag">// BEAUTIFULLY OBSESSED.</p>
       </div>
       <div class="newsletter__panel">
         <div class="newsletter__visual" aria-hidden="true">
@@ -428,23 +430,23 @@
   </main>
 
   <footer class="site-footer" id="footer">
-    <div class="footer__top"><div class="footer__brand"><span class="footer__brand-mark"><img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" /><img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span>BEAUTIFULLY OBSESSED.<br />CHASE THE MADNESS.</span></div><div><h3>Objects</h3><a href="shop.html">Luggage</a><a href="shop.html">Carry</a><a href="shop.html">Systems</a><a href="shop.html">Accessories</a></div><div><h3>Support</h3><a href="mailto:habaneglobal@gmail.com">Contact</a><a href="#ownership">Service & repair</a><a href="#footer">Delivery & returns</a><a href="#footer">Product care</a></div><div><h3>Company</h3><a href="#experience">Philosophy</a><a href="blog.html">Journal</a><a href="#footer">Legal</a><a href="#footer">Privacy</a></div></div>
-    <div class="footer__bottom"><span>© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span data-footer-time></span><span>EU / EN</span></div>
+    <div class="footer__top"><div class="footer__brand"><span class="footer__brand-mark"><img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" /><img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /><button type="button" class="footer__speaker" data-footer-speaker aria-label="Play the HABÄNE sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /><path d="M19 6a8.5 8.5 0 0 1 0 12" /></svg></button></span><span>CHASE THE MADNESS.</span></div><div><h3>Objects</h3><a href="shop.html">Luggage</a><a href="shop.html">Carry</a><a href="shop.html">Systems</a><a href="shop.html">Accessories</a></div><div><h3>Support</h3><a href="mailto:habaneglobal@gmail.com">Contact</a><a href="#ownership">Service & repair</a><a href="#footer">Delivery & returns</a><a href="#footer">Product care</a></div><div><h3>Company</h3><a href="#experience">Philosophy</a><a href="blog.html">Journal</a><a href="#footer">Legal</a><a href="#footer">Privacy</a></div></div>
+    <div class="footer__bottom"><span>© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span data-footer-time></span><span>BERLIN, GERMANY</span><span>EU / EN</span></div>
   </footer>
 
-  <aside class="cart-drawer" data-cart-drawer aria-hidden="true">
+  <aside class="cart-drawer" data-cart-drawer data-lenis-prevent aria-hidden="true">
     <div class="drawer-head"><div><small>YOUR SELECTION</small><h2>Bag <b data-cart-count>0</b></h2></div><button type="button" data-cart-close>Close ×</button></div>
     <div class="cart-progress"><span data-cart-progress></span></div><p data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
     <div class="cart-items" data-cart-items></div>
     <div class="cart-summary" data-cart-summary hidden><div><span>Subtotal</span><strong data-cart-subtotal>€0</strong></div><p>VAT included. Delivery calculated at checkout.</p><button type="button" data-checkout>Secure checkout <span>→</span></button><small>VISA / MASTERCARD / PAYPAL / KLARNA</small></div>
   </aside>
 
-  <aside class="compare-drawer" data-compare-drawer aria-hidden="true">
+  <aside class="compare-drawer" data-compare-drawer data-lenis-prevent aria-hidden="true">
     <div class="drawer-head"><div><small>OBJECT COMPARISON</small><h2>Compare <b data-compare-count>0</b></h2></div><button type="button" data-compare-close>Close ×</button></div>
     <div class="compare-content" data-compare-content></div>
   </aside>
 
-  <section class="search-overlay" data-search-overlay aria-hidden="true">
+  <section class="search-overlay" data-search-overlay data-lenis-prevent aria-hidden="true">
     <div class="search-head"><span>SEARCH / <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><button type="button" data-search-close>Close ×</button></div>
     <form data-search-form><label for="site-search">What are you moving with?</label><div><input id="site-search" autocomplete="off" placeholder="Cabin, rail, backpack..." /><button type="submit">↗</button></div></form>
     <div class="search-results" data-search-results></div>
@@ -454,6 +456,7 @@
   <div class="page-scrim" data-scrim></div>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
 
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>

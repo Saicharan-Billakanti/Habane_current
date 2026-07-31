@@ -284,7 +284,8 @@ const state = {
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const money=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
-const lock=v=>document.body.classList.toggle('is-locked',v);
+let lenisInstance=null;
+const lock=v=>{document.body.classList.toggle('is-locked',v);if(lenisInstance){v?lenisInstance.stop():lenisInstance.start()}};
 function toast(message){const el=$('[data-toast]');el.textContent=message;el.classList.add('is-visible');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('is-visible'),2200)}
 
 if($$('[data-footer-time]').length){
@@ -517,13 +518,80 @@ function openSearch(){$('[data-search-overlay]').classList.add('is-open');$('[da
 function closeSearch(){$('[data-search-overlay]').classList.remove('is-open');$('[data-search-overlay]').setAttribute('aria-hidden','true');lock(false)}
 function renderSearchResults(list){$('[data-search-results]').innerHTML=list.slice(0,6).map(p=>`<button type="button" data-search-product="${p.id}"><small>${p.code} / ${p.category}</small><b>${p.name}</b><span>${money(p.price)}</span></button>`).join('');$$('[data-search-product]').forEach(b=>b.onclick=()=>location.href=`product.html?id=${b.dataset.searchProduct}`)}
 
-function syncSoundArt(){const art=$('[data-sound-art]');if(art) art.classList.toggle('is-playing',state.audio.playing);const btn=$('[data-playlist-play]');if(btn) btn.classList.toggle('is-playing',state.audio.playing)}
+function syncSoundArt(){const art=$('[data-sound-art]');if(art) art.classList.toggle('is-playing',state.audio.playing);const btn=$('[data-playlist-play]');if(btn) btn.classList.toggle('is-playing',state.audio.playing);const toggle=$('[data-audio-toggle]');if(toggle) toggle.textContent=state.audio.playing?'Ⅱ':'▶'}
+
+// --- Real, license-free ambient playback engine (Web Audio synthesis) ---
+let audioCtx=null;
+function getAudioCtx(){
+  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+const moodScales={
+  focused:[261.63,293.66,329.63,392.00,440.00],
+  electric:[329.63,392.00,440.00,493.88,587.33,659.25],
+  slow:[220.00,246.94,261.63,329.63,369.99]
+};
+let synthTimer=null, synthGain=null, synthNodes=[];
+function playSynthNote(ctx,freq,time,dur,gainVal,type){
+  const osc=ctx.createOscillator(), g=ctx.createGain();
+  osc.type=type||'sine'; osc.frequency.value=freq;
+  osc.connect(g); g.connect(synthGain);
+  g.gain.setValueAtTime(0,time);
+  g.gain.linearRampToValueAtTime(gainVal,time+.06);
+  g.gain.exponentialRampToValueAtTime(.0008,time+dur);
+  osc.start(time); osc.stop(time+dur+.05);
+  synthNodes.push(osc);
+}
+function stopSynth(){
+  if(synthTimer){clearInterval(synthTimer);synthTimer=null}
+  if(synthGain){try{const ctx=getAudioCtx();synthGain.gain.cancelScheduledValues(ctx.currentTime);synthGain.gain.linearRampToValueAtTime(0,ctx.currentTime+.35)}catch(e){}}
+  const nodes=synthNodes; synthNodes=[];
+  setTimeout(()=>nodes.forEach(n=>{try{n.stop()}catch(e){}}),400);
+}
+function startSynth(mood){
+  stopSynth();
+  const ctx=getAudioCtx();
+  synthGain=ctx.createGain(); synthGain.gain.value=.0001; synthGain.connect(ctx.destination);
+  synthGain.gain.linearRampToValueAtTime(mood==='electric'?.1:mood==='slow'?.055:.075, ctx.currentTime+.6);
+  const scale=moodScales[mood]||moodScales.focused;
+  const stepDur=mood==='electric'?.26:mood==='slow'?.62:.42;
+  let step=0;
+  const schedule=()=>{
+    const now=ctx.currentTime;
+    for(let i=0;i<4;i++){
+      const t=now+i*stepDur;
+      const note=scale[(step+i)%scale.length];
+      playSynthNote(ctx,note,t,stepDur*.92,mood==='electric'?.13:.08,mood==='slow'?'sine':'triangle');
+      if(i%2===0) playSynthNote(ctx,note/2,t,stepDur*1.7,.045,'sine');
+    }
+    step+=4;
+  };
+  schedule();
+  synthTimer=setInterval(schedule,Math.max(60,stepDur*4*1000-50));
+}
+function playBrandChime(){
+  const ctx=getAudioCtx();
+  const notes=[523.25,659.25,783.99,1046.5];
+  const g=ctx.createGain(); g.gain.value=.0001; g.connect(ctx.destination);
+  const now=ctx.currentTime;
+  g.gain.linearRampToValueAtTime(.13,now+.02);
+  g.gain.exponentialRampToValueAtTime(.0008,now+1.7);
+  notes.forEach((f,i)=>{
+    const osc=ctx.createOscillator(); osc.type='sine'; osc.frequency.value=f;
+    osc.connect(g); osc.start(now+i*.09); osc.stop(now+i*.09+1.3);
+  });
+}
+
 function startPlaylist(){
   const p=products[state.activeProduct], playlist=p.playlists[state.playlistMood];state.audio.playing=true;state.audio.progress=0;state.audio.trackIndex=0;
   $('[data-playlist-name]').textContent=playlist.tracks[0][0];syncSoundArt();
-  clearInterval(state.audio.timer);state.audio.timer=setInterval(()=>{if(!state.audio.playing)return;state.audio.progress+=.7;if(state.audio.progress>=100){state.audio.progress=0;state.audio.trackIndex=(state.audio.trackIndex+1)%playlist.tracks.length;$('[data-playlist-name]').textContent=playlist.tracks[state.audio.trackIndex][0]}const soundProgress=$('[data-sound-progress]');if(soundProgress)soundProgress.style.width=`${state.audio.progress}%`},700);
+  startSynth(state.playlistMood);
+  const bar=$('[data-audio-bar]');
+  if(bar){bar.classList.add('is-visible');bar.setAttribute('aria-hidden','false');if($('[data-audio-product]'))$('[data-audio-product]').textContent=p.name;if($('[data-audio-track]'))$('[data-audio-track]').textContent=playlist.tracks[0][0]}
+  clearInterval(state.audio.timer);state.audio.timer=setInterval(()=>{if(!state.audio.playing)return;state.audio.progress+=.7;if(state.audio.progress>=100){state.audio.progress=0;state.audio.trackIndex=(state.audio.trackIndex+1)%playlist.tracks.length;$('[data-playlist-name]').textContent=playlist.tracks[state.audio.trackIndex][0];if($('[data-audio-track]'))$('[data-audio-track]').textContent=playlist.tracks[state.audio.trackIndex][0]}const soundProgress=$('[data-sound-progress]');if(soundProgress)soundProgress.style.width=`${state.audio.progress}%`;const audioProgress=$('[data-audio-progress]');if(audioProgress)audioProgress.style.width=`${state.audio.progress}%`},700);
 }
-function stopAudio(){clearInterval(state.audio.timer);state.audio.playing=false;$('[data-audio-bar]').classList.remove('is-visible');$('[data-audio-bar]').setAttribute('aria-hidden','true');syncSoundArt()}
+function stopAudio(){clearInterval(state.audio.timer);state.audio.playing=false;stopSynth();$('[data-audio-bar]').classList.remove('is-visible');$('[data-audio-bar]').setAttribute('aria-hidden','true');syncSoundArt()}
 
 if($('[data-product-grid]')) createProductCards();
 updateCart(); updateCompare();
@@ -594,18 +662,19 @@ if($('[data-product-grid]')){
 $$('[data-tab]').forEach(btn=>btn.onclick=()=>activateTab(btn.dataset.tab));
 $$('[data-scene-option]').forEach(btn=>btn.onclick=()=>setScene(btn.dataset.sceneOption));
 document.body.addEventListener('click',e=>{const btn=e.target.closest('.swatches button');if(!btn)return;$$('.swatches button').forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active')});
-$$('[data-mood]').forEach(btn=>btn.onclick=()=>{state.playlistMood=btn.dataset.mood;renderPlaylist()});
+$$('[data-mood]').forEach(btn=>btn.onclick=()=>{state.playlistMood=btn.dataset.mood;renderPlaylist();if(state.audio.playing)startSynth(state.playlistMood)});
 if($('[data-product-name]')){
   $('[data-playlist-play]').onclick=()=>{
     if(state.audio.timer){
       state.audio.playing=!state.audio.playing;
       syncSoundArt();
+      if(state.audio.playing) startSynth(state.playlistMood); else stopSynth();
     } else {
       startPlaylist();
     }
   };
   $('[data-dialog-add]').onclick=()=>{addToCart(state.activeProduct);openDrawer('cart')};
-  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);toast('Checkout is intentionally disabled in this prototype')};
+  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
   $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
 }
 $$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
@@ -616,16 +685,16 @@ $$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
 });
 
 $('[data-cart-open]').onclick=()=>openDrawer('cart');$('[data-cart-close]').onclick=closeDrawer;$('[data-compare-close]').onclick=closeDrawer;$('[data-scrim]').onclick=closeDrawer;
-$('[data-checkout]').onclick=()=>toast('Checkout is intentionally disabled in this prototype');
+$('[data-checkout]').onclick=()=>openCheckout();
 
-if(document.querySelector('.hero-carousel') && 'IntersectionObserver' in window){
+if($('main') && 'IntersectionObserver' in window){
   const revealTargets=$$('main > section:not(.hero-carousel)');
   revealTargets.forEach(el=>el.classList.add('reveal'));
   const revealObserver=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){ entry.target.classList.add('is-revealed'); revealObserver.unobserve(entry.target); }
     });
-  },{threshold:0,rootMargin:'0px 0px 400px 0px'});
+  },{threshold:0,rootMargin:'0px 0px -10% 0px'});
   revealTargets.forEach(el=>revealObserver.observe(el));
 }
 
@@ -633,7 +702,8 @@ $('[data-search-open]').onclick=openSearch;$('[data-search-close]').onclick=clos
 $('[data-search-form]').onsubmit=e=>{e.preventDefault();const term=$('#site-search').value.trim().toLowerCase();const matches=Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category} ${p.description}`.toLowerCase().includes(term));renderSearchResults(matches.length?matches:Object.values(products).slice(0,6))};
 $('#site-search').addEventListener('input',e=>{const term=e.target.value.trim().toLowerCase();renderSearchResults(Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category}`.toLowerCase().includes(term)))})
 
-$('[data-audio-toggle]').onclick=()=>{state.audio.playing=!state.audio.playing;$('[data-audio-toggle]').textContent=state.audio.playing?'Ⅱ':'▶';syncSoundArt()};$('[data-audio-close]').onclick=stopAudio;
+$('[data-audio-toggle]').onclick=()=>{state.audio.playing=!state.audio.playing;syncSoundArt();if(state.audio.playing)startSynth(state.playlistMood);else stopSynth()};$('[data-audio-close]').onclick=stopAudio;
+$$('[data-footer-speaker]').forEach(btn=>btn.onclick=()=>{btn.classList.add('is-playing');playBrandChime();setTimeout(()=>btn.classList.remove('is-playing'),1300)});
 if($('[data-newsletter-form]')) $('[data-newsletter-form]').onsubmit=e=>{e.preventDefault();$('[data-newsletter-status]').textContent='You are inside the movement.';e.target.reset()};
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('[data-search-overlay]').classList.contains('is-open'))closeSearch();else if($('[data-cart-drawer]').classList.contains('is-open')||$('[data-compare-drawer]').classList.contains('is-open'))closeDrawer();else if($('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()}});
@@ -662,7 +732,10 @@ if($('[data-region]')){
     .catch(()=>{});
   regionBtn.onclick=()=>toast(`Shipping to ${regionName}`);
 }
-if($('[data-prebook]')) $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon — join the movement to get notified.');
+if($('[data-prebook]')){
+  if($('[data-product-name]')) $('[data-prebook]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
+  else $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon — join the movement to get notified.');
+}
 
 if($('[data-hero-carousel]')){
   const heroSlidesData=[
@@ -673,6 +746,12 @@ if($('[data-hero-carousel]')){
   const heroSlides=$$('[data-hero-slide]');
   const heroDots=$$('[data-hero-dot]');
   let heroIndex=0,heroTimer;
+  function replayHeroReveal(){
+    const content=$('.hero-carousel__content'); if(!content) return;
+    content.classList.remove('is-revealed');
+    void content.offsetWidth;
+    content.classList.add('is-revealed');
+  }
   function showHero(i){
     heroSlides[heroIndex].classList.remove('is-active');
     heroDots[heroIndex].classList.remove('is-active');
@@ -684,11 +763,173 @@ if($('[data-hero-carousel]')){
     $('[data-hero-heading]').innerHTML=d.heading;
     $('[data-hero-sub]').textContent=d.sub;
     const cta=$('[data-hero-cta]'); cta.href=d.href; cta.innerHTML=`${d.cta} <span>↗</span>`;
+    replayHeroReveal();
   }
   function nextHero(){showHero(heroIndex+1)}
   function restartHeroTimer(){clearInterval(heroTimer);heroTimer=setInterval(nextHero,6000)}
   $('[data-hero-prev]').onclick=()=>{showHero(heroIndex-1);restartHeroTimer()};
   $('[data-hero-next]').onclick=()=>{showHero(heroIndex+1);restartHeroTimer()};
   heroDots.forEach((dot,i)=>dot.onclick=()=>{showHero(i);restartHeroTimer()});
+  replayHeroReveal();
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) restartHeroTimer();
 }
+
+// --- Smooth scroll (Lenis — the same engine veonn.framer.website runs) ---
+// Native-scroll-based (calls window.scrollTo under the hood), so
+// position:sticky, anchor links and the IntersectionObserver reveal below
+// all keep working untouched. Off for touch (native momentum is already
+// great) and prefers-reduced-motion.
+if(window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(pointer: coarse)').matches){
+  lenisInstance=new Lenis({
+    duration:1.2,
+    easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),
+    wheelMultiplier:1,
+    autoRaf:true
+  });
+  $$('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const href=a.getAttribute('href');
+      if(href.length<2) return;
+      const target=$(href);
+      if(!target) return;
+      e.preventDefault();
+      lenisInstance.scrollTo(target,{offset:-parseFloat(getComputedStyle(target).scrollMarginTop||0)});
+    });
+  });
+}
+
+// --- Guest checkout (no account required) ---
+function ensureCheckoutModal(){
+  if($('[data-checkout-modal]')) return;
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="checkout-modal" data-checkout-modal aria-hidden="true">
+      <div class="checkout-modal__scrim" data-checkout-close></div>
+      <div class="checkout-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Guest checkout">
+        <button type="button" class="checkout-modal__close" data-checkout-close aria-label="Close checkout">×</button>
+        <div data-checkout-step="form">
+          <p class="checkout-modal__eyebrow">GUEST CHECKOUT · NO ACCOUNT NEEDED</p>
+          <h3>Complete your order</h3>
+          <div class="checkout-modal__summary" data-checkout-summary></div>
+          <form data-checkout-form>
+            <label>Full name<input type="text" name="name" required /></label>
+            <label>Email<input type="email" name="email" required /></label>
+            <label>Shipping address<input type="text" name="address" required /></label>
+            <div class="checkout-modal__row">
+              <label>City<input type="text" name="city" required /></label>
+              <label>Postal code<input type="text" name="postcode" required /></label>
+            </div>
+            <button type="submit" class="button button--primary checkout-modal__submit" data-checkout-submit>Place order <span data-checkout-total>— €0</span></button>
+            <p class="checkout-modal__note">No account required. VISA / MASTERCARD / PAYPAL / KLARNA.</p>
+          </form>
+        </div>
+        <div data-checkout-step="success" hidden>
+          <p class="checkout-modal__eyebrow">ORDER CONFIRMED</p>
+          <h3>You're on the move.</h3>
+          <p class="checkout-modal__confirm">A confirmation has been sent to <b data-checkout-email></b>. Order <b data-checkout-order-id></b>.</p>
+          <button type="button" class="button button--primary" data-checkout-done>Continue browsing</button>
+        </div>
+      </div>
+    </div>`);
+  const modal=$('[data-checkout-modal]');
+  $$('[data-checkout-close]',modal).forEach(el=>el.onclick=closeCheckout);
+  $('[data-checkout-form]',modal).addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!state.cart.length) return;
+    const email=e.target.email.value;
+    $('[data-checkout-email]',modal).textContent=email;
+    $('[data-checkout-order-id]',modal).textContent='HB-'+Math.random().toString(36).slice(2,8).toUpperCase();
+    modal.querySelector('[data-checkout-step="form"]').hidden=true;
+    modal.querySelector('[data-checkout-step="success"]').hidden=false;
+    state.cart=[]; updateCart();
+    e.target.reset();
+  });
+  $('[data-checkout-done]',modal).onclick=closeCheckout;
+}
+function openCheckout(){
+  ensureCheckoutModal();
+  const modal=$('[data-checkout-modal]');
+  const subtotal=state.cart.reduce((a,b)=>a+products[b.id].price*b.qty,0);
+  const summary=$('[data-checkout-summary]',modal), submit=$('[data-checkout-submit]',modal);
+  if(!state.cart.length){
+    summary.innerHTML='<p class="checkout-modal__empty">Your bag is empty — add an object before checking out.</p>';
+    submit.disabled=true;
+  } else {
+    summary.innerHTML=state.cart.map(i=>`<div class="checkout-modal__line"><span>${products[i.id].name} × ${i.qty}</span><b>${money(products[i.id].price*i.qty)}</b></div>`).join('');
+    submit.disabled=false;
+  }
+  $('[data-checkout-total]',modal).textContent=`— ${money(subtotal)}`;
+  modal.querySelector('[data-checkout-step="form"]').hidden=false;
+  modal.querySelector('[data-checkout-step="success"]').hidden=true;
+  closeDrawer();
+  modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); lock(true);
+}
+function closeCheckout(){
+  const modal=$('[data-checkout-modal]'); if(!modal) return;
+  modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); lock(false);
+}
+
+// --- Login (optional — guest checkout always available) ---
+function ensureLoginModal(){
+  if($('[data-login-modal]')) return;
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="login-modal" data-login-modal aria-hidden="true">
+      <div class="login-modal__scrim" data-login-close></div>
+      <div class="login-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Log in">
+        <button type="button" class="login-modal__close" data-login-close aria-label="Close login">×</button>
+        <p class="login-modal__eyebrow">WELCOME BACK</p>
+        <h3>Log in</h3>
+        <form data-login-form>
+          <label>Email<input type="email" name="email" required /></label>
+          <label>Password<input type="password" name="password" required /></label>
+          <button type="submit" class="button button--primary login-modal__submit">Log in</button>
+        </form>
+        <div class="login-modal__divider"><span>or</span></div>
+        <button type="button" class="login-modal__guest" data-login-guest>Continue as guest <span>↗</span></button>
+        <p class="login-modal__note">No account needed to shop or check out — <a href="#" data-login-guest-inline>skip straight to guest checkout</a>.</p>
+      </div>
+    </div>`);
+  const modal=$('[data-login-modal]');
+  $$('[data-login-close]',modal).forEach(el=>el.onclick=closeLogin);
+  $('[data-login-form]',modal).addEventListener('submit',e=>{e.preventDefault();closeLogin();toast('Logged in — welcome back.');e.target.reset()});
+  const guest=()=>{closeLogin();openCheckout()};
+  $('[data-login-guest]',modal).onclick=guest;
+  $('[data-login-guest-inline]',modal).onclick=e=>{e.preventDefault();guest()};
+}
+function openLogin(){
+  ensureLoginModal();
+  const modal=$('[data-login-modal]');
+  closeDrawer();
+  modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); lock(true);
+}
+function closeLogin(){
+  const modal=$('[data-login-modal]'); if(!modal) return;
+  modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); lock(false);
+}
+$$('[data-login-open]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openLogin()}));
+
+// --- Discount popup ---
+if(!$('[data-discount-popup]')){
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="discount-popup" data-discount-popup aria-hidden="true">
+      <div class="discount-popup__scrim" data-discount-close></div>
+      <div class="discount-popup__card" role="dialog" aria-modal="true" aria-label="Discount offer">
+        <button type="button" class="discount-popup__close" data-discount-close aria-label="Close offer">×</button>
+        <span class="discount-popup__eyebrow">FIRST DEPARTURE OFFER</span>
+        <h3>TAKE <em>10% OFF</em><br />YOUR FIRST OBJECT.</h3>
+        <p>Join the movement and unlock 10% off before you check out.</p>
+        <div class="discount-popup__code">HABANE10</div>
+        <button type="button" class="button button--primary discount-popup__cta" data-discount-shop>Shop the collection <span>↗</span></button>
+        <button type="button" class="discount-popup__dismiss" data-discount-close>No thanks</button>
+      </div>
+    </div>`);
+}
+(function initDiscountPopup(){
+  const popup=$('[data-discount-popup]'); if(!popup) return;
+  const openPopup=()=>{popup.classList.add('is-open');popup.setAttribute('aria-hidden','false');lock(true)};
+  const closePopup=()=>{popup.classList.remove('is-open');popup.setAttribute('aria-hidden','true');lock(false)};
+  $$('[data-discount-close]',popup).forEach(el=>el.onclick=closePopup);
+  const shopBtn=$('[data-discount-shop]',popup);
+  if(shopBtn) shopBtn.onclick=()=>{closePopup();location.href=$('#shop')?'#shop':'shop.html'};
+  if(sessionStorage.getItem('habane_discount_seen')) return;
+  setTimeout(()=>{ if(!$('[data-checkout-modal].is-open')){openPopup();sessionStorage.setItem('habane_discount_seen','1')} },5000);
+})();
