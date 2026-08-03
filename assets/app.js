@@ -758,9 +758,9 @@ if($('[data-prebook]')){
 
 if($('[data-hero-carousel]')){
   const heroSlidesData=[
-    {eyebrow:'01 / SIGNATURE CARRY',heading:'TRAVEL<br><em>INTELLIGENTLY.</em>',sub:'Fifteen objects engineered as one coherent movement system.'},
-    {eyebrow:'02 / CITY TO CITY',heading:'BUILT FOR<br><em>THE MOVE.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.'},
-    {eyebrow:'03 / DEPARTURE READY',heading:'PACK ONCE.<br><em>MOVE OFTEN.</em>',sub:'Modular systems that adapt from a weekend to a full departure.'}
+    {eyebrow:'01 / SIGNATURE CARRY',heading:'Travel<br><em>Intelligently.</em>',sub:'Fifteen objects engineered as one coherent movement system.'},
+    {eyebrow:'02 / CITY TO CITY',heading:'Built For<br><em>The Move.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.'},
+    {eyebrow:'03 / DEPARTURE READY',heading:'Pack Once.<br><em>Move Often.</em>',sub:'Modular systems that adapt from a weekend to a full departure.'}
   ];
   const heroSlides=$$('[data-hero-slide]');
   const heroThumbs=$$('[data-hero-thumb]');
