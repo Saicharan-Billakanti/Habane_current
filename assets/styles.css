@@ -111,7 +111,7 @@ h1,h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;l
 .hero-carousel__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,9,53,.8) 0%,rgba(6,9,53,.4) 38%,rgba(6,9,53,.12) 62%,transparent 82%),linear-gradient(180deg,rgba(6,9,53,.55) 0%,rgba(6,9,53,.2) 30%,rgba(6,9,53,.4) 62%,rgba(6,9,53,.9) 100%)}
 .hero-carousel__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(180deg,transparent,#000 55%)}
 .hero-carousel__glow{position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(54,216,255,.16);filter:blur(120px);right:6%;top:8%}
-.hero-carousel__content{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:0 var(--gutter) 56px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+.hero-carousel__content{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:0 var(--gutter) 56px;padding-left:clamp(24px,4vw,64px);display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
 .hero-carousel__primary{min-width:0}
 .hero-carousel__eyebrow{color:rgba(255,255,255,.8);margin-bottom:16px}
 .hero-carousel__content h1{font-size:clamp(48px,7.5vw,128px);max-width:820px;font-family:'Inter',var(--font-ui);font-weight:600;text-transform:none;letter-spacing:-.01em;line-height:1.05}.hero-carousel__content h1 em{color:#fff}
