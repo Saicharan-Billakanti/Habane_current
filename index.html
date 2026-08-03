@@ -54,7 +54,7 @@
     <button type="button" data-announcement-close aria-label="Dismiss announcement">×</button>
   </div>
 
-  <header class="site-header site-header--on-dark" data-header>
+  <header class="site-header" data-header>
     <a class="brand" href="#top" aria-label="HABÄNE home">
       <span class="brand__mark">
         <img class="brand__icon brand__icon--navy" src="assets/brand/icon-navy.png" alt="" />
@@ -112,33 +112,32 @@
   <main id="main">
     <section class="hero-carousel" id="top" data-hero-carousel aria-label="Featured objects">
       <div class="hero-carousel__slide is-active" data-hero-slide>
-        <img src="assets/products/p1-olive-skyline-duffel.jpg" alt="Olive Skyline Duffel" loading="eager" />
+        <img src="assets/products/habane-lakeview-brand.jpg" alt="HABÄNE — beautifully obsessed" loading="eager" />
       </div>
       <div class="hero-carousel__slide" data-hero-slide>
-        <img src="assets/products/p2-navy-metropolitan-duffel.jpg" alt="Navy Metropolitan Duffel" loading="lazy" />
+        <img src="assets/products/habane-lakeview-brand.jpg" alt="HABÄNE — beautifully obsessed" loading="lazy" />
       </div>
       <div class="hero-carousel__slide" data-hero-slide>
-        <img src="assets/products/p3-navy-voyager-duffel.jpg" alt="Navy Voyager Duffel" loading="lazy" />
+        <img src="assets/products/habane-lakeview-brand.jpg" alt="HABÄNE — beautifully obsessed" loading="lazy" />
       </div>
       <div class="hero-carousel__grid" aria-hidden="true"></div>
       <div class="hero-carousel__glow" aria-hidden="true"></div>
       <div class="hero-carousel__scrim" aria-hidden="true"></div>
       <div class="hero-carousel__content">
-        <p class="system-label"><i></i> <span data-hero-eyebrow>01 / SIGNATURE CARRY</span></p>
-        <h1 data-hero-heading>TRAVEL<br /><em>INTELLIGENTLY.</em></h1>
-        <p data-hero-sub>Fifteen objects engineered as one coherent movement system.</p>
-        <a class="button button--primary" href="#shop" data-hero-cta>Shop the collection <span>↗</span></a>
-      </div>
-      <button class="hero-carousel__arrow hero-carousel__arrow--prev" type="button" data-hero-prev aria-label="Previous slide">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7" /></svg>
-      </button>
-      <button class="hero-carousel__arrow hero-carousel__arrow--next" type="button" data-hero-next aria-label="Next slide">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7" /></svg>
-      </button>
-      <div class="hero-carousel__dots" data-hero-dots>
-        <button class="is-active" type="button" data-hero-dot="0" aria-label="Slide 1"></button>
-        <button type="button" data-hero-dot="1" aria-label="Slide 2"></button>
-        <button type="button" data-hero-dot="2" aria-label="Slide 3"></button>
+        <div class="hero-carousel__primary">
+          <p class="system-label hero-carousel__eyebrow"><i></i> <span data-hero-eyebrow>01 / SIGNATURE CARRY</span></p>
+          <h1 data-hero-heading>TRAVEL<br /><em>INTELLIGENTLY.</em></h1>
+          <div class="hero-carousel__thumbs" data-hero-thumbs>
+            <span class="hero-carousel__thumbs-index" data-hero-thumbs-index>01</span>
+            <button class="is-active" type="button" data-hero-thumb="0" aria-label="Show slide 1"><img src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
+            <button type="button" data-hero-thumb="1" aria-label="Show slide 2"><img src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
+            <button type="button" data-hero-thumb="2" aria-label="Show slide 3"><img src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
+          </div>
+        </div>
+        <div class="hero-carousel__secondary">
+          <p class="hero-carousel__sub" data-hero-sub>Fifteen objects engineered as one coherent movement system.</p>
+          <a class="hero-carousel__shop-link" href="#shop">Shop the collection <span>↗</span></a>
+        </div>
       </div>
     </section>
 
