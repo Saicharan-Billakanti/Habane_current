@@ -175,50 +175,48 @@
                 type="button" data-scene-option="airport">Airport</button><button type="button"
                 data-scene-option="night">Night city</button><button type="button" data-scene-option="quiet">Quiet
                 hotel</button></div>
-            <div class="product-visual__bottom">
-              <div class="pdp-gallery" data-pdp-gallery role="group" aria-label="Product images"></div>
-              <!-- In-Page Spotify Navy Card Music Player -->
-              <div class="pdp-sound" data-pdp-sound>
-                <p class="pdp-sound__label">Get into the mood</p>
-                <div class="pdp-sound__card" data-pdp-sound-card>
-                  <div class="pdp-sound__art-wrap">
-                    <img class="pdp-sound__art" id="pdp-spotify-art" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=300&q=80" alt="Album artwork" />
-                  </div>
-                  <div class="pdp-sound__info">
-                    <h4 class="pdp-sound__title" id="pdp-spotify-title">An Ending (Ascent)</h4>
-                    <div class="pdp-sound__meta">
-                      <span class="pdp-sound__badge">Preview</span>
-                      <a class="pdp-sound__artist" id="pdp-spotify-artist" href="https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE" target="_blank" rel="noopener">Brian Eno</a>
-                    </div>
-                    <div class="pdp-sound__action-row">
-                      <button class="pdp-sound__save" id="pdp-spotify-save" type="button">
-                        <span class="circle">+</span> Save on Spotify
-                      </button>
-                      <button type="button" class="pdp-sound__more-btn" data-pdp-sound-more aria-label="More options">···</button>
-                    </div>
-                  </div>
-                  <div class="pdp-sound__right-controls">
-                    <div class="pdp-sound__spotify-icon" aria-hidden="true">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.59 14.41c-.19.31-.6.41-.91.22-2.5-1.53-5.65-1.87-9.36-1.02-.36.08-.71-.15-.79-.51-.08-.36.15-.71.51-.79 4.06-.93 7.55-.53 10.34 1.19.31.19.41.6.21.91zm1.22-2.72c-.24.39-.75.51-1.14.27-2.86-1.76-7.23-2.27-10.61-1.24-.44.13-.9-.11-1.03-.55-.13-.44.11-.9.55-1.03 3.86-1.17 8.66-.6 11.96 1.42.39.24.51.75.27 1.13zm.11-2.83C14.28 8.66 8.99 8.48 5.9 9.42c-.52.16-1.08-.13-1.24-.65-.16-.52.13-1.08.65-1.24 3.55-1.08 9.4-.87 13.11 1.35.47.28.62.9.34 1.36-.28.47-.9.62-1.36.34z" fill="#fff"/>
-                      </svg>
-                    </div>
-                    <button class="pdp-sound__play-btn" id="pdp-spotify-play" type="button" aria-label="Play 30 second preview">
-                      <svg id="pdp-spotify-play-icon" width="18" height="18" viewBox="0 0 24 24" fill="#001f54"><path d="M8 5v14l11-7z"/></svg>
-                      <svg id="pdp-spotify-pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="#001f54" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-                    </button>
-                  </div>
-                </div>
-                <div class="pdp-sound__progress-track" id="pdp-spotify-progress-track">
-                  <div class="pdp-sound__progress-fill" id="pdp-spotify-progress-fill"></div>
-                </div>
-                <p class="pdp-sound__status" id="pdp-spotify-status">0:00 / 0:30 preview</p>
-                <audio id="pdp-spotify-audio" preload="none"></audio>
-              </div>
-            </div>
+            <div class="pdp-gallery" data-pdp-gallery role="group" aria-label="Product images"></div>
           </div>
         </div>
-      </div>
+
+        <!-- In-Page Spotify Navy Card Music Player -->
+        <div class="pdp-sound" data-pdp-sound>
+          <p class="pdp-sound__label">Get into the mood</p>
+          <div class="pdp-sound__card" data-pdp-sound-card>
+            <div class="pdp-sound__art-wrap">
+              <img class="pdp-sound__art" id="pdp-spotify-art" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=300&q=80" alt="Album artwork" />
+            </div>
+            <div class="pdp-sound__info">
+              <h4 class="pdp-sound__title" id="pdp-spotify-title">An Ending (Ascent)</h4>
+              <div class="pdp-sound__meta">
+                <span class="pdp-sound__badge">Preview</span>
+                <a class="pdp-sound__artist" id="pdp-spotify-artist" href="https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE" target="_blank" rel="noopener">Brian Eno</a>
+              </div>
+              <div class="pdp-sound__action-row">
+                <button class="pdp-sound__save" id="pdp-spotify-save" type="button">
+                  <span class="circle">+</span> Save on Spotify
+                </button>
+                <button type="button" class="pdp-sound__more-btn" data-pdp-sound-more aria-label="More options">···</button>
+              </div>
+            </div>
+            <div class="pdp-sound__right-controls">
+              <div class="pdp-sound__spotify-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.59 14.41c-.19.31-.6.41-.91.22-2.5-1.53-5.65-1.87-9.36-1.02-.36.08-.71-.15-.79-.51-.08-.36.15-.71.51-.79 4.06-.93 7.55-.53 10.34 1.19.31.19.41.6.21.91zm1.22-2.72c-.24.39-.75.51-1.14.27-2.86-1.76-7.23-2.27-10.61-1.24-.44.13-.9-.11-1.03-.55-.13-.44.11-.9.55-1.03 3.86-1.17 8.66-.6 11.96 1.42.39.24.51.75.27 1.13zm.11-2.83C14.28 8.66 8.99 8.48 5.9 9.42c-.52.16-1.08-.13-1.24-.65-.16-.52.13-1.08.65-1.24 3.55-1.08 9.4-.87 13.11 1.35.47.28.62.9.34 1.36-.28.47-.9.62-1.36.34z" fill="#fff"/>
+                </svg>
+              </div>
+              <button class="pdp-sound__play-btn" id="pdp-spotify-play" type="button" aria-label="Play 30 second preview">
+                <svg id="pdp-spotify-play-icon" width="18" height="18" viewBox="0 0 24 24" fill="#001f54"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="pdp-spotify-pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="#001f54" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="pdp-sound__progress-track" id="pdp-spotify-progress-track">
+            <div class="pdp-sound__progress-fill" id="pdp-spotify-progress-fill"></div>
+          </div>
+          <p class="pdp-sound__status" id="pdp-spotify-status">0:00 / 0:30 preview</p>
+          <audio id="pdp-spotify-audio" preload="none"></audio>
+        </div>
       </div>
       <div class="product-dialog__content" data-lenis-prevent>
         <div class="product-dialog__head">
