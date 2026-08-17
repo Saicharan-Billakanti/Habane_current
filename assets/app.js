@@ -569,7 +569,7 @@ $$('.desktop-nav a').forEach(a=>{
     const vw=document.documentElement.clientWidth;
     const gap=14;
     const wFull=vw-gap*2;
-    const wCondTarget=405;
+    const wCondTarget=370;
     const wCond=Math.min(wCondTarget,vw*0.96);
     const w=lerp(wFull,wCond,t);
     const sideGap=(vw-w)/2;
@@ -609,16 +609,21 @@ $$('.desktop-nav a').forEach(a=>{
       btn.style.width=btn.style.height=`${lerp(42,34,t)}px`;
       btn.style.color=rgb(MIDNIGHT,WHITE,t);
       btn.style.flexShrink='0';
+      btn.style.margin='0';
+      btn.style.padding='0';
     });
     if(regionBtn){
       regionBtn.style.width=regionBtn.style.height=`${lerp(34,28,t)}px`;
       regionBtn.style.flexShrink='0';
+      regionBtn.style.margin='0';
     }
     if(categoryMenuBtn){
       const fadeT=Math.min(1,t/0.35);
       categoryMenuBtn.style.opacity=1-fadeT;
       categoryMenuBtn.style.width=categoryMenuBtn.style.height=`${Math.max(0,lerp(42,0,t))}px`;
       categoryMenuBtn.style.marginLeft=`${lerp(4,0,t)}px`;
+      categoryMenuBtn.style.marginRight='0';
+      categoryMenuBtn.style.padding='0';
       categoryMenuBtn.style.overflow='hidden';
       categoryMenuBtn.style.pointerEvents=t>.2?'none':'auto';
       if(t>=0.35){
@@ -636,10 +641,19 @@ $$('.desktop-nav a').forEach(a=>{
       prebookBtn.style.display='inline-flex';
       prebookBtn.style.width=`${lerp(naturalW,34,t)}px`;
       prebookBtn.style.height=`${lerp(36,34,t)}px`;
+      prebookBtn.style.paddingLeft=prebookBtn.style.paddingRight=`${lerp(16,0,t)}px`;
+      prebookBtn.style.marginLeft=`${lerp(4,0,t)}px`;
+      prebookBtn.style.marginRight='0';
+      prebookBtn.style.minWidth='0';
       prebookBtn.style.flexShrink='0';
       prebookBtn.style.background=rgba([...AURORA,1],[...AURORA,0],t);
       prebookBtn.style.color=rgb(MIDNIGHT_DEEP,WHITE,t);
       prebookLabel.style.opacity=1-t;
+      if(t>=0.5){
+        prebookLabel.style.display='none';
+      }else{
+        prebookLabel.style.display='';
+      }
       prebookIcon.style.opacity=t;
     }else if(prebookBtn){
       const naturalW=getPrebookNaturalWidth();
@@ -651,6 +665,7 @@ $$('.desktop-nav a').forEach(a=>{
       prebookBtn.style.borderRadius='999px';
       prebookBtn.style.paddingLeft=prebookBtn.style.paddingRight=`${lerp(16,0,t)}px`;
       prebookBtn.style.marginLeft=`${lerp(4,0,t)}px`;
+      prebookBtn.style.marginRight='0';
       prebookBtn.style.pointerEvents=t>.2?'none':'auto';
       if(t>=0.35){
         prebookBtn.style.display='none';
@@ -664,6 +679,7 @@ $$('.desktop-nav a').forEach(a=>{
       menuBtn.style.borderColor=rgba([10,15,90,.16],[255,255,255,.3],t);
       menuBtn.style.pointerEvents=t>.5?'auto':'none';
       menuBtn.style.margin='0';
+      menuBtn.style.padding='0';
       menuBtn.style.width=menuBtn.style.height=`${lerp(38,34,t)}px`;
       menuBtn.style.flexShrink='0';
       menuBtn.style.display='grid';
