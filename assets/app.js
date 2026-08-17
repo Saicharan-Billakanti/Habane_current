@@ -1,7 +1,7 @@
 const products = {
   p1: {
     id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Skyline Duffel', price:71, category:'luggage', badge:'Flagship',
-    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p5-steel-blue-weekender.png','assets/products/alt-steel-duffel.png'],
+    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p3-navy-voyager-duffel.png','assets/products/alt-steel-duffel.png'],
     colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Midnight',hex:'#0b1240'},{name:'Silver',hex:'#9a9ea8'}], sizes:['35L','45L','55L'],
     subtitle:'Hand-drawn skyline travel bag', kicker:'Signature travel duffel',
     description:'Our hero carry. Hand-drawn skyline print on water-repellent canvas, leather-trim handles and a vault-grade zipper.',
@@ -301,8 +301,8 @@ function openProduct(id){
   const shape=$('[data-product-shape]'); shape.src=p.image; shape.alt=p.name;
   const gallery=$('[data-pdp-gallery]');
   if(gallery){
-    const gallerySet=[p.image,...(p.images||[]).filter(src=>src!==p.image)];
-    gallery.innerHTML=gallerySet.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}"><img src="${src}" alt="${p.name} view ${i+1}" /></button>`).join('');
+    const gallerySet=p.images&&p.images.length?p.images:[p.image];
+    gallery.innerHTML=gallerySet.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}" aria-label="${p.name} angle ${i+1}"><img src="${src}" alt="${p.name} view ${i+1}" loading="lazy" /></button>`).join('');
     $$('[data-gallery-thumb]',gallery).forEach(btn=>btn.onclick=()=>{
       shape.src=btn.dataset.galleryThumb;
       $$('[data-gallery-thumb]',gallery).forEach(b=>b.classList.remove('is-active'));
@@ -568,15 +568,15 @@ $$('.desktop-nav a').forEach(a=>{
     const vw=document.documentElement.clientWidth;
     const gap=14;
     const wFull=vw-gap*2;
-    const wCondTarget=iconButtons.length>=3?440:415;
-    const wCond=Math.min(wCondTarget,vw*0.92);
+    const wCondTarget=iconButtons.length>=3?520:475;
+    const wCond=Math.min(wCondTarget,vw*0.96);
     const w=lerp(wFull,wCond,t);
     const sideGap=(vw-w)/2;
     header.style.left=`${sideGap}px`;
     header.style.right=`${sideGap}px`;
     header.style.width=`${w}px`;
     header.style.height=`${lerp(80,58,t)}px`;
-    header.style.padding=`0 ${lerp(32,26,t)}px 0 ${lerp(32,22,t)}px`;
+    header.style.padding=`0 ${lerp(28,20,t)}px 0 ${lerp(28,20,t)}px`;
     header.style.gap=`${lerp(14,8,t)}px`;
     header.style.borderRadius=`14px`;
     header.style.background=rgba([246,247,250,.6],[20,32,150,.72],t);
@@ -640,7 +640,8 @@ $$('.desktop-nav a').forEach(a=>{
       menuBtn.style.transform=`scale(${lerp(.55,1,t)})`;
       menuBtn.style.borderColor=rgba([10,15,90,.16],[255,255,255,.3],t);
       menuBtn.style.pointerEvents=t>.5?'auto':'none';
-      menuBtn.style.marginRight=`${lerp(-48,0,t)}px`;
+      menuBtn.style.marginRight='0px';
+      menuBtn.style.flexShrink='0';
       menuSpans.forEach(sp=>sp.style.background=rgb(MIDNIGHT,WHITE,t));
     }
   }
