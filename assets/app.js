@@ -551,18 +551,31 @@ function stopAudio() {
   syncSoundArt();
 }
 
+let speakerAudioInstance = null;
 function playBrandChime(onDone){
   let done=false;
   const finish=()=>{ if(!done){ done=true; if(onDone) onDone(); } };
   try{
-    const sound=new Audio('assets/audio/brand-sound.mp3');
-    sound.volume=1.0;
-    sound.onended=finish;
-    sound.onerror=finish;
-    const p=sound.play();
-    if(p&&p.catch) p.catch(()=>finish());
+    if(!speakerAudioInstance){
+      speakerAudioInstance = new Audio('whatsapp-video-2026-08-03-at-115719-pm-1_LhSeMIej.mp3');
+    }
+    speakerAudioInstance.currentTime = 0;
+    speakerAudioInstance.volume = 1.0;
+    speakerAudioInstance.onended = finish;
+    speakerAudioInstance.onerror = () => {
+      const fb = new Audio('assets/audio/brand-sound.mp3');
+      fb.onended = finish;
+      fb.onerror = finish;
+      fb.play().catch(finish);
+    };
+    const p = speakerAudioInstance.play();
+    if(p && p.catch) p.catch(() => {
+      const fb = new Audio('assets/audio/brand-sound.mp3');
+      fb.onended = finish;
+      fb.play().catch(finish);
+    });
   }catch(e){ finish(); }
-  setTimeout(finish,2200);
+  setTimeout(finish, 3500);
 }
 
 if($('[data-product-grid]')) createProductCards();
@@ -1061,7 +1074,12 @@ initSpotifyPlayer();
 document.addEventListener('click',e=>{
   const speakerBtn=e.target.closest('[data-footer-speaker]');
   if(speakerBtn){
-    toggleAudio();
+    speakerBtn.classList.add('is-playing');
+    speakerBtn.style.transform='scale(1.25)';
+    playBrandChime(()=>{
+      speakerBtn.classList.remove('is-playing');
+      speakerBtn.style.transform='';
+    });
   }
 });
 if($('[data-newsletter-form]')) $('[data-newsletter-form]').onsubmit=e=>{e.preventDefault();$('[data-newsletter-status]').textContent='You are inside the movement.';e.target.reset()};

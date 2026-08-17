@@ -2509,7 +2509,36 @@ if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !
   }
 
   if (playBtn) playBtn.onclick = togglePlay;
-  if (speaker) speaker.onclick = togglePlay;
+
+  let speakerAudioObj = null;
+  if (speaker) {
+    speaker.onclick = () => {
+      try {
+        if (!speakerAudioObj) {
+          speakerAudioObj = new Audio('whatsapp-video-2026-08-03-at-115719-pm-1_LhSeMIej.mp3');
+        }
+        speakerAudioObj.currentTime = 0;
+        speakerAudioObj.volume = 1.0;
+        speaker.style.transform = 'scale(1.25)';
+        speakerAudioObj.onended = () => speaker.style.transform = '';
+        speakerAudioObj.onerror = () => {
+          const fallback = new Audio('assets/audio/brand-sound.mp3');
+          fallback.onended = () => speaker.style.transform = '';
+          fallback.play().catch(() => speaker.style.transform = '');
+        };
+        const p = speakerAudioObj.play();
+        if (p && p.catch) {
+          p.catch(() => {
+            const fallback = new Audio('assets/audio/brand-sound.mp3');
+            fallback.onended = () => speaker.style.transform = '';
+            fallback.play().catch(() => speaker.style.transform = '');
+          });
+        }
+      } catch (err) {
+        speaker.style.transform = '';
+      }
+    };
+  }
 
   if (progressTrack) {
     progressTrack.onclick = (e) => {
