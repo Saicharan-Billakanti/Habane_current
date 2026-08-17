@@ -3,58 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="HABÄNE — the full catalog of intelligent travel objects." />
+  <meta name="description" content="HABÄNE — Contact Us." />
   <meta name="theme-color" content="#0A0F5A" />
-  <title>HABÄNE — All Products</title>
+  <title>Contact Us — HABÄNE</title>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="256x256" href="assets/brand/favicon-256.png" />
-  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=140" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css?v=85" />
+  <style>
+    .legal-page { padding: 60px var(--gutter) 100px; max-width: 900px; margin: 0 auto; }
+    .legal-page h1 { font-size: clamp(36px, 5vw, 64px); color: var(--midnight); margin-bottom: 16px; }
+    .legal-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 40px; box-shadow: 0 10px 30px rgba(10, 15, 90, 0.05); margin-bottom: 30px; }
+    .legal-card h2 { font-family: var(--font-tech); font-size: 18px; color: var(--midnight); margin: 0 0 16px; letter-spacing: 0.04em; }
+    .legal-card p { font-size: 14px; line-height: 1.7; color: #4a4e5a; margin: 0 0 16px; }
+    .contact-form label { display: block; font-family: var(--font-tech); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--midnight); margin: 16px 0 6px; font-weight: 700; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 14px; border: 1px solid var(--line); border-radius: 10px; font-family: var(--font-ui); font-size: 14px; outline: none; margin-bottom: 8px; box-sizing: border-box; }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+    .contact-form button { margin-top: 16px; width: 100%; height: 50px; background: var(--midnight); color: #fff; border: none; border-radius: 10px; font-family: var(--font-tech); font-size: 12px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .contact-form button:hover { background: #1450e6; }
+  </style>
 </head>
 <body>
-  <div class="preloader" data-preloader aria-hidden="true">
-    <div class="preloader__panel preloader__panel--left"></div>
-    <div class="preloader__panel preloader__panel--right"></div>
-    <div class="preloader__center">
-      <img class="preloader__mark" src="assets/brand/icon-white.png" alt="" />
-      <p class="preloader__status">SYSTEM BOOT</p>
-      <div class="preloader__bar"><span></span></div>
-    </div>
-  </div>
-  <script>
-    (function(){
-      var el=document.querySelector('[data-preloader]');
-      if(!el) return;
-      if(sessionStorage.getItem('habane_preloaded')){ el.remove(); return; }
-      try{ sessionStorage.setItem('habane_preloaded','1'); }catch(e){}
-      if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.remove(); return; }
-      setTimeout(function(){ el.classList.add('is-flash') },520);
-      setTimeout(function(){
-        el.classList.add('is-open');
-        setTimeout(function(){
-          el.classList.add('is-done');
-          setTimeout(function(){el.remove()},520);
-        },520);
-      },650);
-    })();
-  </script>
-
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <div class="announcement" data-announcement>
-    <div class="announcement__rotator" data-announcement-rotator aria-live="polite">
-      <span class="announcement__slide is-active">COMPLIMENTARY EU DELIVERY OVER €250</span>
-      <span class="announcement__slide">EIGHT OBJECTS. ONE MOVEMENT SYSTEM.</span>
-      <span class="announcement__slide">30-DAY FREE RETURNS, WORLDWIDE</span>
-      <span class="announcement__slide">10% OFF YOUR FIRST TECH TRAVEL BAG — CODE HABANE10</span>
-      <span class="announcement__slide announcement__signal"><i></i> SYSTEM ONLINE</span>
-    </div>
-    <button type="button" data-announcement-close aria-label="Dismiss announcement">×</button>
-  </div>
-
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="HABÄNE home">
       <span class="brand__mark">
@@ -74,68 +44,40 @@
       <a href="index.html#shop">Objects</a>
       <a href="blog.html">Journal</a>
       <a href="index.html#experience">Experience</a>
-      <a href="track-order.html">Track Order</a>
     </nav>
     <div class="header-actions">
-      <button class="region-button" type="button" data-region aria-label="Shipping region"><img src="https://flagcdn.com/w40/de.png" alt="Germany" width="20" height="15" style="border-radius:2px;object-fit:cover;display:block" /></button>
-      <button class="icon-button" type="button" data-search-open aria-label="Search">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.2" y2="16.2" /></svg>
-      </button>
-      <button class="icon-button" type="button" data-cart-open aria-label="Bag">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
-        <b class="icon-badge" data-cart-count>0</b>
-      </button>
-      <button class="prebook-button" type="button" data-login-open aria-label="Log in"><span class="prebook-button__label">Log in</span><svg class="prebook-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg></button><button class="category-menu-btn" type="button" data-category-menu-open aria-label="Browse categories" aria-haspopup="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="15" y2="12" /><line x1="4" y1="17" x2="10" y2="17" /></svg></button>
-      <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
+      <a class="prebook-button" href="index.html"><span class="prebook-button__label">Return to Store</span></a>
     </div>
   </header>
 
-  <aside class="mobile-menu" data-mobile-menu data-lenis-prevent aria-hidden="true">
-    <div class="mobile-menu__head"><span class="mobile-menu__brand">HABÄNE</span><button class="mobile-menu__close" type="button" data-menu-close aria-label="Close menu"><span></span><span></span></button></div>
-    <nav>
-      <a href="shop.html"><span class="mobile-menu__num">00</span><b>All Products</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="index.html#shop"><span class="mobile-menu__num">01</span><b>Objects</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="blog.html"><span class="mobile-menu__num">02</span><b>Journal</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="index.html#experience"><span class="mobile-menu__num">03</span><b>Experience</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="track-order.html"><span class="mobile-menu__num">04</span><b>Track Order</b><i class="mobile-menu__arrow">↗</i></a>
-    </nav>
-    <div class="mobile-menu__categories"><p class="mobile-menu__categories-label">Shop by category</p><div class="mobile-menu__category-pills"><a href="shop.html?category=luggage" class="category-menu__pill" data-nav-category data-menu-close>Luggage</a><a href="shop.html?category=carry" class="category-menu__pill" data-nav-category data-menu-close>Carry</a><a href="shop.html?category=system" class="category-menu__pill" data-nav-category data-menu-close>System</a><a href="shop.html?category=accessory" class="category-menu__pill" data-nav-category data-menu-close>Accessories</a></div><button type="button" class="category-menu__join" data-join-open>Join community <span>→</span></button></div>
-    <div class="mobile-menu__footer">
-      <div class="mobile-menu__social">
-        <a href="#" data-login-open>Log in</a>
-        <a href="#" data-social="Instagram">Instagram</a>
-        <a href="#" data-social="Pinterest">Pinterest</a>
-        <a href="index.html#ownership">Support</a>
-        <a href="mailto:habaneglobal@gmail.com">Contact</a>
-      </div>
-      <div class="mobile-menu__locale"><span data-menu-region>Shipping region</span><span>English</span></div>
-      <p class="mobile-menu__copy">© HABÄNE</p>
-    </div>
-  </aside>
-
   <main id="main">
-    <section class="shop" id="shop">
-      <div class="section-heading section-heading--compact">
-        <p>ALL OBJECTS</p>
-        <div><span class="system-label system-label--dark"><i></i> Eight entry points.</span><h2>THE FULL<br /><em>RANGE.</em></h2></div>
-        <p>Every HABÄNE object in one place — filter by category or sort to find your next movement system.</p>
+    <div class="legal-page">
+      <p class="system-label system-label--dark"><i></i> GET IN TOUCH WITH HABÄNE</p>
+      <h1>CONTACT US</h1>
+
+      <div class="legal-card">
+        <h2>Direct Inquiries</h2>
+        <p>Whether you have questions about product specifications, shipping, or press, our team in Berlin is here to help.</p>
+        <p><strong>Email:</strong> <a href="mailto:abhishekarora.de@gmail.com" style="color: var(--aurora); text-decoration: underline;">abhishekarora.de@gmail.com</a><br />
+        <strong>Phone:</strong> +49 162 3919824<br />
+        <strong>Location:</strong> Engineered in Germany</p>
       </div>
-      <div class="shop-toolbar">
-        <div class="filters" role="group" aria-label="Product category">
-          <button class="is-active" type="button" data-filter="all">All / 8</button>
-          <button type="button" data-filter="luggage">Luggage</button>
-          <button type="button" data-filter="carry">Carry</button>
-          <button type="button" data-filter="system">System</button>
-          <button type="button" data-filter="accessory">Accessories</button>
-        </div>
-        <button class="sort" type="button" data-sort>Sort: Featured ↕</button>
+
+      <div class="legal-card">
+        <h2>Send Us a Message</h2>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you for reaching out! We will respond within 24 hours.');">
+          <label for="c-name">Full Name</label>
+          <input id="c-name" type="text" placeholder="Your name" required />
+          <label for="c-email">Email Address</label>
+          <input id="c-email" type="email" placeholder="Your email address" required />
+          <label for="c-subject">Subject</label>
+          <input id="c-subject" type="text" placeholder="Product inquiry, order, partnership..." required />
+          <label for="c-message">Message</label>
+          <textarea id="c-message" placeholder="How can we help your journey?" required></textarea>
+          <button type="submit">SEND MESSAGE ↗</button>
+        </form>
       </div>
-      <div class="shop-promo">
-        <span class="shop-promo__badge">LIMITED</span>
-        <p><strong>10% off your first tech travel bag.</strong> Engineered carry-on duffels, rolltops and slings built for people who travel with a laptop, a charger stack and no patience for bad zippers. Use code <b>HABANE10</b> at checkout.</p>
-      </div>
-      <div class="product-grid" data-product-grid></div>
-    </section>
+    </div>
   </main>
 
     <section class="origin-ribbon" aria-label="Trusted Origin">
@@ -288,7 +230,7 @@
   </section>
 
   <footer class="site-footer" id="footer">
-    <div class="footer__anim" aria-hidden="true"><svg class="footer__anim-routes" viewBox="0 0 1000 425" preserveAspectRatio="none"><circle r="2.2"><animateMotion dur="12s" begin="-2s" repeatCount="indefinite" path="M294,156.4 Q390,60 480,128.8" /></circle><circle r="2.2"><animateMotion dur="15s" begin="-7s" repeatCount="indefinite" path="M586,169.6 Q710,110 841,156.4" /></circle></svg><span class="footer__anim-glow" style="left:48%;top:30.3%;--gdur:16s;--gdel:0s"></span><span class="footer__anim-glow" style="left:29.4%;top:36.8%;--gdur:20s;--gdel:-3s"></span><span class="footer__anim-glow" style="left:58.6%;top:39.9%;--gdur:18s;--gdel:-6s"></span><span class="footer__anim-glow" style="left:65%;top:45.4%;--gdur:22s;--gdel:-9s"></span><span class="footer__anim-glow" style="left:84.1%;top:36.8%;--gdur:24s;--gdel:-12s"></span><span class="footer__anim-glow" style="left:76.6%;top:62%;--gdur:19s;--gdel:-15s"></span><span class="footer__anim-glow" style="left:62.6%;top:20.1%;--gdur:26s;--gdel:-1s"></span><span class="footer__anim-glow" style="left:57.8%;top:30.8%;--gdur:21s;--gdel:-4s"></span><span class="footer__anim-glow" style="left:52.6%;top:63.4%;--gdur:23s;--gdel:-8s"></span><span class="footer__anim-glow" style="left:35.4%;top:73.1%;--gdur:17s;--gdel:-11s"></span><span class="footer__anim-glow" style="left:80%;top:75.7%;--gdur:25s;--gdel:-14s"></span><span class="footer__anim-glow" style="left:93.9%;top:83.3%;--gdur:20s;--gdel:-18s"></span><span class="footer__comet" style="--cx:-16%;--cy:-13%;--cang:15deg;--clen:230px;--cdist:108vw;--cdur:7s;--cdel:-1s"></span></div>
+    <div class="footer__anim" aria-hidden="true"><svg class="footer__anim-routes" viewBox="0 0 1000 425" preserveAspectRatio="none"><circle r="2.2"><animateMotion dur="12s" begin="-2s" repeatCount="indefinite" path="M294,156.4 Q390,60 480,128.8" /></circle><circle r="2.2"><animateMotion dur="15s" begin="-7s" repeatCount="indefinite" path="M586,169.6 Q710,110 841,156.4" /></circle></svg><span class="footer__anim-glow" style="left:48%;top:30.3%;--gdur:16s;--gdel:0s"></span><span class="footer__anim-glow" style="left:29.4%;top:36.8%;--gdur:20s;--gdel:-3s"></span><span class="footer__anim-glow" style="left:58.6%;top:39.9%;--gdur:18s;--gdel:-6s"></span><span class="footer__anim-glow" style="left:65%;top:45.4%;--gdur:22s;--gdel:-9s"></span><span class="footer__anim-glow" style="left:84.1%;top:36.8%;--gdur:24s;--gdel:-12s"></span><span class="footer__anim-glow" style="left:76.6%;top:62%;--gdur:19s;--gdel:-15s"></span><span class="footer__anim-glow" style="left:62.6%;top:20.1%;--gdur:26s;--gdel:-1s"></span><span class="footer__anim-glow" style="left:57.8%;top:30.8%;--gdur:21s;--gdel:-4s"></span><span class="footer__anim-glow" style="left:52.6%;top:63.4%;--gdur:23s;--gdel:-8s"></span><span class="footer__anim-glow" style="left:35.4%;top:73.1%;--gdur:17s;--gdel:-11s"></span><span class="footer__anim-glow" style="left:80%;top:75.7%;--gdur:25s;--gdel:-14s"></span><span class="footer__anim-glow" style="left:93.9%;top:83.3%;--gdur:20s;--gdel:-18s"></span></div>
     <div class="footer__top">
       <div class="footer__brand">
         <span class="footer__brand-mark">
@@ -296,8 +238,8 @@
           <img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
         </span>
         <span class="footer__brand-pronounce" style="display:flex;align-items:center;gap:12px;font-family:var(--font-ui);font-size:14px;color:rgba(255,255,255,0.7);text-transform:none;letter-spacing:0">Pronounced as "Habayne" <button type="button" class="footer__speaker" data-footer-speaker aria-label="Play the HABÄNE sound" style="border:0;background:none;width:auto;height:auto;padding:0;color:currentColor;display:inline-flex;align-items:center;cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M4 9v6h4l5 5V4L8 9H4z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /><path d="M19 6a8.5 8.5 0 0 1 0 12" /></svg></button></span>
-        <p class="footer__brand-tagline">Travel Technology Built<br />for those who reject the normal.</p>
-        
+        <p class="footer__brand-tagline">Travel Technology cult<br />for those who reject the normal.</p>
+        <p class="footer__brand-origin">Designed in Berlin.<br />Built for the world.</p>
         <div class="footer__social">
           <a href="#" class="footer__social-btn" data-social="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg></a>
           <a href="#" class="footer__social-btn" data-social="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path d="M13.5 21v-7h2.2l.4-2.8h-2.6V9.4c0-.8.3-1.4 1.5-1.4h1.2V5.5c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3v2.5H8.7v2.8h2.4V21" /></svg></a>
@@ -328,8 +270,8 @@
         <a href="impressum.html"><span>Impressum</span><i>→</i></a>
         <a href="cookie-policy.html"><span>Cookie Policy</span><i>→</i></a>
       </div>
-    </div></div>
-    <div class="footer__globe-wrap" aria-hidden="true"><svg id="footer-globe" viewBox="0 0 900 900"></svg><div class="footer__globe-coords"><b id="globe-lat">52.5200&#176; N</b><b id="globe-lng">13.4050&#176; E</b></div></div>
+    </div>
+    </div>
     <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span><script>(function(){function u(){var d=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});var els=document.querySelectorAll('[data-footer-time]');for(var i=0;i<els.length;i++){els[i].textContent=d;}}u();setInterval(u,1000);})();</script><span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span></div>
   </footer>
 
@@ -351,17 +293,11 @@
     <div class="search-results" data-search-results></div>
   </section>
 
-  <div class="audio-bar" data-audio-bar aria-hidden="true"><button type="button" data-audio-toggle>Ⅱ</button><div><small data-audio-product>HABÄNE X1</small><b data-audio-track>Glass Terminal</b></div><div class="audio-progress"><span data-audio-progress></span></div><span data-audio-time>0:00</span><button type="button" data-audio-close>×</button></div>
   <div class="page-scrim" data-scrim></div>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="assets/app.js?v=104"></script>
+  <script src="assets/app.js?v=85"></script>
 
-  <script src="assets/d3-array.min.js"></script>
-  <script src="assets/d3-geo.min.js"></script>
-  <script src="assets/topojson-client.min.js"></script>
-  <script src="assets/world-atlas-data.js"></script>
-  <script src="assets/globe.js?v=21" defer></script>
 </body>
 </html>

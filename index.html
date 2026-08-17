@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,9 +12,12 @@
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css?v=140" />
 </head>
+
 <body>
   <div class="preloader" data-preloader aria-hidden="true">
     <div class="preloader__panel preloader__panel--left"></div>
@@ -25,20 +29,20 @@
     </div>
   </div>
   <script>
-    (function(){
-      var el=document.querySelector('[data-preloader]');
-      if(!el) return;
-      if(sessionStorage.getItem('habane_preloaded')){ el.remove(); return; }
-      try{ sessionStorage.setItem('habane_preloaded','1'); }catch(e){}
-      if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.remove(); return; }
-      setTimeout(function(){ el.classList.add('is-flash') },520);
-      setTimeout(function(){
+    (function () {
+      var el = document.querySelector('[data-preloader]');
+      if (!el) return;
+      if (sessionStorage.getItem('habane_preloaded')) { el.remove(); return; }
+      try { sessionStorage.setItem('habane_preloaded', '1'); } catch (e) { }
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.remove(); return; }
+      setTimeout(function () { el.classList.add('is-flash') }, 520);
+      setTimeout(function () {
         el.classList.add('is-open');
-        setTimeout(function(){
+        setTimeout(function () {
           el.classList.add('is-done');
-          setTimeout(function(){el.remove()},520);
-        },520);
-      },650);
+          setTimeout(function () { el.remove() }, 520);
+        }, 520);
+      }, 650);
     })();
   </script>
 
@@ -47,8 +51,9 @@
   <div class="announcement" data-announcement>
     <div class="announcement__rotator" data-announcement-rotator aria-live="polite">
       <span class="announcement__slide is-active">COMPLIMENTARY EU DELIVERY OVER €250</span>
-      <span class="announcement__slide">FIFTEEN OBJECTS. ONE MOVEMENT SYSTEM.</span>
+      <span class="announcement__slide">EIGHT OBJECTS. ONE MOVEMENT SYSTEM.</span>
       <span class="announcement__slide">30-DAY FREE RETURNS, WORLDWIDE</span>
+      <span class="announcement__slide">10% OFF YOUR FIRST TECH TRAVEL BAG — CODE HABANE10</span>
       <span class="announcement__slide announcement__signal"><i></i> SYSTEM ONLINE</span>
     </div>
     <button type="button" data-announcement-close aria-label="Dismiss announcement">×</button>
@@ -57,45 +62,82 @@
   <header class="site-header" data-header>
     <a class="brand" href="#top" aria-label="HABÄNE home">
       <span class="brand__mark">
-        <img class="brand__icon brand__icon--navy" src="assets/brand/icon-navy.png" alt="" />
-        <img class="brand__icon brand__icon--white" src="assets/brand/icon-white.png" alt="" />
-        <img class="brand__wordmark brand__wordmark--navy" src="assets/brand/wordmark-navy.png" alt="HABÄNE" />
-        <img class="brand__wordmark brand__wordmark--white" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+        <span class="brand__icon-stack">
+          <img class="brand__icon brand__icon--navy" src="assets/brand/icon-navy.png" alt="" />
+          <img class="brand__icon brand__icon--white" src="assets/brand/icon-white.png" alt="" />
+        </span>
+        <span class="brand__wordmark-stack">
+          <img class="brand__wordmark brand__wordmark--navy" src="assets/brand/wordmark-navy.png" alt="HABÄNE" />
+          <img class="brand__wordmark brand__wordmark--white" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+        </span>
       </span>
+      <span class="brand__divider" aria-hidden="true"></span>
     </a>
     <nav class="desktop-nav" aria-label="Primary navigation">
       <a href="shop.html">All Products</a>
       <a href="#shop">Objects</a>
-      <a href="#matcher">Find your object</a>
       <a href="blog.html">Journal</a>
       <a href="#experience">Experience</a>
+      <a href="track-order.html">Track Order</a>
     </nav>
     <div class="header-actions">
-      <button class="region-button" type="button" data-region aria-label="Shipping region">🌍</button>
+      <button class="region-button" type="button" data-region aria-label="Shipping region"><img
+          src="https://flagcdn.com/w40/de.png" alt="Germany" width="20" height="15"
+          style="border-radius:2px;object-fit:cover;display:block" /></button>
       <button class="icon-button" type="button" data-search-open aria-label="Search">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.2" y2="16.2" /></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round">
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.2" y2="16.2" />
+        </svg>
       </button>
       <button class="icon-button" type="button" data-cart-open aria-label="Bag">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8h12l-1 12H7L6 8Z" />
+          <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+        </svg>
         <b class="icon-badge" data-cart-count>0</b>
       </button>
-      <button class="icon-button" type="button" data-login-open aria-label="Log in">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg>
-      </button>
-      <button class="prebook-button" type="button" data-prebook>Pre-book</button>
-      <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
+      <button class="prebook-button" type="button" data-login-open aria-label="Log in"><span
+          class="prebook-button__label">Log in</span><svg class="prebook-button__icon" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
+        </svg></button><button class="category-menu-btn" type="button" data-category-menu-open
+        aria-label="Browse categories" aria-haspopup="true"><svg class="icon" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="15" y2="12" />
+          <line x1="4" y1="17" x2="10" y2="17" />
+        </svg></button>
+      <button class="menu-button" type="button" data-menu-open
+        aria-label="Open menu"><span></span><span></span></button>
     </div>
   </header>
 
   <aside class="mobile-menu" data-mobile-menu data-lenis-prevent aria-hidden="true">
-    <div class="mobile-menu__head"><span class="mobile-menu__brand">HABÄNE</span><button class="mobile-menu__close" type="button" data-menu-close aria-label="Close menu"><span></span><span></span></button></div>
+    <div class="mobile-menu__head"><span class="mobile-menu__brand">HABÄNE</span><button class="mobile-menu__close"
+        type="button" data-menu-close aria-label="Close menu"><span></span><span></span></button></div>
     <nav>
-      <a href="shop.html"><span class="mobile-menu__num">00</span><b>All Products</b><i class="mobile-menu__arrow">↗</i></a>
+      <a href="shop.html"><span class="mobile-menu__num">00</span><b>All Products</b><i
+          class="mobile-menu__arrow">↗</i></a>
       <a href="#shop"><span class="mobile-menu__num">01</span><b>Objects</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="#matcher"><span class="mobile-menu__num">02</span><b>Find your object</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="blog.html"><span class="mobile-menu__num">03</span><b>Journal</b><i class="mobile-menu__arrow">↗</i></a>
-      <a href="#experience"><span class="mobile-menu__num">04</span><b>Experience</b><i class="mobile-menu__arrow">↗</i></a>
+      <a href="blog.html"><span class="mobile-menu__num">02</span><b>Journal</b><i class="mobile-menu__arrow">↗</i></a>
+      <a href="#experience"><span class="mobile-menu__num">03</span><b>Experience</b><i
+          class="mobile-menu__arrow">↗</i></a>
+      <a href="track-order.html"><span class="mobile-menu__num">04</span><b>Track Order</b><i
+          class="mobile-menu__arrow">↗</i></a>
     </nav>
+    <div class="mobile-menu__categories">
+      <p class="mobile-menu__categories-label">Shop by category</p>
+      <div class="mobile-menu__category-pills"><a href="shop.html?category=luggage" class="category-menu__pill"
+          data-nav-category data-menu-close>Luggage</a><a href="shop.html?category=carry" class="category-menu__pill"
+          data-nav-category data-menu-close>Carry</a><a href="shop.html?category=system" class="category-menu__pill"
+          data-nav-category data-menu-close>System</a><a href="shop.html?category=accessory" class="category-menu__pill"
+          data-nav-category data-menu-close>Accessories</a></div><button type="button" class="category-menu__join"
+        data-join-open>Join community <span>→</span></button>
+    </div>
     <div class="mobile-menu__footer">
       <div class="mobile-menu__social">
         <a href="#" data-login-open>Log in</a>
@@ -115,7 +157,7 @@
         <img src="assets/products/habane-lakeview-brand.jpg" alt="HABÄNE — beautifully obsessed" loading="eager" />
       </div>
       <div class="hero-carousel__slide" data-hero-slide>
-        <img src="assets/products/habane-lakeview-brand.jpg" alt="HABÄNE — beautifully obsessed" loading="lazy" />
+        <img src="assets/hero/banner-2.jpg" alt="HABÄNE — beautifully obsessed" loading="lazy" />
       </div>
       <div class="hero-carousel__slide" data-hero-slide>
         <img src="assets/products/habane-lakeview-brand.jpg" alt="HABÄNE — beautifully obsessed" loading="lazy" />
@@ -129,9 +171,12 @@
           <h1 data-hero-heading>Travel<br /><em>Intelligently.</em></h1>
           <div class="hero-carousel__thumbs" data-hero-thumbs>
             <span class="hero-carousel__thumbs-index" data-hero-thumbs-index>01</span>
-            <button class="is-active" type="button" data-hero-thumb="0" aria-label="Show slide 1"><img src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
-            <button type="button" data-hero-thumb="1" aria-label="Show slide 2"><img src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
-            <button type="button" data-hero-thumb="2" aria-label="Show slide 3"><img src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
+            <button class="is-active" type="button" data-hero-thumb="0" aria-label="Show slide 1"><img
+                src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
+            <button type="button" data-hero-thumb="1" aria-label="Show slide 2"><img src="assets/hero/banner-2.jpg"
+                alt="" loading="lazy" /></button>
+            <button type="button" data-hero-thumb="2" aria-label="Show slide 3"><img
+                src="assets/products/habane-lakeview-brand.jpg" alt="" loading="lazy" /></button>
           </div>
         </div>
         <div class="hero-carousel__secondary">
@@ -144,7 +189,9 @@
     <section class="shop" id="shop">
       <div class="section-heading section-heading--compact">
         <p>01 / THE FIFTEEN</p>
-        <div><span class="system-label system-label--dark"><i></i> One system, fifteen entry points.</span><h2>CHOOSE YOUR<br /><em>OBJECT.</em></h2></div>
+        <div><span class="system-label system-label--dark"><i></i> One system, fifteen entry points.</span>
+          <h2>CHOOSE YOUR<br /><em>OBJECT.</em></h2>
+        </div>
         <p>Every product opens into a richer experience: mood, use case, packing logic, care and soundtrack.</p>
       </div>
       <div class="shop-toolbar">
@@ -163,20 +210,85 @@
     <section class="matcher" id="matcher">
       <div class="section-heading">
         <p>02 / PERSONAL MATCH</p>
-        <div><span class="system-label system-label--dark"><i></i> Three decisions. One recommendation.</span><h2>WHAT ARE YOU<br />MOVING <em>TOWARD?</em></h2></div>
-        <p>Instead of making customers decode specifications, this guided match translates trip intent into the right object.</p>
+        <div><span class="system-label system-label--dark"><i></i> Three decisions. One recommendation.</span>
+          <h2>WHAT ARE YOU<br />MOVING <em>TOWARD?</em></h2>
+        </div>
+        <p>Instead of making customers decode specifications, this guided match translates trip intent into the right
+          object.</p>
       </div>
       <div class="matcher__panel">
         <div class="matcher__steps" aria-label="Travel preferences">
-          <fieldset data-matcher-group="duration"><legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>Trip length</b><span>01</span></legend><button type="button" class="is-active" data-value="short"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>1–3 days</button><button type="button" data-value="medium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>4–7 days</button><button type="button" data-value="long"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>8+ days</button></fieldset>
-          <fieldset data-matcher-group="mode"><legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 19,21 12,17 5,21" /></svg>Movement mode</b><span>02</span></legend><button type="button" class="is-active" data-value="air"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="2,12 22,4 14,22 11,13 2,12" /></svg>Air</button><button type="button" data-value="rail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="12" rx="3" /><line x1="5" y1="11" x2="19" y2="11" /><circle cx="9" cy="14" r=".6" /><circle cx="15" cy="14" r=".6" /><path d="M8 19l-2 3M16 19l2 3" /></svg>Rail</button><button type="button" data-value="city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="7" height="11" /><rect x="13" y="4" width="7" height="17" /></svg>City</button></fieldset>
-          <fieldset data-matcher-group="mood"><legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" /></svg>Travel mood</b><span>03</span></legend><button type="button" class="is-active" data-value="focused"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="4" /><circle cx="12" cy="12" r=".6" fill="currentColor" /></svg>Focused</button><button type="button" data-value="electric"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13,2 3,14 10,14 9,22 21,10 13,10 13,2" /></svg>Electric</button><button type="button" data-value="slow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20a16 16 0 0 1 16-16 16 16 0 0 1-16 16z" /><path d="M6 18L18 6" /></svg>Unhurried</button></fieldset>
+          <fieldset data-matcher-group="duration">
+            <legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 3" />
+                </svg>Trip length</b><span>01</span></legend><button type="button" class="is-active"
+              data-value="short"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 3" />
+              </svg>1–3 days</button><button type="button" data-value="medium"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 3" />
+              </svg>4–7 days</button><button type="button" data-value="long"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 3" />
+              </svg>8+ days</button>
+          </fieldset>
+          <fieldset data-matcher-group="mode">
+            <legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12,2 19,21 12,17 5,21" />
+                </svg>Movement mode</b><span>02</span></legend><button type="button" class="is-active"
+              data-value="air"><svg viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="2,12 22,4 14,22 11,13 2,12" />
+              </svg>Air</button><button type="button" data-value="rail"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="4" width="14" height="12" rx="3" />
+                <line x1="5" y1="11" x2="19" y2="11" />
+                <circle cx="9" cy="14" r=".6" />
+                <circle cx="15" cy="14" r=".6" />
+                <path d="M8 19l-2 3M16 19l2 3" />
+              </svg>Rail</button><button type="button" data-value="city"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="10" width="7" height="11" />
+                <rect x="13" y="4" width="7" height="17" />
+              </svg>City</button>
+          </fieldset>
+          <fieldset data-matcher-group="mood">
+            <legend><b class="matcher__legend"><svg class="matcher__legend-icon" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                  <line x1="9" y1="9" x2="9.01" y2="9" />
+                  <line x1="15" y1="9" x2="15.01" y2="9" />
+                </svg>Travel mood</b><span>03</span></legend><button type="button" class="is-active"
+              data-value="focused"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="12" r="8" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="12" cy="12" r=".6" fill="currentColor" />
+              </svg>Focused</button><button type="button" data-value="electric"><svg viewBox="0 0 24 24"
+                fill="currentColor">
+                <polygon points="13,2 3,14 10,14 9,22 21,10 13,10 13,2" />
+              </svg>Electric</button><button type="button" data-value="slow"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20a16 16 0 0 1 16-16 16 16 0 0 1-16 16z" />
+                <path d="M6 18L18 6" />
+              </svg>Unhurried</button>
+          </fieldset>
         </div>
         <div class="matcher__result" data-match-result>
           <div class="matcher__result-top"><span>RECOMMENDED OBJECT</span><span data-match-code>OBJ / 01</span></div>
           <div class="matcher__object"><img class="product-photo" data-match-shape alt=""></div>
-          <div class="matcher__copy"><p data-match-reason>Best for short, focused air travel.</p><h3 data-match-name>HABÄNE X1 CABIN</h3><strong data-match-price>€899</strong></div>
-          <button class="button button--primary button--full" type="button" data-match-open>Open your recommendation <span>↗</span></button>
+          <div class="matcher__copy">
+            <p data-match-reason>Best for short, focused air travel.</p>
+            <h3 data-match-name>HABÄNE X1 CABIN</h3><strong data-match-price>€899</strong>
+          </div>
+          <button class="button button--primary button--full" type="button" data-match-open>Open your recommendation
+            <span>↗</span></button>
         </div>
       </div>
     </section>
@@ -186,26 +298,97 @@
         <p class="experience__kicker">03 / PRODUCT EXPERIENCE</p>
         <p class="system-label"><i></i> NOT JUST PRODUCT DETAIL</p>
         <h2>MAKE EACH<br />OBJECT FEEL<br /><em>PERSONAL.</em></h2>
-        <p>A product page should answer more than “what is it?” It should help the customer imagine how it fits their movement, mood and daily rituals.</p>
-        <button class="button button--light" type="button" data-experience="p1">Open a product experience <span>↗</span></button>
+        <p>A product page should answer more than “what is it?” It should help the customer imagine how it fits their
+          movement, mood and daily rituals.</p>
+        <button class="button button--light" type="button" data-experience="p1">Open a product experience
+          <span>↗</span></button>
       </div>
       <div class="experience__showcase">
         <ol class="experience-list">
-          <li><span class="experience-list__num">01</span><div><h3>Journey Fit</h3><p>Trip length, transport and pace translated into a product recommendation.</p></div></li>
-          <li><span class="experience-list__num">02</span><div><h3>Pack It Virtually</h3><p>Add common travel items and watch the capacity profile update in real time.</p></div></li>
-          <li><span class="experience-list__num">03</span><div><h3>Departure Frequencies</h3><p>A playlist interface tuned to the object’s personality and the customer’s travel mood.</p></div></li>
-          <li><span class="experience-list__num">04</span><div><h3>Product Passport</h3><p>Materials, service path, care, compatibility and ownership information in one place.</p></div></li>
+          <li><span class="experience-list__num">01</span>
+            <div>
+              <h3>Journey Fit</h3>
+              <p>Trip length, transport and pace translated into a product recommendation.</p>
+            </div>
+          </li>
+          <li><span class="experience-list__num">02</span>
+            <div>
+              <h3>Pack It Virtually</h3>
+              <p>Add common travel items and watch the capacity profile update in real time.</p>
+            </div>
+          </li>
+          <li><span class="experience-list__num">03</span>
+            <div>
+              <h3>Departure Frequencies</h3>
+              <p>A playlist interface tuned to the object’s personality and the customer’s travel mood.</p>
+            </div>
+          </li>
+          <li><span class="experience-list__num">04</span>
+            <div>
+              <h3>Product Passport</h3>
+              <p>Materials, service path, care, compatibility and ownership information in one place.</p>
+            </div>
+          </li>
         </ol>
       </div>
     </section>
 
     <section class="ownership" id="ownership">
-      <div class="ownership__head"><p>04 / OWNERSHIP</p><h2>THE PURCHASE IS<br /><em>ONLY DEPARTURE.</em></h2></div>
+      <div class="ownership__head">
+        <p>04 / OWNERSHIP</p>
+        <h2>THE PURCHASE IS<br /><em>ONLY DEPARTURE.</em></h2>
+      </div>
       <div class="ownership__grid">
-        <article><div class="ownership__top"><span>01</span><span class="ownership__icon-wrap"><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.2" /><line x1="7.5" y1="7.5" x2="9.9" y2="9.9" /><line x1="14.1" y1="14.1" x2="16.5" y2="16.5" /><line x1="16.5" y1="7.5" x2="14.1" y2="9.9" /><line x1="9.9" y1="14.1" x2="7.5" y2="16.5" /></svg></span></div><h3>Direct support</h3><p>Fast access to people who understand the object—not an endless ticket maze.</p><a href="mailto:habaneglobal@gmail.com">Contact service ↗</a></article>
-        <article><div class="ownership__top"><span>02</span><span class="ownership__icon-wrap"><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 11c-2.5 4.65-9.5 9-9.5 9z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="10" y1="11" x2="14" y2="11" /></svg></span></div><h3>Care intelligence</h3><p>Product-specific care guidance, service reminders and clear wear-component information.</p><a href="#shop">Open product passport ↗</a></article>
-        <article><div class="ownership__top"><span>03</span><span class="ownership__icon-wrap"><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 3v6h-6" /></svg></span></div><h3>Repair pathways</h3><p>Visible parts logic and practical next steps when something needs attention.</p><a href="#shop">Explore service model ↗</a></article>
-        <article><div class="ownership__top"><span>04</span><span class="ownership__icon-wrap"><svg class="ownership__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2" /><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" /><line x1="4" y1="13" x2="20" y2="13" /></svg></span></div><h3>Travel compatibility</h3><p>Clear guidance for cabin, batteries and transport—with final rules always verified by the customer.</p><a href="#footer">Read travel guidance ↗</a></article>
+        <article>
+          <div class="ownership__top"><span>01</span><span class="ownership__icon-wrap"><svg class="ownership__icon"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="12" r="3.2" />
+                <line x1="7.5" y1="7.5" x2="9.9" y2="9.9" />
+                <line x1="14.1" y1="14.1" x2="16.5" y2="16.5" />
+                <line x1="16.5" y1="7.5" x2="14.1" y2="9.9" />
+                <line x1="9.9" y1="14.1" x2="7.5" y2="16.5" />
+              </svg></span></div>
+          <h3>Direct support</h3>
+          <p>Fast access to people who understand the object—not an endless ticket maze.</p><a
+            href="mailto:habaneglobal@gmail.com">Contact service ↗</a>
+        </article>
+        <article>
+          <div class="ownership__top"><span>02</span><span class="ownership__icon-wrap"><svg class="ownership__icon"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 20s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 11c-2.5 4.65-9.5 9-9.5 9z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="10" y1="11" x2="14" y2="11" />
+              </svg></span></div>
+          <h3>Care intelligence</h3>
+          <p>Product-specific care guidance, service reminders and clear wear-component information.</p><a
+            href="#shop">Open product passport ↗</a>
+        </article>
+        <article>
+          <div class="ownership__top"><span>03</span><span class="ownership__icon-wrap"><svg class="ownership__icon"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 12a9 9 0 1 1-3-6.7" />
+                <path d="M21 3v6h-6" />
+              </svg></span></div>
+          <h3>Repair pathways</h3>
+          <p>Visible parts logic and practical next steps when something needs attention.</p><a href="#shop">Explore
+            service model ↗</a>
+        </article>
+        <article>
+          <div class="ownership__top"><span>04</span><span class="ownership__icon-wrap"><svg class="ownership__icon"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="4" y="8" width="16" height="12" rx="2" />
+                <path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                <line x1="4" y1="13" x2="20" y2="13" />
+              </svg></span></div>
+          <h3>Travel compatibility</h3>
+          <p>Clear guidance for cabin, batteries and transport—with final rules always verified by the customer.</p><a
+            href="#footer">Read travel guidance ↗</a>
+        </article>
       </div>
     </section>
 
@@ -214,7 +397,8 @@
         <p>05 / COMMUNITY</p>
         <h2>CUSTOMER<br /><em>REVIEWS.</em></h2>
         <p>Real reviews from real journeys.</p>
-        <div class="reviews__score"><strong>4.9</strong><span class="reviews__stars" aria-hidden="true">★★★★★</span></div>
+        <div class="reviews__score"><strong>4.9</strong><span class="reviews__stars" aria-hidden="true">★★★★★</span>
+        </div>
         <p class="reviews__count">Based on 1,248 reviews</p>
         <a class="reviews__cta" href="#footer">SEE ALL REVIEWS <span>→</span></a>
       </div>
@@ -226,10 +410,15 @@
             <p>Took the Metropolitan on a weekend trip—it fits everything I need and looks incredible.</p>
             <div class="review-card__author">
               <span class="review-card__avatar" style="background:#0A0F5A">AK</span>
-              <div><b>Arjun K.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+              <div><b>Arjun K.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8 12l3 3 5-6" />
+                  </svg></small></div>
             </div>
           </div>
-          <img class="review-card__photo" src="assets/products/p2-navy-metropolitan-duffel.jpg" alt="Metropolitan Duffel in navy" loading="lazy" />
+          <img class="review-card__photo" src="assets/products/p2-navy-metropolitan-duffel.jpg"
+            alt="Metropolitan Duffel in navy" loading="lazy" />
         </article>
         <article class="review-card">
           <div class="review-card__body">
@@ -238,10 +427,15 @@
             <p>The Olive bag is both rugged and classy. Got so many compliments!</p>
             <div class="review-card__author">
               <span class="review-card__avatar" style="background:#36D8FF;color:#060935">NP</span>
-              <div><b>Neha P.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+              <div><b>Neha P.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8 12l3 3 5-6" />
+                  </svg></small></div>
             </div>
           </div>
-          <img class="review-card__photo" src="assets/products/p1-olive-skyline-duffel.jpg" alt="Skyline Duffel in olive" loading="lazy" />
+          <img class="review-card__photo" src="assets/products/p1-olive-skyline-duffel.jpg"
+            alt="Skyline Duffel in olive" loading="lazy" />
         </article>
         <article class="review-card">
           <div class="review-card__body">
@@ -250,10 +444,15 @@
             <p>Used the Weekender for a road trip—super spacious and the material is top-notch.</p>
             <div class="review-card__author">
               <span class="review-card__avatar" style="background:#5a6b3f">RS</span>
-              <div><b>Rohit S.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+              <div><b>Rohit S.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8 12l3 3 5-6" />
+                  </svg></small></div>
             </div>
           </div>
-          <img class="review-card__photo" src="assets/products/p5-steel-blue-weekender.jpg" alt="Steel Weekender in steel blue" loading="lazy" />
+          <img class="review-card__photo" src="assets/products/p5-steel-blue-weekender.jpg"
+            alt="Steel Weekender in steel blue" loading="lazy" />
         </article>
         <article class="review-card">
           <div class="review-card__body">
@@ -262,19 +461,48 @@
             <p>Compact, lightweight and perfect for short getaways. The Voyager is a winner!</p>
             <div class="review-card__author">
               <span class="review-card__avatar" style="background:#0A0F5A">SM</span>
-              <div><b>Sneha M.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg></small></div>
+              <div><b>Sneha M.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8 12l3 3 5-6" />
+                  </svg></small></div>
             </div>
           </div>
-          <img class="review-card__photo" src="assets/products/p3-navy-voyager-duffel.jpg" alt="Voyager Duffel in navy" loading="lazy" />
+          <img class="review-card__photo" src="assets/products/p3-navy-voyager-duffel.jpg" alt="Voyager Duffel in navy"
+            loading="lazy" />
         </article>
       </div>
       <div class="reviews__stats">
-        <div><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,21.5 12,18 5.5,21.5 7,14.5 2,9.5 9,9" /></svg><div><b>4.9/5</b><span>Average Rating</span></div></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg><div><b>1,248+</b><span>Happy Customers</span></div></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2" /><circle cx="12" cy="13.5" r="3.5" /><path d="M8 7l1.5-3h5L16 7" /></svg><div><b>890+</b><span>Photos Shared</span></div></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg><div><b>30-Day</b><span>Money Back Guarantee</span></div></div>
+        <div><svg viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12,2 15,9 22,9.5 17,14.5 18.5,21.5 12,18 5.5,21.5 7,14.5 2,9.5 9,9" />
+          </svg>
+          <div><b>4.9/5</b><span>Average Rating</span></div>
+        </div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+          </svg>
+          <div><b>1,248+</b><span>Happy Customers</span></div>
+        </div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="7" width="18" height="13" rx="2" />
+            <circle cx="12" cy="13.5" r="3.5" />
+            <path d="M8 7l1.5-3h5L16 7" />
+          </svg>
+          <div><b>890+</b><span>Photos Shared</span></div>
+        </div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+          <div><b>30-Day</b><span>Money Back Guarantee</span></div>
+        </div>
       </div>
-      <p class="reviews__footer">Have a bag? We'd love to hear your story. <a href="mailto:habaneglobal@gmail.com">WRITE A REVIEW <span>→</span></a></p>
+      <p class="reviews__footer">Have a bag? We'd love to hear your story. <a href="mailto:habaneglobal@gmail.com">WRITE
+          A REVIEW <span>→</span></a></p>
     </section>
 
     <section class="hero" id="hero">
@@ -282,13 +510,14 @@
       <div class="hero__copy">
         <p class="system-label"><i></i> HABÄNE MOVEMENT SYSTEM / 2026</p>
         <h1>MOVE<br /><em>BEYOND.</em></h1>
-        <p class="hero__lede">Fifteen objects. One coherent travel system. Engineered to reduce friction before, during and after departure.</p>
+        <p class="hero__lede">Eight objects. One coherent travel system. Engineered to reduce friction before, during
+          and after departure.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="HABANE_website_basic.html">Enter the system <span>↗</span></a>
+          <a class="button button--primary" href="HABANE_website_basic.html">Enter the System <span>↗</span></a>
           <button class="button button--ghost" type="button" data-experience="p1">Experience X1 <span>▶</span></button>
         </div>
         <div class="hero__proof">
-          <span><b>15</b> travel objects</span>
+          <span><b>8</b> travel objects</span>
           <span><b>04</b> ownership layers</span>
           <span><b>01</b> movement system</span>
         </div>
@@ -307,9 +536,10 @@
           <span class="hero-case__wheel hero-case__wheel--left"></span>
           <span class="hero-case__wheel hero-case__wheel--right"></span>
         </div>
-        <div class="hero__telemetry hero__telemetry--bottom"><span>37 L / CABIN</span><b>OBJ 01 / 15</b></div>
+        <div class="hero__telemetry hero__telemetry--bottom"><span>37 L / CABIN</span><b>OBJ 01 / 08</b></div>
       </div>
-      <div class="hero__ticker" aria-hidden="true"><span>PRECISION / FREEDOM / AUTONOMY / ELEGANCE / PRECISION / FREEDOM / AUTONOMY / ELEGANCE /</span></div>
+      <div class="hero__ticker" aria-hidden="true"><span>PRECISION / FREEDOM / AUTONOMY / ELEGANCE / PRECISION / FREEDOM
+          / AUTONOMY / ELEGANCE /</span></div>
     </section>
 
     <section class="faq" id="faq">
@@ -324,43 +554,85 @@
         <div class="faq-list">
           <div class="accordion-item">
             <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
-              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="14" height="10" rx="1" /><path d="M15 10h4l3 3v4h-7z" /><circle cx="6" cy="19" r="1.6" /><circle cx="17.5" cy="19" r="1.6" /></svg></span>
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="7" width="14" height="10" rx="1" />
+                  <path d="M15 10h4l3 3v4h-7z" />
+                  <circle cx="6" cy="19" r="1.6" />
+                  <circle cx="17.5" cy="19" r="1.6" />
+                </svg></span>
               <span class="accordion-item__q">HOW LONG DOES DELIVERY TAKE?</span>
               <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
-            <div class="accordion-item__panel" data-accordion-panel><p>EU delivery typically arrives in 2–4 working days. International orders take 5–9 working days. Complimentary EU delivery applies on orders over €250.</p></div>
+            <div class="accordion-item__panel" data-accordion-panel>
+              <p>EU delivery typically arrives in 2–4 working days. International orders take 5–9 working days.
+                Complimentary EU delivery applies on orders over €250.</p>
+            </div>
           </div>
           <div class="accordion-item">
             <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
-              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z" /><path d="M3 9v7l9 5 9-5V9" /><path d="M8.5 13.5l-2 2 2 2" /><path d="M6.5 15.5H10" /></svg></span>
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-5 9 5-9 5-9-5z" />
+                  <path d="M3 9v7l9 5 9-5V9" />
+                  <path d="M8.5 13.5l-2 2 2 2" />
+                  <path d="M6.5 15.5H10" />
+                </svg></span>
               <span class="accordion-item__q">WHAT IS YOUR RETURNS POLICY?</span>
               <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
-            <div class="accordion-item__panel" data-accordion-panel><p>30-day free returns, worldwide. Items must be unused with original tags. Refunds are issued to your original payment method within 5 working days of us receiving the return.</p></div>
+            <div class="accordion-item__panel" data-accordion-panel>
+              <p>30-day free returns, worldwide. Items must be unused with original tags. Refunds are issued to your
+                original payment method within 5 working days of us receiving the return.</p>
+            </div>
           </div>
           <div class="accordion-item">
             <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
-              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16L16 3l5 5-13 13H3v-5z" /><path d="M13 6l5 5" /><path d="M9 10l1.5 1.5M6 13l1.5 1.5" /></svg></span>
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 16L16 3l5 5-13 13H3v-5z" />
+                  <path d="M13 6l5 5" />
+                  <path d="M9 10l1.5 1.5M6 13l1.5 1.5" />
+                </svg></span>
               <span class="accordion-item__q">HOW DO I CHOOSE THE RIGHT SIZE?</span>
               <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
-            <div class="accordion-item__panel" data-accordion-panel><p>Use the Find Your Object matcher above — three quick questions translate your trip length and travel mode into a sizing recommendation. Every product page also lists exact capacity and dimensions.</p></div>
+            <div class="accordion-item__panel" data-accordion-panel>
+              <p>Use the Find Your Object matcher above — three quick questions translate your trip length and travel
+                mode into a sizing recommendation. Every product page also lists exact capacity and dimensions.</p>
+            </div>
           </div>
           <div class="accordion-item">
             <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
-              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" /><path d="M17 5l1 1.6-1 1.6" /><path d="M19.5 4.4l.7 1.2-.7 1.2" /></svg></span>
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" />
+                  <path d="M17 5l1 1.6-1 1.6" />
+                  <path d="M19.5 4.4l.7 1.2-.7 1.2" />
+                </svg></span>
               <span class="accordion-item__q">HOW DO I CARE FOR MY OBJECT?</span>
               <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
-            <div class="accordion-item__panel" data-accordion-panel><p>Each object ships with product-specific care guidance in its Product Passport. As a rule: spot-clean canvas, condition leather twice a year, and use the service path listed for hardware and zippers.</p></div>
+            <div class="accordion-item__panel" data-accordion-panel>
+              <p>Each object ships with product-specific care guidance in its Product Passport. As a rule: spot-clean
+                canvas, condition leather twice a year, and use the service path listed for hardware and zippers.</p>
+            </div>
           </div>
           <div class="accordion-item">
             <button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">
-              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18M4.5 7.5h15M4.5 16.5h15" /></svg></span>
+              <span class="accordion-item__icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <ellipse cx="12" cy="12" rx="4" ry="9" />
+                  <path d="M3 12h18M4.5 7.5h15M4.5 16.5h15" />
+                </svg></span>
               <span class="accordion-item__q">DO YOU SHIP OUTSIDE THE EU?</span>
               <span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
-            <div class="accordion-item__panel" data-accordion-panel><p>Yes — we ship worldwide. Duties and import taxes, where applicable, are calculated at checkout so there are no surprises on delivery.</p></div>
+            <div class="accordion-item__panel" data-accordion-panel>
+              <p>Yes — we ship worldwide. Duties and import taxes, where applicable, are calculated at checkout so there
+                are no surprises on delivery.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -372,10 +644,35 @@
         <h2>BUILT FOR<br /><em>EVERY JOURNEY.</em></h2>
         <p class="movement-banner__lede">Premium materials. Smart features. Built to go the distance.</p>
         <div class="movement-banner__features">
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" /><path d="M17 5l1 1.6-1 1.6" /></svg><b>Water Resistant</b><p>Ready for anything.</p></div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg><b>Premium Materials</b><p>Made to last.</p></div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8V6a4 4 0 0 1 8 0v2" /><rect x="5" y="8" width="14" height="12" rx="2" /><path d="M12 13v3" /></svg><b>Secure Zippers</b><p>Travel with confidence.</p></div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-2 7-18 3z" /><path d="M9 12L6 5l3-1 5 7" /></svg><b>Cabin Friendly</b><p>Fly without worries.</p></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" />
+              <path d="M17 5l1 1.6-1 1.6" />
+            </svg><b>Water Resistant</b>
+            <p>Ready for anything.</p>
+          </div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" />
+              <path d="M9 12l2 2 4-4" />
+            </svg><b>Premium Materials</b>
+            <p>Made to last.</p>
+          </div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M8 8V6a4 4 0 0 1 8 0v2" />
+              <rect x="5" y="8" width="14" height="12" rx="2" />
+              <path d="M12 13v3" />
+            </svg><b>Secure Zippers</b>
+            <p>Travel with confidence.</p>
+          </div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M2 16l20-6-2 7-18 3z" />
+              <path d="M9 12L6 5l3-1 5 7" />
+            </svg><b>Cabin Friendly</b>
+            <p>Fly without worries.</p>
+          </div>
         </div>
         <a class="button button--primary" href="shop.html">Explore collection <span>→</span></a>
       </div>
@@ -385,11 +682,34 @@
       <div class="newsletter__copy">
         <p class="system-label"><i></i> PRIVATE CHANNEL / PRODUCT DROPS / FIELD NOTES</p>
         <h2>LEAVE BEFORE<br /><em>EVERYONE ELSE</em></h2>
-        <p class="newsletter__lede">Get early access to limited edition drops, private updates, and stories from the road.</p>
+        <p class="newsletter__lede">Get early access to limited edition drops, private updates, and stories from the
+          road.</p>
         <div class="newsletter__perks-row">
-          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13,2 3,14 10,14 9,22 21,10 13,10 13,2" /></svg></span><div><b>Early Access</b><p>Be the first to know about new drops.</p></div></div>
-          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1" /><path d="M3 8h18M12 8v13M7.5 8a2.5 2.5 0 1 1 4.5-2h0a2.5 2.5 0 1 1 4.5 2" /></svg></span><div><b>Exclusive Drops</b><p>Members only. Limited editions.</p></div></div>
-          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg></span><div><b>Member Perks</b><p>Rewards, content and more.</p></div></div>
+          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="13,2 3,14 10,14 9,22 21,10 13,10 13,2" />
+              </svg></span>
+            <div><b>Early Access</b>
+              <p>Be the first to know about new drops.</p>
+            </div>
+          </div>
+          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="8" width="18" height="13" rx="1" />
+                <path d="M3 8h18M12 8v13M7.5 8a2.5 2.5 0 1 1 4.5-2h0a2.5 2.5 0 1 1 4.5 2" />
+              </svg></span>
+            <div><b>Exclusive Drops</b>
+              <p>Members only. Limited editions.</p>
+            </div>
+          </div>
+          <div class="perk"><span class="perk__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
+              </svg></span>
+            <div><b>Member Perks</b>
+              <p>Rewards, content and more.</p>
+            </div>
+          </div>
         </div>
         <p class="newsletter__slashes" aria-hidden="true">////////////////////////////</p>
         <p class="newsletter__hashtag">// BEAUTIFULLY OBSESSED.</p>
@@ -403,17 +723,43 @@
         </div>
         <form data-newsletter-form class="newsletter__form">
           <div class="newsletter__form-head">
-            <span class="newsletter__form-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13" /><path d="M22 2l-7 20-4-9-9-4 20-7z" /></svg></span>
-            <div><b>Join the movement</b><p data-newsletter-status>No spam. Only meaningful movement.</p></div>
+            <span class="newsletter__form-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13" />
+                <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+              </svg></span>
+            <div><b>Join the movement</b>
+              <p data-newsletter-status>No spam. Only meaningful movement.</p>
+            </div>
           </div>
           <div class="newsletter__row">
-            <label class="newsletter__field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg><input type="text" placeholder="Your name" /></label>
-            <label class="newsletter__field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg><input id="newsletter-email" type="email" placeholder="Email address" required /></label>
+            <label class="newsletter__field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
+              </svg><input type="text" placeholder="Your name" /></label>
+            <label class="newsletter__field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 7l9 6 9-6" />
+              </svg><input id="newsletter-email" type="email" placeholder="Email address" required /></label>
           </div>
           <label class="newsletter__field newsletter__field--select">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 0 0-14 0c0 4.5 7 12 7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>
-            <select><option value="">Where do you move?</option><option>Air</option><option>Rail</option><option>City</option></select>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 21s7-7.5 7-12a7 7 0 0 0-14 0c0 4.5 7 12 7 12z" />
+              <circle cx="12" cy="9" r="2.5" />
+            </svg>
+            <select>
+              <option value="">Where do you move?</option>
+              <option>Air</option>
+              <option>Rail</option>
+              <option>City</option>
+            </select>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="6,9 12,15 18,9" />
+            </svg>
           </label>
           <p class="newsletter__interest-label">I'm interested in:</p>
           <div class="newsletter__checks">
@@ -422,40 +768,388 @@
             <label><input type="checkbox" name="interest" value="notes" /> Field Notes</label>
           </div>
           <button type="submit" class="newsletter__submit">Join now <span>→</span></button>
-          <p class="newsletter__privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg> We respect your privacy.</p>
+          <p class="newsletter__privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="11" width="14" height="9" rx="2" />
+              <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+            </svg> We respect your privacy.</p>
         </form>
       </div>
     </section>
   </main>
 
+  <section class="origin-ribbon" aria-label="Trusted Origin">
+    <div class="origin-ribbon__header">
+      <span class="origin-ribbon__line"></span>
+      <h4 class="origin-ribbon__title">TRUSTED ORIGIN. BUILT WITH PURPOSE.</h4>
+      <span class="origin-ribbon__line"></span>
+    </div>
+    <div class="origin-ribbon__track-wrap">
+      <div class="origin-ribbon__track">
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED AT</span>
+          <div class="th-owl-mark" style="display:flex;align-items:center;gap:12px;margin: 8px 0;">
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <strong
+                style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">TH</strong>
+              <strong
+                style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">OWL</strong>
+            </div>
+            <svg class="origin-icon" viewBox="140 100 160 160" fill="none" stroke="currentColor" stroke-width="5"
+              stroke-linejoin="round" style="width:58px;height:58px;">
+              <g transform="matrix(1,0,0,-1,0,359.05333)">
+                <path
+                  d="m 175.718,195.886 c -7.506,0 -14.375,5.009 -16.41,12.603 -2.43,9.07 2.952,18.391 12.021,20.822 l 93.543,25.065 c 9.067,2.429 18.39,-2.953 20.821,-12.021 2.43,-9.069 -2.952,-18.391 -12.021,-20.821 l -93.543,-25.065 c -1.473,-0.396 -2.955,-0.583 -4.411,-0.583" />
+                <path
+                  d="m 244.207,127.411 c -4.351,0 -8.701,1.66 -12.021,4.979 l -68.478,68.479 c -6.639,6.639 -6.639,17.402 0,24.041 6.639,6.639 17.402,6.639 24.042,0 l 68.478,-68.478 c 6.639,-6.639 6.639,-17.403 0,-24.042 -3.32,-3.319 -7.67,-4.979 -12.021,-4.979" />
+                <path
+                  d="m 244.218,127.407 c -1.457,0 -2.937,0.188 -4.411,0.583 -9.068,2.43 -14.45,11.752 -12.021,20.821 l 25.065,93.544 c 2.43,9.07 11.754,14.448 20.821,12.021 9.069,-2.43 14.451,-11.752 12.021,-20.821 l -25.065,-93.544 c -2.035,-7.595 -8.905,-12.604 -16.41,-12.604" />
+                <path
+                  d="m 281.301,249.972 c -4.155,4.147 -10.346,6.026 -16.423,4.399 0.058,0.014 0.116,0.021 0.174,0.036 -5.744,-1.481 -10.549,-5.919 -12.196,-12.058 l -7.62,-28.442 28.442,7.621 c 6.138,1.647 10.577,6.451 12.058,12.195 -0.016,-0.058 -0.023,-0.116 -0.037,-0.174 1.628,6.077 -0.251,12.269 -4.398,16.423" />
+                <path
+                  d="m 159.306,217.29 c -1.514,-5.672 -0.046,-11.973 4.402,-16.422 -0.041,0.043 -0.076,0.089 -0.119,0.132 4.155,-4.233 10.401,-6.175 16.541,-4.533 l 28.442,7.622 -20.821,20.821 c -4.496,4.493 -10.876,5.935 -16.591,4.345 0.058,0.016 0.113,0.039 0.169,0.056 -6.077,-1.629 -10.499,-6.353 -12.023,-12.021" />
+                <path
+                  d="m 248.608,127.988 c 5.669,1.525 10.392,5.947 12.021,12.024 -0.017,-0.057 -0.039,-0.111 -0.055,-0.169 1.588,5.715 0.148,12.095 -4.345,16.591 l -20.822,20.82 -7.62,-28.441 c -1.644,-6.14 0.298,-12.387 4.532,-16.541 -0.043,0.042 -0.09,0.078 -0.133,0.118 4.449,-4.448 10.751,-5.916 16.422,-4.402" />
+              </g>
+            </svg>
+          </div>
+          <small class="origin-badge__sub"
+            style="font-family:var(--font-ui);font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;">Lemgo,
+            Germany</small>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">ALUMNI OF</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="4" fill="#ffffff" />
+              <path d="M10 30L30 10M30 10H16M30 10V24" stroke="#060935" stroke-width="4.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M10 10L19 19" stroke="#060935" stroke-width="3.5" stroke-linecap="round" />
+            </svg>
+            <div class="origin-badge__text">
+              <strong>THE MIGRANT<br>ACCELERATOR</strong>
+              <small>TMA Alumni</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 14C10 8 15 6 20 10C25 6 30 8 30 14C30 26 26 34 20 34C14 34 10 26 10 14Z"
+                stroke-linecap="round" />
+              <circle cx="15.5" cy="16" r="3.5" />
+              <circle cx="24.5" cy="16" r="3.5" />
+              <circle cx="15.5" cy="16" r="1.2" fill="currentColor" />
+              <circle cx="24.5" cy="16" r="1.2" fill="currentColor" />
+              <path d="M18.5 20L20 22.5L21.5 20" stroke-linecap="round" />
+            </svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL<br>ORIGINS</strong>
+              <small>Innovation Network</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="20" cy="20" r="18" />
+              <path d="M13 28V20L20 13L27 20V28H13Z" />
+              <path d="M20 13V9M17 9H23" />
+              <path d="M17 28V23H23V28" />
+              <circle cx="20" cy="18" r="2" />
+            </svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DEVELOPED IN</span>
+              <strong>LEMGO</strong>
+              <small>North Rhine-Westphalia</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linejoin="round">
+              <path
+                d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z" />
+            </svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DESIGNED IN</span>
+              <strong>GERMANY</strong>
+              <small>HABÄNE Studio</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED AT</span>
+          <div class="th-owl-mark" style="display:flex;align-items:center;gap:12px;margin: 8px 0;">
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <strong
+                style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">TH</strong>
+              <strong
+                style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">OWL</strong>
+            </div>
+            <svg class="origin-icon" viewBox="140 100 160 160" fill="none" stroke="currentColor" stroke-width="5"
+              stroke-linejoin="round" style="width:58px;height:58px;">
+              <g transform="matrix(1,0,0,-1,0,359.05333)">
+                <path
+                  d="m 175.718,195.886 c -7.506,0 -14.375,5.009 -16.41,12.603 -2.43,9.07 2.952,18.391 12.021,20.822 l 93.543,25.065 c 9.067,2.429 18.39,-2.953 20.821,-12.021 2.43,-9.069 -2.952,-18.391 -12.021,-20.821 l -93.543,-25.065 c -1.473,-0.396 -2.955,-0.583 -4.411,-0.583" />
+                <path
+                  d="m 244.207,127.411 c -4.351,0 -8.701,1.66 -12.021,4.979 l -68.478,68.479 c -6.639,6.639 -6.639,17.402 0,24.041 6.639,6.639 17.402,6.639 24.042,0 l 68.478,-68.478 c 6.639,-6.639 6.639,-17.403 0,-24.042 -3.32,-3.319 -7.67,-4.979 -12.021,-4.979" />
+                <path
+                  d="m 244.218,127.407 c -1.457,0 -2.937,0.188 -4.411,0.583 -9.068,2.43 -14.45,11.752 -12.021,20.821 l 25.065,93.544 c 2.43,9.07 11.754,14.448 20.821,12.021 9.069,-2.43 14.451,-11.752 12.021,-20.821 l -25.065,-93.544 c -2.035,-7.595 -8.905,-12.604 -16.41,-12.604" />
+                <path
+                  d="m 281.301,249.972 c -4.155,4.147 -10.346,6.026 -16.423,4.399 0.058,0.014 0.116,0.021 0.174,0.036 -5.744,-1.481 -10.549,-5.919 -12.196,-12.058 l -7.62,-28.442 28.442,7.621 c 6.138,1.647 10.577,6.451 12.058,12.195 -0.016,-0.058 -0.023,-0.116 -0.037,-0.174 1.628,6.077 -0.251,12.269 -4.398,16.423" />
+                <path
+                  d="m 159.306,217.29 c -1.514,-5.672 -0.046,-11.973 4.402,-16.422 -0.041,0.043 -0.076,0.089 -0.119,0.132 4.155,-4.233 10.401,-6.175 16.541,-4.533 l 28.442,7.622 -20.821,20.821 c -4.496,4.493 -10.876,5.935 -16.591,4.345 0.058,0.016 0.113,0.039 0.169,0.056 -6.077,-1.629 -10.499,-6.353 -12.023,-12.021" />
+                <path
+                  d="m 248.608,127.988 c 5.669,1.525 10.392,5.947 12.021,12.024 -0.017,-0.057 -0.039,-0.111 -0.055,-0.169 1.588,5.715 0.148,12.095 -4.345,16.591 l -20.822,20.82 -7.62,-28.441 c -1.644,-6.14 0.298,-12.387 4.532,-16.541 -0.043,0.042 -0.09,0.078 -0.133,0.118 4.449,-4.448 10.751,-5.916 16.422,-4.402" />
+              </g>
+            </svg>
+          </div>
+          <small class="origin-badge__sub"
+            style="font-family:var(--font-ui);font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;">Lemgo,
+            Germany</small>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">ALUMNI OF</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="4" fill="#ffffff" />
+              <path d="M10 30L30 10M30 10H16M30 10V24" stroke="#060935" stroke-width="4.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M10 10L19 19" stroke="#060935" stroke-width="3.5" stroke-linecap="round" />
+            </svg>
+            <div class="origin-badge__text">
+              <strong>THE MIGRANT<br>ACCELERATOR</strong>
+              <small>TMA Alumni</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 14C10 8 15 6 20 10C25 6 30 8 30 14C30 26 26 34 20 34C14 34 10 26 10 14Z"
+                stroke-linecap="round" />
+              <circle cx="15.5" cy="16" r="3.5" />
+              <circle cx="24.5" cy="16" r="3.5" />
+              <circle cx="15.5" cy="16" r="1.2" fill="currentColor" />
+              <circle cx="24.5" cy="16" r="1.2" fill="currentColor" />
+              <path d="M18.5 20L20 22.5L21.5 20" stroke-linecap="round" />
+            </svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL<br>ORIGINS</strong>
+              <small>Innovation Network</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="20" cy="20" r="18" />
+              <path d="M13 28V20L20 13L27 20V28H13Z" />
+              <path d="M20 13V9M17 9H23" />
+              <path d="M17 28V23H23V28" />
+              <circle cx="20" cy="18" r="2" />
+            </svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DEVELOPED IN</span>
+              <strong>LEMGO</strong>
+              <small>North Rhine-Westphalia</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linejoin="round">
+              <path
+                d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z" />
+            </svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DESIGNED IN</span>
+              <strong>GERMANY</strong>
+              <small>HABÄNE Studio</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer" id="footer">
-    <div class="footer__top"><div class="footer__brand"><span class="footer__brand-mark"><img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" /><img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /><button type="button" class="footer__speaker" data-footer-speaker aria-label="Play the HABÄNE sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /><path d="M19 6a8.5 8.5 0 0 1 0 12" /></svg></button></span><span>CHASE THE MADNESS.</span></div><div><h3>Objects</h3><a href="shop.html">Luggage</a><a href="shop.html">Carry</a><a href="shop.html">Systems</a><a href="shop.html">Accessories</a></div><div><h3>Support</h3><a href="mailto:habaneglobal@gmail.com">Contact</a><a href="#ownership">Service & repair</a><a href="#footer">Delivery & returns</a><a href="#footer">Product care</a></div><div><h3>Company</h3><a href="#experience">Philosophy</a><a href="blog.html">Journal</a><a href="#footer">Legal</a><a href="#footer">Privacy</a></div></div>
-    <div class="footer__bottom"><span>© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><span>BERLIN</span><span data-footer-time></span><span>EU / EN</span></div>
+    <div class="footer__anim" aria-hidden="true"><svg class="footer__anim-routes" viewBox="0 0 1000 425"
+        preserveAspectRatio="none">
+        <circle r="2.2">
+          <animateMotion dur="12s" begin="-2s" repeatCount="indefinite" path="M294,156.4 Q390,60 480,128.8" />
+        </circle>
+        <circle r="2.2">
+          <animateMotion dur="15s" begin="-7s" repeatCount="indefinite" path="M586,169.6 Q710,110 841,156.4" />
+        </circle>
+      </svg><span class="footer__anim-glow" style="left:48%;top:30.3%;--gdur:16s;--gdel:0s"></span><span
+        class="footer__anim-glow" style="left:29.4%;top:36.8%;--gdur:20s;--gdel:-3s"></span><span
+        class="footer__anim-glow" style="left:58.6%;top:39.9%;--gdur:18s;--gdel:-6s"></span><span
+        class="footer__anim-glow" style="left:65%;top:45.4%;--gdur:22s;--gdel:-9s"></span><span
+        class="footer__anim-glow" style="left:84.1%;top:36.8%;--gdur:24s;--gdel:-12s"></span><span
+        class="footer__anim-glow" style="left:76.6%;top:62%;--gdur:19s;--gdel:-15s"></span><span
+        class="footer__anim-glow" style="left:62.6%;top:20.1%;--gdur:26s;--gdel:-1s"></span><span
+        class="footer__anim-glow" style="left:57.8%;top:30.8%;--gdur:21s;--gdel:-4s"></span><span
+        class="footer__anim-glow" style="left:52.6%;top:63.4%;--gdur:23s;--gdel:-8s"></span><span
+        class="footer__anim-glow" style="left:35.4%;top:73.1%;--gdur:17s;--gdel:-11s"></span><span
+        class="footer__anim-glow" style="left:80%;top:75.7%;--gdur:25s;--gdel:-14s"></span><span
+        class="footer__anim-glow" style="left:93.9%;top:83.3%;--gdur:20s;--gdel:-18s"></span><span class="footer__comet"
+        style="--cx:-16%;--cy:-13%;--cang:15deg;--clen:230px;--cdist:108vw;--cdur:7s;--cdel:-1s"></span></div>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__brand-mark">
+          <img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" />
+          <img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+        </span>
+        <span class="footer__brand-pronounce"
+          style="display:flex;align-items:center;gap:12px;font-family:var(--font-ui);font-size:14px;color:rgba(255,255,255,0.7);text-transform:none;letter-spacing:0">Pronounced
+          as "Habayne" <button type="button" class="footer__speaker" data-footer-speaker
+            aria-label="Play the HABÄNE sound"
+            style="border:0;background:none;width:auto;height:auto;padding:0;color:currentColor;display:inline-flex;align-items:center;cursor:pointer"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" style="width:16px;height:16px">
+              <path d="M4 9v6h4l5 5V4L8 9H4z" />
+              <path d="M16.5 8.5a5 5 0 0 1 0 7" />
+              <path d="M19 6a8.5 8.5 0 0 1 0 12" />
+            </svg></button></span>
+        <p class="footer__brand-tagline">Travel Technology Built<br />for those who reject the normal.</p>
+
+        <div class="footer__social">
+          <a href="#" class="footer__social-btn" data-social="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+            </svg></a>
+          <a href="#" class="footer__social-btn" data-social="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="12" cy="12" r="9" />
+              <path
+                d="M13.5 21v-7h2.2l.4-2.8h-2.6V9.4c0-.8.3-1.4 1.5-1.4h1.2V5.5c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3v2.5H8.7v2.8h2.4V21" />
+            </svg></a>
+          <a href="#" class="footer__social-btn" data-social="Twitter" aria-label="Twitter"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+            </svg></a>
+          <a href="https://wa.me/491623919824" class="footer__social-btn" data-social="WhatsApp"
+            aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21l1.65-3.8A9 9 0 1 1 21 12a9 9 0 0 1-9 9 8.93 8.93 0 0 1-4.2-.95L3 21z" />
+              <path
+                d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 .5-.5v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0 0 1" />
+            </svg></a>
+        </div>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <a href="shop.html"><span>All Products</span><i>→</i></a>
+        <a href="shop.html?category=luggage"><span>Luggage</span><i>→</i></a>
+        <a href="shop.html?category=carry"><span>Carry</span><i>→</i></a>
+        <a href="shop.html?category=system"><span>Systems</span><i>→</i></a>
+        <a href="shop.html?category=accessory"><span>Accessories</span><i>→</i></a>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <a href="about.html"><span>About Us</span><i>→</i></a>
+        <a href="contact.html"><span>Contact</span><i>→</i></a>
+        <a href="press.html"><span>Press</span><i>→</i></a>
+        <a href="track-order.html"><span>Track Order</span><i>→</i></a>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="terms.html"><span>Terms &amp; Conditions</span><i>→</i></a>
+        <a href="privacy.html"><span>Privacy Policy</span><i>→</i></a>
+        <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
+        <a href="impressum.html"><span>Impressum</span><i>→</i></a>
+        <a href="cookie-policy.html"><span>Cookie Policy</span><i>→</i></a>
+      </div>
+    </div>
+    </div>
+    <div class="footer__globe-wrap" aria-hidden="true"><svg id="footer-globe" viewBox="0 0 900 900"></svg>
+      <div class="footer__globe-coords"><b id="globe-lat">52.5200&#176; N</b><b id="globe-lng">13.4050&#176; E</b></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark"
+          src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span
+        class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span>
+      <script>(function () { function u() { var d = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); var els = document.querySelectorAll('[data-footer-time]'); for (var i = 0; i < els.length; i++) { els[i].textContent = d; } } u(); setInterval(u, 1000); })();</script>
+      <span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span>
+    </div>
   </footer>
 
   <aside class="cart-drawer" data-cart-drawer data-lenis-prevent aria-hidden="true">
-    <div class="drawer-head"><div><small>YOUR SELECTION</small><h2>Bag <b data-cart-count>0</b></h2></div><button type="button" data-cart-close>Close ×</button></div>
-    <div class="cart-progress"><span data-cart-progress></span></div><p data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
+    <div class="drawer-head">
+      <div><small>YOUR SELECTION</small>
+        <h2>Bag <b data-cart-count>0</b></h2>
+      </div><button type="button" data-cart-close>Close ×</button>
+    </div>
+    <div class="cart-progress"><span data-cart-progress></span></div>
+    <p data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
     <div class="cart-items" data-cart-items></div>
-    <div class="cart-summary" data-cart-summary hidden><div><span>Subtotal</span><strong data-cart-subtotal>€0</strong></div><p>VAT included. Delivery calculated at checkout.</p><button type="button" data-checkout>Secure checkout <span>→</span></button><small>VISA / MASTERCARD / PAYPAL / KLARNA</small></div>
+    <div class="cart-summary" data-cart-summary hidden>
+      <div><span>Subtotal</span><strong data-cart-subtotal>€0</strong></div>
+      <p>VAT included. Delivery calculated at checkout.</p><button type="button" data-checkout>Secure checkout
+        <span>→</span></button><small>VISA / MASTERCARD / PAYPAL / KLARNA</small>
+    </div>
   </aside>
 
   <aside class="compare-drawer" data-compare-drawer data-lenis-prevent aria-hidden="true">
-    <div class="drawer-head"><div><small>OBJECT COMPARISON</small><h2>Compare <b data-compare-count>0</b></h2></div><button type="button" data-compare-close>Close ×</button></div>
+    <div class="drawer-head">
+      <div><small>OBJECT COMPARISON</small>
+        <h2>Compare <b data-compare-count>0</b></h2>
+      </div><button type="button" data-compare-close>Close ×</button>
+    </div>
     <div class="compare-content" data-compare-content></div>
   </aside>
 
   <section class="search-overlay" data-search-overlay data-lenis-prevent aria-hidden="true">
-    <div class="search-head"><span>SEARCH / <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><button type="button" data-search-close>Close ×</button></div>
-    <form data-search-form><label for="site-search">What are you moving with?</label><div><input id="site-search" autocomplete="off" placeholder="Cabin, rail, backpack..." /><button type="submit">↗</button></div></form>
+    <div class="search-head"><span>SEARCH / <img class="inline-wordmark" src="assets/brand/wordmark-white.png"
+          alt="HABÄNE" /></span><button type="button" data-search-close>Close ×</button></div>
+    <form data-search-form><label for="site-search">What are you moving with?</label>
+      <div><input id="site-search" autocomplete="off" placeholder="Cabin, rail, backpack..." /><button
+          type="submit">↗</button></div>
+    </form>
     <div class="search-results" data-search-results></div>
   </section>
 
-  <div class="audio-bar" data-audio-bar aria-hidden="true"><button type="button" data-audio-toggle>Ⅱ</button><div><small data-audio-product>HABÄNE X1</small><b data-audio-track>Glass Terminal</b></div><div class="audio-progress"><span data-audio-progress></span></div><span data-audio-time>0:00</span><button type="button" data-audio-close>×</button></div>
+  <div class="audio-bar" data-audio-bar aria-hidden="true"><button type="button" data-audio-toggle>Ⅱ</button>
+    <div><small data-audio-product>HABÄNE X1</small><b data-audio-track>Glass Terminal</b></div>
+    <div class="audio-progress"><span data-audio-progress></span></div><span data-audio-time>0:00</span><button
+      type="button" data-audio-close>×</button>
+  </div>
   <div class="page-scrim" data-scrim></div>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="assets/app.js"></script>
+  <script src="assets/app.js?v=104"></script>
+
+  <script src="assets/d3-array.min.js"></script>
+  <script src="assets/d3-geo.min.js"></script>
+  <script src="assets/topojson-client.min.js"></script>
+  <script src="assets/world-atlas-data.js"></script>
+  <script src="assets/globe.js?v=21" defer></script>
 </body>
+
 </html>

@@ -1,14 +1,14 @@
 const products = {
   p1: {
-    id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Skyline Duffel', price:71, category:'luggage', badge:'BESTSELLER',
-    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png'],
+    id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Skyline Duffel', price:71, category:'luggage', badge:'Flagship',
+    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p5-steel-blue-weekender.png','assets/products/alt-steel-duffel.png'],
     colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Midnight',hex:'#0b1240'},{name:'Silver',hex:'#9a9ea8'}], sizes:['35L','45L','55L'],
     subtitle:'Hand-drawn skyline travel bag', kicker:'Signature travel duffel',
     description:'Our hero carry. Hand-drawn skyline print on water-repellent canvas, leather-trim handles and a vault-grade zipper.',
     specs:[['Material','Water-repellent canvas'],['Capacity','35–55L'],['Weight','1.4 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Midnight / Silver'],['Sizes','35L / 45L / 55L']],
     mood:{label:'Adventurous / Grounded',quiet:58,urban:40,trip:70},
     passportData:{material:'Water-repellent canvas / leather trim',service:'Handle + zipper service path',care:'Wipe canvas after wet trips',role:'Signature carry'},
-    pack:['3 shirts', '2 trousers', 'Shoes', 'Wash kit', 'Jacket', 'Book'],
+    pack:['3 shirts', '2 trousers', 'Shoes', 'Essentials', 'Jacket', 'Book'],
     blueprint:[{label:'WATER-REPELLENT CANVAS',x:'8%',y:'20%'},{label:'LEATHER-TRIM HANDLE',x:'62%',y:'12%'},{label:'VAULT-GRADE ZIPPER',x:'70%',y:'62%'},{label:'HAND-DRAWN SKYLINE PRINT',x:'10%',y:'55%'}],
     dimensions:[{label:'50 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'30 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
     playlists:{
@@ -18,15 +18,15 @@ const products = {
     }
   },
   p2: {
-    id:'p2', code:'OBJ / 02', passport:'HB-P2-002', name:'Metropolitan Duffel', price:77, category:'luggage', badge:'NEW',
-    image:'assets/products/p2-navy-metropolitan-duffel.png', cardImage:'assets/products/p2-navy-metropolitan-duffel.jpg', images:['assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-steel-duffel.png'],
+    id:'p2', code:'OBJ / 02', passport:'HB-P2-002', name:'Metropolitan Duffel', price:77, category:'luggage', badge:'City object',
+    image:'assets/products/p2-navy-metropolitan-duffel.png', cardImage:'assets/products/p2-navy-metropolitan-duffel.jpg', images:['assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-steel-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/p3-navy-voyager-duffel.png','assets/products/alt-white-duffel.png'],
     colors:[{name:'Navy',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['40L','50L'],
     subtitle:'Cabin-friendly city duffel', kicker:'Cityscape travel object',
     description:'Midnight navy with an ice-blue cityscape and contrast webbing handles. Cabin-friendly with shoulder strap.',
     specs:[['Material','Tech canvas'],['Capacity','40–50L'],['Weight','1.5 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Ice'],['Sizes','40L / 50L']],
     mood:{label:'Composed / Cosmopolitan',quiet:64,urban:74,trip:55},
     passportData:{material:'Tech canvas / webbing handles',service:'Strap + zipper service path',care:'Spot-clean as needed',role:'City travel'},
-    pack:['Laptop', '3 shirts', 'Trousers', 'Shoes', 'Wash kit', 'Cables'],
+    pack:['Laptop', '3 shirts', 'Trousers', 'Shoes', 'Essentials', 'Cables'],
     blueprint:[{label:'TECH CANVAS SHELL',x:'8%',y:'18%'},{label:'CONTRAST WEBBING HANDLE',x:'60%',y:'10%'},{label:'SHOULDER STRAP D-RING',x:'68%',y:'60%'},{label:'LIFETIME ZIPPER',x:'10%',y:'70%'}],
     dimensions:[{label:'52 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'32 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
     playlists:{
@@ -36,15 +36,15 @@ const products = {
     }
   },
   p3: {
-    id:'p3', code:'OBJ / 03', passport:'HB-P3-003', name:'Voyager Duffel', price:75, category:'luggage', badge:null,
-    image:'assets/products/p3-navy-voyager-duffel.png', cardImage:'assets/products/p3-navy-voyager-duffel.jpg', images:['assets/products/p3-navy-voyager-duffel.png','assets/products/p2-navy-metropolitan-duffel.png'],
+    id:'p3', code:'OBJ / 03', passport:'HB-P3-003', name:'Voyager Duffel', price:75, category:'luggage', badge:'Travel kit',
+    image:'assets/products/p3-navy-voyager-duffel.png', cardImage:'assets/products/p3-navy-voyager-duffel.jpg', images:['assets/products/p3-navy-voyager-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-white-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/alt-steel-duffel.png'],
     colors:[{name:'Navy',hex:'#0b1240'},{name:'Sky',hex:'#8fd4ec'}], sizes:['40L','50L'],
     subtitle:'Nautical line-art duffel', kicker:'Voyage-ready travel object',
     description:'Nautical line-art print across deep navy canvas. Travel duffel for overhead bins and boat decks alike.',
     specs:[['Material','Canvas + leather trim'],['Capacity','40–50L'],['Weight','1.45 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Sky'],['Sizes','40L / 50L']],
     mood:{label:'Nautical / Unhurried',quiet:70,urban:35,trip:66},
     passportData:{material:'Canvas + leather trim',service:'Trim + zipper service path',care:'Air dry after coastal use',role:'Voyage carry'},
-    pack:['3 shirts', 'Trousers', 'Swim shorts', 'Wash kit', 'Sandals', 'Sunglasses'],
+    pack:['3 shirts', 'Trousers', 'Swim shorts', 'Essentials', 'Sandals', 'Sunglasses'],
     blueprint:[{label:'NAUTICAL LINE-ART PRINT',x:'8%',y:'20%'},{label:'LEATHER TRIM DETAIL',x:'62%',y:'12%'},{label:'DECK-READY BASE',x:'66%',y:'66%'},{label:'LIFETIME ZIPPER',x:'10%',y:'62%'}],
     dimensions:[{label:'51 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'31 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
     playlists:{
@@ -54,15 +54,15 @@ const products = {
     }
   },
   p4: {
-    id:'p4', code:'OBJ / 04', passport:'HB-P4-004', name:'SMART Duffel — Ivory', price:143, category:'system', badge:'SMART',
-    image:'assets/products/p4-smart-duffel-ivory.png', cardImage:'assets/products/p4-smart-duffel-ivory.jpg', images:['assets/products/p4-smart-duffel-ivory.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png'],
+    id:'p4', code:'OBJ / 04', passport:'HB-P4-004', name:'SMART Duffel — Ivory', price:143, category:'system', badge:'Tech layer',
+    image:'assets/products/p4-smart-duffel-ivory.png', cardImage:'assets/products/p4-smart-duffel-ivory.jpg', images:['assets/products/p4-smart-duffel-ivory.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/alt-steel-duffel.png'],
     colors:[{name:'Ivory',hex:'#f6f7f9'},{name:'Navy',hex:'#0b1240'}], sizes:['45L'],
     subtitle:'The bag that thinks', kicker:'Flagship smart object',
     description:'The bag that thinks. Fast-charge core, reactive RGB trim, touch media strip and smart check-in panel.',
     specs:[['Material','Tech canvas DWR'],['Capacity','45L'],['Weight','1.8 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Ivory / Navy'],['Sizes','45L']],
     mood:{label:'Technical / Alert',quiet:50,urban:60,trip:72},
     passportData:{material:'Tech canvas DWR / electronics core',service:'Battery + port diagnostics',care:'Charge core every 30 days',role:'Flagship smart carry'},
-    pack:['Laptop', 'Power bank', 'Cables', '3 shirts', 'Wash kit', 'Charger'],
+    pack:['Laptop', 'Power bank', 'Cables', '3 shirts', 'Essentials', 'Charger'],
     blueprint:[{label:'TECH CANVAS DWR SHELL',x:'8%',y:'18%'},{label:'FAST-CHARGE CORE',x:'62%',y:'12%'},{label:'REACTIVE RGB TRIM',x:'70%',y:'58%'},{label:'SMART CHECK-IN PANEL',x:'10%',y:'62%'}],
     dimensions:[{label:'48 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'30 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
     playlists:{
@@ -72,15 +72,15 @@ const products = {
     }
   },
   p5: {
-    id:'p5', code:'OBJ / 05', passport:'HB-P5-005', name:'Steel Weekender', price:66, category:'luggage', badge:null,
-    image:'assets/products/p5-steel-blue-weekender.png', cardImage:'assets/products/p5-steel-blue-weekender.jpg', images:['assets/products/p5-steel-blue-weekender.png','assets/products/alt-steel-duffel.png'],
+    id:'p5', code:'OBJ / 05', passport:'HB-P5-005', name:'Steel Weekender', price:66, category:'luggage', badge:'Extended',
+    image:'assets/products/p5-steel-blue-weekender.png', cardImage:'assets/products/p5-steel-blue-weekender.jpg', images:['assets/products/p5-steel-blue-weekender.png','assets/products/alt-steel-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png'],
     colors:[{name:'Steel Blue',hex:'#4a6b8a'},{name:'Tan',hex:'#8e6b4a'}], sizes:['38L','48L'],
     subtitle:'Vintage-washed weekender', kicker:'Classic weekend object',
     description:'Vintage-washed canvas with full-grain leather handles and antique-brass crossbody strap.',
     specs:[['Material','Washed canvas'],['Capacity','38–48L'],['Weight','1.3 kg'],['Warranty','Lifetime zipper'],['Colors','Steel Blue / Tan'],['Sizes','38L / 48L']],
     mood:{label:'Vintage / Relaxed',quiet:66,urban:30,trip:48},
     passportData:{material:'Washed canvas / brass hardware',service:'Strap + buckle service path',care:'Condition leather twice a year',role:'Weekend carry'},
-    pack:['2 shirts', 'Trousers', 'Wash kit', 'Jacket', 'Boots'],
+    pack:['2 shirts', 'Trousers', 'Essentials', 'Jacket', 'Boots'],
     blueprint:[{label:'VINTAGE-WASHED CANVAS',x:'8%',y:'20%'},{label:'FULL-GRAIN LEATHER HANDLE',x:'60%',y:'10%'},{label:'ANTIQUE-BRASS STRAP',x:'68%',y:'62%'},{label:'LIFETIME ZIPPER',x:'10%',y:'66%'}],
     dimensions:[{label:'46 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'29 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
     playlists:{
@@ -90,8 +90,8 @@ const products = {
     }
   },
   p6: {
-    id:'p6', code:'OBJ / 06', passport:'HB-P6-006', name:'Midnight Rolltop', price:60, category:'carry', badge:'SALE',
-    image:'assets/products/p6-midnight-rolltop.png', cardImage:'assets/products/p6-midnight-rolltop.jpg', images:['assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png'],
+    id:'p6', code:'OBJ / 06', passport:'HB-P6-006', name:'Midnight Rolltop', price:60, category:'carry', badge:'Daily system',
+    image:'assets/products/p6-midnight-rolltop.png', cardImage:'assets/products/p6-midnight-rolltop.jpg', images:['assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png','assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png','assets/products/p8-grey-sling.png'],
     colors:[{name:'Midnight',hex:'#0b1240'},{name:'Charcoal',hex:'#14163a'}], sizes:['18L','24L'],
     subtitle:'Roll-top commuter backpack', kicker:'Daily commuter object',
     description:'Roll-top commuter with padded 16" laptop sleeve, magnetic buckle and hidden anti-theft zip.',
@@ -108,15 +108,15 @@ const products = {
     }
   },
   p7: {
-    id:'p7', code:'OBJ / 07', passport:'HB-P7-007', name:'Heritage Backpack', price:69, category:'carry', badge:null,
-    image:'assets/products/p7-heritage-backpack.png', cardImage:'assets/products/p7-heritage-backpack.jpg', images:['assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png'],
+    id:'p7', code:'OBJ / 07', passport:'HB-P7-007', name:'Heritage Backpack', price:69, category:'carry', badge:'Module',
+    image:'assets/products/p7-heritage-backpack.png', cardImage:'assets/products/p7-heritage-backpack.jpg', images:['assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png','assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png','assets/products/p8-grey-sling.png'],
     colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Tan',hex:'#8e6b4a'}], sizes:['20L','28L'],
     subtitle:'Waxed canvas heritage pack', kicker:'Heritage travel object',
     description:'Waxed canvas, dual cargo pockets and leather buckle straps. Built like luggage from another era.',
     specs:[['Material','Waxed canvas'],['Capacity','20–28L'],['Weight','1.1 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Tan'],['Sizes','20L / 28L']],
     mood:{label:'Rugged / Timeless',quiet:60,urban:42,trip:36},
     passportData:{material:'Waxed canvas / leather buckles',service:'Buckle + strap service path',care:'Re-wax canvas yearly',role:'Heritage carry'},
-    pack:['Laptop', 'Notebook', 'Wash kit', 'Jacket', 'Water bottle'],
+    pack:['Laptop', 'Notebook', 'Essentials', 'Jacket', 'Water bottle'],
     blueprint:[{label:'WAXED CANVAS SHELL',x:'8%',y:'16%'},{label:'LEATHER BUCKLE STRAP',x:'62%',y:'10%'},{label:'DUAL CARGO POCKETS',x:'66%',y:'54%'},{label:'LIFETIME ZIPPER',x:'10%',y:'68%'}],
     dimensions:[{label:'46 cm',axis:'height',x:'4%',y:'14%',h:'68%'},{label:'30 cm',axis:'width',x:'18%',y:'92%',w:'60%'}],
     playlists:{
@@ -126,8 +126,8 @@ const products = {
     }
   },
   p8: {
-    id:'p8', code:'OBJ / 08', passport:'HB-P8-008', name:'City Sling', price:38, category:'carry', badge:'SALE',
-    image:'assets/products/p8-grey-sling.png', cardImage:'assets/products/p8-grey-sling.jpg', images:['assets/products/p8-grey-sling.png','assets/products/alt-black-crossbody.png'],
+    id:'p8', code:'OBJ / 08', passport:'HB-P8-008', name:'City Sling', price:38, category:'carry', badge:'Space system',
+    image:'assets/products/p8-grey-sling.png', cardImage:'assets/products/p8-grey-sling.jpg', images:['assets/products/p8-grey-sling.png','assets/products/alt-black-crossbody.png','assets/products/alt-black-crossbody-front.png','assets/products/p6-midnight-rolltop.png','assets/products/p7-heritage-backpack.png'],
     colors:[{name:'Grey',hex:'#7d818c'},{name:'Navy',hex:'#0b1240'}], sizes:['One Size'],
     subtitle:'Compact essentials sling', kicker:'Fast-access city object',
     description:'Compact crossbody for essentials — phone, wallet, keys, charger.',
@@ -142,137 +142,12 @@ const products = {
       electric:{name:'Street Voltage',description:'High pulse for compressed city movement.',tracks:[['Signal Green','03:05'],['Corner Speed','03:32'],['Neon Crosswalk','03:18'],['Afterimage','03:49']]},
       slow:{name:'Pocket Afternoon',description:'A low-key soundtrack for drifting through a city.',tracks:[['Side Street','03:50'],['Museum Hour','04:18'],['Soft Concrete','03:45'],['No Reservation','04:02']]}
     }
-  },
-  p9: {
-    id:'p9', code:'OBJ / 09', passport:'HB-P9-009', name:'Aero Gym Duffel', price:55, category:'luggage', badge:'SALE',
-    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png'],
-    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Black',hex:'#14163a'}], sizes:['30L','40L'],
-    subtitle:'Lightweight gym-to-office duffel', kicker:'Everyday performance object',
-    description:'Lightweight gym-to-office duffel with ventilated shoe garage and wet pocket.',
-    specs:[['Material','Poly canvas'],['Capacity','30–40L'],['Weight','1.0 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Black'],['Sizes','30L / 40L']],
-    mood:{label:'Active / Unfussy',quiet:40,urban:62,trip:38},
-    passportData:{material:'Poly canvas',service:'Zip + vent service path',care:'Air out after gym use',role:'Performance carry'},
-    pack:['Gym kit', 'Shoes', 'Towel', 'Wash kit', 'Water bottle'],
-    blueprint:[{label:'POLY CANVAS SHELL',x:'8%',y:'20%'},{label:'VENTILATED SHOE GARAGE',x:'62%',y:'12%'},{label:'WET POCKET',x:'68%',y:'62%'},{label:'LIFETIME ZIPPER',x:'10%',y:'66%'}],
-    dimensions:[{label:'44 cm',axis:'width',x:'20%',y:'92%',w:'58%'},{label:'27 cm',axis:'height',x:'4%',y:'22%',h:'56%'}],
-    playlists:{
-      focused:{name:'Gym Focus',description:'Efficient tempo for gym-to-office days.',tracks:[['Rep Count','03:10'],['Shoe Garage','03:36'],['Wet Pocket','03:22'],['Reset','03:48']]},
-      electric:{name:'Aero Push',description:'High energy for a fast session.',tracks:[['Full Send','02:59'],['Aero Line','03:14'],['Sweat Voltage','03:27'],['Last Set','03:05']]},
-      slow:{name:'Cool Down',description:'A gentle wind-down soundtrack.',tracks:[['Stretch Room','04:02'],['Quiet Locker','03:44'],['Slow Breath','04:15'],['Recovery','03:38']]}
-    }
-  },
-  p10: {
-    id:'p10', code:'OBJ / 10', passport:'HB-P10-010', name:'Transit Daypack', price:53, category:'carry', badge:'NEW',
-    image:'assets/products/p6-midnight-rolltop.png', cardImage:'assets/products/p6-midnight-rolltop.jpg', images:['assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png'],
-    colors:[{name:'Midnight',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['16L','22L'],
-    subtitle:'Minimal commuter daypack', kicker:'Transit-ready object',
-    description:'Minimal daypack with quick-access top pocket, USB pass-through and luggage pass-through strap.',
-    specs:[['Material','Recycled nylon'],['Capacity','16–22L'],['Weight','0.75 kg'],['Warranty','Lifetime zipper'],['Colors','Midnight / Ice'],['Sizes','16L / 22L']],
-    mood:{label:'Minimal / Punctual',quiet:52,urban:76,trip:20},
-    passportData:{material:'Recycled nylon',service:'Strap + zip service path',care:'Wipe weekly',role:'Transit carry'},
-    pack:['Laptop', 'Notebook', 'Cables', 'Water bottle'],
-    blueprint:[{label:'RECYCLED NYLON SHELL',x:'8%',y:'16%'},{label:'QUICK-ACCESS TOP POCKET',x:'62%',y:'10%'},{label:'USB PASS-THROUGH',x:'66%',y:'50%'},{label:'LUGGAGE PASS-THROUGH STRAP',x:'10%',y:'70%'}],
-    dimensions:[{label:'42 cm',axis:'height',x:'4%',y:'14%',h:'64%'},{label:'28 cm',axis:'width',x:'18%',y:'92%',w:'55%'}],
-    playlists:{
-      focused:{name:'Quick Access',description:'Minimal rhythm for the daily transit hop.',tracks:[['Top Pocket','03:11'],['Pass-Through','03:34'],['Ice Line','03:20'],['Sync Complete','03:42']]},
-      electric:{name:'Fast Transit',description:'Bright energy for a quick city hop.',tracks:[['USB Ready','03:03'],['Ice Voltage','03:27'],['Quick Hop','03:15'],['Charge On','03:36']]},
-      slow:{name:'Slow Transit',description:'A calmer pace for the last leg home.',tracks:[['Soft Ice','04:08'],['Minimal Line','03:51'],['Quiet Pass','04:01'],['Evening Hop','03:47']]}
-    }
-  },
-  p11: {
-    id:'p11', code:'OBJ / 11', passport:'HB-P11-011', name:'Voyager Smart Edition', price:154, category:'system', badge:'SMART',
-    image:'assets/products/p3-navy-voyager-duffel.png', cardImage:'assets/products/p3-navy-voyager-duffel.jpg', images:['assets/products/p3-navy-voyager-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p4-smart-duffel-ivory.png'],
-    colors:[{name:'Navy',hex:'#0b1240'},{name:'Sky',hex:'#8fd4ec'}], sizes:['45L'],
-    subtitle:'Voyager, upgraded', kicker:'Connected travel object',
-    description:'The Voyager, upgraded. Integrated power bank, GPS tracker pocket and reactive trim lighting.',
-    specs:[['Material','Tech canvas DWR'],['Capacity','45L'],['Weight','1.85 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Navy / Sky'],['Sizes','45L']],
-    mood:{label:'Connected / Composed',quiet:56,urban:58,trip:74},
-    passportData:{material:'Tech canvas DWR / electronics core',service:'Battery + GPS diagnostics',care:'Charge core every 30 days',role:'Connected voyage'},
-    pack:['Laptop', 'Power bank', 'GPS tag', '3 shirts', 'Wash kit', 'Cables'],
-    blueprint:[{label:'TECH CANVAS DWR SHELL',x:'8%',y:'18%'},{label:'INTEGRATED POWER BANK',x:'62%',y:'12%'},{label:'GPS TRACKER POCKET',x:'68%',y:'58%'},{label:'REACTIVE TRIM LIGHTING',x:'10%',y:'62%'}],
-    dimensions:[{label:'49 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'30 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
-    playlists:{
-      focused:{name:'Upgraded Log',description:'Controlled rhythm for the connected voyage.',tracks:[['GPS Lock','03:24'],['Power Route','03:49'],['Sky Signal','03:37'],['Compass Sync','04:03']]},
-      electric:{name:'Voltage Voyage',description:'Reactive energy for the upgraded object.',tracks:[['Trim Voltage','03:11'],['Fast Sky','03:33'],['Live Trace','03:46'],['Bright Route','03:20']]},
-      slow:{name:'Slow Signal',description:'Ambient calm while the tracker stays quiet.',tracks:[['Low Power','04:17'],['Soft Sky','03:59'],['Quiet Compass','04:22'],['Sky Drift','03:44']]}
-    }
-  },
-  p12: {
-    id:'p12', code:'OBJ / 12', passport:'HB-P12-012', name:'Compact Sling Mini', price:31, category:'carry', badge:'SALE',
-    image:'assets/products/p8-grey-sling.png', cardImage:'assets/products/p8-grey-sling.jpg', images:['assets/products/p8-grey-sling.png','assets/products/alt-black-crossbody-front.png'],
-    colors:[{name:'Grey',hex:'#7d818c'},{name:'Tan',hex:'#8e6b4a'}], sizes:['One Size'],
-    subtitle:'The going-out sling', kicker:'Essential night-out object',
-    description:'The going-out sling for nights when you only need the essentials.',
-    specs:[['Material','Canvas'],['Capacity','2.5L'],['Weight','0.28 kg'],['Warranty','Lifetime zipper'],['Colors','Grey / Tan'],['Sizes','One Size']],
-    mood:{label:'Electric / Social',quiet:22,urban:84,trip:10},
-    passportData:{material:'Canvas',service:'Strap replacement path',care:'Spot-clean after use',role:'Night-out carry'},
-    pack:['Phone', 'Wallet', 'Keys', 'Lip balm'],
-    blueprint:[{label:'CANVAS SHELL',x:'8%',y:'20%'},{label:'ADJUSTABLE STRAP',x:'60%',y:'12%'},{label:'SINGLE-ZIP ACCESS',x:'66%',y:'58%'}],
-    dimensions:[{label:'20 cm',axis:'width',x:'20%',y:'92%',w:'52%'},{label:'14 cm',axis:'height',x:'6%',y:'28%',h:'44%'}],
-    playlists:{
-      focused:{name:'Night Prep',description:'Minimal build-up for the going-out sling.',tracks:[['Small Bag','02:44'],['Keys Down','03:02'],['Lip and Phone','02:51'],['Ready to Go','03:09']]},
-      electric:{name:'Going Out',description:'High pulse for a night on the move.',tracks:[['Grey Voltage','02:58'],['Tan Line','03:14'],['Fast Exit','02:47'],['Night Signal','03:21']]},
-      slow:{name:'Late Night Walk',description:'A low-key soundtrack for the walk home.',tracks:[['Streetlight','03:52'],['Quiet Sling','03:38'],['Soft Tan','04:01'],['Last Call','03:29']]}
-    }
-  },
-  p13: {
-    id:'p13', code:'OBJ / 13', passport:'HB-P13-013', name:'Metropolitan XL', price:88, category:'luggage', badge:null,
-    image:'assets/products/p2-navy-metropolitan-duffel.png', cardImage:'assets/products/p2-navy-metropolitan-duffel.jpg', images:['assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-steel-duffel.png'],
-    colors:[{name:'Navy',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['60L','70L'],
-    subtitle:'Two-week capacity duffel', kicker:'Extended travel object',
-    description:'Two-week capacity Metropolitan with compression straps and separate shoe compartment.',
-    specs:[['Material','Tech canvas'],['Capacity','60–70L'],['Weight','2.1 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Ice'],['Sizes','60L / 70L']],
-    mood:{label:'Expansive / Composed',quiet:62,urban:66,trip:90},
-    passportData:{material:'Tech canvas',service:'Compression + zipper service',care:'Air after long trips',role:'Extended travel'},
-    pack:['6 shirts', '3 trousers', 'Shoes', 'Wash kit', 'Jacket', 'Compression cubes'],
-    blueprint:[{label:'TECH CANVAS SHELL',x:'8%',y:'18%'},{label:'COMPRESSION STRAPS',x:'62%',y:'10%'},{label:'SEPARATE SHOE COMPARTMENT',x:'68%',y:'62%'},{label:'LIFETIME ZIPPER',x:'10%',y:'68%'}],
-    dimensions:[{label:'70 cm',axis:'width',x:'18%',y:'92%',w:'64%'},{label:'38 cm',axis:'height',x:'4%',y:'16%',h:'64%'}],
-    playlists:{
-      focused:{name:'Long Metro',description:'Steady rhythm for two-week capacity travel.',tracks:[['Compression Set','03:31'],['Shoe Bay','03:57'],['Ice Line XL','04:05'],['Full Load','03:40']]},
-      electric:{name:'Metro Overdrive',description:'Energy for ambitious packing and long trips.',tracks:[['Extra Day','03:20'],['One More Layer','03:41'],['Zip Pressure','03:18'],['Still Fits','03:52']]},
-      slow:{name:'Slow XL',description:'A patient soundtrack for the long haul.',tracks:[['Wide Load','04:23'],['Soft Compression','04:02'],['Quiet Ice','04:16'],['Steel Rest','03:49']]}
-    }
-  },
-  p14: {
-    id:'p14', code:'OBJ / 14', passport:'HB-P14-014', name:'Trailhead Backpack', price:65, category:'carry', badge:null,
-    image:'assets/products/p7-heritage-backpack.png', cardImage:'assets/products/p7-heritage-backpack.jpg', images:['assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png'],
-    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Charcoal',hex:'#14163a'}], sizes:['24L','32L'],
-    subtitle:'Weekend-trail ready pack', kicker:'Trail-ready object',
-    description:'Weekend-trail ready: hydration sleeve, top-load main and weatherproof base.',
-    specs:[['Material','Ripstop nylon'],['Capacity','24–32L'],['Weight','1.05 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Charcoal'],['Sizes','24L / 32L']],
-    mood:{label:'Rugged / Ready',quiet:58,urban:24,trip:50},
-    passportData:{material:'Ripstop nylon',service:'Base + strap service path',care:'Rinse base after trail use',role:'Trail carry'},
-    pack:['Hydration bottle', 'Rain shell', 'Wash kit', 'Trail snacks', 'First-aid kit'],
-    blueprint:[{label:'RIPSTOP NYLON SHELL',x:'8%',y:'16%'},{label:'HYDRATION SLEEVE',x:'62%',y:'10%'},{label:'TOP-LOAD MAIN COMPARTMENT',x:'66%',y:'52%'},{label:'WEATHERPROOF BASE',x:'10%',y:'70%'}],
-    dimensions:[{label:'50 cm',axis:'height',x:'4%',y:'14%',h:'68%'},{label:'32 cm',axis:'width',x:'18%',y:'92%',w:'58%'}],
-    playlists:{
-      focused:{name:'Trailhead Focus',description:'Grounded tempo for weekend trails.',tracks:[['Ripstop Line','03:22'],['Hydration Check','03:47'],['Base Camp','03:35'],['Trail Ready','03:14']]},
-      electric:{name:'Trail Push',description:'Energy for the climb.',tracks:[['Switchback','03:05'],['Ridge Line','03:29'],['Fast Ascent','03:18'],['Summit Push','03:41']]},
-      slow:{name:'Slow Trail',description:'A patient soundtrack for the way down.',tracks:[['Quiet Descent','04:11'],['Soft Base','03:54'],['Evening Camp','04:19'],['Trail Rest','03:47']]}
-    }
-  },
-  p15: {
-    id:'p15', code:'OBJ / 15', passport:'HB-P15-015', name:'HABÄNE 01 — Lunar Edition', price:176, category:'system', badge:'PREBOOK',
-    image:'assets/products/p4-smart-duffel-ivory.png', cardImage:'assets/products/p4-smart-duffel-ivory.jpg', images:['assets/products/p4-smart-duffel-ivory.png','assets/products/alt-white-duffel.png','assets/products/alt-steel-duffel.png'],
-    colors:[{name:'Lunar',hex:'#e8eaef'},{name:'Eclipse',hex:'#0b1240'}], sizes:['45L'],
-    subtitle:'Numbered first drop', kicker:'Limited flagship object',
-    description:'Our first numbered drop. 300 pieces, each laser-etched with its own Nº. Lunar-grey tech canvas, brass hardware, full smart core — and it never restocks.',
-    specs:[['Material','Lunar tech canvas + brass'],['Capacity','45L'],['Weight','1.75 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Lunar / Eclipse'],['Sizes','45L']],
-    mood:{label:'Rare / Precise',quiet:66,urban:56,trip:68},
-    passportData:{material:'Lunar tech canvas + brass',service:'Numbered unit diagnostics',care:'Charge core every 30 days',role:'Limited flagship'},
-    pack:['Laptop', 'Power bank', 'GPS tag', '3 shirts', 'Wash kit', 'Charger'],
-    blueprint:[{label:'LUNAR TECH CANVAS',x:'8%',y:'18%'},{label:'BRASS HARDWARE',x:'62%',y:'10%'},{label:'LASER-ETCHED Nº PLATE',x:'68%',y:'58%'},{label:'FULL SMART CORE',x:'10%',y:'62%'}],
-    dimensions:[{label:'48 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'30 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
-    playlists:{
-      focused:{name:'Numbered Unit',description:'Precise rhythm for a limited first drop.',tracks:[['Lunar Line','03:29'],['Brass Etch','03:52'],['Unit 01','03:36'],['Eclipse Set','04:04']]},
-      electric:{name:'First Drop',description:'Bright energy for a release that never restocks.',tracks:[['Lunar Voltage','03:10'],['Etched Fast','03:33'],['Rare Signal','03:21'],['Drop Night','03:47']]},
-      slow:{name:'Eclipse Hour',description:'Ambient calm for the numbered edition.',tracks:[['Lunar Glow','04:20'],['Quiet Brass','03:58'],['Soft Eclipse','04:12'],['Last Unit','03:44']]}
-    }
   }
 };
 
 const state = {
   activeProduct:'p1',
+  pdpQty:1,
   cart:JSON.parse(localStorage.getItem('habane_cart')||'[]'),
   compare:JSON.parse(localStorage.getItem('habane_compare')||'[]'),
   matcher:{duration:'short',mode:'air',mood:'focused'},
@@ -392,7 +267,7 @@ function bindDynamicButtons(){
 
 function renderRelated(id){
   const rel=$('[data-related-products]'); if(!rel) return;
-  const others=Object.values(products).filter(p=>p.id!==id).sort(()=>.5-Math.random()).slice(0,4);
+  const others=Object.values(products).filter(p=>p.id!==id).sort(()=>.5-Math.random()).slice(0,5);
   rel.innerHTML=others.map(p=>`<article class="product-card" data-product-card="${p.id}">
     <div class="product-card__media">${p.badge?`<span class="product-badge">${p.badge}</span>`:''}${productPhoto(p,null,p.cardImage)}</div>
     <div class="product-card__body"><div><h3>${p.name}</h3><p>${p.subtitle}</p></div><strong>${money(p.price)}</strong></div>
@@ -417,11 +292,24 @@ function openProduct(id){
     $$('[data-accordion-toggle]').forEach(toggle=>toggle.setAttribute('aria-expanded','false'));
   }
   $('[data-product-price]').textContent=money(p.price);
+  state.pdpQty=1;
+  const qtyValue=$('[data-qty-value]'); if(qtyValue) qtyValue.textContent=state.pdpQty;
   $('[data-dialog-price]').textContent=money(p.price);
   document.title=`${p.name} — HABÄNE`;
   const swatches=$('[data-product-swatches]');
   if(swatches) swatches.innerHTML=p.colors.map((c,i)=>`<button type="button" class="${i===0?'is-active':''}" style="background:${c.hex}" aria-label="${c.name}"></button>`).join('');
   const shape=$('[data-product-shape]'); shape.src=p.image; shape.alt=p.name;
+  const gallery=$('[data-pdp-gallery]');
+  if(gallery){
+    const gallerySet=[p.image,...(p.images||[]).filter(src=>src!==p.image)];
+    gallery.innerHTML=gallerySet.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}"><img src="${src}" alt="${p.name} view ${i+1}" /></button>`).join('');
+    $$('[data-gallery-thumb]',gallery).forEach(btn=>btn.onclick=()=>{
+      shape.src=btn.dataset.galleryThumb;
+      $$('[data-gallery-thumb]',gallery).forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      btn.scrollIntoView({behavior:'smooth',inline:'nearest',block:'nearest'});
+    });
+  }
   $('[data-product-specs]').innerHTML=p.specs.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('');
   $('[data-product-mood-label]').textContent=p.mood.label;
   $('[data-dna-quiet]').style.width=`${p.mood.quiet}%`;
@@ -455,7 +343,7 @@ function renderPackItems(){
   $$('[data-pack-item]').forEach(btn=>btn.onclick=()=>{const i=Number(btn.dataset.packItem);state.packSelected.has(i)?state.packSelected.delete(i):state.packSelected.add(i);btn.classList.toggle('is-active');updateCapacity()});
 }
 function updateCapacity(){
-  const p=products[state.activeProduct]; const count=state.packSelected.size; const usage=Math.min(100,Math.round((count/Math.max(4,p.pack.length))*95));
+  const p=products[state.activeProduct]; const count=state.packSelected.size; const usage=Math.min(100,Math.round((count/Math.max(4,p.pack.length))*100));
   $('[data-pack-used]').textContent=usage; $('[data-capacity-fill]').style.width=`${usage}%`;
   $('[data-capacity-message]').textContent=usage<45?'Room remains for the unexpected.':usage<80?'Balanced for this object.':'Near capacity—consider a larger object or remove one layer.';
 }
@@ -487,7 +375,7 @@ function recommend(){
   const s=$('[data-match-shape]');s.src=p.image;s.alt=p.name; $('[data-match-open]').dataset.matchId=id;
 }
 
-function addToCart(id){const item=state.cart.find(i=>i.id===id);item?item.qty++:state.cart.push({id,qty:1});updateCart();toast(`${products[id].name} added`)}
+function addToCart(id,qty=1){const item=state.cart.find(i=>i.id===id);item?item.qty+=qty:state.cart.push({id,qty});updateCart();toast(`${products[id].name} added`)}
 function updateCart(){
   localStorage.setItem('habane_cart',JSON.stringify(state.cart));
   const count=state.cart.reduce((a,b)=>a+b.qty,0), subtotal=state.cart.reduce((a,b)=>a+products[b.id].price*b.qty,0);
@@ -584,24 +472,31 @@ function startSynth(mood){
   synthTimer=setInterval(schedule,Math.max(60,stepDur*4*1000-50));
 }
 function playBrandChimeTone(){
-  const ctx=getAudioCtx();
-  const notes=[523.25,659.25,783.99,1046.5];
-  const g=ctx.createGain(); g.gain.value=.0001; g.connect(ctx.destination);
-  const now=ctx.currentTime;
-  g.gain.linearRampToValueAtTime(.25,now+.02);
-  g.gain.exponentialRampToValueAtTime(.0008,now+1.7);
-  notes.forEach((f,i)=>{
-    const osc=ctx.createOscillator(); osc.type='sine'; osc.frequency.value=f;
-    osc.connect(g); osc.start(now+i*.09); osc.stop(now+i*.09+1.3);
-  });
+  try{
+    const ctx=getAudioCtx();
+    const notes=[523.25,659.25,783.99,1046.5];
+    const g=ctx.createGain(); g.gain.value=.0001; g.connect(ctx.destination);
+    const now=ctx.currentTime;
+    g.gain.linearRampToValueAtTime(.45,now+.02);
+    g.gain.exponentialRampToValueAtTime(.0005,now+1.8);
+    notes.forEach((f,i)=>{
+      const osc=ctx.createOscillator(); osc.type='sine'; osc.frequency.value=f;
+      osc.connect(g); osc.start(now+i*.09); osc.stop(now+i*.09+1.4);
+    });
+  }catch(e){}
 }
 function playBrandChime(onDone){
-  if(!('speechSynthesis' in window)){ playBrandChimeTone(); if(onDone) setTimeout(onDone,1300); return; }
-  window.speechSynthesis.cancel();
-  const utter=new SpeechSynthesisUtterance('Habäne');
-  utter.rate=.85; utter.pitch=1; utter.volume=1;
-  if(onDone){ utter.onend=onDone; utter.onerror=()=>{ playBrandChimeTone(); onDone(); }; }
-  window.speechSynthesis.speak(utter);
+  let done=false;
+  const finish=()=>{ if(!done){ done=true; if(onDone) onDone(); } };
+  try{
+    const sound=new Audio('assets/audio/brand-sound.mp3');
+    sound.volume=1.0;
+    sound.onended=finish;
+    sound.onerror=finish;
+    const p=sound.play();
+    if(p&&p.catch) p.catch(()=>finish());
+  }catch(e){ finish(); }
+  setTimeout(finish,2200);
 }
 
 function startPlaylist(){
@@ -620,29 +515,165 @@ if($('[data-product-name]')){
   openProduct(products[requestedId]?requestedId:'p1');
 }
 
-$('[data-announcement-close]').onclick=()=>{$('[data-announcement]').classList.add('is-hidden');document.documentElement.style.setProperty('--announcement-h','0px')};
-window.addEventListener('scroll',()=>{$('[data-header]').classList.toggle('is-condensed',scrollY>60)},{passive:true});
+if($('[data-announcement-close]')) $('[data-announcement-close]').onclick=()=>{$('[data-announcement]').classList.add('is-hidden');document.documentElement.style.setProperty('--announcement-h','0px')};
 
-(function announcementRotator(){
-  const slides=$$('.announcement__slide');
-  if(slides.length<2) return;
-  let active=slides.findIndex(s=>s.classList.contains('is-active'));
-  if(active<0) active=0;
-  setInterval(()=>{
-    const next=(active+1)%slides.length;
-    slides[active].classList.remove('is-active');
-    slides[active].classList.add('is-leaving');
-    slides[next].classList.add('is-active');
-    setTimeout(()=>slides[active].classList.remove('is-leaving'),500);
-    active=next;
-  },4200);
+$$('.desktop-nav a').forEach(a=>{
+  a.innerHTML=a.textContent.split('').map((ch,i)=>`<span class="letter" style="--i:${i}">${ch===' '?'&nbsp;':ch}</span>`).join('');
+});
+
+(function(){
+  const header=$('[data-header]');
+  if(!header) return;
+  const iconNavy=$$('.brand__icon--navy',header), iconWhite=$$('.brand__icon--white',header);
+  const wordNavy=$$('.brand__wordmark--navy',header), wordWhite=$$('.brand__wordmark--white',header);
+  const desktopNav=$('.desktop-nav',header);
+  const iconButtons=$$('.icon-button',header);
+  const categoryMenuBtn=$('.category-menu-btn',header);
+  const regionBtn=$('.region-button',header);
+  const prebookBtn=$('.prebook-button',header);
+  const prebookLabel=prebookBtn?$('.prebook-button__label',prebookBtn):null;
+  const prebookIcon=prebookBtn?$('.prebook-button__icon',prebookBtn):null;
+  const prebookIsLogin=!!(prebookBtn&&prebookLabel&&prebookIcon);
+  const menuBtn=$('.menu-button',header);
+  const menuSpans=menuBtn?$$('span',menuBtn):[];
+  const divider=$('.brand__divider',header);
+  let prebookNaturalWidthCache=0;
+  function getPrebookNaturalWidth(){
+    if(!prebookBtn) return 0;
+    if(!prebookNaturalWidthCache){
+      const w=prebookBtn.getBoundingClientRect().width;
+      if(w>0) prebookNaturalWidthCache=w;
+    }
+    return prebookNaturalWidthCache||120;
+  }
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const rgb=(a,b,t)=>`rgb(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))})`;
+  const rgba=(a,b,t)=>`rgba(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))},${lerp(a[3],b[3],t).toFixed(3)})`;
+  const MIDNIGHT=[10,15,90], WHITE=[255,255,255], AURORA=[54,216,255], MIDNIGHT_DEEP=[6,9,53];
+  let cleared=true;
+  function clearMorph(){
+    if(cleared) return;
+    [header,desktopNav,regionBtn,prebookBtn,prebookLabel,prebookIcon,menuBtn,divider,categoryMenuBtn,...iconButtons,...iconNavy,...iconWhite,...wordNavy,...wordWhite,...menuSpans].forEach(el=>{if(el) el.removeAttribute('style')});
+    cleared=true;
+  }
+  function applyHeaderMorph(t){
+    cleared=false;
+    const vw=document.documentElement.clientWidth;
+    const gap=14;
+    const wFull=vw-gap*2;
+    const wCondTarget=iconButtons.length>=3?440:415;
+    const wCond=Math.min(wCondTarget,vw*0.92);
+    const w=lerp(wFull,wCond,t);
+    const sideGap=(vw-w)/2;
+    header.style.left=`${sideGap}px`;
+    header.style.right=`${sideGap}px`;
+    header.style.width=`${w}px`;
+    header.style.height=`${lerp(80,58,t)}px`;
+    header.style.padding=`0 ${lerp(32,26,t)}px 0 ${lerp(32,22,t)}px`;
+    header.style.gap=`${lerp(14,8,t)}px`;
+    header.style.borderRadius=`14px`;
+    header.style.background=rgba([246,247,250,.6],[20,32,150,.72],t);
+    header.style.backdropFilter=`blur(${lerp(14,18,t)}px)`;
+    header.style.webkitBackdropFilter=header.style.backdropFilter;
+    header.style.filter=`drop-shadow(0 ${lerp(0,22,t)}px ${lerp(0,26,t)}px rgba(6,9,53,${lerp(0,.4,t).toFixed(3)}))`;
+    header.style.transform=header.classList.contains('is-menu-open')?'translateY(-8px)':'';
+    iconNavy.concat(wordNavy).forEach(el=>el.style.opacity=1-t);
+    iconWhite.concat(wordWhite).forEach(el=>el.style.opacity=t);
+    iconNavy.forEach(el=>el.style.height=`${lerp(22,18,t)}px`);
+    iconWhite.forEach(el=>el.style.height=`${lerp(22,18,t)}px`);
+    wordNavy.forEach(el=>el.style.height=`${lerp(14,12,t)}px`);
+    wordWhite.forEach(el=>el.style.height=`${lerp(14,12,t)}px`);
+    if(desktopNav){
+      desktopNav.style.opacity=1-t;
+      desktopNav.style.maxWidth=`${lerp(600,0,t)}px`;
+      desktopNav.style.pointerEvents=t>.5?'none':'auto';
+    }
+    iconButtons.forEach(btn=>{
+      btn.style.width=btn.style.height=`${lerp(42,38,t)}px`;
+      btn.style.color=rgb(MIDNIGHT,WHITE,t);
+    });
+    if(regionBtn){
+      regionBtn.style.width=regionBtn.style.height=`${lerp(34,30,t)}px`;
+    }
+    if(categoryMenuBtn){
+      const fadeT=Math.min(1,t/0.4);
+      categoryMenuBtn.style.opacity=1-fadeT;
+      categoryMenuBtn.style.width=categoryMenuBtn.style.height=`${Math.max(0,lerp(42,0,t))}px`;
+      categoryMenuBtn.style.marginLeft=`${lerp(4,0,t)}px`;
+      categoryMenuBtn.style.overflow='hidden';
+      categoryMenuBtn.style.pointerEvents=t>.3?'none':'auto';
+    }
+    if(divider){
+      divider.style.marginLeft=`${lerp(22,9,t)}px`;
+      divider.style.height=`${lerp(24,16,t)}px`;
+    }
+    if(prebookBtn&&prebookIsLogin){
+      const naturalW=getPrebookNaturalWidth();
+      prebookBtn.style.width=`${lerp(naturalW,34,t)}px`;
+      prebookBtn.style.height=`${lerp(36,34,t)}px`;
+      prebookBtn.style.flexShrink='0';
+      prebookBtn.style.background=rgba([...AURORA,1],[...AURORA,0],t);
+      prebookBtn.style.color=rgb(MIDNIGHT_DEEP,WHITE,t);
+      prebookLabel.style.opacity=1-t;
+      prebookIcon.style.opacity=t;
+    }else if(prebookBtn){
+      const naturalW=getPrebookNaturalWidth();
+      const fadeT=Math.min(1,t/0.4);
+      prebookBtn.style.opacity=1-fadeT;
+      prebookBtn.style.width=`${Math.max(0,lerp(naturalW,0,t))}px`;
+      prebookBtn.style.height='36px';
+      prebookBtn.style.flexShrink='0';
+      prebookBtn.style.borderRadius='999px';
+      prebookBtn.style.paddingLeft=prebookBtn.style.paddingRight=`${lerp(16,0,t)}px`;
+      prebookBtn.style.marginLeft=`${lerp(4,0,t)}px`;
+      prebookBtn.style.pointerEvents=t>.3?'none':'auto';
+    }
+    if(menuBtn){
+      menuBtn.style.opacity=t;
+      menuBtn.style.transform=`scale(${lerp(.55,1,t)})`;
+      menuBtn.style.borderColor=rgba([10,15,90,.16],[255,255,255,.3],t);
+      menuBtn.style.pointerEvents=t>.5?'auto':'none';
+      menuBtn.style.marginRight=`${lerp(-48,0,t)}px`;
+      menuSpans.forEach(sp=>sp.style.background=rgb(MIDNIGHT,WHITE,t));
+    }
+  }
+  let targetT=0,currentT=0,rafId=null;
+  function loop(){
+    const factor=targetT<currentT?0.14:0.06;
+    currentT+=(targetT-currentT)*factor;
+    if(Math.abs(targetT-currentT)<0.0015) currentT=targetT;
+    applyHeaderMorph(currentT);
+    if(currentT!==targetT){ rafId=requestAnimationFrame(loop); } else { rafId=null; }
+  }
+  let isCondensed=false;
+  function triggerIconSettle(){
+    const els=[regionBtn,prebookBtn,menuBtn,...iconButtons].filter(Boolean);
+    els.forEach(el=>{
+      el.classList.remove('is-settling');
+      void el.offsetWidth;
+      el.classList.add('is-settling');
+    });
+    setTimeout(()=>els.forEach(el=>el.classList.remove('is-settling')),1850);
+  }
+  function requestUpdate(){
+    if(window.innerWidth<=900){ clearMorph(); targetT=0; currentT=0; isCondensed=false; if(rafId){cancelAnimationFrame(rafId);rafId=null} return; }
+    targetT=Math.min(1,Math.max(0,scrollY/10));
+    if(targetT>=1&&!isCondensed){ isCondensed=true; triggerIconSettle(); if(typeof closeCategoryMenu==='function') closeCategoryMenu(); }
+    else if(targetT<1&&isCondensed){ isCondensed=false; }
+    if(!rafId) rafId=requestAnimationFrame(loop);
+  }
+  window.addEventListener('scroll',requestUpdate,{passive:true});
+  window.addEventListener('resize',requestUpdate);
+  requestUpdate();
+  window.headerMorphUpdate=requestUpdate;
 })();
+
 function positionMobileMenu(){
   const header=$('[data-header]'), menu=$('[data-mobile-menu]');
   if(!header||!menu) return;
   const rect=header.getBoundingClientRect();
   menu.style.setProperty('--menu-top',`${Math.round(rect.bottom)+10}px`);
-  menu.style.setProperty('--menu-right',`${Math.round(window.innerWidth-rect.right)}px`);
+  menu.style.setProperty('--menu-right',`${Math.round(document.documentElement.clientWidth-rect.right)}px`);
 }
 function openMobileMenu(){
   positionMobileMenu();
@@ -652,6 +683,7 @@ function openMobileMenu(){
   $('[data-header]').classList.add('is-menu-open');
   $('[data-scrim]').classList.add('is-visible');
   lock(true);
+  if(window.headerMorphUpdate) window.headerMorphUpdate();
 }
 function closeMobileMenu(){
   $('[data-mobile-menu]').classList.remove('is-open');
@@ -660,41 +692,231 @@ function closeMobileMenu(){
   $('[data-header]').classList.remove('is-menu-open');
   $('[data-scrim]').classList.remove('is-visible');
   lock(false);
+  if(window.headerMorphUpdate) window.headerMorphUpdate();
 }
-$('[data-menu-open]').onclick=()=>{$('[data-mobile-menu]').classList.contains('is-open')?closeMobileMenu():openMobileMenu()};
-$('[data-menu-close]').onclick=closeMobileMenu;
-$('[data-scrim]').addEventListener('click',()=>{if($('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()});
-window.addEventListener('resize',()=>{if($('[data-mobile-menu]').classList.contains('is-open'))positionMobileMenu()});
+if($('[data-menu-open]')) $('[data-menu-open]').onclick=()=>{$('[data-mobile-menu]').classList.contains('is-open')?closeMobileMenu():openMobileMenu()};
+if($('[data-menu-close]')) $('[data-menu-close]').onclick=closeMobileMenu;
+if($('[data-scrim]')) $('[data-scrim]').addEventListener('click',()=>{if($('[data-mobile-menu]') && $('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()});
+window.addEventListener('resize',()=>{if($('[data-mobile-menu]') && $('[data-mobile-menu]').classList.contains('is-open'))positionMobileMenu()});
 $$('[data-social]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
+$$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();toast('More options coming soon')}));
+
+// --- PDP sound: Play swaps the teaser card for the real Spotify player in place,
+// so only one player is ever visible. Spotify's own iframe must render its own UI
+// (cross-origin — we can neither restyle it nor drive its audio from our page),
+// hence the swap rather than stacking a second player underneath.
+(function(){
+  const card=$('[data-pdp-sound-card]');
+  const wrap=$('[data-pdp-sound-embed-wrap]');
+  const playBtn=$('[data-pdp-sound-play]');
+  if(!card||!wrap||!playBtn) return;
+  playBtn.addEventListener('click',()=>{
+    wrap.innerHTML=`<iframe src="https://open.spotify.com/embed/track/${playBtn.dataset.soundUri}?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="HABÄNE soundtrack on Spotify"></iframe>`;
+    card.classList.add('is-hidden');
+    wrap.classList.add('is-open');
+  });
+})();
 $$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');lock(false)});
 
 if($('[data-matcher-group]')){
   $$('[data-matcher-group]').forEach(group=>$$('button',group).forEach(btn=>btn.onclick=()=>{$$('button',group).forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active');state.matcher[group.dataset.matcherGroup]=btn.dataset.value;recommend()}));
-  $('[data-match-open]').onclick=e=>location.href=`product.html?id=${e.currentTarget.dataset.matchId||'p1'}`;
+  if($('[data-match-open]')) $('[data-match-open]').onclick=e=>location.href=`product.html?id=${e.currentTarget.dataset.matchId||'p1'}`;
+}
+
+function applyShopCategoryFilter(category){
+  const filterBtns=$$('[data-filter]');
+  const productCards=$$('[data-product-card]');
+  if(!filterBtns.length) return;
+  const targetCategory=category||'all';
+  filterBtns.forEach(btn=>btn.classList.toggle('is-active',btn.dataset.filter===targetCategory));
+  productCards.forEach(card=>{
+    const matches=targetCategory==='all'||card.dataset.category===targetCategory;
+    card.classList.toggle('is-hidden',!matches);
+  });
 }
 
 if($('[data-product-grid]')){
-  $$('[data-filter]').forEach(btn=>btn.onclick=()=>{$$('[data-filter]').forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active');$$('[data-product-card]').forEach(card=>card.classList.toggle('is-hidden',btn.dataset.filter!=='all'&&card.dataset.category!==btn.dataset.filter))});
-  $('[data-sort]').onclick=()=>{const grid=$('[data-product-grid]');$$('[data-product-card]',grid).reverse().forEach(card=>grid.appendChild(card));toast('Product order reversed')};
+  $$('[data-filter]').forEach(btn=>btn.onclick=()=>{
+    applyShopCategoryFilter(btn.dataset.filter);
+    const url=new URL(location.href);
+    if(btn.dataset.filter==='all') url.searchParams.delete('category');
+    else url.searchParams.set('category',btn.dataset.filter);
+    history.replaceState(null,'',url.toString());
+  });
+  if($('[data-sort]')) $('[data-sort]').onclick=()=>{const grid=$('[data-product-grid]');$$('[data-product-card]',grid).reverse().forEach(card=>grid.appendChild(card));toast('Product order reversed')};
+  const initialCategory=new URLSearchParams(location.search).get('category');
+  if(initialCategory) applyShopCategoryFilter(initialCategory);
 }
+
+document.addEventListener('click',e=>{
+  const shopLink=e.target.closest('a[href*="shop.html?category="]');
+  // Links marked data-nav-category (header dropdown / mobile menu) are global
+  // navigation and must actually load shop.html, not be swallowed by the
+  // in-page filter below.
+  if(shopLink&&!shopLink.hasAttribute('data-nav-category')&&$('[data-product-grid]')){
+    const url=new URL(shopLink.href,location.origin);
+    const cat=url.searchParams.get('category');
+    if(cat){
+      e.preventDefault();
+      applyShopCategoryFilter(cat);
+      history.pushState(null,'',shopLink.href);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  }
+});
+
+(function initCookieConsent(){
+  const CONSENT_KEY='habane_cookie_consent';
+  function getConsent(){
+    try{ const raw=localStorage.getItem(CONSENT_KEY); return raw?JSON.parse(raw):null; }catch(e){ return null; }
+  }
+  function saveConsent(prefs){ localStorage.setItem(CONSENT_KEY,JSON.stringify(prefs)); }
+
+  const card=document.createElement('aside');
+  card.setAttribute('data-cookie-consent','');
+  card.className='cookie-consent';
+  card.innerHTML=`
+    <div class="cookie-consent__panel" data-cookie-panel="main">
+      <h3 class="cookie-consent__title">We value your privacy</h3>
+      <p class="cookie-consent__text">We use cookies to ensure this website functions correctly. With your consent, we also use optional cookies for convenience features and analytics (Google Analytics) to understand how visitors use our site and improve your experience. If you are under 16, please ask a parent or legal guardian before consenting to optional cookies.</p>
+      <div class="cookie-consent__links"><a href="privacy.html">Privacy Policy</a><span>|</span><a href="cookie-policy.html">Cookie Policy</a><span>|</span><a href="impressum.html">Imprint</a></div>
+      <div class="cookie-consent__actions">
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--primary" data-cookie-action="accept-all">Accept all</button>
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--secondary" data-cookie-action="accept-necessary">Accept only necessary items</button>
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--text" data-cookie-action="open-settings">Adjust settings</button>
+      </div>
+    </div>
+    <div class="cookie-consent__panel is-hidden" data-cookie-panel="settings">
+      <h3 class="cookie-consent__title">Cookie settings</h3>
+      <div class="cookie-toggle-row">
+        <div class="cookie-toggle-row__head">
+          <span class="cookie-toggle-row__label">Necessary</span>
+          <label class="cookie-toggle is-locked"><input type="checkbox" checked disabled /><span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span></label>
+        </div>
+        <p class="cookie-toggle-row__desc">Required for cart, session and storing your consent choice. Cannot be disabled.</p>
+      </div>
+      <div class="cookie-toggle-row">
+        <div class="cookie-toggle-row__head">
+          <span class="cookie-toggle-row__label">Functional</span>
+          <label class="cookie-toggle"><input type="checkbox" data-cookie-toggle="functional" /><span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span></label>
+        </div>
+        <p class="cookie-toggle-row__desc">Remembers convenience features like your product comparison list. Optional.</p>
+      </div>
+      <div class="cookie-toggle-row">
+        <div class="cookie-toggle-row__head">
+          <span class="cookie-toggle-row__label">Analytics</span>
+          <label class="cookie-toggle"><input type="checkbox" data-cookie-toggle="analytics" /><span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span></label>
+        </div>
+        <p class="cookie-toggle-row__desc">Google Analytics (_ga, _gid) helps us understand site usage. Optional.</p>
+      </div>
+      <div class="cookie-toggle-row">
+        <div class="cookie-toggle-row__head">
+          <span class="cookie-toggle-row__label">Marketing</span>
+          <label class="cookie-toggle"><input type="checkbox" data-cookie-toggle="marketing" /><span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span></label>
+        </div>
+        <p class="cookie-toggle-row__desc">Used for advertising and retargeting campaigns, if and when active. No marketing cookies are currently set.</p>
+      </div>
+      <div class="cookie-consent__actions">
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--primary" data-cookie-action="confirm-settings">Confirm my choices</button>
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--text" data-cookie-action="back">← Back</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(card);
+
+  function switchPanel(name){
+    card.querySelectorAll('[data-cookie-panel]').forEach(p=>{
+      p.classList.toggle('is-hidden',p.getAttribute('data-cookie-panel')!==name);
+    });
+  }
+  const OPTIONAL_CATEGORIES=['functional','analytics','marketing'];
+  function closeCard(){
+    card.classList.remove('is-open');
+  }
+  function applyConsent(prefs){
+    saveConsent(prefs);
+    // Hook point: only initialize the matching third-party script once its
+    // category is true, e.g. if(prefs.analytics) loadGoogleAnalytics();
+  }
+
+  card.addEventListener('click',(e)=>{
+    const btn=e.target.closest('[data-cookie-action]');
+    if(!btn) return;
+    const action=btn.dataset.cookieAction;
+    if(action==='accept-all'){
+      applyConsent({necessary:true,functional:true,analytics:true,marketing:true});
+      closeCard();
+      toast('All cookies accepted');
+    } else if(action==='accept-necessary'){
+      applyConsent({necessary:true,functional:false,analytics:false,marketing:false});
+      closeCard();
+      toast('Only necessary cookies active');
+    } else if(action==='open-settings'){
+      switchPanel('settings');
+    } else if(action==='back'){
+      switchPanel('main');
+    } else if(action==='confirm-settings'){
+      const prefs={necessary:true};
+      OPTIONAL_CATEGORIES.forEach(cat=>{
+        const input=card.querySelector(`[data-cookie-toggle="${cat}"]`);
+        prefs[cat]=!!(input&&input.checked);
+      });
+      applyConsent(prefs);
+      closeCard();
+      toast('Cookie preferences saved');
+    }
+  });
+
+  if(!getConsent()){
+    requestAnimationFrame(()=>card.classList.add('is-open'));
+  }
+})();
 
 $$('[data-tab]').forEach(btn=>btn.onclick=()=>activateTab(btn.dataset.tab));
 $$('[data-scene-option]').forEach(btn=>btn.onclick=()=>setScene(btn.dataset.sceneOption));
 document.body.addEventListener('click',e=>{const btn=e.target.closest('.swatches button');if(!btn)return;$$('.swatches button').forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active')});
 $$('[data-mood]').forEach(btn=>btn.onclick=()=>{state.playlistMood=btn.dataset.mood;renderPlaylist();if(state.audio.playing)startSynth(state.playlistMood)});
 if($('[data-product-name]')){
-  $('[data-playlist-play]').onclick=()=>{
-    if(state.audio.timer){
-      state.audio.playing=!state.audio.playing;
-      syncSoundArt();
-      if(state.audio.playing) startSynth(state.playlistMood); else stopSynth();
-    } else {
-      startPlaylist();
+  const qtyDec=$('[data-qty-dec]'),qtyInc=$('[data-qty-inc]'),qtyValueEl=$('[data-qty-value]'),addToBagBox=$('.add-to-bag-box');
+  function refreshQty(){
+    if(qtyValueEl) qtyValueEl.textContent=state.pdpQty;
+  }
+  function syncPdpCartState(){
+    const item=state.cart.find(i=>i.id===state.activeProduct);
+    if(item&&item.qty>0){
+      state.pdpQty=item.qty;
+      if(addToBagBox) addToBagBox.classList.add('is-added');
+    }else{
+      state.pdpQty=1;
+      if(addToBagBox) addToBagBox.classList.remove('is-added');
+    }
+    refreshQty();
+  }
+  syncPdpCartState();
+  if($('[data-dialog-add]')) $('[data-dialog-add]').onclick=()=>{
+    addToCart(state.activeProduct,1);
+    syncPdpCartState();
+  };
+  if(qtyDec) qtyDec.onclick=()=>{
+    state.pdpQty--;
+    if(state.pdpQty<=0){
+      state.cart=state.cart.filter(i=>i.id!==state.activeProduct);
+      updateCart();
+      syncPdpCartState();
+    }else{
+      const item=state.cart.find(i=>i.id===state.activeProduct);
+      if(item){ item.qty=state.pdpQty; updateCart(); }
+      refreshQty();
     }
   };
-  $('[data-dialog-add]').onclick=()=>{addToCart(state.activeProduct);openDrawer('cart')};
+  if(qtyInc) qtyInc.onclick=()=>{
+    state.pdpQty++;
+    const item=state.cart.find(i=>i.id===state.activeProduct);
+    if(item){ item.qty=state.pdpQty; updateCart(); }
+    refreshQty();
+  };
   if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
-  $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
+  if($('[data-passport-save]')) $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
 }
 $$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
   const panel=toggle.nextElementSibling;
@@ -703,8 +925,11 @@ $$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
   panel.style.maxHeight=open?'0px':panel.scrollHeight+'px';
 });
 
-$('[data-cart-open]').onclick=()=>openDrawer('cart');$('[data-cart-close]').onclick=closeDrawer;$('[data-compare-close]').onclick=closeDrawer;$('[data-scrim]').onclick=closeDrawer;
-$('[data-checkout]').onclick=()=>openCheckout();
+if($('[data-cart-open]')) $('[data-cart-open]').onclick=()=>openDrawer('cart');
+if($('[data-cart-close]')) $('[data-cart-close]').onclick=closeDrawer;
+if($('[data-compare-close]')) $('[data-compare-close]').onclick=closeDrawer;
+if($('[data-scrim]')) $('[data-scrim]').onclick=closeDrawer;
+if($('[data-checkout]')) $('[data-checkout]').onclick=()=>openCheckout();
 
 if($('main') && 'IntersectionObserver' in window){
   const revealTargets=$$('main > section:not(.hero-carousel)');
@@ -717,39 +942,49 @@ if($('main') && 'IntersectionObserver' in window){
   revealTargets.forEach(el=>revealObserver.observe(el));
 }
 
-$('[data-search-open]').onclick=openSearch;$('[data-search-close]').onclick=closeSearch;
-$('[data-search-form]').onsubmit=e=>{e.preventDefault();const term=$('#site-search').value.trim().toLowerCase();const matches=Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category} ${p.description}`.toLowerCase().includes(term));renderSearchResults(matches.length?matches:Object.values(products).slice(0,6))};
-$('#site-search').addEventListener('input',e=>{const term=e.target.value.trim().toLowerCase();renderSearchResults(Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category}`.toLowerCase().includes(term)))})
+if($('[data-search-open]')) $('[data-search-open]').onclick=openSearch;
+if($('[data-search-close]')) $('[data-search-close]').onclick=closeSearch;
+if($('[data-search-form]')) $('[data-search-form]').onsubmit=e=>{e.preventDefault();const term=$('#site-search').value.trim().toLowerCase();const matches=Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category} ${p.description}`.toLowerCase().includes(term));renderSearchResults(matches.length?matches:Object.values(products).slice(0,6))};
+if($('#site-search')) $('#site-search').addEventListener('input',e=>{const term=e.target.value.trim().toLowerCase();renderSearchResults(Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category}`.toLowerCase().includes(term)))});
 
-$('[data-audio-toggle]').onclick=()=>{state.audio.playing=!state.audio.playing;syncSoundArt();if(state.audio.playing)startSynth(state.playlistMood);else stopSynth()};$('[data-audio-close]').onclick=stopAudio;
-$$('[data-footer-speaker]').forEach(btn=>btn.onclick=()=>{btn.classList.add('is-playing');playBrandChime(()=>btn.classList.remove('is-playing'))});
+if($('[data-audio-toggle]')) $('[data-audio-toggle]').onclick=()=>{state.audio.playing=!state.audio.playing;syncSoundArt();if(state.audio.playing)startSynth(state.playlistMood);else stopSynth()};
+if($('[data-audio-close]')) $('[data-audio-close]').onclick=stopAudio;
+
+document.addEventListener('click',e=>{
+  const speakerBtn=e.target.closest('[data-footer-speaker]');
+  if(speakerBtn){
+    speakerBtn.classList.add('is-playing');
+    playBrandChime(()=>speakerBtn.classList.remove('is-playing'));
+  }
+});
 if($('[data-newsletter-form]')) $('[data-newsletter-form]').onsubmit=e=>{e.preventDefault();$('[data-newsletter-status]').textContent='You are inside the movement.';e.target.reset()};
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('[data-search-overlay]').classList.contains('is-open'))closeSearch();else if($('[data-cart-drawer]').classList.contains('is-open')||$('[data-compare-drawer]').classList.contains('is-open'))closeDrawer();else if($('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()}});
 
-if($('[data-region]')){
-  const regionBtn=$('[data-region]');
-  let regionName='your region';
-  function flagUrl(code){
-    const points=code.toUpperCase().split('').map(c=>(0x1F1E6+(c.charCodeAt(0)-65)).toString(16)).join('-');
-    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${points}.svg`;
-  }
+if($$('[data-region]').length){
+  const regionBtns=$$('[data-region]');
+  let regionName='Germany';
   function setRegion(code,loc){
-    try{
-      regionName=new Intl.DisplayNames([loc||'en'],{type:'region'}).of(code)||code;
-    }catch(e){ regionName=code; }
-    regionBtn.innerHTML=`<img src="${flagUrl(code)}" alt="" width="22" height="16" style="border-radius:0;object-fit:cover;display:block" />`;
-    regionBtn.setAttribute('aria-label',`Shipping region: ${regionName}`);
+    const cleanCode=(code||'DE').toUpperCase().replace(/[^A-Z]/g,'').slice(0,2)||'DE';
+    try{ regionName=new Intl.DisplayNames([loc||'en'],{type:'region'}).of(cleanCode)||cleanCode; }catch(e){ regionName=cleanCode; }
+    const flagSrc=`https://flagcdn.com/w40/${cleanCode.toLowerCase()}.png`;
+    regionBtns.forEach(btn=>{
+      const img=btn.querySelector('img');
+      if(img){ img.src=flagSrc; img.alt=regionName; }
+      else{ btn.innerHTML=`<img src="${flagSrc}" alt="${regionName}" width="20" height="15" style="border-radius:2px;object-fit:cover;display:block" onerror="this.onerror=null;this.style.display='none';this.parentElement.textContent='🌍';" />`; }
+      btn.setAttribute('aria-label',`Shipping region: ${regionName}`);
+    });
     $$('[data-menu-region]').forEach(el=>el.textContent=regionName);
   }
   const loc=navigator.language||'en-US';
-  const fallbackCode=(loc.split('-')[1]||'US').toUpperCase();
+  let fallbackCode=(loc.split('-')[1]||'DE').toUpperCase();
+  if(!fallbackCode||fallbackCode.length!==2) fallbackCode='DE';
   setRegion(fallbackCode,loc);
   fetch('https://get.geojs.io/v1/ip/geo.json',{signal:AbortSignal.timeout?AbortSignal.timeout(4000):undefined})
     .then(r=>r.ok?r.json():Promise.reject())
     .then(data=>{ if(data&&data.country_code) setRegion(data.country_code,loc); })
-    .catch(()=>{});
-  regionBtn.onclick=()=>toast(`Shipping to ${regionName}`);
+    .catch(()=>{ setRegion('DE','de-DE'); });
+  regionBtns.forEach(btn=>btn.onclick=()=>toast(`Shipping region set to ${regionName}`));
 }
 if($('[data-prebook]')){
   if($('[data-product-name]')) $('[data-prebook]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
@@ -759,42 +994,79 @@ if($('[data-prebook]')){
 if($('[data-hero-carousel]')){
   const heroSlidesData=[
     {eyebrow:'01 / SIGNATURE CARRY',heading:'Travel<br><em>Intelligently.</em>',sub:'Fifteen objects engineered as one coherent movement system.'},
-    {eyebrow:'02 / CITY TO CITY',heading:'Built For<br><em>The Move.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.'},
-    {eyebrow:'03 / DEPARTURE READY',heading:'Pack Once.<br><em>Move Often.</em>',sub:'Modular systems that adapt from a weekend to a full departure.'}
+    {eyebrow:'02 / CITY TO CITY',heading:'Travel<br><em>Intelligently.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.'},
+    {eyebrow:'03 / DEPARTURE READY',heading:'Travel<br><em>Intelligently.</em>',sub:'Modular systems that adapt from a weekend to a full departure.'}
   ];
   const heroSlides=$$('[data-hero-slide]');
   const heroThumbs=$$('[data-hero-thumb]');
   const heroThumbsIndex=$('[data-hero-thumbs-index]');
-  let heroIndex=0,heroTimer;
+  let heroIndex=0,heroTimer,heroFadeTimer;
   function replayHeroReveal(){
     const content=$('.hero-carousel__content'); if(!content) return;
     content.classList.remove('is-revealed');
     void content.offsetWidth;
     content.classList.add('is-revealed');
   }
-  function showHero(i){
+  function showHero(i,skipSlideAnim){
     const prevSlide=heroSlides[heroIndex];
     heroThumbs[heroIndex].classList.remove('is-active');
     heroIndex=(i+heroSlides.length)%heroSlides.length;
     const nextSlide=heroSlides[heroIndex];
     heroThumbs[heroIndex].classList.add('is-active');
-    if(heroThumbsIndex) heroThumbsIndex.textContent=String(heroIndex+1).padStart(2,'0');
+    if(heroThumbsIndex){
+      heroThumbsIndex.textContent=String(heroIndex+1).padStart(2,'0');
+      heroThumbsIndex.classList.remove('is-changing');
+      void heroThumbsIndex.offsetWidth;
+      heroThumbsIndex.classList.add('is-changing');
+    }
     const d=heroSlidesData[heroIndex];
     $('[data-hero-eyebrow]').textContent=d.eyebrow;
     $('[data-hero-heading]').innerHTML=d.heading;
     $('[data-hero-sub]').textContent=d.sub;
-    replayHeroReveal();
+    if(!skipSlideAnim) replayHeroReveal();
     if(prevSlide!==nextSlide){
-      prevSlide.classList.remove('is-active');
-      prevSlide.classList.add('is-leaving');
-      nextSlide.classList.add('is-active');
-      setTimeout(()=>prevSlide.classList.remove('is-leaving'),1050);
+      if(skipSlideAnim){
+        clearTimeout(heroFadeTimer);
+        heroSlides.forEach(s=>{s.style.transition='none';s.style.opacity='';s.style.zIndex=''});
+        nextSlide.style.transform='translateX(0)';
+        nextSlide.style.opacity='0';
+        nextSlide.style.zIndex='2';
+        prevSlide.style.zIndex='1';
+        void nextSlide.offsetWidth;
+        nextSlide.style.transition='opacity .4s ease';
+        nextSlide.style.opacity='1';
+        prevSlide.classList.remove('is-active');
+        heroFadeTimer=setTimeout(()=>{
+          nextSlide.classList.add('is-active');
+          heroSlides.forEach(s=>{s.style.transition='';s.style.transform='';s.style.opacity='';s.style.zIndex=''});
+        },420);
+      } else {
+        prevSlide.classList.remove('is-active');
+        prevSlide.classList.add('is-leaving');
+        nextSlide.classList.add('is-active');
+        setTimeout(()=>prevSlide.classList.remove('is-leaving'),1050);
+      }
     }
   }
   function nextHero(){showHero(heroIndex+1)}
   function restartHeroTimer(){clearInterval(heroTimer);heroTimer=setInterval(nextHero,6000)}
-  heroThumbs.forEach((thumb,i)=>thumb.onclick=()=>{showHero(i);restartHeroTimer()});
-  replayHeroReveal();
+  heroThumbs.forEach((thumb,i)=>{
+    thumb.onclick=()=>{showHero(i);restartHeroTimer()};
+    thumb.addEventListener('mouseenter',()=>{clearInterval(heroTimer);showHero(i,true)});
+    thumb.addEventListener('focus',()=>{clearInterval(heroTimer);showHero(i,true)});
+  });
+  const heroThumbsWrap=$('[data-hero-thumbs]');
+  if(heroThumbsWrap){
+    heroThumbsWrap.addEventListener('mouseleave',restartHeroTimer);
+    heroThumbsWrap.addEventListener('focusout',restartHeroTimer);
+  }
+  const initialImg=heroSlides[heroIndex]&&$('img',heroSlides[heroIndex]);
+  if(initialImg&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    initialImg.classList.add('is-intro');
+    setTimeout(replayHeroReveal,850);
+  } else {
+    replayHeroReveal();
+  }
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) restartHeroTimer();
 }
 
@@ -929,31 +1201,319 @@ function closeLogin(){
   const modal=$('[data-login-modal]'); if(!modal) return;
   modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); lock(false);
 }
+
+// --- Trusted Origin Scrolling Ribbon (Placed Above Footer) ---
+(function initOriginRibbon(){
+  if(document.querySelector('.origin-ribbon')) return;
+  const footer=document.querySelector('.site-footer, footer');
+  if(!footer) return;
+  const ribbonHTML=`
+  <section class="origin-ribbon" aria-label="Trusted Origin">
+    <div class="origin-ribbon__header">
+      <span class="origin-ribbon__line"></span>
+      <h4 class="origin-ribbon__title">TRUSTED ORIGIN. BUILT WITH PURPOSE.</h4>
+      <span class="origin-ribbon__line"></span>
+    </div>
+    <div class="origin-ribbon__track-wrap">
+      <div class="origin-ribbon__track">
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED AT</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M20 5L35 31H5L20 5Z"/><path d="M20 12L29 27H11L20 12Z"/><circle cx="20" cy="21" r="2.5" fill="currentColor"/></svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL</strong>
+              <small>Lemgo, Germany</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">ALUMNI OF</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="4" fill="#ffffff"/><path d="M10 30L30 10M30 10H16M30 10V24" stroke="#060935" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10L19 19" stroke="#060935" stroke-width="3.5" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>THE MIGRANT ACCELERATOR</strong>
+              <small>TMA Alumni</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">&nbsp;</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14C10 8 15 6 20 10C25 6 30 8 30 14C30 26 26 34 20 34C14 34 10 26 10 14Z" stroke-linecap="round"/><circle cx="15.5" cy="16" r="3.5"/><circle cx="24.5" cy="16" r="3.5"/><circle cx="15.5" cy="16" r="1.2" fill="currentColor"/><circle cx="24.5" cy="16" r="1.2" fill="currentColor"/><path d="M18.5 20L20 22.5L21.5 20" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL ORIGINS</strong>
+              <small>Innovation Network</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED IN</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="20" cy="20" r="18"/><path d="M13 28V20L20 13L27 20V28H13Z"/><path d="M20 13V9M17 9H23"/><path d="M17 28V23H23V28"/><circle cx="20" cy="18" r="2"/></svg>
+            <div class="origin-badge__text">
+              <strong>LEMGO</strong>
+              <small>North Rhine-Westphalia</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DESIGNED IN</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z"/></svg>
+            <div class="origin-badge__text">
+              <strong>GERMANY</strong>
+              <small>HABÄNE Studio</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED AT</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M20 5L35 31H5L20 5Z"/><path d="M20 12L29 27H11L20 12Z"/><circle cx="20" cy="21" r="2.5" fill="currentColor"/></svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL</strong>
+              <small>Lemgo, Germany</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">ALUMNI OF</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="4" fill="#ffffff"/><path d="M10 30L30 10M30 10H16M30 10V24" stroke="#060935" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10L19 19" stroke="#060935" stroke-width="3.5" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>THE MIGRANT ACCELERATOR</strong>
+              <small>TMA Alumni</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">&nbsp;</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14C10 8 15 6 20 10C25 6 30 8 30 14C30 26 26 34 20 34C14 34 10 26 10 14Z" stroke-linecap="round"/><circle cx="15.5" cy="16" r="3.5"/><circle cx="24.5" cy="16" r="3.5"/><circle cx="15.5" cy="16" r="1.2" fill="currentColor"/><circle cx="24.5" cy="16" r="1.2" fill="currentColor"/><path d="M18.5 20L20 22.5L21.5 20" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL ORIGINS</strong>
+              <small>Innovation Network</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED IN</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="20" cy="20" r="18"/><path d="M13 28V20L20 13L27 20V28H13Z"/><path d="M20 13V9M17 9H23"/><path d="M17 28V23H23V28"/><circle cx="20" cy="18" r="2"/></svg>
+            <div class="origin-badge__text">
+              <strong>LEMGO</strong>
+              <small>North Rhine-Westphalia</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DESIGNED IN</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z"/></svg>
+            <div class="origin-badge__text">
+              <strong>GERMANY</strong>
+              <small>HABÄNE Studio</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+      </div>
+    </div>
+  </section>`;
+  footer.insertAdjacentHTML('beforebegin',ribbonHTML);
+})();
+
 $$('[data-login-open]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openLogin()}));
 
-// --- Discount popup ---
-if(!$('[data-discount-popup]')){
+// --- Category quick-menu (beside login) ---
+function ensureCategoryMenu(){
+  if($('[data-category-menu]')) return $('[data-category-menu]');
   document.body.insertAdjacentHTML('beforeend',`
-    <div class="discount-popup" data-discount-popup aria-hidden="true">
-      <div class="discount-popup__scrim" data-discount-close></div>
-      <div class="discount-popup__card" role="dialog" aria-modal="true" aria-label="Discount offer">
-        <button type="button" class="discount-popup__close" data-discount-close aria-label="Close offer">×</button>
-        <span class="discount-popup__eyebrow">FIRST DEPARTURE OFFER</span>
-        <h3>TAKE <em>10% OFF</em><br />YOUR FIRST OBJECT.</h3>
-        <p>Join the movement and unlock 10% off before you check out.</p>
-        <div class="discount-popup__code">HABANE10</div>
-        <button type="button" class="button button--primary discount-popup__cta" data-discount-shop>Shop the collection <span>↗</span></button>
-        <button type="button" class="discount-popup__dismiss" data-discount-close>No thanks</button>
+    <div class="category-menu" data-category-menu aria-hidden="true">
+      <a href="shop.html?category=luggage" class="category-menu__link" data-nav-category>Luggage <i>→</i></a>
+      <a href="shop.html?category=carry" class="category-menu__link" data-nav-category>Carry <i>→</i></a>
+      <a href="shop.html?category=system" class="category-menu__link" data-nav-category>System <i>→</i></a>
+      <a href="shop.html?category=accessory" class="category-menu__link" data-nav-category>Accessories <i>→</i></a>
+      <button type="button" class="category-menu__join" data-join-open>Join community <span>→</span></button>
+    </div>`);
+  return $('[data-category-menu]');
+}
+function positionCategoryMenu(btn,menu){
+  const header=$('[data-header]');
+  const b=btn.getBoundingClientRect();
+  // Start the panel ABOVE the navbar's bottom edge so its top slides behind the
+  // bar (the panel sits at a lower z-index). That hides the seam and the header's
+  // rounded corners, making the panel look like it grows out of the navbar.
+  const h=header?header.getBoundingClientRect():b;
+  // Overlap the bar's bottom edge by 1px so subpixel rounding can never leave a
+  // hairline gap between the two surfaces.
+  menu.style.setProperty('--cm-top',`${Math.round(h.bottom)-1}px`);
+  // Align the panel's right edge flush with the navbar's, clamped within the bar.
+  const mw=menu.offsetWidth||180;
+  let left=b.left+b.width/2-mw/2;
+  left=Math.max(h.left,Math.min(left,h.right-mw));
+  menu.style.setProperty('--cm-left',`${Math.round(left)}px`);
+}
+function positionCategoryMenuOnResize(){
+  const menu=$('[data-category-menu]'), btn=$('[data-category-menu-open]');
+  if(menu&&btn&&menu.classList.contains('is-open')) positionCategoryMenu(btn,menu);
+}
+function closeCategoryMenu(){
+  const menu=$('[data-category-menu]');
+  const header=$('[data-header]');
+  if(header) header.classList.remove('is-category-open');
+  if(!menu) return;
+  menu.classList.remove('is-open');
+  menu.setAttribute('aria-hidden','true');
+}
+$$('[data-category-menu-open]').forEach(btn=>btn.addEventListener('click',e=>{
+  e.stopPropagation();
+  const menu=ensureCategoryMenu();
+  const willOpen=!menu.classList.contains('is-open');
+  closeCategoryMenu();
+  if(willOpen){
+    positionCategoryMenu(btn,menu);
+    menu.classList.add('is-open');
+    menu.setAttribute('aria-hidden','false');
+    const header=$('[data-header]');
+    if(header) header.classList.add('is-category-open');
+  }
+}));
+document.addEventListener('click',e=>{
+  // Choosing a category closes the panel and lets the link navigate.
+  if(e.target.closest('[data-category-menu] a')) { closeCategoryMenu(); return; }
+  if(!e.target.closest('[data-category-menu]') && !e.target.closest('[data-category-menu-open]')) closeCategoryMenu();
+});
+window.addEventListener('resize',()=>{
+  const menu=$('[data-category-menu]');
+  const btn=$('[data-category-menu-open]');
+  if(menu && btn && menu.classList.contains('is-open')) positionCategoryMenu(btn,menu);
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeCategoryMenu(); });
+
+// --- Join community + downloadable membership passport ---
+function renderPassport(canvas,{name,email,country}){
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const grad=ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#0A0F5A');
+  grad.addColorStop(1,'#060935');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,.25)';
+  ctx.lineWidth=2;
+  ctx.strokeRect(16,16,W-32,H-32);
+  ctx.fillStyle='#36D8FF';
+  ctx.font='700 22px Arial';
+  ctx.fillText('HABÄNE', 48, 66);
+  ctx.fillStyle='rgba(255,255,255,.55)';
+  ctx.font='400 12px Arial';
+  ctx.fillText('MOVEMENT PASSPORT', 48, 88);
+  ctx.strokeStyle='rgba(255,255,255,.18)';
+  ctx.beginPath();ctx.moveTo(48,110);ctx.lineTo(W-48,110);ctx.stroke();
+  const memberId='HB-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  const issueDate=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  function field(label,value,y){
+    ctx.fillStyle='rgba(255,255,255,.45)';
+    ctx.font='700 10px Arial';
+    ctx.fillText(label.toUpperCase(), 48, y);
+    ctx.fillStyle='#fff';
+    ctx.font='600 22px Arial';
+    ctx.fillText(value||'—', 48, y+28);
+  }
+  field('Member name', name, 165);
+  field('Member ID', memberId, 235);
+  field('Country', country, 305);
+  field('Issued', issueDate, 375);
+  ctx.fillStyle='rgba(255,255,255,.4)';
+  ctx.font='400 11px Arial';
+  ctx.fillText(email||'', 48, H-40);
+  ctx.textAlign='right';
+  ctx.fillText('habane.de', W-48, H-40);
+  ctx.textAlign='left';
+}
+function ensureJoinModal(){
+  if($('[data-join-modal]')) return;
+  document.body.insertAdjacentHTML('beforeend',`
+    <div class="join-modal" data-join-modal aria-hidden="true">
+      <div class="join-modal__scrim" data-join-close></div>
+      <div class="join-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Join the HABÄNE community">
+        <button type="button" class="join-modal__close" data-join-close aria-label="Close">×</button>
+        <div data-join-panel="form">
+          <p class="join-modal__eyebrow">HABÄNE COMMUNITY</p>
+          <h3>Join the movement</h3>
+          <form data-join-form>
+            <label>Full name<input type="text" name="name" required /></label>
+            <label>Email<input type="email" name="email" required /></label>
+            <label>Country<input type="text" name="country" required /></label>
+            <button type="submit" class="button button--primary join-modal__submit">Generate my passport</button>
+          </form>
+        </div>
+        <div data-join-panel="passport" class="is-hidden">
+          <p class="join-modal__eyebrow">WELCOME TO HABÄNE</p>
+          <h3>Your passport is ready</h3>
+          <canvas data-passport-canvas width="900" height="560"></canvas>
+          <div class="join-modal__passport-actions">
+            <button type="button" class="button button--primary join-modal__submit" data-passport-download>Download passport</button>
+            <button type="button" class="login-modal__guest" data-join-done>Done <span>↗</span></button>
+          </div>
+        </div>
       </div>
     </div>`);
+  const modal=$('[data-join-modal]');
+  $$('[data-join-close]',modal).forEach(el=>el.onclick=closeJoin);
+  $('[data-join-form]',modal).addEventListener('submit',e=>{
+    e.preventDefault();
+    const data=new FormData(e.target);
+    const details={name:(data.get('name')||'').trim(),email:(data.get('email')||'').trim(),country:(data.get('country')||'').trim()};
+    renderPassport($('[data-passport-canvas]',modal),details);
+    $('[data-join-panel="form"]',modal).classList.add('is-hidden');
+    $('[data-join-panel="passport"]',modal).classList.remove('is-hidden');
+  });
+  $('[data-passport-download]',modal).onclick=()=>{
+    const canvas=$('[data-passport-canvas]',modal);
+    const link=document.createElement('a');
+    link.download='habane-passport.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    toast('Passport downloaded');
+  };
+  $('[data-join-done]',modal).onclick=closeJoin;
 }
-(function initDiscountPopup(){
-  const popup=$('[data-discount-popup]'); if(!popup) return;
-  const openPopup=()=>{popup.classList.add('is-open');popup.setAttribute('aria-hidden','false');lock(true)};
-  const closePopup=()=>{popup.classList.remove('is-open');popup.setAttribute('aria-hidden','true');lock(false)};
-  $$('[data-discount-close]',popup).forEach(el=>el.onclick=closePopup);
-  const shopBtn=$('[data-discount-shop]',popup);
-  if(shopBtn) shopBtn.onclick=()=>{closePopup();location.href=$('#shop')?'#shop':'shop.html'};
-  if(sessionStorage.getItem('habane_discount_seen')) return;
-  setTimeout(()=>{ if(!$('[data-checkout-modal].is-open')){openPopup();sessionStorage.setItem('habane_discount_seen','1')} },5000);
-})();
+function openJoin(){
+  ensureJoinModal();
+  closeCategoryMenu();
+  const modal=$('[data-join-modal]');
+  $('[data-join-panel="form"]',modal).classList.remove('is-hidden');
+  $('[data-join-panel="passport"]',modal).classList.add('is-hidden');
+  $('[data-join-form]',modal).reset();
+  modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); lock(true);
+}
+function closeJoin(){
+  const modal=$('[data-join-modal]'); if(!modal) return;
+  modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); lock(false);
+}
+document.addEventListener('click',e=>{
+  const trigger=e.target.closest('[data-join-open]');
+  if(trigger){ e.preventDefault(); openJoin(); }
+});
+

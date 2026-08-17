@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Order — Boarding Pass | HABÄNE</title>
+  <meta name="description" content="Track your HABÄNE order in real-time with our interactive Boarding Pass order status system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="announcement" data-announcement>
+    <div class="announcement__rotator" data-announcement-rotator aria-live="polite">
+      <span class="announcement__slide is-active">COMPLIMENTARY EU DELIVERY OVER €250</span>
+      <span class="announcement__slide">EIGHT OBJECTS. ONE MOVEMENT SYSTEM.</span>
+      <span class="announcement__slide">30-DAY FREE RETURNS, WORLDWIDE</span>
+      <span class="announcement__slide">10% OFF YOUR FIRST TECH TRAVEL BAG — CODE HABANE10</span>
+      <span class="announcement__slide announcement__signal"><i></i> SYSTEM ONLINE</span>
+    </div>
+    <button type="button" data-announcement-close aria-label="Dismiss announcement">×</button>
+  </div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="HABÄNE home">
+      <span class="brand__mark">
+        <span class="brand__icon-stack">
+          <img class="brand__icon brand__icon--navy" src="assets/brand/icon-navy.png" alt="" />
+          <img class="brand__icon brand__icon--white" src="assets/brand/icon-white.png" alt="" />
+        </span>
+        <span class="brand__wordmark-stack">
+          <img class="brand__wordmark brand__wordmark--navy" src="assets/brand/wordmark-navy.png" alt="HABÄNE" />
+          <img class="brand__wordmark brand__wordmark--white" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+        </span>
+      </span>
+      <span class="brand__divider" aria-hidden="true"></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="shop.html">All Products</a>
+      <a href="index.html#shop">Objects</a>
+      <a href="blog.html">Journal</a>
+      <a href="track-order.html" class="is-active">Track Order</a>
+    </nav>
+    <div class="header-actions">
+      <button class="region-button" type="button" data-region aria-label="Shipping region"><img id="region-flag-img" src="https://flagcdn.com/w40/de.png" alt="Germany" width="20" height="15" style="border-radius:2px;object-fit:cover;display:block" /></button>
+      <button class="icon-button" type="button" data-search-open aria-label="Search">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.2" y2="16.2" /></svg>
+      </button>
+      <button class="icon-button" type="button" data-cart-open aria-label="Bag">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+        <b class="icon-badge" data-cart-count>0</b>
+      </button>
+      <button class="prebook-button" type="button" data-login-open aria-label="Log in"><span class="prebook-button__label">Log in</span><svg class="prebook-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" /></svg></button>
+      <button class="menu-button" type="button" data-menu-open aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <aside class="mobile-menu" data-mobile-menu data-lenis-prevent aria-hidden="true">
+    <div class="mobile-menu__head"><span class="mobile-menu__brand">HABÄNE</span><button class="mobile-menu__close" type="button" data-menu-close aria-label="Close menu"><span></span><span></span></button></div>
+    <nav>
+      <a href="shop.html"><span class="mobile-menu__num">00</span><b>All Products</b><i class="mobile-menu__arrow">↗</i></a>
+      <a href="index.html#shop"><span class="mobile-menu__num">01</span><b>Objects</b><i class="mobile-menu__arrow">↗</i></a>
+      <a href="blog.html"><span class="mobile-menu__num">02</span><b>Journal</b><i class="mobile-menu__arrow">↗</i></a>
+      <a href="track-order.html"><span class="mobile-menu__num">03</span><b>Track Order</b><i class="mobile-menu__arrow">↗</i></a>
+    </nav>
+    <div class="mobile-menu__footer">
+      <div class="mobile-menu__social">
+        <a href="#" data-login-open>Log in</a>
+        <a href="#" data-social="Instagram">Instagram</a>
+        <a href="#" data-social="Pinterest">Pinterest</a>
+        <a href="contact.html">Support</a>
+      </div>
+      <div class="mobile-menu__locale"><span data-menu-region>Shipping region</span><span>English</span></div>
+      <p class="mobile-menu__copy">© HABÄNE</p>
+    </div>
+  </aside>
+
+  <main id="main">
+    <!-- Hero Banner: Boarding Pass Ticket Component -->
+    <section class="tracking-hero">
+      <div class="tracking-hero__top-nav">
+        <a href="shop.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>BACK TO ORDERS</span>
+        </a>
+        <a href="contact.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          <span>Need help? Contact support →</span>
+        </a>
+      </div>
+
+      <div class="boarding-pass" id="boardingPassCard">
+        <!-- Main Pass Section -->
+        <div class="pass-main">
+          <div class="pass-header">
+            <div class="pass-logo-stack">
+              <div class="pass-logo-mark">
+                <img class="pass-logo-icon" src="assets/brand/icon-navy.png" alt="" />
+                <img class="pass-logo-wordmark" src="assets/brand/wordmark-navy.png" alt="HABÄNE" />
+              </div>
+              <span class="pass-tagline">CHASE THE MADNESS.</span>
+            </div>
+            <div class="pass-status-badge">
+              <span class="pass-status-badge__title" id="ticketStatusTitle">ORDER CONFIRMED</span>
+              <span class="pass-status-badge__date" id="ticketStatusDate">May 24, 2026</span>
+            </div>
+          </div>
+
+          <!-- Airport Route Banner -->
+          <div class="pass-route">
+            <div class="pass-route__code">
+              <h2>FRA</h2>
+              <label>FROM</label>
+              <span>HABÄNE WAREHOUSE</span>
+              <small>LEMGO, GERMANY</small>
+            </div>
+            <div class="pass-route__flight-line">
+              <span class="pass-route__plane-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#060935" style="transform: rotate(90deg);"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+              </span>
+            </div>
+            <div class="pass-route__code" style="text-align: right;">
+              <h2>YOU</h2>
+              <label>TO</label>
+              <span>YOUR DESTINATION</span>
+              <small>WORLDWIDE</small>
+            </div>
+          </div>
+
+          <!-- Summary Grid -->
+          <div class="pass-info-grid">
+            <div class="pass-info-item">
+              <label>ORDER NUMBER</label>
+              <strong id="ticketOrderNo">HB-260524-7842</strong>
+            </div>
+            <div class="pass-info-item">
+              <label>ORDER DATE</label>
+              <strong id="ticketOrderDate">May 24, 2026</strong>
+            </div>
+            <div class="pass-info-item">
+              <label>PAYMENT</label>
+              <strong id="ticketPayment">Visa •••• 4242</strong>
+            </div>
+            <div class="pass-info-item">
+              <label>TOTAL</label>
+              <strong id="ticketTotal">€899.00</strong>
+            </div>
+          </div>
+
+          <!-- Product & Live Status Bar -->
+          <div class="pass-product-row">
+            <div class="pass-product-card">
+              <img class="pass-product-thumb" id="ticketProductImg" src="assets/products/p4-smart-duffel-ivory.png" alt="X1 CABIN" />
+              <div class="pass-product-details">
+                <h4 id="ticketProductName">X1 CABIN</h4>
+                <p id="ticketProductVariant">Steel Blue</p>
+                <small id="ticketProductMeta">38–48L • Cabin Luggage &nbsp; Qty: 1</small>
+              </div>
+            </div>
+
+            <div class="pass-live-timeline">
+              <div class="pass-live-timeline__head">
+                <label>STATUS</label>
+                <strong>
+                  <span id="ticketLiveStatus">ON THE WAY</span> 
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="transform: rotate(90deg);"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                </strong>
+              </div>
+              <div class="pass-progress-bar">
+                <div class="pass-progress-bar__fill"></div>
+                <div class="pass-progress-node is-active"></div>
+                <div class="pass-progress-node is-active"></div>
+                <div class="pass-progress-node"></div>
+              </div>
+              <div class="pass-progress-labels">
+                <div>
+                  <span>CONFIRMED</span>
+                  <small>May 24</small>
+                </div>
+                <div style="text-align: center;">
+                  <span>SHIPPED</span>
+                  <small>May 26</small>
+                </div>
+                <div style="text-align: right;">
+                  <span>DELIVERING</span>
+                  <small>May 30</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features Line with Premium Icons -->
+          <div class="pass-features-row">
+            <div class="pass-feature-item">
+              <svg class="pass-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              <div class="pass-feature-text">
+                <label>PREPARING</label>
+                <span>1–2 business days</span>
+              </div>
+            </div>
+            <div class="pass-feature-item">
+              <svg class="pass-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <div class="pass-feature-text">
+                <label>SHIPPING</label>
+                <span>DHL Express</span>
+              </div>
+            </div>
+            <div class="pass-feature-item">
+              <svg class="pass-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div class="pass-feature-text">
+                <label>DELIVERY</label>
+                <span>May 30, 2026</span>
+              </div>
+            </div>
+            <div class="pass-feature-item">
+              <svg class="pass-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <div class="pass-feature-text">
+                <label>WARRANTY</label>
+                <span>5 years coverage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pass-footer-note">
+            THANK YOU FOR MOVING WITH HABÄNE.
+          </div>
+        </div>
+
+        <!-- Stub Right Section -->
+        <div class="pass-stub">
+          <div>
+            <div class="pass-stub__header">
+              <h3>HABÄNE AIRWAYS</h3>
+              <img class="pass-logo-icon" src="assets/brand/icon-navy.png" alt="" style="height: 18px;" />
+            </div>
+
+            <div class="pass-stub__title-block">
+              <h4>BOARDING PASS</h4>
+              <code>ORDER <span id="stubOrderNo">HB-260524-7842</span></code>
+            </div>
+
+            <div class="pass-stub__grid">
+              <div class="pass-stub__row">
+                <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <div class="pass-stub__row-data">
+                  <label>PASSENGER</label>
+                  <strong>VALUED TRAVELLER</strong>
+                </div>
+              </div>
+              <div class="pass-stub__row">
+                <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"/></svg>
+                <div class="pass-stub__row-data">
+                  <label>ROUTE</label>
+                  <strong>FRA → YOU</strong>
+                </div>
+              </div>
+              <div class="pass-stub__row">
+                <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l4-4 4 4"/><line x1="12" y1="10" x2="12" y2="18"/></svg>
+                <div class="pass-stub__row-data">
+                  <label>DEPARTURE</label>
+                  <strong id="stubDeparture">May 26, 2026</strong>
+                </div>
+              </div>
+              <div class="pass-stub__row">
+                <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                <div class="pass-stub__row-data">
+                  <label>ARRIVAL</label>
+                  <strong id="stubArrival">May 30, 2026</strong>
+                </div>
+              </div>
+              <div class="pass-stub__row">
+                <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14M9 5V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M12 12v.01"/></svg>
+                <div class="pass-stub__row-data">
+                  <label>GATE</label>
+                  <strong>HAB-01</strong>
+                </div>
+              </div>
+              <div class="pass-stub__row">
+                <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19v2M18 19v2M4 15h16a1 1 0 0 0 1-1V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a1 1 0 0 0 1 1z"/><path d="M4 11h16"/></svg>
+                <div class="pass-stub__row-data">
+                  <label>SEAT</label>
+                  <strong>FIRST CLASS</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pass-stub__barcode">
+            <svg viewBox="0 0 300 45" fill="none">
+              <rect x="0" y="0" width="6" height="45" fill="#060935"/>
+              <rect x="10" y="0" width="3" height="45" fill="#060935"/>
+              <rect x="18" y="0" width="8" height="45" fill="#060935"/>
+              <rect x="30" y="0" width="4" height="45" fill="#060935"/>
+              <rect x="38" y="0" width="2" height="45" fill="#060935"/>
+              <rect x="44" y="0" width="7" height="45" fill="#060935"/>
+              <rect x="56" y="0" width="4" height="45" fill="#060935"/>
+              <rect x="64" y="0" width="9" height="45" fill="#060935"/>
+              <rect x="78" y="0" width="3" height="45" fill="#060935"/>
+              <rect x="85" y="0" width="6" height="45" fill="#060935"/>
+              <rect x="96" y="0" width="4" height="45" fill="#060935"/>
+              <rect x="104" y="0" width="8" height="45" fill="#060935"/>
+              <rect x="116" y="0" width="3" height="45" fill="#060935"/>
+              <rect x="124" y="0" width="6" height="45" fill="#060935"/>
+              <rect x="134" y="0" width="9" height="45" fill="#060935"/>
+              <rect x="148" y="0" width="4" height="45" fill="#060935"/>
+              <rect x="156" y="0" width="7" height="45" fill="#060935"/>
+              <rect x="168" y="0" width="3" height="45" fill="#060935"/>
+              <rect x="176" y="0" width="8" height="45" fill="#060935"/>
+              <rect x="188" y="0" width="5" height="45" fill="#060935"/>
+              <rect x="198" y="0" width="3" height="45" fill="#060935"/>
+              <rect x="206" y="0" width="9" height="45" fill="#060935"/>
+              <rect x="220" y="0" width="4" height="45" fill="#060935"/>
+              <rect x="228" y="0" width="6" height="45" fill="#060935"/>
+              <rect x="238" y="0" width="3" height="45" fill="#060935"/>
+              <rect x="246" y="0" width="8" height="45" fill="#060935"/>
+              <rect x="258" y="0" width="5" height="45" fill="#060935"/>
+              <rect x="268" y="0" width="8" height="45" fill="#060935"/>
+              <rect x="282" y="0" width="4" height="45" fill="#060935"/>
+              <rect x="290" y="0" width="6" height="45" fill="#060935"/>
+            </svg>
+            <span id="stubBarcodeCode">HB2605247842</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll Down Section: Normal Ecommerce Track Your Order Page -->
+    <section class="track-section">
+      <div class="track-container">
+
+        <!-- Order Lookup Card -->
+        <div class="track-search-card">
+          <div class="track-search-head">
+            <h3>TRACK YOUR SHIPMENT</h3>
+            <p>Enter your order details below to view updated courier tracking logs and delivery updates.</p>
+          </div>
+          <form class="track-search-form" id="trackForm" onsubmit="event.preventDefault(); handleOrderSearch();">
+            <label>
+              <span>Order ID</span>
+              <input type="text" id="inputOrderNo" placeholder="e.g. HB-260524-7842" value="HB-260524-7842" required />
+            </label>
+            <label>
+              <span>Email Address</span>
+              <input type="email" id="inputEmail" placeholder="your.name@example.com" value="traveler@habane.de" required />
+            </label>
+            <button class="track-search-btn" type="submit">Track Order ↗</button>
+          </form>
+        </div>
+
+        <!-- Detailed Tracking Information Grid -->
+        <div class="track-details-grid">
+          <!-- Main Shipment Event Timeline -->
+          <div class="track-card">
+            <div class="track-card__title">
+              <span>SHIPMENT PROGRESS LOG</span>
+              <span class="system-label system-label--dark" style="margin: 0;"><i></i> LIVE TELEMETRY</span>
+            </div>
+
+            <div class="track-timeline-list">
+              <div class="track-timeline-item is-done">
+                <h4>
+                  <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <span>Order Confirmed & Payment Verified</span>
+                </h4>
+                <p>Order HB-260524-7842 placed successfully. Payment authorized via Visa •••• 4242.</p>
+                <time>LEMGO HUB — May 24, 2026 at 14:32 CET</time>
+              </div>
+
+              <div class="track-timeline-item is-done">
+                <h4>
+                  <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                  <span>Packaged & Quality Checked</span>
+                </h4>
+                <p>Inspected for quality standards. Laser tag passport attached and packed in eco DWR casing.</p>
+                <time>HABÄNE FACTORY LEMGO — May 25, 2026 at 09:15 CET</time>
+              </div>
+
+              <div class="track-timeline-item is-done">
+                <h4>
+                  <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13 8.5 4.8 6.7c-.6-.1-1.2.1-1.5.6l-1 1.6c-.3.5-.2 1.2.3 1.5l6.3 4.4-3.5 3.5-2.5-.7c-.4-.1-.9 0-1.1.3l-.6.9c-.3.4-.2 1 .2 1.3l3.3 2.5 2.5 3.3c.3.4.9.5 1.3.2l.9-.6c.3-.2.4-.7.3-1.1l-.7-2.5 3.5-3.5 4.4 6.3c.3.5 1 .6 1.5.3l1.6-1c.5-.3.7-.9.6-1.5z"/></svg>
+                  <span>Handed Over to DHL Express</span>
+                </h4>
+                <p>Package received by courier at Frankfurt Airport Hub (FRA). Custom clearance approved.</p>
+                <time>FRANKFURT AIRPORT (FRA) — May 26, 2026 at 18:40 CET</time>
+              </div>
+
+              <div class="track-timeline-item is-current">
+                <h4>
+                  <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  <span>In Transit — International Transit Hub</span>
+                </h4>
+                <p>On board international transport flight. Package in transit to destination country customs.</p>
+                <time>DESTINATION HUB — May 28, 2026 at 04:10 CET</time>
+              </div>
+
+              <div class="track-timeline-item">
+                <h4>
+                  <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  <span>Out for Delivery</span>
+                </h4>
+                <p>Scheduled for final mile delivery to recipient address by local DHL courier.</p>
+                <time>ESTIMATED — May 30, 2026</time>
+              </div>
+
+              <div class="track-timeline-item">
+                <h4>
+                  <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  <span>Delivered</span>
+                </h4>
+                <p>Package handed over to recipient. Digital ownership receipt issued.</p>
+                <time>ESTIMATED — May 30, 2026 by 18:00</time>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar Information Cards -->
+          <div class="track-sidebar">
+            <!-- Carrier Box -->
+            <div class="track-carrier-box">
+              <h4>CARRIER TELEMETRY</h4>
+              <p style="margin: 0 0 6px; font-size: 12px; opacity: 0.8;">Courier: DHL Express Worldwide</p>
+              <code>DHL-9482910482</code>
+              <a href="#" onclick="event.preventDefault(); alert('Redirecting to DHL Express official tracking portal...');">Track on DHL Portal ↗</a>
+            </div>
+
+            <!-- Package & Address Summary -->
+            <div class="track-card" style="padding: 24px;">
+              <h4 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; margin: 0 0 16px;">DESTINATION DETAILS</h4>
+              <div style="font-family: var(--font-ui); font-size: 13px; color: rgba(10,15,90,0.8); line-height: 1.5; display: flex; flex-direction: column; gap: 8px;">
+                <div>
+                  <strong>Recipient:</strong><br />Valued Traveller
+                </div>
+                <div>
+                  <strong>Shipping Address:</strong><br />Bruchweg 52<br />32657 Lemgo, Germany
+                </div>
+                <div>
+                  <strong>Contact Email:</strong><br />traveler@habane.de
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Service Box -->
+            <div class="track-card" style="padding: 24px; background: #f8fafc;">
+              <h4 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; margin: 0 0 8px;">NEED ASSISTANCE?</h4>
+              <p style="font-family: var(--font-ui); font-size: 12.5px; color: rgba(10,15,90,0.65); margin: 0 0 16px; line-height: 1.4;">Need to change delivery date or address? Our travel support team is available 24/7.</p>
+              <a href="contact.html" class="button button--ghost button--small" style="width: 100%; text-align: center; justify-content: center;">Contact Support ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trusted Origin Ribbon -->
+    <div class="origin-ribbon" aria-label="Partner badges and certification ribbon">
+      <div class="origin-ribbon__track">
+        <div class="origin-badge"><span class="origin-badge__head">ACCELERATOR</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">INNOVATION NETWORK</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><div class="origin-badge__text"><strong>TH OWL ORIGINS</strong><strong style="font-size: 11px; font-weight: 500; opacity: 0.85;">Innovation Network</strong></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><div class="origin-badge__text"><strong>LEMGO</strong><small>North Rhine-Westphalia</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">DESIGNED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 2,7 12,12 22,7"/><polyline points="2,17 12,22 22,17"/><polyline points="2,12 12,17 22,12"/></svg><div class="origin-badge__text"><strong>GERMANY</strong><small>HABÄNE Studio</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED AT</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><div class="origin-badge__text"><strong>TH OWL</strong><small>Lemgo, Germany</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">ALUMNI OF</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,8.5 12,15 2,8.5"/><path d="M6 11v6c0 3 6 3 6 3s6 0 6-3v-6"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
+        <span class="origin-divider"></span>
+        <!-- Duplicate for continuous 60fps loop -->
+        <div class="origin-badge"><span class="origin-badge__head">ACCELERATOR</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">INNOVATION NETWORK</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><div class="origin-badge__text"><strong>TH OWL ORIGINS</strong><strong style="font-size: 11px; font-weight: 500; opacity: 0.85;">Innovation Network</strong></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><div class="origin-badge__text"><strong>LEMGO</strong><small>North Rhine-Westphalia</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">DESIGNED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 2,7 12,12 22,7"/><polyline points="2,17 12,22 22,17"/><polyline points="2,12 12,17 22,12"/></svg><div class="origin-badge__text"><strong>GERMANY</strong><small>HABÄNE Studio</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED AT</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><div class="origin-badge__text"><strong>TH OWL</strong><small>Lemgo, Germany</small></div></div></div>
+        <span class="origin-divider"></span>
+        <div class="origin-badge"><span class="origin-badge__head">ALUMNI OF</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,8.5 12,15 2,8.5"/><path d="M6 11v6c0 3 6 3 6 3s6 0 6-3v-6"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
+      </div>
+    </div>
+  </main>
+
+    <section class="origin-ribbon" aria-label="Trusted Origin">
+    <div class="origin-ribbon__header">
+      <span class="origin-ribbon__line"></span>
+      <h4 class="origin-ribbon__title">TRUSTED ORIGIN. BUILT WITH PURPOSE.</h4>
+      <span class="origin-ribbon__line"></span>
+    </div>
+    <div class="origin-ribbon__track-wrap">
+      <div class="origin-ribbon__track">
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED AT</span>
+          <div class="th-owl-mark" style="display:flex;align-items:center;gap:12px;margin: 8px 0;">
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <strong style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">TH</strong>
+              <strong style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">OWL</strong>
+            </div>
+            <svg class="origin-icon" viewBox="140 100 160 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" style="width:58px;height:58px;">
+              <g transform="matrix(1,0,0,-1,0,359.05333)">
+                <path d="m 175.718,195.886 c -7.506,0 -14.375,5.009 -16.41,12.603 -2.43,9.07 2.952,18.391 12.021,20.822 l 93.543,25.065 c 9.067,2.429 18.39,-2.953 20.821,-12.021 2.43,-9.069 -2.952,-18.391 -12.021,-20.821 l -93.543,-25.065 c -1.473,-0.396 -2.955,-0.583 -4.411,-0.583" />
+                <path d="m 244.207,127.411 c -4.351,0 -8.701,1.66 -12.021,4.979 l -68.478,68.479 c -6.639,6.639 -6.639,17.402 0,24.041 6.639,6.639 17.402,6.639 24.042,0 l 68.478,-68.478 c 6.639,-6.639 6.639,-17.403 0,-24.042 -3.32,-3.319 -7.67,-4.979 -12.021,-4.979" />
+                <path d="m 244.218,127.407 c -1.457,0 -2.937,0.188 -4.411,0.583 -9.068,2.43 -14.45,11.752 -12.021,20.821 l 25.065,93.544 c 2.43,9.07 11.754,14.448 20.821,12.021 9.069,-2.43 14.451,-11.752 12.021,-20.821 l -25.065,-93.544 c -2.035,-7.595 -8.905,-12.604 -16.41,-12.604" />
+                <path d="m 281.301,249.972 c -4.155,4.147 -10.346,6.026 -16.423,4.399 0.058,0.014 0.116,0.021 0.174,0.036 -5.744,-1.481 -10.549,-5.919 -12.196,-12.058 l -7.62,-28.442 28.442,7.621 c 6.138,1.647 10.577,6.451 12.058,12.195 -0.016,-0.058 -0.023,-0.116 -0.037,-0.174 1.628,6.077 -0.251,12.269 -4.398,16.423" />
+                <path d="m 159.306,217.29 c -1.514,-5.672 -0.046,-11.973 4.402,-16.422 -0.041,0.043 -0.076,0.089 -0.119,0.132 4.155,-4.233 10.401,-6.175 16.541,-4.533 l 28.442,7.622 -20.821,20.821 c -4.496,4.493 -10.876,5.935 -16.591,4.345 0.058,0.016 0.113,0.039 0.169,0.056 -6.077,-1.629 -10.499,-6.353 -12.023,-12.021" />
+                <path d="m 248.608,127.988 c 5.669,1.525 10.392,5.947 12.021,12.024 -0.017,-0.057 -0.039,-0.111 -0.055,-0.169 1.588,5.715 0.148,12.095 -4.345,16.591 l -20.822,20.82 -7.62,-28.441 c -1.644,-6.14 0.298,-12.387 4.532,-16.541 -0.043,0.042 -0.09,0.078 -0.133,0.118 4.449,-4.448 10.751,-5.916 16.422,-4.402" />
+              </g>
+            </svg>
+          </div>
+          <small class="origin-badge__sub" style="font-family:var(--font-ui);font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;">Lemgo, Germany</small>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">ALUMNI OF</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="4" fill="#ffffff"/><path d="M10 30L30 10M30 10H16M30 10V24" stroke="#060935" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10L19 19" stroke="#060935" stroke-width="3.5" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>THE MIGRANT<br>ACCELERATOR</strong>
+              <small>TMA Alumni</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14C10 8 15 6 20 10C25 6 30 8 30 14C30 26 26 34 20 34C14 34 10 26 10 14Z" stroke-linecap="round"/><circle cx="15.5" cy="16" r="3.5"/><circle cx="24.5" cy="16" r="3.5"/><circle cx="15.5" cy="16" r="1.2" fill="currentColor"/><circle cx="24.5" cy="16" r="1.2" fill="currentColor"/><path d="M18.5 20L20 22.5L21.5 20" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL<br>ORIGINS</strong>
+              <small>Innovation Network</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="20" cy="20" r="18"/><path d="M13 28V20L20 13L27 20V28H13Z"/><path d="M20 13V9M17 9H23"/><path d="M17 28V23H23V28"/><circle cx="20" cy="18" r="2"/></svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DEVELOPED IN</span>
+              <strong>LEMGO</strong>
+              <small>North Rhine-Westphalia</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z"/></svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DESIGNED IN</span>
+              <strong>GERMANY</strong>
+              <small>HABÄNE Studio</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">DEVELOPED AT</span>
+          <div class="th-owl-mark" style="display:flex;align-items:center;gap:12px;margin: 8px 0;">
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <strong style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">TH</strong>
+              <strong style="font-size:32px;line-height:0.9;font-family:var(--font-display);color:#fff;letter-spacing:0.04em;">OWL</strong>
+            </div>
+            <svg class="origin-icon" viewBox="140 100 160 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" style="width:58px;height:58px;">
+              <g transform="matrix(1,0,0,-1,0,359.05333)">
+                <path d="m 175.718,195.886 c -7.506,0 -14.375,5.009 -16.41,12.603 -2.43,9.07 2.952,18.391 12.021,20.822 l 93.543,25.065 c 9.067,2.429 18.39,-2.953 20.821,-12.021 2.43,-9.069 -2.952,-18.391 -12.021,-20.821 l -93.543,-25.065 c -1.473,-0.396 -2.955,-0.583 -4.411,-0.583" />
+                <path d="m 244.207,127.411 c -4.351,0 -8.701,1.66 -12.021,4.979 l -68.478,68.479 c -6.639,6.639 -6.639,17.402 0,24.041 6.639,6.639 17.402,6.639 24.042,0 l 68.478,-68.478 c 6.639,-6.639 6.639,-17.403 0,-24.042 -3.32,-3.319 -7.67,-4.979 -12.021,-4.979" />
+                <path d="m 244.218,127.407 c -1.457,0 -2.937,0.188 -4.411,0.583 -9.068,2.43 -14.45,11.752 -12.021,20.821 l 25.065,93.544 c 2.43,9.07 11.754,14.448 20.821,12.021 9.069,-2.43 14.451,-11.752 12.021,-20.821 l -25.065,-93.544 c -2.035,-7.595 -8.905,-12.604 -16.41,-12.604" />
+                <path d="m 281.301,249.972 c -4.155,4.147 -10.346,6.026 -16.423,4.399 0.058,0.014 0.116,0.021 0.174,0.036 -5.744,-1.481 -10.549,-5.919 -12.196,-12.058 l -7.62,-28.442 28.442,7.621 c 6.138,1.647 10.577,6.451 12.058,12.195 -0.016,-0.058 -0.023,-0.116 -0.037,-0.174 1.628,6.077 -0.251,12.269 -4.398,16.423" />
+                <path d="m 159.306,217.29 c -1.514,-5.672 -0.046,-11.973 4.402,-16.422 -0.041,0.043 -0.076,0.089 -0.119,0.132 4.155,-4.233 10.401,-6.175 16.541,-4.533 l 28.442,7.622 -20.821,20.821 c -4.496,4.493 -10.876,5.935 -16.591,4.345 0.058,0.016 0.113,0.039 0.169,0.056 -6.077,-1.629 -10.499,-6.353 -12.023,-12.021" />
+                <path d="m 248.608,127.988 c 5.669,1.525 10.392,5.947 12.021,12.024 -0.017,-0.057 -0.039,-0.111 -0.055,-0.169 1.588,5.715 0.148,12.095 -4.345,16.591 l -20.822,20.82 -7.62,-28.441 c -1.644,-6.14 0.298,-12.387 4.532,-16.541 -0.043,0.042 -0.09,0.078 -0.133,0.118 4.449,-4.448 10.751,-5.916 16.422,-4.402" />
+              </g>
+            </svg>
+          </div>
+          <small class="origin-badge__sub" style="font-family:var(--font-ui);font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;">Lemgo, Germany</small>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <span class="origin-badge__head">ALUMNI OF</span>
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="4" fill="#ffffff"/><path d="M10 30L30 10M30 10H16M30 10V24" stroke="#060935" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10L19 19" stroke="#060935" stroke-width="3.5" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>THE MIGRANT<br>ACCELERATOR</strong>
+              <small>TMA Alumni</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14C10 8 15 6 20 10C25 6 30 8 30 14C30 26 26 34 20 34C14 34 10 26 10 14Z" stroke-linecap="round"/><circle cx="15.5" cy="16" r="3.5"/><circle cx="24.5" cy="16" r="3.5"/><circle cx="15.5" cy="16" r="1.2" fill="currentColor"/><circle cx="24.5" cy="16" r="1.2" fill="currentColor"/><path d="M18.5 20L20 22.5L21.5 20" stroke-linecap="round"/></svg>
+            <div class="origin-badge__text">
+              <strong>TH OWL<br>ORIGINS</strong>
+              <small>Innovation Network</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="20" cy="20" r="18"/><path d="M13 28V20L20 13L27 20V28H13Z"/><path d="M20 13V9M17 9H23"/><path d="M17 28V23H23V28"/><circle cx="20" cy="18" r="2"/></svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DEVELOPED IN</span>
+              <strong>LEMGO</strong>
+              <small>North Rhine-Westphalia</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+
+        <div class="origin-badge">
+          <div class="origin-badge__content">
+            <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z"/></svg>
+            <div class="origin-badge__text">
+              <span class="origin-badge__head">DESIGNED IN</span>
+              <strong>GERMANY</strong>
+              <small>HABÄNE Studio</small>
+            </div>
+          </div>
+        </div>
+        <div class="origin-divider"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="footer">
+    <div class="footer__anim" aria-hidden="true"><svg class="footer__anim-routes" viewBox="0 0 1000 425" preserveAspectRatio="none"><circle r="2.2"><animateMotion dur="12s" begin="-2s" repeatCount="indefinite" path="M294,156.4 Q390,60 480,128.8" /></circle><circle r="2.2"><animateMotion dur="15s" begin="-7s" repeatCount="indefinite" path="M586,169.6 Q710,110 841,156.4" /></circle></svg><span class="footer__anim-glow" style="left:48%;top:30.3%;--gdur:16s;--gdel:0s"></span><span class="footer__anim-glow" style="left:29.4%;top:36.8%;--gdur:20s;--gdel:-3s"></span><span class="footer__anim-glow" style="left:58.6%;top:39.9%;--gdur:18s;--gdel:-6s"></span><span class="footer__anim-glow" style="left:65%;top:45.4%;--gdur:22s;--gdel:-9s"></span><span class="footer__anim-glow" style="left:84.1%;top:36.8%;--gdur:24s;--gdel:-12s"></span><span class="footer__anim-glow" style="left:76.6%;top:62%;--gdur:19s;--gdel:-15s"></span><span class="footer__anim-glow" style="left:62.6%;top:20.1%;--gdur:26s;--gdel:-1s"></span><span class="footer__anim-glow" style="left:57.8%;top:30.8%;--gdur:21s;--gdel:-4s"></span><span class="footer__anim-glow" style="left:52.6%;top:63.4%;--gdur:23s;--gdel:-8s"></span><span class="footer__anim-glow" style="left:35.4%;top:73.1%;--gdur:17s;--gdel:-11s"></span><span class="footer__anim-glow" style="left:80%;top:75.7%;--gdur:25s;--gdel:-14s"></span><span class="footer__anim-glow" style="left:93.9%;top:83.3%;--gdur:20s;--gdel:-18s"></span></div>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__brand-mark">
+          <img class="footer__brand-icon" src="assets/brand/icon-white.png" alt="" />
+          <img class="footer__brand-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" />
+        </span>
+        <span class="footer__brand-pronounce" style="display:flex;align-items:center;gap:12px;font-family:var(--font-ui);font-size:14px;color:rgba(255,255,255,0.7);text-transform:none;letter-spacing:0">Pronounced as "Habayne" <button type="button" class="footer__speaker" data-footer-speaker aria-label="Play the HABÄNE sound" style="border:0;background:none;width:auto;height:auto;padding:0;color:currentColor;display:inline-flex;align-items:center;cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M4 9v6h4l5 5V4L8 9H4z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /><path d="M19 6a8.5 8.5 0 0 1 0 12" /></svg></button></span>
+        <p class="footer__brand-tagline">Travel Technology cult<br />for those who reject the normal.</p>
+        <p class="footer__brand-origin">Designed in Berlin.<br />Built for the world.</p>
+        <div class="footer__social">
+          <a href="#" class="footer__social-btn" data-social="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg></a>
+          <a href="#" class="footer__social-btn" data-social="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path d="M13.5 21v-7h2.2l.4-2.8h-2.6V9.4c0-.8.3-1.4 1.5-1.4h1.2V5.5c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3v2.5H8.7v2.8h2.4V21" /></svg></a>
+          <a href="#" class="footer__social-btn" data-social="Twitter" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg></a>
+          <a href="https://wa.me/491623919824" class="footer__social-btn" data-social="WhatsApp" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8A9 9 0 1 1 21 12a9 9 0 0 1-9 9 8.93 8.93 0 0 1-4.2-.95L3 21z" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 .5-.5v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0 0 1" /></svg></a>
+        </div>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <a href="shop.html"><span>All Products</span><i>→</i></a>
+        <a href="shop.html?category=luggage"><span>Luggage</span><i>→</i></a>
+        <a href="shop.html?category=carry"><span>Carry</span><i>→</i></a>
+        <a href="shop.html?category=system"><span>Systems</span><i>→</i></a>
+        <a href="shop.html?category=accessory"><span>Accessories</span><i>→</i></a>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <a href="about.html"><span>About Us</span><i>→</i></a>
+        <a href="contact.html"><span>Contact</span><i>→</i></a>
+        <a href="press.html"><span>Press</span><i>→</i></a>
+        <a href="track-order.html"><span>Track Order</span><i>→</i></a>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="terms.html"><span>Terms &amp; Conditions</span><i>→</i></a>
+        <a href="privacy.html"><span>Privacy Policy</span><i>→</i></a>
+        <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
+        <a href="impressum.html"><span>Impressum</span><i>→</i></a>
+        <a href="cookie-policy.html"><span>Cookie Policy</span><i>→</i></a>
+      </div>
+    </div>
+    </div>
+    <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span><script>(function(){function u(){var d=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});var els=document.querySelectorAll('[data-footer-time]');for(var i=0;i<els.length;i++){els[i].textContent=d;}}u();setInterval(u,1000);})();</script><span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span></div>
+  </footer>
+
+  <aside class="cart-drawer" data-cart-drawer data-lenis-prevent aria-hidden="true">
+    <div class="drawer-head"><div><small>YOUR SELECTION</small><h2>Bag <b data-cart-count>0</b></h2></div><button type="button" data-cart-close>Close ×</button></div>
+    <div class="cart-progress"><span data-cart-progress></span></div><p data-cart-progress-label>Add €250 for complimentary EU delivery.</p>
+    <div class="cart-items" data-cart-items></div>
+    <div class="cart-summary" data-cart-summary hidden><div><span>Subtotal</span><strong data-cart-subtotal>€0</strong></div><p>VAT included. Delivery calculated at checkout.</p><button type="button" data-checkout>Secure checkout <span>→</span></button><small>VISA / MASTERCARD / PAYPAL / KLARNA</small></div>
+  </aside>
+
+  <aside class="compare-drawer" data-compare-drawer data-lenis-prevent aria-hidden="true">
+    <div class="drawer-head"><div><small>OBJECT COMPARISON</small><h2>Compare <b data-compare-count>0</b></h2></div><button type="button" data-compare-close>Close ×</button></div>
+    <div class="compare-content" data-compare-content></div>
+  </aside>
+
+  <section class="search-overlay" data-search-overlay data-lenis-prevent aria-hidden="true">
+    <div class="search-head"><span>SEARCH / <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /></span><button type="button" data-search-close>Close ×</button></div>
+    <form data-search-form><label for="site-search">What are you moving with?</label><div><input id="site-search" autocomplete="off" placeholder="Cabin, rail, backpack..." /><button type="submit">↗</button></div></form>
+    <div class="search-results" data-search-results></div>
+  </section>
+
+  <div class="page-scrim" data-scrim></div>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="assets/app.js?v=85"></script>
+  <script>
+    function handleOrderSearch() {
+      const orderNo = document.getElementById('inputOrderNo').value.trim() || 'HB-260524-7842';
+      const cleanNo = orderNo.toUpperCase();
+      
+      document.getElementById('ticketOrderNo').innerText = cleanNo;
+      document.getElementById('stubOrderNo').innerText = cleanNo;
+      document.getElementById('stubBarcodeCode').innerText = cleanNo.replace(/[^A-Z0-9]/g, '');
+
+      // Smooth scroll back to top boarding pass card
+      document.getElementById('boardingPassCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      if(window.toast) {
+        toast(`Tracking data loaded for order ${cleanNo}`);
+      }
+    }
+  </script>
+  <script>
+    /* Isolated region flag updater — independent of app.js */
+    (function(){
+      function flagUrl(code){
+        return 'https://flagcdn.com/w40/' + code.toLowerCase() + '.png';
+      }
+      function applyFlag(code){
+        var cleanCode = (code || 'DE').toUpperCase().replace(/[^A-Z]/g,'');
+        if(cleanCode.length !== 2) cleanCode = 'DE';
+        var img = document.getElementById('region-flag-img');
+        if(!img) return;
+        var newSrc = flagUrl(cleanCode);
+        img.src = newSrc;
+        img.alt = cleanCode;
+        img.onerror = function(){ this.onerror=null; this.parentElement.textContent = '🌍'; };
+        var btn = img.parentElement;
+        if(btn) btn.setAttribute('aria-label','Shipping region: ' + cleanCode);
+      }
+      /* Detect from browser language first */
+      var loc = navigator.language || 'en-US';
+      var fallback = (loc.split('-')[1] || 'DE').toUpperCase();
+      if(!fallback || fallback.length !== 2) fallback = 'DE';
+      applyFlag(fallback);
+      /* Then try geolocation API */
+      try{
+        fetch('https://get.geojs.io/v1/ip/geo.json')
+          .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+          .then(function(d){ if(d && d.country_code) applyFlag(d.country_code); })
+          .catch(function(){});
+      }catch(e){}
+    })();
+  </script>
+
+</body>
+</html>
