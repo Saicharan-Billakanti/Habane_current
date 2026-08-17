@@ -569,10 +569,13 @@ $$('.desktop-nav a').forEach(a=>{
     const vw=document.documentElement.clientWidth;
     const gap=14;
     const wFull=vw-gap*2;
-    const wCondTarget=iconButtons.length>=3?380:350;
+    const wCondTarget=405;
     const wCond=Math.min(wCondTarget,vw*0.96);
     const w=lerp(wFull,wCond,t);
     const sideGap=(vw-w)/2;
+    header.style.display='flex';
+    header.style.justifyContent='space-between';
+    header.style.alignItems='center';
     header.style.left=`${sideGap}px`;
     header.style.right=`${sideGap}px`;
     header.style.width=`${w}px`;
@@ -586,6 +589,9 @@ $$('.desktop-nav a').forEach(a=>{
     header.style.filter=`drop-shadow(0 ${lerp(0,22,t)}px ${lerp(0,26,t)}px rgba(6,9,53,${lerp(0,.4,t).toFixed(3)}))`;
     header.style.transform=header.classList.contains('is-menu-open')?'translateY(-8px)':'';
     if(actionsEl){
+      actionsEl.style.display='flex';
+      actionsEl.style.alignItems='center';
+      actionsEl.style.flexShrink='0';
       actionsEl.style.gap=`${lerp(10,6,t)}px`;
     }
     iconNavy.concat(wordNavy).forEach(el=>el.style.opacity=1-t);
@@ -602,9 +608,11 @@ $$('.desktop-nav a').forEach(a=>{
     iconButtons.forEach(btn=>{
       btn.style.width=btn.style.height=`${lerp(42,34,t)}px`;
       btn.style.color=rgb(MIDNIGHT,WHITE,t);
+      btn.style.flexShrink='0';
     });
     if(regionBtn){
       regionBtn.style.width=regionBtn.style.height=`${lerp(34,28,t)}px`;
+      regionBtn.style.flexShrink='0';
     }
     if(categoryMenuBtn){
       const fadeT=Math.min(1,t/0.35);
@@ -625,7 +633,7 @@ $$('.desktop-nav a').forEach(a=>{
     }
     if(prebookBtn&&prebookIsLogin){
       const naturalW=getPrebookNaturalWidth();
-      prebookBtn.style.display='';
+      prebookBtn.style.display='inline-flex';
       prebookBtn.style.width=`${lerp(naturalW,34,t)}px`;
       prebookBtn.style.height=`${lerp(36,34,t)}px`;
       prebookBtn.style.flexShrink='0';
@@ -658,6 +666,7 @@ $$('.desktop-nav a').forEach(a=>{
       menuBtn.style.margin='0';
       menuBtn.style.width=menuBtn.style.height=`${lerp(38,34,t)}px`;
       menuBtn.style.flexShrink='0';
+      menuBtn.style.display='grid';
       menuSpans.forEach(sp=>sp.style.background=rgb(MIDNIGHT,WHITE,t));
     }
   }
