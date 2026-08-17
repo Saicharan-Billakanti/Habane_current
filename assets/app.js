@@ -541,10 +541,13 @@ $$('.desktop-nav a').forEach(a=>{
   function getPrebookNaturalWidth(){
     if(!prebookBtn) return 0;
     if(!prebookNaturalWidthCache){
+      const prevW=prebookBtn.style.width;
+      prebookBtn.style.width='auto';
       const w=prebookBtn.getBoundingClientRect().width;
-      if(w>0) prebookNaturalWidthCache=w;
+      prebookBtn.style.width=prevW;
+      if(w>0) prebookNaturalWidthCache=Math.max(w,78);
     }
-    return prebookNaturalWidthCache||120;
+    return prebookNaturalWidthCache||86;
   }
   const lerp=(a,b,t)=>a+(b-a)*t;
   const rgb=(a,b,t)=>`rgb(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))})`;
@@ -557,6 +560,10 @@ $$('.desktop-nav a').forEach(a=>{
     cleared=true;
   }
   function applyHeaderMorph(t){
+    if(t<=0.001){
+      clearMorph();
+      return;
+    }
     cleared=false;
     const vw=document.documentElement.clientWidth;
     const gap=14;
@@ -663,7 +670,7 @@ $$('.desktop-nav a').forEach(a=>{
     if(!rafId) rafId=requestAnimationFrame(loop);
   }
   window.addEventListener('scroll',requestUpdate,{passive:true});
-  window.addEventListener('resize',requestUpdate);
+  window.addEventListener('resize',()=>{ prebookNaturalWidthCache=0; requestUpdate(); });
   requestUpdate();
   window.headerMorphUpdate=requestUpdate;
 })();
