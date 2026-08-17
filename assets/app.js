@@ -553,10 +553,11 @@ $$('.desktop-nav a').forEach(a=>{
   const rgb=(a,b,t)=>`rgb(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))})`;
   const rgba=(a,b,t)=>`rgba(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))},${lerp(a[3],b[3],t).toFixed(3)})`;
   const MIDNIGHT=[10,15,90], WHITE=[255,255,255], AURORA=[54,216,255], MIDNIGHT_DEEP=[6,9,53];
+  const actionsEl=$('.header-actions',header);
   let cleared=true;
   function clearMorph(){
     if(cleared) return;
-    [header,desktopNav,regionBtn,prebookBtn,prebookLabel,prebookIcon,menuBtn,divider,categoryMenuBtn,...iconButtons,...iconNavy,...iconWhite,...wordNavy,...wordWhite,...menuSpans].forEach(el=>{if(el) el.removeAttribute('style')});
+    [header,actionsEl,desktopNav,regionBtn,prebookBtn,prebookLabel,prebookIcon,menuBtn,divider,categoryMenuBtn,...iconButtons,...iconNavy,...iconWhite,...wordNavy,...wordWhite,...menuSpans].forEach(el=>{if(el) el.removeAttribute('style')});
     cleared=true;
   }
   function applyHeaderMorph(t){
@@ -568,7 +569,7 @@ $$('.desktop-nav a').forEach(a=>{
     const vw=document.documentElement.clientWidth;
     const gap=14;
     const wFull=vw-gap*2;
-    const wCondTarget=iconButtons.length>=3?520:475;
+    const wCondTarget=iconButtons.length>=3?380:350;
     const wCond=Math.min(wCondTarget,vw*0.96);
     const w=lerp(wFull,wCond,t);
     const sideGap=(vw-w)/2;
@@ -576,14 +577,17 @@ $$('.desktop-nav a').forEach(a=>{
     header.style.right=`${sideGap}px`;
     header.style.width=`${w}px`;
     header.style.height=`${lerp(80,58,t)}px`;
-    header.style.padding=`0 ${lerp(28,20,t)}px 0 ${lerp(28,20,t)}px`;
-    header.style.gap=`${lerp(14,8,t)}px`;
+    header.style.padding=`0 ${lerp(28,16,t)}px 0 ${lerp(28,18,t)}px`;
+    header.style.gap=`${lerp(14,6,t)}px`;
     header.style.borderRadius=`14px`;
     header.style.background=rgba([246,247,250,.6],[20,32,150,.72],t);
     header.style.backdropFilter=`blur(${lerp(14,18,t)}px)`;
     header.style.webkitBackdropFilter=header.style.backdropFilter;
     header.style.filter=`drop-shadow(0 ${lerp(0,22,t)}px ${lerp(0,26,t)}px rgba(6,9,53,${lerp(0,.4,t).toFixed(3)}))`;
     header.style.transform=header.classList.contains('is-menu-open')?'translateY(-8px)':'';
+    if(actionsEl){
+      actionsEl.style.gap=`${lerp(10,6,t)}px`;
+    }
     iconNavy.concat(wordNavy).forEach(el=>el.style.opacity=1-t);
     iconWhite.concat(wordWhite).forEach(el=>el.style.opacity=t);
     iconNavy.forEach(el=>el.style.height=`${lerp(22,18,t)}px`);
@@ -596,26 +600,32 @@ $$('.desktop-nav a').forEach(a=>{
       desktopNav.style.pointerEvents=t>.5?'none':'auto';
     }
     iconButtons.forEach(btn=>{
-      btn.style.width=btn.style.height=`${lerp(42,38,t)}px`;
+      btn.style.width=btn.style.height=`${lerp(42,34,t)}px`;
       btn.style.color=rgb(MIDNIGHT,WHITE,t);
     });
     if(regionBtn){
-      regionBtn.style.width=regionBtn.style.height=`${lerp(34,30,t)}px`;
+      regionBtn.style.width=regionBtn.style.height=`${lerp(34,28,t)}px`;
     }
     if(categoryMenuBtn){
-      const fadeT=Math.min(1,t/0.4);
+      const fadeT=Math.min(1,t/0.35);
       categoryMenuBtn.style.opacity=1-fadeT;
       categoryMenuBtn.style.width=categoryMenuBtn.style.height=`${Math.max(0,lerp(42,0,t))}px`;
       categoryMenuBtn.style.marginLeft=`${lerp(4,0,t)}px`;
       categoryMenuBtn.style.overflow='hidden';
-      categoryMenuBtn.style.pointerEvents=t>.3?'none':'auto';
+      categoryMenuBtn.style.pointerEvents=t>.2?'none':'auto';
+      if(t>=0.35){
+        categoryMenuBtn.style.display='none';
+      }else{
+        categoryMenuBtn.style.display='';
+      }
     }
     if(divider){
-      divider.style.marginLeft=`${lerp(22,9,t)}px`;
+      divider.style.marginLeft=`${lerp(22,8,t)}px`;
       divider.style.height=`${lerp(24,16,t)}px`;
     }
     if(prebookBtn&&prebookIsLogin){
       const naturalW=getPrebookNaturalWidth();
+      prebookBtn.style.display='';
       prebookBtn.style.width=`${lerp(naturalW,34,t)}px`;
       prebookBtn.style.height=`${lerp(36,34,t)}px`;
       prebookBtn.style.flexShrink='0';
@@ -625,7 +635,7 @@ $$('.desktop-nav a').forEach(a=>{
       prebookIcon.style.opacity=t;
     }else if(prebookBtn){
       const naturalW=getPrebookNaturalWidth();
-      const fadeT=Math.min(1,t/0.4);
+      const fadeT=Math.min(1,t/0.35);
       prebookBtn.style.opacity=1-fadeT;
       prebookBtn.style.width=`${Math.max(0,lerp(naturalW,0,t))}px`;
       prebookBtn.style.height='36px';
@@ -633,14 +643,20 @@ $$('.desktop-nav a').forEach(a=>{
       prebookBtn.style.borderRadius='999px';
       prebookBtn.style.paddingLeft=prebookBtn.style.paddingRight=`${lerp(16,0,t)}px`;
       prebookBtn.style.marginLeft=`${lerp(4,0,t)}px`;
-      prebookBtn.style.pointerEvents=t>.3?'none':'auto';
+      prebookBtn.style.pointerEvents=t>.2?'none':'auto';
+      if(t>=0.35){
+        prebookBtn.style.display='none';
+      }else{
+        prebookBtn.style.display='';
+      }
     }
     if(menuBtn){
       menuBtn.style.opacity=t;
       menuBtn.style.transform=`scale(${lerp(.55,1,t)})`;
       menuBtn.style.borderColor=rgba([10,15,90,.16],[255,255,255,.3],t);
       menuBtn.style.pointerEvents=t>.5?'auto':'none';
-      menuBtn.style.marginRight='0px';
+      menuBtn.style.margin='0';
+      menuBtn.style.width=menuBtn.style.height=`${lerp(38,34,t)}px`;
       menuBtn.style.flexShrink='0';
       menuSpans.forEach(sp=>sp.style.background=rgb(MIDNIGHT,WHITE,t));
     }
