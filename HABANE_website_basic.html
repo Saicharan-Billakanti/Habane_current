@@ -1073,6 +1073,220 @@ button { color: inherit; }
   .nl-top { flex-direction: column; gap: 16px; margin-bottom: 40px; }
 }
 
+/* ===== SPOTIFY NAVY MUSIC CARD ===== */
+.spotify-card-wrap {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 150%);
+  width: 430px;
+  max-width: calc(100vw - 28px);
+  z-index: 350;
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1), opacity .35s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.spotify-card-wrap.is-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.spotify-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+.spotify-card__eyebrow {
+  color: rgba(255,255,255,0.7);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+.spotify-card__close {
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.spotify-card__close:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.1);
+}
+.spotify-card {
+  background: #001f54;
+  border: 1px solid rgba(54, 216, 255, 0.22);
+  border-radius: 20px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 30px rgba(54,216,255,0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.spotify-card__art-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+}
+.spotify-card__art {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.spotify-card__info {
+  flex: 1;
+  min-width: 0;
+}
+.spotify-card__title {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.spotify-card__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.spotify-card__badge {
+  background: rgba(255,255,255,0.16);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: ui-monospace, monospace;
+  letter-spacing: .05em;
+}
+.spotify-card__artist {
+  color: #b9c8ff;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color .2s;
+}
+.spotify-card__artist:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.spotify-card__save-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color .2s;
+}
+.spotify-card__save-row:hover {
+  color: #1DB954;
+}
+.spotify-card__circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  line-height: 1;
+}
+.spotify-card__right-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.spotify-card__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1DB954;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(29,185,84,0.4);
+}
+.spotify-card__play-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease, background .2s, box-shadow .2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.spotify-card__play-btn:hover {
+  transform: scale(1.08);
+  background: #36d8ff;
+}
+.spotify-card__play-btn:active {
+  transform: scale(0.95);
+}
+.spotify-card__play-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.spotify-card__progress-track {
+  margin-top: 10px;
+  height: 3px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.spotify-card__progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #1DB954;
+  transition: width 0.1s linear;
+}
+.spotify-card__status {
+  color: rgba(255,255,255,0.6);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  margin: 6px 0 0 4px;
+  min-height: 14px;
+}
+
 </style>
 </head>
 <body>
@@ -1951,6 +2165,43 @@ button { color: inherit; }
     </footer>
   </div>
 
+  <!-- Spotify Navy Card Music Player -->
+  <div class="spotify-card-wrap" data-spotify-card aria-hidden="true">
+    <div class="spotify-card__header">
+      <p class="spotify-card__eyebrow">Get into the mood</p>
+      <button type="button" class="spotify-card__close" data-audio-close aria-label="Close music player">×</button>
+    </div>
+    <div class="spotify-card">
+      <div class="spotify-card__art-wrap">
+        <img class="spotify-card__art" id="spotify-artwork" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=300&q=80" alt="Album artwork" />
+      </div>
+      <div class="spotify-card__info">
+        <p class="spotify-card__title" id="spotify-track-title">An Ending (Ascent) — Remastered</p>
+        <div class="spotify-card__meta-row">
+          <span class="spotify-card__badge">Preview</span>
+          <a class="spotify-card__artist" id="spotify-artist-link" href="https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE" target="_blank" rel="noopener">Brian Eno</a>
+        </div>
+        <button class="spotify-card__save-row" id="spotify-link-btn" type="button">
+          <span class="spotify-card__circle">+</span> Open on Spotify
+        </button>
+      </div>
+      <div class="spotify-card__right-controls">
+        <div class="spotify-card__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.59 14.41c-.19.31-.6.41-.91.22-2.5-1.53-5.65-1.87-9.36-1.02-.36.08-.71-.15-.79-.51-.08-.36.15-.71.51-.79 4.06-.93 7.55-.53 10.34 1.19.31.19.41.6.21.91zm1.22-2.72c-.24.39-.75.51-1.14.27-2.86-1.76-7.23-2.27-10.61-1.24-.44.13-.9-.11-1.03-.55-.13-.44.11-.9.55-1.03 3.86-1.17 8.66-.6 11.96 1.42.39.24.51.75.27 1.13zm.11-2.83C14.28 8.66 8.99 8.48 5.9 9.42c-.52.16-1.08-.13-1.24-.65-.16-.52.13-1.08.65-1.24 3.55-1.08 9.4-.87 13.11 1.35.47.28.62.9.34 1.36-.28.47-.9.62-1.36.34z" fill="#fff"/>
+          </svg>
+        </div>
+        <button class="spotify-card__play-btn" id="spotify-play-btn" type="button" data-audio-toggle aria-label="Play 30 second preview">
+          <svg id="spotify-play-icon" width="18" height="18" viewBox="0 0 24 24" fill="#001f54"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="spotify-pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="#001f54" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="spotify-card__progress-track"><div class="spotify-card__progress-fill" id="spotify-progress-fill"></div></div>
+    <p class="spotify-card__status" id="spotify-status">0:00 / 0:30 preview</p>
+    <audio id="spotify-audio-player" preload="none"></audio>
+  </div>
+
   <dialog class="film-dialog" data-film-dialog data-lenis-prevent>
     <button type="button" class="film-dialog__close" data-film-close aria-label="Close movement film">Close ×</button>
     <div class="film-dialog__screen">
@@ -2185,34 +2436,113 @@ if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && !
   });
 })();
 
-// ── FOOTER SPEAKER SOUND ──
+// ── SPOTIFY NAVY MUSIC PLAYER ENGINE ──
 (function() {
+  const CONFIG = {
+    trackName: "An Ending (Ascent)",
+    artistName: "Brian Eno",
+    spotifyTrackUrl: "https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE"
+  };
+
+  const cardWrap = document.querySelector('[data-spotify-card]');
+  const audio = document.getElementById('spotify-audio-player');
+  const playBtn = document.getElementById('spotify-play-btn');
+  const playIcon = document.getElementById('spotify-play-icon');
+  const pauseIcon = document.getElementById('spotify-pause-icon');
+  const progressFill = document.getElementById('spotify-progress-fill');
+  const progressTrack = document.querySelector('.spotify-card__progress-track');
+  const statusEl = document.getElementById('spotify-status');
+  const artworkEl = document.getElementById('spotify-artwork');
+  const titleEl = document.getElementById('spotify-track-title');
+  const artistLink = document.getElementById('spotify-artist-link');
+  const spotifyBtn = document.getElementById('spotify-link-btn');
+  const closeBtn = document.querySelector('[data-audio-close]');
   const speaker = document.querySelector('[data-footer-speaker]');
-  if (!speaker) return;
-  let audioCtx = null;
-  speaker.addEventListener('click', () => {
+
+  if (!cardWrap || !audio) return;
+
+  if (spotifyBtn) spotifyBtn.onclick = () => window.open(CONFIG.spotifyTrackUrl, '_blank');
+  if (artistLink) artistLink.href = CONFIG.spotifyTrackUrl;
+  if (closeBtn) closeBtn.onclick = () => {
+    audio.pause();
+    cardWrap.classList.remove('is-visible');
+    cardWrap.setAttribute('aria-hidden', 'true');
+  };
+
+  let previewUrl = null;
+
+  async function loadPreview() {
     try {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const now = audioCtx.currentTime;
-      [432, 540, 648, 864].forEach((freq, i) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now + i * 0.08);
-        gain.gain.setValueAtTime(0.0001, now + i * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.12, now + i * 0.08 + 0.04);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 1.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now + i * 0.08);
-        osc.stop(now + i * 0.08 + 1.3);
-      });
-      speaker.style.transform = 'scale(1.2)';
-      setTimeout(() => speaker.style.transform = '', 300);
-    } catch (e) {
-      console.warn('Audio tone:', e);
+      const q = encodeURIComponent(CONFIG.trackName + ' ' + CONFIG.artistName);
+      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=song&limit=1');
+      const data = await res.json();
+      if (data.results && data.results[0]) {
+        const track = data.results[0];
+        previewUrl = track.previewUrl;
+        if (titleEl) titleEl.textContent = track.trackName;
+        if (artistLink) artistLink.textContent = track.artistName;
+        if (artworkEl) artworkEl.src = track.artworkUrl100.replace('100x100', '300x300');
+        audio.src = previewUrl;
+        if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+      }
+    } catch (err) {
+      if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
     }
+  }
+
+  loadPreview();
+
+  function togglePlay() {
+    cardWrap.classList.add('is-visible');
+    cardWrap.setAttribute('aria-hidden', 'false');
+    if (!audio.paused) {
+      audio.pause();
+    } else {
+      if (!audio.src && previewUrl) audio.src = previewUrl;
+      const playPromise = audio.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(() => {
+          window.open(CONFIG.spotifyTrackUrl, '_blank');
+        });
+      }
+    }
+  }
+
+  if (playBtn) playBtn.onclick = togglePlay;
+  if (speaker) speaker.onclick = togglePlay;
+
+  if (progressTrack) {
+    progressTrack.onclick = (e) => {
+      if (!audio.duration) return;
+      const rect = progressTrack.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+    };
+  }
+
+  audio.addEventListener('play', () => {
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = 'block';
+  });
+
+  audio.addEventListener('pause', () => {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      if (progressFill) progressFill.style.width = pct + '%';
+      if (statusEl) statusEl.textContent = Math.floor(audio.currentTime) + 's / ' + Math.floor(audio.duration) + 's preview';
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+    if (progressFill) progressFill.style.width = '0%';
+    if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
   });
 })();
 

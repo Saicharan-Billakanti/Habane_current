@@ -406,85 +406,151 @@ function openSearch(){$('[data-search-overlay]').classList.add('is-open');$('[da
 function closeSearch(){$('[data-search-overlay]').classList.remove('is-open');$('[data-search-overlay]').setAttribute('aria-hidden','true');lock(false)}
 function renderSearchResults(list){$('[data-search-results]').innerHTML=list.slice(0,6).map(p=>`<button type="button" data-search-product="${p.id}"><small>${p.code} / ${p.category}</small><b>${p.name}</b><span>${money(p.price)}</span></button>`).join('');$$('[data-search-product]').forEach(b=>b.onclick=()=>location.href=`product.html?id=${b.dataset.searchProduct}`)}
 
-function syncSoundArt(){const art=$('[data-sound-art]');if(art) art.classList.toggle('is-playing',state.audio.playing);const btn=$('[data-playlist-play]');if(btn) btn.classList.toggle('is-playing',state.audio.playing);const toggle=$('[data-audio-toggle]');if(toggle) toggle.textContent=state.audio.playing?'Ⅱ':'▶'}
+function syncSoundArt(){
+  const art=$('[data-sound-art]');if(art) art.classList.toggle('is-playing',state.audio.playing);
+  const btn=$('[data-playlist-play]');if(btn) btn.classList.toggle('is-playing',state.audio.playing);
+  const toggle=$('[data-audio-toggle]');if(toggle) toggle.textContent=state.audio.playing?'Ⅱ':'▶';
+  const playIcon=$('#spotify-play-icon');if(playIcon) playIcon.style.display=state.audio.playing?'none':'block';
+  const pauseIcon=$('#spotify-pause-icon');if(pauseIcon) pauseIcon.style.display=state.audio.playing?'block':'none';
+}
 
-// --- Real, license-free ambient playback engine (Web Audio synthesis) ---
-let audioCtx=null;
-function getAudioCtx(){
-  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  if(audioCtx.state==='suspended') audioCtx.resume();
-  return audioCtx;
-}
-const moodScales={
-  focused:[261.63,293.66,329.63,392.00,440.00],
-  electric:[329.63,392.00,440.00,493.88,587.33,659.25],
-  slow:[220.00,246.94,261.63,329.63,369.99]
+// ===== SPOTIFY NAVY CARD AUDIO ENGINE =====
+const SPOTIFY_CONFIG = {
+  trackName: "An Ending (Ascent)",
+  artistName: "Brian Eno",
+  spotifyTrackUrl: "https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE"
 };
-const moodPatterns={
-  focused:[0,2,4,2,1,2,4,3],
-  electric:[0,3,2,4,5,3,2,4],
-  slow:[0,2,0,3,0,2,0,1]
-};
-let synthTimer=null, synthGain=null, synthNodes=[];
-function playSynthNote(ctx,freq,time,dur,gainVal,type){
-  const osc=ctx.createOscillator(), g=ctx.createGain();
-  osc.type=type||'sine'; osc.frequency.value=freq;
-  osc.connect(g); g.connect(synthGain);
-  g.gain.setValueAtTime(0,time);
-  g.gain.linearRampToValueAtTime(gainVal,time+.06);
-  g.gain.exponentialRampToValueAtTime(.0008,time+dur);
-  osc.start(time); osc.stop(time+dur+.05);
-  synthNodes.push(osc);
-}
-function stopSynth(){
-  if(synthTimer){clearInterval(synthTimer);synthTimer=null}
-  if(synthGain){try{const ctx=getAudioCtx();synthGain.gain.cancelScheduledValues(ctx.currentTime);synthGain.gain.linearRampToValueAtTime(0,ctx.currentTime+.35)}catch(e){}}
-  const nodes=synthNodes; synthNodes=[];
-  setTimeout(()=>nodes.forEach(n=>{try{n.stop()}catch(e){}}),400);
-}
-function startSynth(mood){
-  stopSynth();
-  const ctx=getAudioCtx();
-  synthGain=ctx.createGain(); synthGain.gain.value=.0001; synthGain.connect(ctx.destination);
-  synthGain.gain.linearRampToValueAtTime(.9, ctx.currentTime+.6);
-  const scale=moodScales[mood]||moodScales.focused;
-  const pattern=moodPatterns[mood]||moodPatterns.focused;
-  const stepDur=mood==='electric'?.24:mood==='slow'?.58:.38;
-  const leadType=mood==='electric'?'sawtooth':mood==='slow'?'sine':'triangle';
-  let step=0;
-  const schedule=()=>{
-    const now=ctx.currentTime;
-    if(step%4===0){
-      const root=scale[0];
-      playSynthNote(ctx,root,now,stepDur*4.3,.09,'sine');
-      playSynthNote(ctx,root*1.5,now,stepDur*4.3,.065,'sine');
+
+let spotifyPreviewUrl = null;
+let spotifyAudio = null;
+
+function initSpotifyPlayer() {
+  spotifyAudio = document.getElementById('spotify-audio-player');
+  const playBtn = document.getElementById('spotify-play-btn');
+  const progressFill = document.getElementById('spotify-progress-fill');
+  const progressTrack = document.querySelector('.spotify-card__progress-track');
+  const statusEl = document.getElementById('spotify-status');
+  const artworkEl = document.getElementById('spotify-artwork');
+  const titleEl = document.getElementById('spotify-track-title');
+  const artistLink = document.getElementById('spotify-artist-link');
+  const spotifyBtn = document.getElementById('spotify-link-btn');
+  const cardWrap = document.querySelector('[data-spotify-card]');
+  const closeBtn = document.querySelector('[data-audio-close]');
+
+  if (!cardWrap && !spotifyAudio) return;
+
+  if (spotifyBtn) spotifyBtn.onclick = () => window.open(SPOTIFY_CONFIG.spotifyTrackUrl, '_blank');
+  if (artistLink) artistLink.href = SPOTIFY_CONFIG.spotifyTrackUrl;
+  if (closeBtn) closeBtn.onclick = () => stopAudio();
+
+  async function loadSpotifyPreview() {
+    try {
+      const q = encodeURIComponent(SPOTIFY_CONFIG.trackName + ' ' + SPOTIFY_CONFIG.artistName);
+      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=song&limit=1');
+      const data = await res.json();
+      if (data.results && data.results[0]) {
+        const track = data.results[0];
+        spotifyPreviewUrl = track.previewUrl;
+        if (titleEl) titleEl.textContent = track.trackName;
+        if (artistLink) artistLink.textContent = track.artistName;
+        if (artworkEl) artworkEl.src = track.artworkUrl100.replace('100x100', '300x300');
+        if (spotifyAudio) spotifyAudio.src = spotifyPreviewUrl;
+        if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+      }
+    } catch (err) {
+      if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
     }
-    for(let i=0;i<4;i++){
-      const t=now+i*stepDur;
-      const degree=pattern[(step+i)%pattern.length];
-      const note=scale[degree%scale.length];
-      playSynthNote(ctx,note,t,stepDur*.88,mood==='electric'?.3:.24,leadType);
-      if(i===0) playSynthNote(ctx,note/2,t,stepDur*1.6,.16,'sine');
-    }
-    step+=4;
-  };
-  schedule();
-  synthTimer=setInterval(schedule,Math.max(60,stepDur*4*1000-50));
-}
-function playBrandChimeTone(){
-  try{
-    const ctx=getAudioCtx();
-    const notes=[523.25,659.25,783.99,1046.5];
-    const g=ctx.createGain(); g.gain.value=.0001; g.connect(ctx.destination);
-    const now=ctx.currentTime;
-    g.gain.linearRampToValueAtTime(.45,now+.02);
-    g.gain.exponentialRampToValueAtTime(.0005,now+1.8);
-    notes.forEach((f,i)=>{
-      const osc=ctx.createOscillator(); osc.type='sine'; osc.frequency.value=f;
-      osc.connect(g); osc.start(now+i*.09); osc.stop(now+i*.09+1.4);
+  }
+
+  loadSpotifyPreview();
+
+  if (progressTrack && spotifyAudio) {
+    progressTrack.onclick = (e) => {
+      if (!spotifyAudio.duration) return;
+      const rect = progressTrack.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      spotifyAudio.currentTime = pct * spotifyAudio.duration;
+    };
+  }
+
+  if (spotifyAudio) {
+    spotifyAudio.addEventListener('play', () => {
+      state.audio.playing = true;
+      syncSoundArt();
     });
-  }catch(e){}
+
+    spotifyAudio.addEventListener('pause', () => {
+      state.audio.playing = false;
+      syncSoundArt();
+    });
+
+    spotifyAudio.addEventListener('timeupdate', () => {
+      if (spotifyAudio.duration) {
+        const pct = (spotifyAudio.currentTime / spotifyAudio.duration) * 100;
+        if (progressFill) progressFill.style.width = pct + '%';
+        if (statusEl) statusEl.textContent = Math.floor(spotifyAudio.currentTime) + 's / ' + Math.floor(spotifyAudio.duration) + 's preview';
+      }
+    });
+
+    spotifyAudio.addEventListener('ended', () => {
+      state.audio.playing = false;
+      if (progressFill) progressFill.style.width = '0%';
+      if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+      syncSoundArt();
+    });
+  }
+
+  if (playBtn) {
+    playBtn.onclick = () => toggleAudio();
+  }
 }
+
+function openSpotifyCard() {
+  const card = document.querySelector('[data-spotify-card]');
+  if (card) {
+    card.classList.add('is-visible');
+    card.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function toggleAudio() {
+  if (!spotifyAudio) spotifyAudio = document.getElementById('spotify-audio-player');
+  openSpotifyCard();
+  if (state.audio.playing) {
+    if (spotifyAudio) spotifyAudio.pause();
+    state.audio.playing = false;
+  } else {
+    if (spotifyAudio) {
+      if (!spotifyAudio.src && spotifyPreviewUrl) spotifyAudio.src = spotifyPreviewUrl;
+      const playPromise = spotifyAudio.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(() => {
+          // If browser restricts audio, fallback to direct Spotify
+          window.open(SPOTIFY_CONFIG.spotifyTrackUrl, '_blank');
+        });
+      }
+    }
+    state.audio.playing = true;
+  }
+  syncSoundArt();
+}
+
+function startPlaylist() {
+  openSpotifyCard();
+  toggleAudio();
+}
+
+function stopAudio() {
+  if (spotifyAudio) spotifyAudio.pause();
+  const card = document.querySelector('[data-spotify-card]');
+  if (card) {
+    card.classList.remove('is-visible');
+    card.setAttribute('aria-hidden', 'true');
+  }
+  state.audio.playing = false;
+  syncSoundArt();
+}
+
 function playBrandChime(onDone){
   let done=false;
   const finish=()=>{ if(!done){ done=true; if(onDone) onDone(); } };
@@ -498,14 +564,6 @@ function playBrandChime(onDone){
   }catch(e){ finish(); }
   setTimeout(finish,2200);
 }
-
-function startPlaylist(){
-  const p=products[state.activeProduct], playlist=p.playlists[state.playlistMood];state.audio.playing=true;state.audio.progress=0;state.audio.trackIndex=0;
-  $('[data-playlist-name]').textContent=playlist.tracks[0][0];syncSoundArt();
-  startSynth(state.playlistMood);
-  clearInterval(state.audio.timer);state.audio.timer=setInterval(()=>{if(!state.audio.playing)return;state.audio.progress+=.7;if(state.audio.progress>=100){state.audio.progress=0;state.audio.trackIndex=(state.audio.trackIndex+1)%playlist.tracks.length;$('[data-playlist-name]').textContent=playlist.tracks[state.audio.trackIndex][0]}const soundProgress=$('[data-sound-progress]');if(soundProgress)soundProgress.style.width=`${state.audio.progress}%`},700);
-}
-function stopAudio(){clearInterval(state.audio.timer);state.audio.playing=false;stopSynth();syncSoundArt()}
 
 if($('[data-product-grid]')) createProductCards();
 updateCart(); updateCompare();
@@ -996,14 +1054,14 @@ if($('[data-search-close]')) $('[data-search-close]').onclick=closeSearch;
 if($('[data-search-form]')) $('[data-search-form]').onsubmit=e=>{e.preventDefault();const term=$('#site-search').value.trim().toLowerCase();const matches=Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category} ${p.description}`.toLowerCase().includes(term));renderSearchResults(matches.length?matches:Object.values(products).slice(0,6))};
 if($('#site-search')) $('#site-search').addEventListener('input',e=>{const term=e.target.value.trim().toLowerCase();renderSearchResults(Object.values(products).filter(p=>`${p.name} ${p.subtitle} ${p.category}`.toLowerCase().includes(term)))});
 
-if($('[data-audio-toggle]')) $('[data-audio-toggle]').onclick=()=>{state.audio.playing=!state.audio.playing;syncSoundArt();if(state.audio.playing)startSynth(state.playlistMood);else stopSynth()};
+if($('[data-audio-toggle]')) $('[data-audio-toggle]').onclick=toggleAudio;
 if($('[data-audio-close]')) $('[data-audio-close]').onclick=stopAudio;
+initSpotifyPlayer();
 
 document.addEventListener('click',e=>{
   const speakerBtn=e.target.closest('[data-footer-speaker]');
   if(speakerBtn){
-    speakerBtn.classList.add('is-playing');
-    playBrandChime(()=>speakerBtn.classList.remove('is-playing'));
+    toggleAudio();
   }
 });
 if($('[data-newsletter-form]')) $('[data-newsletter-form]').onsubmit=e=>{e.preventDefault();$('[data-newsletter-status]').textContent='You are inside the movement.';e.target.reset()};
