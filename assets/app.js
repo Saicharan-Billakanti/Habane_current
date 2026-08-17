@@ -821,19 +821,102 @@ window.addEventListener('resize',()=>{if($('[data-mobile-menu]') && $('[data-mob
 $$('[data-social]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
 $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();toast('More options coming soon')}));
 
-// --- PDP sound: Play swaps the teaser card for the real Spotify player in place,
-// so only one player is ever visible. Spotify's own iframe must render its own UI
-// (cross-origin — we can neither restyle it nor drive its audio from our page),
-// hence the swap rather than stacking a second player underneath.
-(function(){
-  const card=$('[data-pdp-sound-card]');
-  const wrap=$('[data-pdp-sound-embed-wrap]');
-  const playBtn=$('[data-pdp-sound-play]');
-  if(!card||!wrap||!playBtn) return;
-  playBtn.addEventListener('click',()=>{
-    wrap.innerHTML=`<iframe src="https://open.spotify.com/embed/track/${playBtn.dataset.soundUri}?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="HABÄNE soundtrack on Spotify"></iframe>`;
-    card.classList.add('is-hidden');
-    wrap.classList.add('is-open');
+// --- In-Page PDP Spotify Navy Card Music Player ---
+(function initPdpSpotifyCard() {
+  const CONFIG = {
+    trackName: "An Ending (Ascent)",
+    artistName: "Brian Eno",
+    spotifyTrackUrl: "https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE"
+  };
+
+  const audio = document.getElementById('pdp-spotify-audio');
+  const playBtn = document.getElementById('pdp-spotify-play');
+  const playIcon = document.getElementById('pdp-spotify-play-icon');
+  const pauseIcon = document.getElementById('pdp-spotify-pause-icon');
+  const progressFill = document.getElementById('pdp-spotify-progress-fill');
+  const progressTrack = document.getElementById('pdp-spotify-progress-track');
+  const statusEl = document.getElementById('pdp-spotify-status');
+  const artworkEl = document.getElementById('pdp-spotify-art');
+  const titleEl = document.getElementById('pdp-spotify-title');
+  const artistLink = document.getElementById('pdp-spotify-artist');
+  const saveBtn = document.getElementById('pdp-spotify-save');
+
+  if (!audio || !playBtn) return;
+
+  if (saveBtn) saveBtn.onclick = () => window.open(CONFIG.spotifyTrackUrl, '_blank');
+  if (artistLink) artistLink.href = CONFIG.spotifyTrackUrl;
+
+  let previewUrl = null;
+
+  async function loadPreview() {
+    try {
+      const q = encodeURIComponent(CONFIG.trackName + ' ' + CONFIG.artistName);
+      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=song&limit=1');
+      const data = await res.json();
+      if (data.results && data.results[0]) {
+        const track = data.results[0];
+        previewUrl = track.previewUrl;
+        if (titleEl) titleEl.textContent = track.trackName;
+        if (artistLink) artistLink.textContent = track.artistName;
+        if (artworkEl) artworkEl.src = track.artworkUrl100.replace('100x100', '300x300');
+        audio.src = previewUrl;
+        if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+      }
+    } catch (err) {
+      if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+    }
+  }
+
+  loadPreview();
+
+  function togglePlay() {
+    if (!audio.paused) {
+      audio.pause();
+    } else {
+      if (!audio.src && previewUrl) audio.src = previewUrl;
+      const playPromise = audio.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(() => {
+          window.open(CONFIG.spotifyTrackUrl, '_blank');
+        });
+      }
+    }
+  }
+
+  playBtn.onclick = togglePlay;
+
+  if (progressTrack) {
+    progressTrack.onclick = (e) => {
+      if (!audio.duration) return;
+      const rect = progressTrack.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+    };
+  }
+
+  audio.addEventListener('play', () => {
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = 'block';
+  });
+
+  audio.addEventListener('pause', () => {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      if (progressFill) progressFill.style.width = pct + '%';
+      if (statusEl) statusEl.textContent = Math.floor(audio.currentTime) + 's / ' + Math.floor(audio.duration) + 's preview';
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+    if (progressFill) progressFill.style.width = '0%';
+    if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
   });
 })();
 $$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');lock(false)});
