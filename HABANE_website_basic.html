@@ -945,7 +945,6 @@ button { color: inherit; }
   display: block;
   position: relative;
   perspective: 2000px;
-  cursor: pointer;
 }
 .nb-page-group .nb-page {
   position: absolute;
@@ -958,12 +957,41 @@ button { color: inherit; }
   border-radius: 12px;
   box-shadow: 0 4px 0 #e6e8eb, 0 6px 0 #1a2035, 0 10px 15px rgba(0,0,0,0.1);
   backface-visibility: hidden;
-  transform-origin: left center;
+  transform-origin: -12px center;
   transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .nb-page-group .nb-page--middle {
   z-index: 2;
   transform-style: preserve-3d;
+}
+.nb-page-group .nb-page--middle.is-flipped {
+  transform: rotateY(-180deg);
+}
+.nb-flip-btn {
+  position: absolute;
+  bottom: 24px;
+  background: none;
+  border: none;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--midnight);
+  cursor: pointer;
+  z-index: 10;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  backface-visibility: hidden;
+}
+.nb-flip-btn:hover {
+  background: rgba(10,15,90,0.05);
+}
+.nb-flip-btn--next {
+  right: 24px;
+}
+.nb-flip-btn--prev {
+  left: 24px;
+  transform: rotateY(180deg);
 }
 .nb-page-group .nb-page--middle::after {
   content: "";
@@ -980,9 +1008,7 @@ button { color: inherit; }
 .nb-page-group .nb-page--right {
   z-index: 1;
 }
-.notebook-pages:hover .nb-page--middle {
-  transform: rotateY(-180deg);
-}
+
 
 .nb-header { 
   height: 64px; 
@@ -1875,7 +1901,7 @@ button { color: inherit; }
 
               <div class="nb-page-group">
                 <!-- Page 2 -->
-                <div class="nb-page nb-page--middle">
+                <div class="nb-page nb-page--middle" id="flip-page">
                   <div class="nb-header">
                     <span class="nb-num">02</span>
                     <span class="nb-cat">CULTURE</span>
@@ -1894,6 +1920,9 @@ button { color: inherit; }
                   </div>
 
                   <a href="blog.html" class="nb-readmore">READ MORE →</a>
+                  
+                  <button class="nb-flip-btn nb-flip-btn--next" type="button" onclick="document.getElementById('flip-page').classList.add('is-flipped'); event.stopPropagation();">NEXT PAGE &rarr;</button>
+                  <button class="nb-flip-btn nb-flip-btn--prev" type="button" onclick="document.getElementById('flip-page').classList.remove('is-flipped'); event.stopPropagation();">&larr; PREVIOUS PAGE</button>
                 </div>
 
                 <!-- Page 3 -->
