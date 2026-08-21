@@ -958,7 +958,7 @@ button { color: inherit; }
   border-radius: 12px;
   box-shadow: 0 4px 0 #e6e8eb, 0 6px 0 #1a2035, 0 10px 15px rgba(0,0,0,0.1);
   backface-visibility: hidden;
-  transform-origin: -12px center;
+  transform-origin: left center;
   transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .nb-page-group .nb-page--middle {
@@ -966,7 +966,7 @@ button { color: inherit; }
   transform-style: preserve-3d;
 }
 .nb-page-group .nb-page--middle.is-flipped {
-  transform: rotateY(-180deg);
+  transform: rotateY(-180deg) translateX(24px);
 }
 .nb-flip-btn {
   position: absolute;
@@ -989,10 +989,11 @@ button { color: inherit; }
 }
 .nb-flip-btn--next {
   right: 24px;
+  transform: translateZ(2px);
 }
 .nb-flip-btn--prev {
   left: 24px;
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(2px);
 }
 .nb-page-group .nb-page--middle::after {
   content: "";
