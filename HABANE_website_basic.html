@@ -958,7 +958,7 @@ button { color: inherit; }
   border: 2px solid #1a2035;
   border-radius: 12px;
   box-shadow: 0 4px 0 #e6e8eb, 0 6px 0 #1a2035, 0 10px 15px rgba(0,0,0,0.1);
-  backface-visibility: hidden;
+  
   transform-origin: left center;
   transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
@@ -969,6 +969,38 @@ button { color: inherit; }
 .nb-page-group .nb-page--middle.is-flipped {
   transform: rotateY(-180deg) translateX(24px);
 }
+  .nb-page-group .nb-page--middle { padding: 0 !important; background: transparent !important; border: none !important; box-shadow: none !important; }
+  .nb-page-front {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fdfdfd;
+    border: 2px solid #1a2035;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #e6e8eb, 0 6px 0 #1a2035, 0 10px 15px rgba(0,0,0,0.1);
+    border-right: none;
+    border-bottom: 1px solid rgba(10,15,90,.08);
+  }
+  .nb-page-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fdfdfd;
+    border: 2px solid #1a2035;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #e6e8eb, 0 6px 0 #1a2035, 0 10px 15px rgba(0,0,0,0.1);
+    transform: rotateY(180deg);
+    background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(10,15,90,.08) 31px, rgba(10,15,90,.08) 32px);
+  }
 .nb-flip-btn {
   position: absolute;
   bottom: 24px;
@@ -993,21 +1025,10 @@ button { color: inherit; }
   transform: translateZ(2px);
 }
 .nb-flip-btn--prev {
-  left: 24px;
-  transform: rotateY(180deg) translateZ(2px);
-}
-.nb-page-group .nb-page--middle::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: #fdfdfd;
-  background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(10,15,90,.08) 31px, rgba(10,15,90,.08) 32px);
-  border: 2px solid #1a2035;
-  border-radius: 12px;
-  box-shadow: 0 4px 0 #e6e8eb, 0 6px 0 #1a2035, 0 10px 15px rgba(0,0,0,0.1);
-  transform: rotateY(180deg) translateZ(1px);
-  backface-visibility: hidden;
-}
+    left: 24px;
+    transform: translateZ(2px);
+  }
+
 .nb-page-group .nb-page--right {
   z-index: 1;
 }
@@ -1105,7 +1126,7 @@ button { color: inherit; }
   .notebook-pages { flex-direction: column; gap: 16px; }
   .nb-page--left { border-radius: 12px; }
   .nb-page-group { border-radius: 12px; flex-direction: column; }
-  .nb-page-group .nb-page--middle { border-right: none; border-bottom: 1px solid rgba(10,15,90,.08); }
+  
   .nb-page { min-height: 400px; padding-bottom: 60px; }
   .nb-spine { display: none; }
   .binder-sidebar { display: none; }
@@ -1903,8 +1924,10 @@ button { color: inherit; }
               </div>
 
               <div class="nb-page-group">
-                <!-- Page 2 -->
-                <div class="nb-page nb-page--middle" id="flip-page">
+                <!-- Page 2 & 3 (Front & Back of Flip Page) -->
+                  <div class="nb-page nb-page--middle" id="flip-page">
+                    <div class="nb-page-front">
+
                   <div class="nb-header">
                     <span class="nb-num">02</span>
                     <span class="nb-cat">CULTURE</span>
@@ -1924,12 +1947,13 @@ button { color: inherit; }
 
                   <a href="blog.html" class="nb-readmore">READ MORE →</a>
                   
-                  <button class="nb-flip-btn nb-flip-btn--next" type="button" onclick="document.getElementById('flip-page').classList.add('is-flipped'); event.stopPropagation();">NEXT PAGE &rarr;</button>
-                  <button class="nb-flip-btn nb-flip-btn--prev" type="button" onclick="document.getElementById('flip-page').classList.remove('is-flipped'); event.stopPropagation();">&larr; PREVIOUS PAGE</button>
-                </div>
+                  
+                  
+                
+                      <button class="nb-flip-btn nb-flip-btn--next" type="button" onclick="document.getElementById('flip-page').classList.add('is-flipped'); event.stopPropagation();">NEXT PAGE &rarr;</button>
+                    </div>
+                    <div class="nb-page-back">
 
-                <!-- Page 3 -->
-                <div class="nb-page nb-page--right">
                   <div class="nb-header">
                     <span class="nb-num">03</span>
                     <span class="nb-cat">ENGINEERING</span>
@@ -1948,11 +1972,37 @@ button { color: inherit; }
                   </div>
 
                   <a href="blog.html" class="nb-readmore">READ MORE →</a>
+                
+                      <button class="nb-flip-btn nb-flip-btn--prev" type="button" onclick="document.getElementById('flip-page').classList.remove('is-flipped'); event.stopPropagation();">&larr; PREVIOUS PAGE</button>
+                    </div>
+                  </div>
+
+                  <!-- Page 4 -->
+                  <div class="nb-page nb-page--right">
+                    <div class="nb-header">
+                      <span class="nb-num">04</span>
+                      <span class="nb-cat">SUSTAINABILITY</span>
+                    </div>
+                    <h3 class="nb-title">A COMMITMENT TO THE PLANET<br/>FOR FUTURE GENERATIONS</h3>
+                    <p class="nb-body">Every component of our luggage is carefully sourced from recycled materials, ensuring that your travel footprint is as light as possible.</p>
+                    
+                    <div class="nb-photo photo-4">
+                      <div class="tape"></div>
+                      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=200" alt="Sustainability" />
+                    </div>
+  
+                    <div class="nb-arrow arrow-4">
+                      <svg width="40" height="40" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20 Q 80 20 80 80 M80 80 L70 65 M80 80 L95 70"/></svg>
+                      <span>Recycled<br/>materials<br/>only.</span>
+                    </div>
+  
+                    <a href="blog.html" class="nb-readmore">READ MORE &rarr;</a>
+                  </div>
+
                 </div>
               </div>
-            </div>
-
-            <!-- Far Right Panel (Dark Blue) -->
+  
+              <!-- Far Right Panel (Dark Blue) -->
             <div class="binder-sidebar">
               <a href="blog.html" class="binder-viewall">VIEW ALL<br/>NOTES<br/><span style="display:inline-block; margin-top:8px">→</span></a>
               
