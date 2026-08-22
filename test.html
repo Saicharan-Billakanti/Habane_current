@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; background: #eee; }
+.binder { background: #1a2035; width: 800px; height: 500px; display: flex; padding: 24px; }
+.notebook-pages { display: flex; flex: 1; }
+.nb-page { padding: 24px; background: #fff; border: 2px solid #1a2035; border-radius: 12px; }
+.nb-page--left { flex: 1; }
+.nb-spine { width: 24px; flex-shrink: 0; background: #555; }
+.nb-page-group { flex: 1; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; perspective: 2000px; }
+.nb-page-group .nb-page { grid-column: 1; grid-row: 1; width: 100%; height: 100%; transform-origin: left center; transition: 0.8s; backface-visibility: hidden; }
+.nb-page--middle { z-index: 2; transform-style: preserve-3d; }
+.is-flipped { transform: rotateY(-180deg) translateX(24px); }
+.nb-page--middle::after { content: ""; position: absolute; inset: 0; background: lightblue; border: 2px solid red; transform: rotateY(180deg) translateZ(1px); backface-visibility: hidden; }
+.nb-page--right { z-index: 1; background: #ddd; }
+</style>
+</head>
+<body>
+<div class="binder">
+  <div class="notebook-pages">
+    <div class="nb-page nb-page--left">LEFT PAGE</div>
+    <div class="nb-spine"></div>
+    <div class="nb-page-group">
+      <div class="nb-page nb-page--middle is-flipped">MIDDLE PAGE</div>
+      <div class="nb-page nb-page--right">RIGHT PAGE</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
