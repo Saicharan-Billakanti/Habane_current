@@ -971,6 +971,13 @@ button { color: inherit; }
 .nb-page-group .nb-page--middle.is-flipped {
   transform: rotateY(-180deg) translateX(24px);
 }
+.nb-page-group .nb-page--middle.is-flipped .nb-page-back {
+  z-index: 5;
+}
+.nb-page-group .nb-page--middle.is-flipped .nb-page-front {
+  z-index: 1;
+  pointer-events: none;
+}
   .nb-page-group .nb-page--middle { padding: 0 !important; background: transparent !important; border: none !important; box-shadow: none !important; }
   .nb-page-front {
     position: relative;
@@ -1108,7 +1115,7 @@ button { color: inherit; }
 .photo-1 { bottom: 70px; right: -5px; transform: rotate(5deg); }
 .photo-2 { bottom: 80px; right: 0px; transform: rotate(-3deg); }
 .photo-3 { bottom: 65px; right: 5px; transform: rotate(4deg); }
-.photo-4 { bottom: 75px; right: -10px; transform: rotate(-4deg); }
+.photo-4 { bottom: 75px; right: 20px; transform: rotate(-4deg); }
 
 /* Hand drawn arrows */
 .nb-arrow { position: absolute; font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.1; color: rgba(10,15,90,.75); z-index: 4; display: flex; align-items: flex-start; gap: 6px; }
