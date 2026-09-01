@@ -58,14 +58,14 @@
       <div class="legal-card">
         <h2>Direct Inquiries</h2>
         <p>Whether you have questions about product specifications, shipping, or press, our team in Berlin is here to help.</p>
-        <p><strong>Email:</strong> <a href="mailto:abhishekarora.de@gmail.com" style="color: var(--aurora); text-decoration: underline;">abhishekarora.de@gmail.com</a><br />
-        <strong>Phone:</strong> +49 162 3919824<br />
+        <p><strong>Email:</strong> <a href="mailto:support@habaene.com" style="color: var(--aurora); text-decoration: underline;">support@habaene.com</a><br />
+        <strong>Phone:</strong> +49 162 3919 824<br />
         <strong>Location:</strong> Engineered in Germany</p>
       </div>
 
       <div class="legal-card">
         <h2>Send Us a Message</h2>
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you for reaching out! We will respond within 24 hours.');">
+        <form class="contact-form" id="contact-api-form">
           <label for="c-name">Full Name</label>
           <input id="c-name" type="text" placeholder="Your name" required />
           <label for="c-email">Email Address</label>
@@ -263,16 +263,17 @@
         <a href="track-order.html"><span>Track Order</span><i>→</i></a>
       </div>
       <div>
-        <h3>Legal</h3>
-        <a href="terms.html"><span>Terms &amp; Conditions</span><i>→</i></a>
-        <a href="privacy.html"><span>Privacy Policy</span><i>→</i></a>
-        <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
-        <a href="impressum.html"><span>Impressum</span><i>→</i></a>
-        <a href="cookie-policy.html"><span>Cookie Policy</span><i>→</i></a>
+                <h3>Legal & Compliance</h3>
+          <a href="impressum.html"><span>Impressum</span><i>→</i></a>
+          <a href="privacy.html"><span>Privacy Policy</span><i>→</i></a>
+          <a href="terms.html"><span>Terms &amp; Conditions</span><i>→</i></a>
+          <a href="shipping.html"><span>Shipping Policy</span><i>→</i></a>
+          <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
+          <a href="withdrawal.html"><span>Right of Withdrawal</span><i>→</i></a>
       </div>
     </div>
     </div>
-    <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span><script>(function(){function u(){var d=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});var els=document.querySelectorAll('[data-footer-time]');for(var i=0;i<els.length;i++){els[i].textContent=d;}}u();setInterval(u,1000);})();</script><span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span></div>
+    <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span><span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span></div>
   </footer>
 
   <aside class="cart-drawer" data-cart-drawer data-lenis-prevent aria-hidden="true">
@@ -297,7 +298,34 @@
   <div class="toast" data-toast role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="assets/app.js?v=85"></script>
+  <script src="assets/api.js"></script>
+  <script src="assets/app.js?v=149"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('contact-api-form');
+      if (!form || typeof habaneApi === 'undefined') return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var orig = btn ? btn.textContent : '';
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+        habaneApi.submitContact({
+          name:    (document.getElementById('c-name').value    || '').trim(),
+          email:   (document.getElementById('c-email').value   || '').trim(),
+          subject: (document.getElementById('c-subject').value || '').trim(),
+          message: (document.getElementById('c-message').value || '').trim()
+        }).then(function () {
+          if (btn) { btn.disabled = false; btn.textContent = orig; }
+          form.reset();
+          if (window.toast) window.toast('Message sent! We\'ll be in touch within 24 hours.');
+        }).catch(function (err) {
+          if (btn) { btn.disabled = false; btn.textContent = orig; }
+          var msg = err.code === 'rate_limited' ? 'Too many messages — please wait a moment.' : (err.message || 'Could not send message. Try again.');
+          if (window.toast) window.toast(msg);
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>

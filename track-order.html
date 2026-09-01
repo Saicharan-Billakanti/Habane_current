@@ -170,23 +170,23 @@
                 </strong>
               </div>
               <div class="pass-progress-bar">
-                <div class="pass-progress-bar__fill"></div>
-                <div class="pass-progress-node is-active"></div>
-                <div class="pass-progress-node is-active"></div>
-                <div class="pass-progress-node"></div>
+                <div class="pass-progress-bar__fill" id="progBarFill"></div>
+                <div class="pass-progress-node" id="progNode1"></div>
+                <div class="pass-progress-node" id="progNode2"></div>
+                <div class="pass-progress-node" id="progNode3"></div>
               </div>
               <div class="pass-progress-labels">
                 <div>
                   <span>CONFIRMED</span>
-                  <small>May 24</small>
+                  <small id="progDateConfirmed">May 24</small>
                 </div>
                 <div style="text-align: center;">
                   <span>SHIPPED</span>
-                  <small>May 26</small>
+                  <small id="progDateShipped">May 26</small>
                 </div>
                 <div style="text-align: right;">
                   <span>DELIVERING</span>
-                  <small>May 30</small>
+                  <small id="progDateDelivering">May 30</small>
                 </div>
               </div>
             </div>
@@ -205,14 +205,14 @@
               <svg class="pass-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
               <div class="pass-feature-text">
                 <label>SHIPPING</label>
-                <span>DHL Express</span>
+                <span id="featShipping">DHL Express</span>
               </div>
             </div>
             <div class="pass-feature-item">
               <svg class="pass-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
               <div class="pass-feature-text">
                 <label>DELIVERY</label>
-                <span>May 30, 2026</span>
+                <span id="featDelivery">May 30, 2026</span>
               </div>
             </div>
             <div class="pass-feature-item">
@@ -247,7 +247,7 @@
                 <svg class="pass-stub__row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <div class="pass-stub__row-data">
                   <label>PASSENGER</label>
-                  <strong>VALUED TRAVELLER</strong>
+                  <strong id="stubPassenger" style="text-transform: uppercase;">VALUED TRAVELLER</strong>
                 </div>
               </div>
               <div class="pass-stub__row">
@@ -340,11 +340,11 @@
           <form class="track-search-form" id="trackForm" onsubmit="event.preventDefault(); handleOrderSearch();">
             <label>
               <span>Order ID</span>
-              <input type="text" id="inputOrderNo" placeholder="e.g. HB-260524-7842" value="HB-260524-7842" required />
+              <input type="text" id="inputOrderNo" placeholder="e.g. HB-260524-7842" required />
             </label>
             <label>
               <span>Email Address</span>
-              <input type="email" id="inputEmail" placeholder="your.name@example.com" value="traveler@habane.de" required />
+              <input type="email" id="inputEmail" placeholder="your.name@example.com" required />
             </label>
             <button class="track-search-btn" type="submit">Track Order ↗</button>
           </form>
@@ -365,7 +365,7 @@
                   <svg class="track-timeline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                   <span>Order Confirmed & Payment Verified</span>
                 </h4>
-                <p>Order HB-260524-7842 placed successfully. Payment authorized via Visa •••• 4242.</p>
+                <p id="timelineOrderDesc">Order HB-260524-7842 placed successfully. Payment authorized.</p>
                 <time>LEMGO HUB — May 24, 2026 at 14:32 CET</time>
               </div>
 
@@ -421,9 +421,9 @@
             <!-- Carrier Box -->
             <div class="track-carrier-box">
               <h4>CARRIER TELEMETRY</h4>
-              <p style="margin: 0 0 6px; font-size: 12px; opacity: 0.8;">Courier: DHL Express Worldwide</p>
-              <code>DHL-9482910482</code>
-              <a href="#" onclick="event.preventDefault(); alert('Redirecting to DHL Express official tracking portal...');">Track on DHL Portal ↗</a>
+              <p style="margin: 0 0 6px; font-size: 12px; opacity: 0.8;" id="sidebarCarrier">Courier: Pending</p>
+              <code id="sidebarTracking">Pending</code>
+              <a href="#" onclick="event.preventDefault(); alert('Tracking portal not available yet.');">Track Portal ↗</a>
             </div>
 
             <!-- Package & Address Summary -->
@@ -431,13 +431,10 @@
               <h4 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; margin: 0 0 16px;">DESTINATION DETAILS</h4>
               <div style="font-family: var(--font-ui); font-size: 13px; color: rgba(10,15,90,0.8); line-height: 1.5; display: flex; flex-direction: column; gap: 8px;">
                 <div>
-                  <strong>Recipient:</strong><br />Valued Traveller
+                  <strong>Recipient:</strong><br /><span id="sidebarRecipient">Pending</span>
                 </div>
                 <div>
-                  <strong>Shipping Address:</strong><br />Bruchweg 52<br />32657 Lemgo, Germany
-                </div>
-                <div>
-                  <strong>Contact Email:</strong><br />traveler@habane.de
+                  <strong>Contact Email:</strong><br /><span id="sidebarEmail">Pending</span>
                 </div>
               </div>
             </div>
@@ -454,35 +451,7 @@
       </div>
     </section>
 
-    <!-- Trusted Origin Ribbon -->
-    <div class="origin-ribbon" aria-label="Partner badges and certification ribbon">
-      <div class="origin-ribbon__track">
-        <div class="origin-badge"><span class="origin-badge__head">ACCELERATOR</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">INNOVATION NETWORK</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><div class="origin-badge__text"><strong>TH OWL ORIGINS</strong><strong style="font-size: 11px; font-weight: 500; opacity: 0.85;">Innovation Network</strong></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><div class="origin-badge__text"><strong>LEMGO</strong><small>North Rhine-Westphalia</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">DESIGNED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 2,7 12,12 22,7"/><polyline points="2,17 12,22 22,17"/><polyline points="2,12 12,17 22,12"/></svg><div class="origin-badge__text"><strong>GERMANY</strong><small>HABÄNE Studio</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED AT</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><div class="origin-badge__text"><strong>TH OWL</strong><small>Lemgo, Germany</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">ALUMNI OF</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,8.5 12,15 2,8.5"/><path d="M6 11v6c0 3 6 3 6 3s6 0 6-3v-6"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
-        <span class="origin-divider"></span>
-        <!-- Duplicate for continuous 60fps loop -->
-        <div class="origin-badge"><span class="origin-badge__head">ACCELERATOR</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">INNOVATION NETWORK</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><div class="origin-badge__text"><strong>TH OWL ORIGINS</strong><strong style="font-size: 11px; font-weight: 500; opacity: 0.85;">Innovation Network</strong></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><div class="origin-badge__text"><strong>LEMGO</strong><small>North Rhine-Westphalia</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">DESIGNED IN</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 2,7 12,12 22,7"/><polyline points="2,17 12,22 22,17"/><polyline points="2,12 12,17 22,12"/></svg><div class="origin-badge__text"><strong>GERMANY</strong><small>HABÄNE Studio</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">DEVELOPED AT</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><div class="origin-badge__text"><strong>TH OWL</strong><small>Lemgo, Germany</small></div></div></div>
-        <span class="origin-divider"></span>
-        <div class="origin-badge"><span class="origin-badge__head">ALUMNI OF</span><div class="origin-badge__content"><svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,8.5 12,15 2,8.5"/><path d="M6 11v6c0 3 6 3 6 3s6 0 6-3v-6"/></svg><div class="origin-badge__text"><strong>THE MIGRANT ACCELERATOR</strong><small>TMA Alumni</small></div></div></div>
-      </div>
-    </div>
+
   </main>
 
     <section class="origin-ribbon" aria-label="Trusted Origin">
@@ -668,16 +637,17 @@
         <a href="track-order.html"><span>Track Order</span><i>→</i></a>
       </div>
       <div>
-        <h3>Legal</h3>
-        <a href="terms.html"><span>Terms &amp; Conditions</span><i>→</i></a>
-        <a href="privacy.html"><span>Privacy Policy</span><i>→</i></a>
-        <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
-        <a href="impressum.html"><span>Impressum</span><i>→</i></a>
-        <a href="cookie-policy.html"><span>Cookie Policy</span><i>→</i></a>
+                <h3>Legal & Compliance</h3>
+          <a href="impressum.html"><span>Impressum</span><i>→</i></a>
+          <a href="privacy.html"><span>Privacy Policy</span><i>→</i></a>
+          <a href="terms.html"><span>Terms &amp; Conditions</span><i>→</i></a>
+          <a href="shipping.html"><span>Shipping Policy</span><i>→</i></a>
+          <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
+          <a href="withdrawal.html"><span>Right of Withdrawal</span><i>→</i></a>
       </div>
     </div>
     </div>
-    <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span><script>(function(){function u(){var d=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});var els=document.querySelectorAll('[data-footer-time]');for(var i=0;i<els.length;i++){els[i].textContent=d;}}u();setInterval(u,1000);})();</script><span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span></div>
+    <div class="footer__bottom"><span class="footer__bottom-left">© 2026 <img class="inline-wordmark" src="assets/brand/wordmark-white.png" alt="HABÄNE" /> All rights reserved.</span><span class="footer__bottom-center">BERLIN <b data-footer-time>00:33:34</b></span><span class="footer__bottom-right"><span>EUR (€)</span><span>EU / EN</span></span></div>
   </footer>
 
   <aside class="cart-drawer" data-cart-drawer data-lenis-prevent aria-hidden="true">
@@ -702,23 +672,198 @@
   <div class="toast" data-toast role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="assets/app.js?v=85"></script>
+  <script src="assets/api.js"></script>
+  <script src="assets/app.js?v=149"></script>
   <script>
     function handleOrderSearch() {
-      const orderNo = document.getElementById('inputOrderNo').value.trim() || 'HB-260524-7842';
-      const cleanNo = orderNo.toUpperCase();
-      
+      var orderNo = (document.getElementById('inputOrderNo').value || '').trim();
+      var email   = (document.getElementById('inputEmail').value  || '').trim();
+      if (!orderNo || !email) { if (window.toast) toast('Please enter your order number and email.'); return; }
+
+      var btn = document.querySelector('.track-search-btn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Looking up…'; }
+
+      // Pre-fill the boarding pass with the order number immediately
+      var cleanNo = orderNo.toUpperCase();
       document.getElementById('ticketOrderNo').innerText = cleanNo;
-      document.getElementById('stubOrderNo').innerText = cleanNo;
+      document.getElementById('stubOrderNo').innerText   = cleanNo;
       document.getElementById('stubBarcodeCode').innerText = cleanNo.replace(/[^A-Z0-9]/g, '');
 
-      // Smooth scroll back to top boarding pass card
-      document.getElementById('boardingPassCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
-      if(window.toast) {
-        toast(`Tracking data loaded for order ${cleanNo}`);
+      if (typeof habaneApi === 'undefined') {
+        // api.js not loaded — just scroll and show
+        document.getElementById('boardingPassCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (btn) { btn.disabled = false; btn.textContent = 'Track Order ↗'; }
+        return;
       }
+
+      habaneApi.getOrder(orderNo, email)
+        .then(function (order) {
+          if (btn) { btn.disabled = false; btn.textContent = 'Track Order ↗'; }
+
+          // Update boarding pass with live data
+          var fmt = window.habaneFormatPrice || function(n){ return '€' + Number(n).toFixed(2); };
+          document.getElementById('ticketOrderNo').innerText   = order.order_number;
+          document.getElementById('stubOrderNo').innerText     = order.order_number;
+          document.getElementById('stubBarcodeCode').innerText = order.order_number.replace(/[^A-Z0-9]/g, '');
+          document.getElementById('ticketTotal').innerText     = fmt(order.total, order.currency);
+
+          // Status badge
+          var statusMap = { pending:'AWAITING PAYMENT', confirmed:'ORDER CONFIRMED', processing:'BEING PREPARED', shipped:'ON THE WAY', delivered:'DELIVERED', cancelled:'CANCELLED', returned:'RETURNED' };
+          var payMap    = { pending:'AWAITING PAYMENT', paid:'PAYMENT VERIFIED', failed:'PAYMENT FAILED', refunded:'REFUNDED' };
+          var statusTitle = statusMap[order.status] || order.status.toUpperCase();
+          var payTitle    = payMap[order.payment_status] || order.payment_status.toUpperCase();
+          document.getElementById('ticketStatusTitle').innerText = order.payment_status !== 'paid' ? payTitle : statusTitle;
+
+          // Dates
+          var orderDate = new Date(order.created_at).toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' });
+          document.getElementById('ticketOrderDate').innerText = orderDate;
+          document.getElementById('ticketStatusDate').innerText = orderDate;
+
+          // Tracking
+          if (document.getElementById('sidebarCarrier')) {
+             document.getElementById('sidebarCarrier').innerText = 'Courier: ' + (order.shipping_carrier || 'Pending Assignment');
+          }
+          if (document.getElementById('sidebarTracking')) {
+             document.getElementById('sidebarTracking').innerText = order.tracking_number ? ((order.shipping_carrier || 'Carrier') + ' ' + order.tracking_number) : 'Pending';
+          }
+
+          // Live status indicator
+          var liveStatus = document.getElementById('ticketLiveStatus');
+          if (liveStatus) liveStatus.innerText = statusTitle;
+
+          // First item thumbnail
+          if (order.items && order.items.length) {
+            var item = order.items[0];
+            document.getElementById('ticketProductName').innerText = item.product_name || '';
+            document.getElementById('ticketProductVariant').innerText = [item.color, item.size].filter(Boolean).join(' / ') || '—';
+            document.getElementById('ticketProductMeta').innerText = 'Qty: ' + item.quantity;
+            if (item.product_image) document.getElementById('ticketProductImg').src = item.product_image;
+          }
+
+          // Payment
+          if (order.payment_status === 'pending') {
+             document.getElementById('ticketPayment').innerText = 'PENDING';
+          } else {
+             document.getElementById('ticketPayment').innerText = 'AUTHORIZED';
+          }
+
+          // Passenger / Email
+          if (document.getElementById('stubPassenger')) {
+             var custEmail = order.customer_email || 'VALUED TRAVELLER';
+             var name = custEmail.split('@')[0];
+             document.getElementById('stubPassenger').innerText = name.replace(/[^a-zA-Z0-9 ]/g, ' ');
+          }
+
+          // Progress Dates
+          var dtFmt = function(dateStr) { 
+             return dateStr ? new Date(dateStr).toLocaleDateString('en-GB', { month:'short', day:'numeric' }) : 'Pending'; 
+          };
+          var yrFmt = function(dateStr) { 
+             return dateStr ? new Date(dateStr).toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' }) : 'Pending'; 
+          };
+          
+          if (document.getElementById('progDateConfirmed')) document.getElementById('progDateConfirmed').innerText = dtFmt(order.created_at);
+          if (document.getElementById('progDateShipped')) document.getElementById('progDateShipped').innerText = dtFmt(order.shipped_at);
+          if (document.getElementById('progDateDelivering')) document.getElementById('progDateDelivering').innerText = dtFmt(order.delivered_at);
+
+          // Progress Nodes
+          if (document.getElementById('progNode1')) document.getElementById('progNode1').classList.toggle('is-active', !!order.created_at);
+          if (document.getElementById('progNode2')) document.getElementById('progNode2').classList.toggle('is-active', !!order.shipped_at);
+          if (document.getElementById('progNode3')) document.getElementById('progNode3').classList.toggle('is-active', !!order.delivered_at);
+          if (document.getElementById('progBarFill')) {
+             if (order.delivered_at) document.getElementById('progBarFill').style.width = '100%';
+             else if (order.shipped_at) document.getElementById('progBarFill').style.width = '50%';
+             else document.getElementById('progBarFill').style.width = '0%';
+          }
+
+          // Stub Dates
+          if (document.getElementById('stubDeparture')) document.getElementById('stubDeparture').innerText = yrFmt(order.created_at);
+          if (document.getElementById('stubArrival')) document.getElementById('stubArrival').innerText = yrFmt(order.delivered_at);
+
+          // Features Line
+          if (document.getElementById('featShipping')) document.getElementById('featShipping').innerText = order.shipping_carrier || 'DHL Express';
+          if (document.getElementById('featDelivery')) document.getElementById('featDelivery').innerText = yrFmt(order.delivered_at);
+
+          // Timeline times
+          var timeNodes = document.querySelectorAll('.track-timeline-item time');
+          if (timeNodes.length >= 6) {
+             var tsFmt = function(d) { return d ? new Date(d).toLocaleDateString('en-GB', { month:'short', day:'numeric', year:'numeric'}) : 'Pending'; };
+             timeNodes[0].innerText = 'LEMGO HUB — ' + tsFmt(order.created_at);
+             timeNodes[1].innerText = 'FACTORY LEMGO — ' + tsFmt(order.created_at);
+             timeNodes[2].innerText = 'AIRPORT HUB — ' + tsFmt(order.shipped_at);
+             timeNodes[3].innerText = 'DESTINATION HUB — ' + tsFmt(order.shipped_at);
+             timeNodes[4].innerText = 'ESTIMATED — ' + tsFmt(order.delivered_at);
+             timeNodes[5].innerText = 'DELIVERED — ' + tsFmt(order.delivered_at);
+          }
+
+          // Timeline Status Dots & Description
+          if (document.getElementById('timelineOrderDesc')) {
+             document.getElementById('timelineOrderDesc').innerText = 'Order ' + order.order_number + ' placed successfully. Payment status: ' + order.payment_status.toUpperCase() + '.';
+          }
+          var timelineItems = document.querySelectorAll('.track-timeline-item');
+          if (timelineItems.length >= 6) {
+             timelineItems.forEach(function(item) { item.className = 'track-timeline-item'; });
+             if (order.delivered_at) {
+                timelineItems.forEach(function(item) { item.classList.add('is-done'); });
+             } else if (order.shipped_at) {
+                timelineItems[0].classList.add('is-done');
+                timelineItems[1].classList.add('is-done');
+                timelineItems[2].classList.add('is-done');
+                timelineItems[3].classList.add('is-done');
+                timelineItems[4].classList.add('is-current');
+             } else if (order.created_at) {
+                timelineItems[0].classList.add('is-done');
+                timelineItems[1].classList.add('is-current');
+             }
+          }
+
+          // Sidebar Contact Details
+          if (document.getElementById('sidebarRecipient') && order.customer_name) {
+             document.getElementById('sidebarRecipient').innerText = order.customer_name;
+          }
+          if (document.getElementById('sidebarEmail') && order.customer_email) {
+             document.getElementById('sidebarEmail').innerText = order.customer_email;
+          }
+
+          // Withdrawal deadline
+          if (order.withdrawal_deadline) {
+            var dl = new Date(order.withdrawal_deadline).toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' });
+            var dlEl = document.querySelector('.track-card .withdrawal-deadline');
+            if (!dlEl) {
+              var noteEl = document.createElement('p');
+              noteEl.className = 'withdrawal-deadline';
+              noteEl.style.cssText = 'font-size:12px;opacity:.7;margin-top:12px';
+              noteEl.textContent = 'Withdrawal deadline: ' + dl;
+              var sidebar = document.querySelector('.track-sidebar');
+              if (sidebar) sidebar.appendChild(noteEl);
+            } else { dlEl.textContent = 'Withdrawal deadline: ' + dl; }
+          }
+
+          document.getElementById('boardingPassCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (window.toast) toast('Order ' + order.order_number + ' found.');
+        })
+        .catch(function (err) {
+          if (btn) { btn.disabled = false; btn.textContent = 'Track Order ↗'; }
+          var msg = err.code === 'not_found'
+            ? 'Order not found. Check your order number and email.'
+            : (err.message || 'Could not load order. Try again.');
+          if (window.toast) toast(msg);
+          // Still show the boarding pass with the entered number
+          document.getElementById('boardingPassCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     }
+
+    // Auto-load order if query parameters are present
+    window.addEventListener('DOMContentLoaded', function() {
+      var params = new URLSearchParams(window.location.search);
+      var orderNo = params.get('order');
+      var email = params.get('email');
+      if (orderNo && email) {
+        document.getElementById('inputOrderNo').value = orderNo;
+        document.getElementById('inputEmail').value = email;
+        handleOrderSearch();
+      }
+    });
   </script>
   <script>
     /* Isolated region flag updater — independent of app.js */

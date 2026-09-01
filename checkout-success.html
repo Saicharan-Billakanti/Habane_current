@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — HABÄNE</title>
+  <meta name="description" content="Your HABÄNE order has been confirmed. Thank you for moving with us." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css?v=149" />
+  <style>
+    .success-page { min-height: 100vh; background: var(--color-midnight, #060935); color: #fff; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+    .success-card { max-width: 580px; width: 100%; text-align: center; }
+    .success-icon { width: 80px; height: 80px; background: rgba(74,222,128,.12); border: 2px solid rgba(74,222,128,.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; }
+    .success-icon svg { color: #4ade80; }
+    .success-eyebrow { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; opacity: .45; margin-bottom: 12px; }
+    .success-title { font-family: 'Montserrat', sans-serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 18px; letter-spacing: -.02em; }
+    .success-sub { font-size: 15px; opacity: .6; line-height: 1.6; margin-bottom: 36px; }
+
+    .success-info { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px; text-align: left; margin-bottom: 32px; }
+    .success-info__row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 14px; }
+    .success-info__row:last-child { border-bottom: none; }
+    .success-info__row span:first-child { opacity: .5; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .success-info__row span:last-child { font-weight: 600; }
+
+    .success-status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+    .success-status.is-paid { background: rgba(74,222,128,.15); color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
+    .success-status.is-pending { background: rgba(251,191,36,.12); color: #fbbf24; border: 1px solid rgba(251,191,36,.3); }
+    .success-status.is-loading { background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.15); }
+
+    .success-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .success-actions a { padding: 14px 28px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-decoration: none; transition: opacity .2s, transform .15s; }
+    .success-actions .btn-primary { background: #fff; color: #060935; }
+    .success-actions .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.25); }
+    .success-actions a:hover { opacity: .9; transform: translateY(-1px); }
+
+    .spinner { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,.2); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .success-notice { font-size: 12px; opacity: .35; margin-top: 24px; line-height: 1.5; }
+    .withdrawal-info { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 16px 20px; text-align: left; margin-bottom: 20px; font-size: 13px; opacity: .65; line-height: 1.5; }
+    .withdrawal-info strong { color: rgba(255,255,255,.9); }
+  </style>
+</head>
+<body>
+  <div class="success-page">
+    <div class="success-card">
+
+      <div class="success-icon" id="success-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+
+      <p class="success-eyebrow">HABÄNE AIRWAYS</p>
+      <h1 class="success-title" id="success-title">Order confirmed.</h1>
+      <p class="success-sub" id="success-sub">
+        Thank you for moving with HABÄNE. A confirmation email is on its way.
+      </p>
+
+      <div class="success-info" id="success-info">
+        <div class="success-info__row">
+          <span>Order number</span>
+          <span id="si-order">—</span>
+        </div>
+        <div class="success-info__row">
+          <span>Status</span>
+          <span id="si-status"><span class="success-status is-loading"><span class="spinner"></span>&nbsp;Loading…</span></span>
+        </div>
+        <div class="success-info__row" id="si-total-row">
+          <span>Total</span>
+          <span id="si-total">—</span>
+        </div>
+        <div class="success-info__row" id="si-date-row">
+          <span>Order date</span>
+          <span id="si-date">—</span>
+        </div>
+        <div class="success-info__row" id="si-withdrawal-row" hidden>
+          <span>Withdrawal deadline</span>
+          <span id="si-withdrawal">—</span>
+        </div>
+      </div>
+
+      <div class="withdrawal-info">
+        <strong>Right of withdrawal:</strong> You have 14 days from receipt to return your order without giving a reason.
+        Visit our <a href="withdrawal.html" style="color:rgba(255,255,255,.7);text-decoration:underline">returns portal</a> to initiate a return.
+      </div>
+
+      <div class="success-actions">
+        <a href="track-order.html" class="btn-primary" id="track-btn">Track your order →</a>
+        <a href="shop.html" class="btn-ghost">Continue shopping</a>
+      </div>
+
+      <p class="success-notice">
+        Questions? Contact us at <a data-store-email href="mailto:support@habane.de" style="color:rgba(255,255,255,.6)">support@habane.de</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="assets/api.js"></script>
+  <script>
+    (function () {
+      var api = window.habaneApi;
+      var fmt = window.habaneFormatPrice || function (n) { return '€' + Number(n).toFixed(2); };
+
+      // Parse params from URL
+      var params = new URLSearchParams(location.search);
+      var orderNumber = params.get('order') || (function () { try { return sessionStorage.getItem('habane_last_order'); } catch (e) { return null; } })();
+      var email       = params.get('email') || (function () { try { return sessionStorage.getItem('habane_last_email'); } catch (e) { return null; } })();
+      var noStripe    = params.get('no_stripe') === '1';
+
+      if (!orderNumber) {
+        document.getElementById('success-title').textContent = 'Order received.';
+        document.getElementById('success-sub').textContent = 'We couldn\'t retrieve your order number, but your order has been placed.';
+        document.getElementById('success-info').hidden = true;
+        return;
+      }
+
+      document.getElementById('si-order').textContent = orderNumber;
+
+      // Pre-fill track link
+      var trackBtn = document.getElementById('track-btn');
+      if (trackBtn && email) {
+        trackBtn.href = 'track-order.html?order=' + encodeURIComponent(orderNumber) + '&email=' + encodeURIComponent(email);
+        var orderInput = document.getElementById('si-order');
+        if (orderInput) orderInput.textContent = orderNumber;
+      }
+
+      if (!email || !api) {
+        setStatus({ status: 'confirmed', payment_status: noStripe ? 'pending' : 'paid' });
+        return;
+      }
+
+      // Poll order status (up to 20s for Stripe webhook)
+      var _pollCount = 0;
+      var _maxPolls  = 10;
+      var _pollDelay = 2000;
+
+      function pollOrder() {
+        api.getOrder(orderNumber, email)
+          .then(function (order) {
+            setStatus(order);
+            // Keep polling if payment is still pending and Stripe was used
+            if (!noStripe && order.payment_status === 'pending' && _pollCount < _maxPolls) {
+              _pollCount++;
+              setTimeout(pollOrder, _pollDelay);
+            }
+          })
+          .catch(function () {
+            // If we can't fetch (e.g. email mismatch), just show confirmed
+            setStatus({ status: 'confirmed', payment_status: noStripe ? 'pending' : 'confirmed' });
+          });
+      }
+
+      function setStatus(order) {
+        var statusEl = document.getElementById('si-status');
+        var statusMap = {
+          paid:     { cls: 'is-paid',    text: '✓ Payment Verified' },
+          confirmed:{ cls: 'is-paid',    text: '✓ Confirmed' },
+          pending:  { cls: 'is-pending', text: '⏳ Awaiting Payment' },
+          failed:   { cls: 'is-pending', text: '✕ Payment Failed' }
+        };
+        var s = statusMap[order.payment_status] || statusMap[order.status] || { cls: 'is-loading', text: order.payment_status || order.status };
+        statusEl.innerHTML = '<span class="success-status ' + s.cls + '">' + s.text + '</span>';
+
+        if (order.total) document.getElementById('si-total').textContent = fmt(order.total, order.currency);
+        if (order.created_at) {
+          document.getElementById('si-date').textContent = new Date(order.created_at).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        if (order.withdrawal_deadline) {
+          document.getElementById('si-withdrawal-row').hidden = false;
+          document.getElementById('si-withdrawal').textContent = new Date(order.withdrawal_deadline).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        if (order.payment_status === 'failed') {
+          document.getElementById('success-title').textContent = 'Payment failed.';
+          document.getElementById('success-sub').textContent = 'Your order was created but payment didn\'t go through. Please try checking out again.';
+          document.getElementById('success-icon').style.borderColor = 'rgba(248,113,113,.4)';
+          document.getElementById('success-icon').style.background = 'rgba(248,113,113,.1)';
+          document.getElementById('success-icon').querySelector('svg').style.color = '#f87171';
+          document.getElementById('success-icon').querySelector('svg').innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
+        }
+
+        // Fetch store support email
+        if (api) {
+          api.getStoreSettings().then(function (store) {
+            var emailEls = document.querySelectorAll('[data-store-email]');
+            emailEls.forEach(function (el) {
+              el.textContent = store.support_email;
+              if (el.tagName === 'A') el.href = 'mailto:' + store.support_email;
+            });
+          }).catch(function () {});
+        }
+      }
+
+      // Start polling after a short delay (give Stripe time to call webhook)
+      setTimeout(pollOrder, noStripe ? 0 : 1500);
+
+    })();
+  </script>
+</body>
+</html>

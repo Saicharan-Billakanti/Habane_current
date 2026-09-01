@@ -1,146 +1,130 @@
 const products = {
   p1: {
-    id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Skyline Duffel', price:71, category:'luggage', badge:'Flagship',
-    image:'assets/products/p1-olive-skyline-duffel.png', cardImage:'assets/products/p1-olive-skyline-duffel.jpg', images:['assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p3-navy-voyager-duffel.png','assets/products/alt-steel-duffel.png'],
-    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Midnight',hex:'#0b1240'},{name:'Silver',hex:'#9a9ea8'}], sizes:['35L','45L','55L'],
-    subtitle:'Hand-drawn skyline travel bag', kicker:'Signature travel duffel',
-    description:'Our hero carry. Hand-drawn skyline print on water-repellent canvas, leather-trim handles and a vault-grade zipper.',
-    specs:[['Material','Water-repellent canvas'],['Capacity','35–55L'],['Weight','1.4 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Midnight / Silver'],['Sizes','35L / 45L / 55L']],
-    mood:{label:'Adventurous / Grounded',quiet:58,urban:40,trip:70},
-    passportData:{material:'Water-repellent canvas / leather trim',service:'Handle + zipper service path',care:'Wipe canvas after wet trips',role:'Signature carry'},
-    pack:['3 shirts', '2 trousers', 'Shoes', 'Essentials', 'Jacket', 'Book'],
-    blueprint:[{label:'WATER-REPELLENT CANVAS',x:'8%',y:'20%'},{label:'LEATHER-TRIM HANDLE',x:'62%',y:'12%'},{label:'VAULT-GRADE ZIPPER',x:'70%',y:'62%'},{label:'HAND-DRAWN SKYLINE PRINT',x:'10%',y:'55%'}],
-    dimensions:[{label:'50 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'30 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
+    id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Bag Tags', price:89, category:'system', badge:'Flagship',
+    image:'assets/new_products/Bag_Tags/bag_tags_1.png', cardImage:'assets/new_products/Bag_Tags/bag_tags_1.png', images:["assets/new_products/Bag_Tags/bag_tags_1.png", "assets/new_products/Bag_Tags/bag_tags_2.png", "assets/new_products/Bag_Tags/bag_tags_3.png", "assets/new_products/Bag_Tags/bag_tags_4.png", "assets/new_products/Bag_Tags/bag_tags_5.png", "assets/new_products/Bag_Tags/bag_tags_6.png", "assets/new_products/Bag_Tags/bag_tags_7.png", "assets/new_products/Bag_Tags/bag_tags_8.jpeg", "assets/new_products/Bag_Tags/bag_tags_9.jpeg"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Bag Tags', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Bag Tags brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'City Skyline',description:'Steady rhythm for city-to-city moves.',tracks:[['Rooftop Line','03:24'],['Grid Walk','03:58'],['Overlook','04:10'],['Departure Sketch','03:41']]},
-      electric:{name:'Night Skyline',description:'Bright pulse for evening departures.',tracks:[['Neon Outline','03:15'],['Skyward','03:47'],['Fast Lanes','03:29'],['City Current','04:02']]},
-      slow:{name:'Quiet Skyline',description:'A calm view for slower travel days.',tracks:[['Morning Haze','04:05'],['Still Rooftop','03:52'],['Wide Window','04:18'],['Soft Horizon','03:44']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p2: {
-    id:'p2', code:'OBJ / 02', passport:'HB-P2-002', name:'Metropolitan Duffel', price:77, category:'luggage', badge:'City object',
-    image:'assets/products/p2-navy-metropolitan-duffel.png', cardImage:'assets/products/p2-navy-metropolitan-duffel.jpg', images:['assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-steel-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/p3-navy-voyager-duffel.png','assets/products/alt-white-duffel.png'],
-    colors:[{name:'Navy',hex:'#0b1240'},{name:'Ice',hex:'#bfe8f5'}], sizes:['40L','50L'],
-    subtitle:'Cabin-friendly city duffel', kicker:'Cityscape travel object',
-    description:'Midnight navy with an ice-blue cityscape and contrast webbing handles. Cabin-friendly with shoulder strap.',
-    specs:[['Material','Tech canvas'],['Capacity','40–50L'],['Weight','1.5 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Ice'],['Sizes','40L / 50L']],
-    mood:{label:'Composed / Cosmopolitan',quiet:64,urban:74,trip:55},
-    passportData:{material:'Tech canvas / webbing handles',service:'Strap + zipper service path',care:'Spot-clean as needed',role:'City travel'},
-    pack:['Laptop', '3 shirts', 'Trousers', 'Shoes', 'Essentials', 'Cables'],
-    blueprint:[{label:'TECH CANVAS SHELL',x:'8%',y:'18%'},{label:'CONTRAST WEBBING HANDLE',x:'60%',y:'10%'},{label:'SHOULDER STRAP D-RING',x:'68%',y:'60%'},{label:'LIFETIME ZIPPER',x:'10%',y:'70%'}],
-    dimensions:[{label:'52 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'32 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
+    id:'p2', code:'OBJ / 02', passport:'HB-P2-001', name:'Electric Water Bottles', price:99, category:'system', badge:'City Object',
+    image:'assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png', cardImage:'assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png', images:["assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_2.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_3.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_4.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_5.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_6.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_7.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_8.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_9.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_10.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_11.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Electric Water Bottles', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Electric Water Bottles brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Metro Focus',description:'Clean tempo for cabin-friendly travel.',tracks:[['Platform 3','03:30'],['Ice Line','03:56'],['Navy Transit','04:03'],['Clear Signal','03:22']]},
-      electric:{name:'Metro Night',description:'Cityscape energy after dark.',tracks:[['Blue District','03:41'],['Ice Voltage','03:19'],['Fast Metro','03:53'],['After Hours','04:07']]},
-      slow:{name:'Metro Window',description:'Unhurried motion through the city.',tracks:[['Cloud Cover','04:12'],['Steel Calm','03:48'],['Slow Platform','04:22'],['Ice Light','03:39']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p3: {
-    id:'p3', code:'OBJ / 03', passport:'HB-P3-003', name:'Voyager Duffel', price:75, category:'luggage', badge:'Travel kit',
-    image:'assets/products/p3-navy-voyager-duffel.png', cardImage:'assets/products/p3-navy-voyager-duffel.jpg', images:['assets/products/p3-navy-voyager-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/alt-white-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/alt-steel-duffel.png'],
-    colors:[{name:'Navy',hex:'#0b1240'},{name:'Sky',hex:'#8fd4ec'}], sizes:['40L','50L'],
-    subtitle:'Nautical line-art duffel', kicker:'Voyage-ready travel object',
-    description:'Nautical line-art print across deep navy canvas. Travel duffel for overhead bins and boat decks alike.',
-    specs:[['Material','Canvas + leather trim'],['Capacity','40–50L'],['Weight','1.45 kg'],['Warranty','Lifetime zipper'],['Colors','Navy / Sky'],['Sizes','40L / 50L']],
-    mood:{label:'Nautical / Unhurried',quiet:70,urban:35,trip:66},
-    passportData:{material:'Canvas + leather trim',service:'Trim + zipper service path',care:'Air dry after coastal use',role:'Voyage carry'},
-    pack:['3 shirts', 'Trousers', 'Swim shorts', 'Essentials', 'Sandals', 'Sunglasses'],
-    blueprint:[{label:'NAUTICAL LINE-ART PRINT',x:'8%',y:'20%'},{label:'LEATHER TRIM DETAIL',x:'62%',y:'12%'},{label:'DECK-READY BASE',x:'66%',y:'66%'},{label:'LIFETIME ZIPPER',x:'10%',y:'62%'}],
-    dimensions:[{label:'51 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'31 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
+    id:'p3', code:'OBJ / 03', passport:'HB-P3-001', name:'Fans', price:109, category:'system', badge:'Travel kit',
+    image:'assets/new_products/Fans/fans_1.png', cardImage:'assets/new_products/Fans/fans_1.png', images:["assets/new_products/Fans/fans_1.png", "assets/new_products/Fans/fans_2.png", "assets/new_products/Fans/fans_3.png", "assets/new_products/Fans/fans_4.png", "assets/new_products/Fans/fans_5.png", "assets/new_products/Fans/fans_6.png", "assets/new_products/Fans/fans_7.png", "assets/new_products/Fans/fans_8.png", "assets/new_products/Fans/fans_9.png", "assets/new_products/Fans/fans_10.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Fans', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Fans brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Voyager Log',description:'Measured sound for coastal movement.',tracks:[['Nautical Line','03:33'],['Harbor Watch','04:01'],['Deck Focus','03:27'],['Compass Set','03:49']]},
-      electric:{name:'Open Water',description:'Forward energy for departures by sea or sky.',tracks:[['Tide Voltage','03:20'],['Wake','03:44'],['Open Route','04:06'],['Bright Coast','03:31']]},
-      slow:{name:'Slow Tide',description:'A drifting soundtrack for unhurried voyages.',tracks:[['Low Tide','04:15'],['Salt Air','03:57'],['Still Harbor','04:24'],['Evening Sail','03:46']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p4: {
-    id:'p4', code:'OBJ / 04', passport:'HB-P4-004', name:'SMART Duffel — Ivory', price:143, category:'system', badge:'Tech layer',
-    image:'assets/products/p4-smart-duffel-ivory.png', cardImage:'assets/products/p4-smart-duffel-ivory.jpg', images:['assets/products/p4-smart-duffel-ivory.png','assets/products/alt-white-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/alt-steel-duffel.png'],
-    colors:[{name:'Ivory',hex:'#f6f7f9'},{name:'Navy',hex:'#0b1240'}], sizes:['45L'],
-    subtitle:'The bag that thinks', kicker:'Flagship smart object',
-    description:'The bag that thinks. Fast-charge core, reactive RGB trim, touch media strip and smart check-in panel.',
-    specs:[['Material','Tech canvas DWR'],['Capacity','45L'],['Weight','1.8 kg'],['Warranty','Lifetime + 2yr electronics'],['Colors','Ivory / Navy'],['Sizes','45L']],
-    mood:{label:'Technical / Alert',quiet:50,urban:60,trip:72},
-    passportData:{material:'Tech canvas DWR / electronics core',service:'Battery + port diagnostics',care:'Charge core every 30 days',role:'Flagship smart carry'},
-    pack:['Laptop', 'Power bank', 'Cables', '3 shirts', 'Essentials', 'Charger'],
-    blueprint:[{label:'TECH CANVAS DWR SHELL',x:'8%',y:'18%'},{label:'FAST-CHARGE CORE',x:'62%',y:'12%'},{label:'REACTIVE RGB TRIM',x:'70%',y:'58%'},{label:'SMART CHECK-IN PANEL',x:'10%',y:'62%'}],
-    dimensions:[{label:'48 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'30 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
+    id:'p4', code:'OBJ / 04', passport:'HB-P4-001', name:'Luggage Tracker', price:119, category:'system', badge:'Tech Layer',
+    image:'assets/new_products/Luggage_Tracker/luggage_tracker_1.png', cardImage:'assets/new_products/Luggage_Tracker/luggage_tracker_1.png', images:["assets/new_products/Luggage_Tracker/luggage_tracker_1.png", "assets/new_products/Luggage_Tracker/luggage_tracker_2.png", "assets/new_products/Luggage_Tracker/luggage_tracker_3.png", "assets/new_products/Luggage_Tracker/luggage_tracker_4.png", "assets/new_products/Luggage_Tracker/luggage_tracker_5.png", "assets/new_products/Luggage_Tracker/luggage_tracker_6.png", "assets/new_products/Luggage_Tracker/luggage_tracker_7.png", "assets/new_products/Luggage_Tracker/luggage_tracker_8.png", "assets/new_products/Luggage_Tracker/luggage_tracker_9.png", "assets/new_products/Luggage_Tracker/luggage_tracker_10.png", "assets/new_products/Luggage_Tracker/luggage_tracker_11.png", "assets/new_products/Luggage_Tracker/luggage_tracker_12.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Luggage Tracker', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Luggage Tracker brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Core Online',description:'Clean electronic focus for the bag that thinks.',tracks:[['Charge State','03:19'],['Ivory Circuit','03:52'],['System Ready','03:36'],['Signal Lock','04:00']]},
-      electric:{name:'Full Power',description:'Bright reactive energy matching the RGB trim.',tracks:[['100 Percent','03:06'],['Trim Light','03:34'],['Live Feed','03:48'],['Fast Sync','03:22']]},
-      slow:{name:'Standby Mode',description:'Ambient calm while the core stays charged.',tracks:[['Idle Glow','04:28'],['Soft Port','03:55'],['Quiet Battery','04:14'],['Low Draw','03:41']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p5: {
-    id:'p5', code:'OBJ / 05', passport:'HB-P5-005', name:'Steel Weekender', price:66, category:'luggage', badge:'Extended',
-    image:'assets/products/p5-steel-blue-weekender.png', cardImage:'assets/products/p5-steel-blue-weekender.jpg', images:['assets/products/p5-steel-blue-weekender.png','assets/products/alt-steel-duffel.png','assets/products/p2-navy-metropolitan-duffel.png','assets/products/p1-olive-skyline-duffel.png','assets/products/alt-white-duffel.png'],
-    colors:[{name:'Steel Blue',hex:'#4a6b8a'},{name:'Tan',hex:'#8e6b4a'}], sizes:['38L','48L'],
-    subtitle:'Vintage-washed weekender', kicker:'Classic weekend object',
-    description:'Vintage-washed canvas with full-grain leather handles and antique-brass crossbody strap.',
-    specs:[['Material','Washed canvas'],['Capacity','38–48L'],['Weight','1.3 kg'],['Warranty','Lifetime zipper'],['Colors','Steel Blue / Tan'],['Sizes','38L / 48L']],
-    mood:{label:'Vintage / Relaxed',quiet:66,urban:30,trip:48},
-    passportData:{material:'Washed canvas / brass hardware',service:'Strap + buckle service path',care:'Condition leather twice a year',role:'Weekend carry'},
-    pack:['2 shirts', 'Trousers', 'Essentials', 'Jacket', 'Boots'],
-    blueprint:[{label:'VINTAGE-WASHED CANVAS',x:'8%',y:'20%'},{label:'FULL-GRAIN LEATHER HANDLE',x:'60%',y:'10%'},{label:'ANTIQUE-BRASS STRAP',x:'68%',y:'62%'},{label:'LIFETIME ZIPPER',x:'10%',y:'66%'}],
-    dimensions:[{label:'46 cm',axis:'width',x:'20%',y:'92%',w:'60%'},{label:'29 cm',axis:'height',x:'4%',y:'20%',h:'60%'}],
+    id:'p5', code:'OBJ / 05', passport:'HB-P5-001', name:'Passport Cover', price:129, category:'system', badge:'Extended',
+    image:'assets/new_products/Passport_Cover/passport_cover_1.png', cardImage:'assets/new_products/Passport_Cover/passport_cover_1.png', images:["assets/new_products/Passport_Cover/passport_cover_1.png", "assets/new_products/Passport_Cover/passport_cover_2.png", "assets/new_products/Passport_Cover/passport_cover_3.png", "assets/new_products/Passport_Cover/passport_cover_4.png", "assets/new_products/Passport_Cover/passport_cover_5.png", "assets/new_products/Passport_Cover/passport_cover_6.png", "assets/new_products/Passport_Cover/passport_cover_7.png", "assets/new_products/Passport_Cover/passport_cover_8.png", "assets/new_products/Passport_Cover/passport_cover_9.png", "assets/new_products/Passport_Cover/passport_cover_10.png", "assets/new_products/Passport_Cover/passport_cover_11.png", "assets/new_products/Passport_Cover/passport_cover_12.png", "assets/new_products/Passport_Cover/passport_cover_13.png", "assets/new_products/Passport_Cover/passport_cover_14.png", "assets/new_products/Passport_Cover/passport_cover_15.png", "assets/new_products/Passport_Cover/passport_cover_16.png", "assets/new_products/Passport_Cover/passport_cover_17.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Passport Cover', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Passport Cover brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Weekend Plan',description:'Grounded rhythm for short escapes.',tracks:[['Steel Blue','03:28'],['Brass Buckle','03:51'],['Weekend Line','04:04'],['Vintage Wash','03:35']]},
-      electric:{name:'Fast Getaway',description:'Energy for a quick weekend exit.',tracks:[['Quick Pack','03:12'],['Antique Voltage','03:39'],['Last Minute','03:47'],['Steel Drive','04:00']]},
-      slow:{name:'Slow Weekend',description:'A relaxed soundtrack for unhurried escapes.',tracks:[['Tan Leather','04:19'],['Sunday Wash','03:58'],['Quiet Buckle','04:11'],['Soft Denim','03:43']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p6: {
-    id:'p6', code:'OBJ / 06', passport:'HB-P6-006', name:'Midnight Rolltop', price:60, category:'carry', badge:'Daily system',
-    image:'assets/products/p6-midnight-rolltop.png', cardImage:'assets/products/p6-midnight-rolltop.jpg', images:['assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png','assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png','assets/products/p8-grey-sling.png'],
-    colors:[{name:'Midnight',hex:'#0b1240'},{name:'Charcoal',hex:'#14163a'}], sizes:['18L','24L'],
-    subtitle:'Roll-top commuter backpack', kicker:'Daily commuter object',
-    description:'Roll-top commuter with padded 16" laptop sleeve, magnetic buckle and hidden anti-theft zip.',
-    specs:[['Material','Ballistic nylon'],['Capacity','18–24L'],['Weight','0.9 kg'],['Warranty','Lifetime zipper'],['Colors','Midnight / Charcoal'],['Sizes','18L / 24L']],
-    mood:{label:'Efficient / Urban',quiet:55,urban:80,trip:24},
-    passportData:{material:'Ballistic nylon',service:'Zip + buckle service path',care:'Wipe daily-use grime weekly',role:'Daily commute'},
-    pack:['Laptop', 'Notebook', 'Cables', 'Water bottle', 'Umbrella'],
-    blueprint:[{label:'BALLISTIC NYLON SHELL',x:'8%',y:'16%'},{label:'PADDED SHOULDER STRAPS',x:'62%',y:'10%'},{label:'16" LAPTOP SLEEVE',x:'66%',y:'52%'},{label:'HIDDEN ANTI-THEFT ZIP',x:'10%',y:'66%'}],
-    dimensions:[{label:'48 cm',axis:'height',x:'4%',y:'14%',h:'68%'},{label:'32 cm',axis:'width',x:'18%',y:'92%',w:'60%'}],
+    id:'p6', code:'OBJ / 06', passport:'HB-P6-001', name:'Sling Bag', price:139, category:'system', badge:'Daily system',
+    image:'assets/new_products/Sling_Bag/sling_bag_1.png', cardImage:'assets/new_products/Sling_Bag/sling_bag_1.png', images:["assets/new_products/Sling_Bag/sling_bag_1.png", "assets/new_products/Sling_Bag/sling_bag_2.png", "assets/new_products/Sling_Bag/sling_bag_3.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Sling Bag', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Sling Bag brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Commute Focus',description:'Steady tempo for the daily roll-top ride.',tracks:[['Roll and Go','03:17'],['Magnetic Line','03:45'],['Midnight Commute','03:58'],['Sleeve Mode','03:29']]},
-      electric:{name:'City Sprint',description:'Fast energy for catching the next train.',tracks:[['Platform Rush','03:08'],['Buckle Up','03:31'],['Anti-Theft','03:44'],['Charcoal Pulse','03:20']]},
-      slow:{name:'Late Commute',description:'A softer pace for the evening ride home.',tracks:[['Rolled Down','04:06'],['Quiet Buckle','03:49'],['Charcoal Hour','04:17'],['Soft Magnet','03:52']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p7: {
-    id:'p7', code:'OBJ / 07', passport:'HB-P7-007', name:'Heritage Backpack', price:69, category:'carry', badge:'Module',
-    image:'assets/products/p7-heritage-backpack.png', cardImage:'assets/products/p7-heritage-backpack.jpg', images:['assets/products/p7-heritage-backpack.png','assets/products/alt-black-backpack-art.png','assets/products/p6-midnight-rolltop.png','assets/products/alt-black-backpack.png','assets/products/p8-grey-sling.png'],
-    colors:[{name:'Olive',hex:'#5a6b3f'},{name:'Tan',hex:'#8e6b4a'}], sizes:['20L','28L'],
-    subtitle:'Waxed canvas heritage pack', kicker:'Heritage travel object',
-    description:'Waxed canvas, dual cargo pockets and leather buckle straps. Built like luggage from another era.',
-    specs:[['Material','Waxed canvas'],['Capacity','20–28L'],['Weight','1.1 kg'],['Warranty','Lifetime zipper'],['Colors','Olive / Tan'],['Sizes','20L / 28L']],
-    mood:{label:'Rugged / Timeless',quiet:60,urban:42,trip:36},
-    passportData:{material:'Waxed canvas / leather buckles',service:'Buckle + strap service path',care:'Re-wax canvas yearly',role:'Heritage carry'},
-    pack:['Laptop', 'Notebook', 'Essentials', 'Jacket', 'Water bottle'],
-    blueprint:[{label:'WAXED CANVAS SHELL',x:'8%',y:'16%'},{label:'LEATHER BUCKLE STRAP',x:'62%',y:'10%'},{label:'DUAL CARGO POCKETS',x:'66%',y:'54%'},{label:'LIFETIME ZIPPER',x:'10%',y:'68%'}],
-    dimensions:[{label:'46 cm',axis:'height',x:'4%',y:'14%',h:'68%'},{label:'30 cm',axis:'width',x:'18%',y:'92%',w:'60%'}],
+    id:'p7', code:'OBJ / 07', passport:'HB-P7-001', name:'Smart Umbrella', price:149, category:'system', badge:'Module',
+    image:'assets/new_products/Smart_Umbrella/smart_umbrella_1.png', cardImage:'assets/new_products/Smart_Umbrella/smart_umbrella_1.png', images:["assets/new_products/Smart_Umbrella/smart_umbrella_1.png", "assets/new_products/Smart_Umbrella/smart_umbrella_2.png", "assets/new_products/Smart_Umbrella/smart_umbrella_3.png", "assets/new_products/Smart_Umbrella/smart_umbrella_4.png", "assets/new_products/Smart_Umbrella/smart_umbrella_5.png", "assets/new_products/Smart_Umbrella/smart_umbrella_6.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Smart Umbrella', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Smart Umbrella brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Old World Carry',description:'Grounded sound for heritage travel.',tracks:[['Waxed Canvas','03:26'],['Leather Buckle','03:54'],['Field Notes','04:02'],['Cargo Pocket','03:33']]},
-      electric:{name:'New Ground',description:'Forward energy for modern movement.',tracks:[['Olive Voltage','03:14'],['Buckle Strap','03:41'],['Fast Trail','03:53'],['Tan Current','03:25']]},
-      slow:{name:'Slow Trail',description:'A patient soundtrack for older-era travel.',tracks:[['Dust Road','04:21'],['Canvas Hour','03:56'],['Leather Desk','04:09'],['Soft Buckle','03:47']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   },
   p8: {
-    id:'p8', code:'OBJ / 08', passport:'HB-P8-008', name:'City Sling', price:38, category:'carry', badge:'Space system',
-    image:'assets/products/p8-grey-sling.png', cardImage:'assets/products/p8-grey-sling.jpg', images:['assets/products/p8-grey-sling.png','assets/products/alt-black-crossbody.png','assets/products/alt-black-crossbody-front.png','assets/products/p6-midnight-rolltop.png','assets/products/p7-heritage-backpack.png'],
-    colors:[{name:'Grey',hex:'#7d818c'},{name:'Navy',hex:'#0b1240'}], sizes:['One Size'],
-    subtitle:'Compact essentials sling', kicker:'Fast-access city object',
-    description:'Compact crossbody for essentials — phone, wallet, keys, charger.',
-    specs:[['Material','Canvas + leather'],['Capacity','4L'],['Weight','0.35 kg'],['Warranty','Lifetime zipper'],['Colors','Grey / Navy'],['Sizes','One Size']],
-    mood:{label:'Electric / Immediate',quiet:28,urban:88,trip:14},
-    passportData:{material:'Canvas + leather',service:'Strap replacement path',care:'Spot-clean weekly',role:'Essential carry'},
-    pack:['Phone', 'Wallet', 'Keys', 'Earbuds', 'Cards'],
-    blueprint:[{label:'CANVAS + LEATHER SHELL',x:'8%',y:'20%'},{label:'ADJUSTABLE CROSSBODY STRAP',x:'60%',y:'12%'},{label:'QUICK-ACCESS ZIP',x:'66%',y:'60%'}],
-    dimensions:[{label:'24 cm',axis:'width',x:'20%',y:'92%',w:'55%'},{label:'17 cm',axis:'height',x:'6%',y:'25%',h:'50%'}],
+    id:'p8', code:'OBJ / 08', passport:'HB-P8-001', name:'Suitcases', price:159, category:'system', badge:'Space system',
+    image:'assets/new_products/Suitcases/suitcases_1.png', cardImage:'assets/new_products/Suitcases/suitcases_1.png', images:["assets/new_products/Suitcases/suitcases_1.png", "assets/new_products/Suitcases/suitcases_2.png", "assets/new_products/Suitcases/suitcases_3.png", "assets/new_products/Suitcases/suitcases_4.png", "assets/new_products/Suitcases/suitcases_5.png", "assets/new_products/Suitcases/suitcases_6.png", "assets/new_products/Suitcases/suitcases_7.png", "assets/new_products/Suitcases/suitcases_8.png", "assets/new_products/Suitcases/suitcases_9.png", "assets/new_products/Suitcases/suitcases_10.png"],
+    colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
+    subtitle:'Premium Suitcases', kicker:'Smart essentials',
+    description:'Engineered for precision. The new Suitcases brings intelligent design to your daily routine.',
+    specs:[['Material','Premium materials'],['Warranty','Lifetime']],
+    mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
+    passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
+    pack:[],
+    blueprint:[],
+    dimensions:[],
     playlists:{
-      focused:{name:'Close Carry',description:'Minimal sound for essentials-only movement.',tracks:[['No Excess','02:48'],['One Pocket','03:22'],['Clear Route','03:19'],['Fast Entry','02:57']]},
-      electric:{name:'Street Voltage',description:'High pulse for compressed city movement.',tracks:[['Signal Green','03:05'],['Corner Speed','03:32'],['Neon Crosswalk','03:18'],['Afterimage','03:49']]},
-      slow:{name:'Pocket Afternoon',description:'A low-key soundtrack for drifting through a city.',tracks:[['Side Street','03:50'],['Museum Hour','04:18'],['Soft Concrete','03:45'],['No Reservation','04:02']]}
+      focused:{name:'Focus Mode',description:'Steady rhythm.',tracks:[]}
     }
   }
 };
@@ -176,27 +160,27 @@ const blogPosts=[
   {slug:'art-of-packing-light',tag:'PACKING',date:'12 JUL 2026',readTime:'4 min read',image:'assets/products/p1-olive-skyline-duffel.jpg',
     title:'The art of packing light, without leaving anything behind.',
     excerpt:'Three trips, one carry-on. How a tighter packing logic changes the way you move through an airport.',
-    body:['Packing light isn’t about owning less — it’s about knowing exactly what earns its place in the bag. Every object in the HABÄNE system was designed around that idea: modular compartments, compression points, and a shape that forces a decision at the zipper rather than at the check-in counter.','Start with the base layer: two days of clothing, repeatable and neutral. Add the wildcard — one item that only makes sense for this specific trip. Everything else is negotiable.','The result isn’t a smaller trip. It’s a faster one — through security, across a platform, into a taxi — because the bag was never fighting you in the first place.']},
+    body:['Packing light isnΓÇÖt about owning less ΓÇö itΓÇÖs about knowing exactly what earns its place in the bag. Every object in the HAB├äNE system was designed around that idea: modular compartments, compression points, and a shape that forces a decision at the zipper rather than at the check-in counter.','Start with the base layer: two days of clothing, repeatable and neutral. Add the wildcard ΓÇö one item that only makes sense for this specific trip. Everything else is negotiable.','The result isnΓÇÖt a smaller trip. ItΓÇÖs a faster one ΓÇö through security, across a platform, into a taxi ΓÇö because the bag was never fighting you in the first place.']},
   {slug:'inside-the-workshop',tag:'CRAFT',date:'02 JUL 2026',readTime:'5 min read',image:'assets/products/p2-navy-metropolitan-duffel.jpg',
     title:'Inside the workshop: what a lifetime zipper actually means.',
-    excerpt:'A close look at the vault-grade hardware and stitching decisions that sit behind every HABÄNE warranty.',
-    body:['A zipper fails in one of three ways: the teeth, the pull, or the tape it’s sewn to. Most warranties only cover one of those. Ours covers all three, because a bag that’s otherwise perfect is useless the moment its zipper gives out on a jet bridge.','Vault-grade hardware means oversized teeth, a reinforced pull with a secondary stitch point, and tape sewn with a box-and-cross pattern rather than a single straight line. It costs more per unit. It also means the zipper is very rarely the reason an object comes back to us.','This is the part of the object nobody photographs. It’s also the part that decides whether it survives ten trips or two hundred.']},
+    excerpt:'A close look at the vault-grade hardware and stitching decisions that sit behind every HAB├äNE warranty.',
+    body:['A zipper fails in one of three ways: the teeth, the pull, or the tape itΓÇÖs sewn to. Most warranties only cover one of those. Ours covers all three, because a bag thatΓÇÖs otherwise perfect is useless the moment its zipper gives out on a jet bridge.','Vault-grade hardware means oversized teeth, a reinforced pull with a secondary stitch point, and tape sewn with a box-and-cross pattern rather than a single straight line. It costs more per unit. It also means the zipper is very rarely the reason an object comes back to us.','This is the part of the object nobody photographs. ItΓÇÖs also the part that decides whether it survives ten trips or two hundred.']},
   {slug:'five-cities-metropolitan',tag:'FIELD NOTES',date:'24 JUN 2026',readTime:'6 min read',image:'assets/products/p2-navy-metropolitan-duffel.jpg',
     title:'Five cities that are made for the Metropolitan Duffel.',
-    excerpt:'Cabin-friendly, city-first — a short list of departures where this object earns its name.',
-    body:['Some objects are built for a single kind of trip. The Metropolitan was built for the 48-hour city loop: one cabin bag, no checked luggage, a schedule dense enough that you don’t want to think about logistics twice.','Tokyo, for the way it rewards a bag that fits in a coin locker. Lisbon, for hills that punish anything with bad straps. Amsterdam, for a city built at bicycle scale. New York, obviously. And Berlin, where the Metropolitan was first sketched, on a napkin, on a train that was eleven minutes late.','None of this is a rule. It’s just where the object has quietly proven itself, trip after trip.']},
+    excerpt:'Cabin-friendly, city-first ΓÇö a short list of departures where this object earns its name.',
+    body:['Some objects are built for a single kind of trip. The Metropolitan was built for the 48-hour city loop: one cabin bag, no checked luggage, a schedule dense enough that you donΓÇÖt want to think about logistics twice.','Tokyo, for the way it rewards a bag that fits in a coin locker. Lisbon, for hills that punish anything with bad straps. Amsterdam, for a city built at bicycle scale. New York, obviously. And Berlin, where the Metropolitan was first sketched, on a napkin, on a train that was eleven minutes late.','None of this is a rule. ItΓÇÖs just where the object has quietly proven itself, trip after trip.']},
   {slug:'carry-vs-luggage',tag:'GUIDE',date:'15 JUN 2026',readTime:'4 min read',image:'assets/products/p6-midnight-rolltop.png',
     title:'Carry or luggage? How to actually decide.',
-    excerpt:'A short framework for choosing between the carry and luggage categories — before you fall for the wrong bag.',
-    body:['The honest answer is: it’s rarely about capacity. Most people who buy luggage for a 3-day trip end up filling it anyway, because empty space invites more packing, not less.','Ask instead: does this trip involve more than one mode of movement? A carry object — duffel, backpack, sling — is built for trips where you’re walking with the bag more than wheeling it. Luggage is built for the opposite: long transfers, hard floors, one main haul from door to gate.','If you’re still unsure, our matcher on the homepage will ask you three questions and get there faster than this article will.']},
+    excerpt:'A short framework for choosing between the carry and luggage categories ΓÇö before you fall for the wrong bag.',
+    body:['The honest answer is: itΓÇÖs rarely about capacity. Most people who buy luggage for a 3-day trip end up filling it anyway, because empty space invites more packing, not less.','Ask instead: does this trip involve more than one mode of movement? A carry object ΓÇö duffel, backpack, sling ΓÇö is built for trips where youΓÇÖre walking with the bag more than wheeling it. Luggage is built for the opposite: long transfers, hard floors, one main haul from door to gate.','If youΓÇÖre still unsure, our matcher on the homepage will ask you three questions and get there faster than this article will.']},
   {slug:'science-of-a-lifetime-zipper',tag:'CRAFT',date:'03 JUN 2026',readTime:'3 min read',image:'assets/products/p3-navy-voyager-duffel.jpg',
     title:'Why we test every zipper to 20,000 cycles.',
     excerpt:'The unglamorous engineering behind a claim we make on every single product page.',
-    body:['Twenty thousand cycles is roughly what a well-used travel bag sees over a decade of regular trips. We test to that number before a zipper ever ships on a HABÄNE object, and we test it under load, not just open-and-close in a vacuum.','It’s a slow, repetitive, unglamorous part of the process. It’s also the reason we can put "lifetime zipper" on a product page without a line of small print underneath it.']},
+    body:['Twenty thousand cycles is roughly what a well-used travel bag sees over a decade of regular trips. We test to that number before a zipper ever ships on a HAB├äNE object, and we test it under load, not just open-and-close in a vacuum.','ItΓÇÖs a slow, repetitive, unglamorous part of the process. ItΓÇÖs also the reason we can put "lifetime zipper" on a product page without a line of small print underneath it.']},
   {slug:'airport-to-boarding-in-8-minutes',tag:'FIELD NOTES',date:'21 MAY 2026',readTime:'5 min read',image:'assets/products/p4-smart-duffel-ivory.jpg',
     title:'Field notes: airport to boarding gate in eight minutes.',
     excerpt:'What actually changes when your carry-on is built around the security line instead of around you.',
-    body:['Eight minutes, door of the taxi to seated at the gate, security included. It only works with a specific kind of preparation: laptop sleeve that opens flat without unpacking anything else, no loose cables, one liquids pouch you can see through without opening.','The SMART Duffel’s check-in panel and dedicated laptop compartment exist because of exactly this kind of trip — the one where you’re not touring, you’re moving, and every extra motion at the tray table costs you time you don’t have.','It’s a small, specific kind of design problem. Most luggage ignores it entirely.']}
+    body:['Eight minutes, door of the taxi to seated at the gate, security included. It only works with a specific kind of preparation: laptop sleeve that opens flat without unpacking anything else, no loose cables, one liquids pouch you can see through without opening.','The SMART DuffelΓÇÖs check-in panel and dedicated laptop compartment exist because of exactly this kind of trip ΓÇö the one where youΓÇÖre not touring, youΓÇÖre moving, and every extra motion at the tray table costs you time you donΓÇÖt have.','ItΓÇÖs a small, specific kind of design problem. Most luggage ignores it entirely.']}
 ];
 function renderBlogGrid(filter){
   const grid=$('[data-blog-grid]'); if(!grid) return;
@@ -204,10 +188,10 @@ function renderBlogGrid(filter){
   grid.innerHTML=list.map(p=>`<article class="blog-card">
     <a class="blog-card__media" href="blog-post.html?slug=${p.slug}"><span class="blog-card__tag">${p.tag}</span><img src="${p.image}" alt="${p.title}" loading="lazy"></a>
     <div class="blog-card__body">
-      <span class="blog-card__meta">${p.date} · ${p.readTime}</span>
+      <span class="blog-card__meta">${p.date} ┬╖ ${p.readTime}</span>
       <h3><a href="blog-post.html?slug=${p.slug}">${p.title}</a></h3>
       <p>${p.excerpt}</p>
-      <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>→</span></a>
+      <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>ΓåÆ</span></a>
     </div>
   </article>`).join('');
 }
@@ -223,20 +207,20 @@ if($('[data-blog-post]')){
   const slug=new URLSearchParams(location.search).get('slug');
   const post=blogPosts.find(p=>p.slug===slug)||blogPosts[0];
   $('[data-blog-post-tag]').textContent=post.tag;
-  $('[data-blog-post-date]').textContent=`${post.date} · ${post.readTime}`;
+  $('[data-blog-post-date]').textContent=`${post.date} ┬╖ ${post.readTime}`;
   $('[data-blog-post-title]').textContent=post.title;
   $('[data-blog-post-image]').src=post.image;
   $('[data-blog-post-image]').alt=post.title;
   $('[data-blog-post-body]').innerHTML=post.body.map(para=>`<p>${para}</p>`).join('');
-  document.title=`${post.title} — HABÄNE Journal`;
+  document.title=`${post.title} ΓÇö HAB├äNE Journal`;
   const others=blogPosts.filter(p=>p.slug!==post.slug).slice(0,3);
   const moreEl=$('[data-blog-post-more]');
   if(moreEl) moreEl.innerHTML=others.map(p=>`<article class="blog-card">
     <a class="blog-card__media" href="blog-post.html?slug=${p.slug}"><span class="blog-card__tag">${p.tag}</span><img src="${p.image}" alt="${p.title}" loading="lazy"></a>
     <div class="blog-card__body">
-      <span class="blog-card__meta">${p.date} · ${p.readTime}</span>
+      <span class="blog-card__meta">${p.date} ┬╖ ${p.readTime}</span>
       <h3><a href="blog-post.html?slug=${p.slug}">${p.title}</a></h3>
-      <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>→</span></a>
+      <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>ΓåÆ</span></a>
     </div>
   </article>`).join('');
 }
@@ -248,7 +232,7 @@ function createProductCards(){
   const list=Object.values(products).slice(0,limit);
   const total=list.length;
   grid.innerHTML=list.map((p,index)=>`<article class="product-card" data-category="${p.category}" data-product-card="${p.id}">
-    <div class="product-card__media">${p.badge?`<span class="product-badge">${p.badge}</span>`:''}<button class="product-favourite" type="button" aria-label="Save ${p.name}">♡</button>${productPhoto(p,null,p.cardImage)}<div class="product-code"><span>${p.code}</span><span>${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</span></div></div>
+    <div class="product-card__media">${p.badge?`<span class="product-badge">${p.badge}</span>`:''}<button class="product-favourite" type="button" aria-label="Save ${p.name}">ΓÖí</button>${productPhoto(p,null,p.cardImage)}<div class="product-code"><span>${p.code}</span><span>${String(index+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</span></div></div>
     <div class="product-card__body"><div><h3>${p.name}</h3><p>${p.subtitle}</p></div><strong>${money(p.price)}</strong></div>
     <div class="product-card__actions"><button type="button" data-experience="${p.id}">Experience object</button><button type="button" data-card-add="${p.id}" aria-label="Add ${p.name} to bag">+</button></div>
   </article>`).join('');
@@ -258,7 +242,7 @@ function createProductCards(){
 function bindDynamicButtons(){
   $$('[data-experience]').forEach(btn=>btn.onclick=()=>location.href=`product.html?id=${btn.dataset.experience}`);
   $$('[data-card-add]').forEach(btn=>btn.onclick=()=>addToCart(btn.dataset.cardAdd));
-  $$('.product-favourite').forEach(btn=>btn.onclick=()=>{btn.classList.toggle('is-saved');btn.textContent=btn.classList.contains('is-saved')?'♥':'♡';toast(btn.classList.contains('is-saved')?'Saved to your movement list':'Removed from movement list')});
+  $$('.product-favourite').forEach(btn=>btn.onclick=()=>{btn.classList.toggle('is-saved');btn.textContent=btn.classList.contains('is-saved')?'ΓÖÑ':'ΓÖí';toast(btn.classList.contains('is-saved')?'Saved to your movement list':'Removed from movement list')});
   $$('[data-product-card] .product-card__media').forEach(media=>{
     const card=media.closest('[data-product-card]');
     media.onclick=e=>{if(e.target.closest('.product-favourite'))return;location.href=`product.html?id=${card.dataset.productCard}`};
@@ -295,7 +279,7 @@ function openProduct(id){
   state.pdpQty=1;
   const qtyValue=$('[data-qty-value]'); if(qtyValue) qtyValue.textContent=state.pdpQty;
   $('[data-dialog-price]').textContent=money(p.price);
-  document.title=`${p.name} — HABÄNE`;
+  document.title=`${p.name} ΓÇö HAB├äNE`;
   const swatches=$('[data-product-swatches]');
   if(swatches) swatches.innerHTML=p.colors.map((c,i)=>`<button type="button" class="${i===0?'is-active':''}" style="background:${c.hex}" aria-label="${c.name}"></button>`).join('');
   const shape=$('[data-product-shape]'); shape.src=p.image; shape.alt=p.name;
@@ -345,7 +329,7 @@ function renderPackItems(){
 function updateCapacity(){
   const p=products[state.activeProduct]; const count=state.packSelected.size; const usage=Math.min(100,Math.round((count/Math.max(4,p.pack.length))*100));
   $('[data-pack-used]').textContent=usage; $('[data-capacity-fill]').style.width=`${usage}%`;
-  $('[data-capacity-message]').textContent=usage<45?'Room remains for the unexpected.':usage<80?'Balanced for this object.':'Near capacity—consider a larger object or remove one layer.';
+  $('[data-capacity-message]').textContent=usage<45?'Room remains for the unexpected.':usage<80?'Balanced for this object.':'Near capacityΓÇöconsider a larger object or remove one layer.';
 }
 function renderPlaylist(){
   const p=products[state.activeProduct], list=p.playlists[state.playlistMood];
@@ -375,19 +359,18 @@ function recommend(){
   const s=$('[data-match-shape]');s.src=p.image;s.alt=p.name; $('[data-match-open]').dataset.matchId=id;
 }
 
-function addToCart(id,qty=1){const item=state.cart.find(i=>i.id===id);item?item.qty+=qty:state.cart.push({id,qty});updateCart();toast(`${products[id].name} added`)}
-function updateCart(){
-  localStorage.setItem('habane_cart',JSON.stringify(state.cart));
-  const count=state.cart.reduce((a,b)=>a+b.qty,0), subtotal=state.cart.reduce((a,b)=>a+products[b.id].price*b.qty,0);
-  $$('[data-cart-count]').forEach(el=>el.textContent=count);
-  const items=$('[data-cart-items]'), summary=$('[data-cart-summary]');
-  if(!count){items.innerHTML='<div class="empty-state"><span>00</span><h3>Your movement system is empty.</h3><button type="button" data-empty-shop>Explore the ten objects →</button></div>';summary.hidden=true;$('[data-cart-progress]').style.width='0%';$('[data-cart-progress-label]').textContent='Add €250 for complimentary EU delivery.';$('[data-empty-shop]').onclick=()=>{closeDrawer();location.hash='shop'};return}
-  items.innerHTML=state.cart.map(item=>{const p=products[item.id];return `<article class="cart-item"><div class="cart-item__image">${productPhoto(p)}</div><div><h3>${p.name}</h3><p>${p.colors[0].name} / ${p.sizes[0]}</p><div class="cart-item__qty"><button data-dec="${p.id}">−</button><span>${item.qty}</span><button data-inc="${p.id}">+</button></div></div><div class="cart-item__end"><strong>${money(p.price*item.qty)}</strong><button data-remove="${p.id}">Remove</button></div></article>`}).join('');
-  summary.hidden=false;$('[data-cart-subtotal]').textContent=money(subtotal);$('[data-cart-progress]').style.width=`${Math.min(100,subtotal/250*100)}%`;$('[data-cart-progress-label]').textContent=subtotal>=250?'Complimentary EU delivery unlocked.':`Add ${money(250-subtotal)} for complimentary EU delivery.`;
-  $$('[data-inc]',items).forEach(b=>b.onclick=()=>{state.cart.find(i=>i.id===b.dataset.inc).qty++;updateCart()});
-  $$('[data-dec]',items).forEach(b=>b.onclick=()=>{const i=state.cart.find(x=>x.id===b.dataset.dec);i.qty--;if(i.qty<1)state.cart=state.cart.filter(x=>x.id!==i.id);updateCart()});
-  $$('[data-remove]',items).forEach(b=>b.onclick=()=>{state.cart=state.cart.filter(i=>i.id!==b.dataset.remove);updateCart()});
-}
+  function addToCart(id,qty=1){
+    if (window.habaneCart && products[id]) {
+      const p = products[id];
+      window.habaneCart.add({ product_id: p.id, quantity: qty, name: p.name, price: p.price, image: p.card_image, slug: p.slug });
+      if (window.syncApiCart) window.syncApiCart();
+      toast(`${p.name} added`);
+    }
+  }
+  function updateCart(){
+    if (window.syncApiCart) window.syncApiCart();
+  }
+
 function addCompare(id){if(state.compare.includes(id)){openDrawer('compare');return}if(state.compare.length>=3){toast('Compare up to three objects');return}state.compare.push(id);updateCompare();openDrawer('compare')}
 function updateCompare(){
   localStorage.setItem('habane_compare',JSON.stringify(state.compare));
@@ -396,7 +379,7 @@ function updateCompare(){
   if(!state.compare.length){wrap.innerHTML='<div class="compare-empty"><h3>No objects selected.</h3><p>Add up to three objects from any product experience.</p></div>';return}
   const rows=['Price','Material','Capacity','Weight','Warranty'];
   const selected=state.compare.map(id=>products[id]);
-  wrap.innerHTML=`<div class="compare-table" style="--compare-count:${selected.length}"><div class="label">Object</div>${selected.map(p=>`<div class="compare-product"><h3>${p.name}</h3><button data-compare-remove="${p.id}">Remove</button></div>`).join('')}${rows.map((label,row)=>`<div class="label">${label}</div>${selected.map(p=>`<div>${row===0?money(p.price):(p.specs.find(s=>s[0]===label)||['','—'])[1]}</div>`).join('')}`).join('')}</div>`;
+  wrap.innerHTML=`<div class="compare-table" style="--compare-count:${selected.length}"><div class="label">Object</div>${selected.map(p=>`<div class="compare-product"><h3>${p.name}</h3><button data-compare-remove="${p.id}">Remove</button></div>`).join('')}${rows.map((label,row)=>`<div class="label">${label}</div>${selected.map(p=>`<div>${row===0?money(p.price):(p.specs.find(s=>s[0]===label)||['','ΓÇö'])[1]}</div>`).join('')}`).join('')}</div>`;
   $$('[data-compare-remove]',wrap).forEach(b=>b.onclick=()=>{state.compare=state.compare.filter(id=>id!==b.dataset.compareRemove);updateCompare()});
 }
 
@@ -409,7 +392,7 @@ function renderSearchResults(list){$('[data-search-results]').innerHTML=list.sli
 function syncSoundArt(){
   const art=$('[data-sound-art]');if(art) art.classList.toggle('is-playing',state.audio.playing);
   const btn=$('[data-playlist-play]');if(btn) btn.classList.toggle('is-playing',state.audio.playing);
-  const toggle=$('[data-audio-toggle]');if(toggle) toggle.textContent=state.audio.playing?'Ⅱ':'▶';
+  const toggle=$('[data-audio-toggle]');if(toggle) toggle.textContent=state.audio.playing?'Γàí':'Γû╢';
   const playIcon=$('#spotify-play-icon');if(playIcon) playIcon.style.display=state.audio.playing?'none':'block';
   const pauseIcon=$('#spotify-pause-icon');if(pauseIcon) pauseIcon.style.display=state.audio.playing?'block':'none';
 }
@@ -581,9 +564,42 @@ function playBrandChime(onDone){
 if($('[data-product-grid]')) createProductCards();
 updateCart(); updateCompare();
 if($('[data-matcher-group]')) recommend();
+
 if($('[data-product-name]')){
-  const requestedId=new URLSearchParams(location.search).get('id');
-  openProduct(products[requestedId]?requestedId:'p1');
+  const slug=new URLSearchParams(location.search).get('slug');
+  if(slug && window.habaneApi && window.habaneApi.getProduct) {
+    window.habaneApi.getProduct(slug).then(p => {
+      $$('[data-product-code]').forEach(el=>el.textContent=p.code);
+      if($('[data-product-kicker]')) $('[data-product-kicker]').textContent=p.subtitle || '';
+      $$('[data-product-name]').forEach(el=>el.textContent=p.name);
+      $$('[data-product-description]').forEach(el=>el.textContent=p.description);
+      $$('[data-product-price]').forEach(el=>el.textContent=money(p.price));
+      if($('[data-dialog-price]')) $('[data-dialog-price]').textContent=money(p.price);
+      
+      const img = p.images && p.images[0] ? p.images[0] : p.card_image;
+      const mainImg = $('[data-product-shape]');
+      if(mainImg) mainImg.src = img;
+      
+      const qtyValue = $('[data-qty-value]');
+      if(qtyValue) qtyValue.textContent = '1';
+      
+      const addBtn = $('[data-dialog-add]');
+      if(addBtn) {
+        addBtn.onclick = () => {
+          const q = parseInt($('[data-qty-value]')?.textContent||'1', 10);
+          window.habaneCart.add({ product_id: p.id, quantity: q, name: p.name, price: p.price, image: img, slug: p.slug });
+          if(window.syncApiCart) window.syncApiCart();
+          openDrawer('cart');
+          toast(p.name + ' added to bag');
+        };
+      }
+    }).catch(err => {
+      console.error('Failed to load product:', err);
+    });
+  } else {
+    const requestedId=new URLSearchParams(location.search).get('id');
+    openProduct(products[requestedId]?requestedId:'p1');
+  }
 }
 
 if($('[data-announcement-close]')) $('[data-announcement-close]').onclick=()=>{$('[data-announcement]').classList.add('is-hidden');document.documentElement.style.setProperty('--announcement-h','0px')};
@@ -1021,7 +1037,7 @@ document.addEventListener('click',e=>{
       </div>
       <div class="cookie-consent__actions">
         <button type="button" class="cookie-consent__btn cookie-consent__btn--primary" data-cookie-action="confirm-settings">Confirm my choices</button>
-        <button type="button" class="cookie-consent__btn cookie-consent__btn--text" data-cookie-action="back">← Back</button>
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--text" data-cookie-action="back">ΓåÉ Back</button>
       </div>
     </div>
   `;
@@ -1179,7 +1195,7 @@ if($$('[data-region]').length){
     regionBtns.forEach(btn=>{
       const img=btn.querySelector('img');
       if(img){ img.src=flagSrc; img.alt=regionName; }
-      else{ btn.innerHTML=`<img src="${flagSrc}" alt="${regionName}" width="20" height="15" style="border-radius:2px;object-fit:cover;display:block" onerror="this.onerror=null;this.style.display='none';this.parentElement.textContent='🌍';" />`; }
+      else{ btn.innerHTML=`<img src="${flagSrc}" alt="${regionName}" width="20" height="15" style="border-radius:2px;object-fit:cover;display:block" onerror="this.onerror=null;this.style.display='none';this.parentElement.textContent='≡ƒîì';" />`; }
       btn.setAttribute('aria-label',`Shipping region: ${regionName}`);
     });
     $$('[data-menu-region]').forEach(el=>el.textContent=regionName);
@@ -1196,7 +1212,7 @@ if($$('[data-region]').length){
 }
 if($('[data-prebook]')){
   if($('[data-product-name]')) $('[data-prebook]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
-  else $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon — join the movement to get notified.');
+  else $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon ΓÇö join the movement to get notified.');
 }
 
 if($('[data-hero-carousel]')){
@@ -1278,7 +1294,7 @@ if($('[data-hero-carousel]')){
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) restartHeroTimer();
 }
 
-// --- Smooth scroll (Lenis — the same engine veonn.framer.website runs) ---
+// --- Smooth scroll (Lenis ΓÇö the same engine veonn.framer.website runs) ---
 // Native-scroll-based (calls window.scrollTo under the hood), so
 // position:sticky, anchor links and the IntersectionObserver reveal below
 // all keep working untouched. Off for touch (native momentum is already
@@ -1309,9 +1325,9 @@ function ensureCheckoutModal(){
     <div class="checkout-modal" data-checkout-modal aria-hidden="true">
       <div class="checkout-modal__scrim" data-checkout-close></div>
       <div class="checkout-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Guest checkout">
-        <button type="button" class="checkout-modal__close" data-checkout-close aria-label="Close checkout">×</button>
+        <button type="button" class="checkout-modal__close" data-checkout-close aria-label="Close checkout">├ù</button>
         <div data-checkout-step="form">
-          <p class="checkout-modal__eyebrow">GUEST CHECKOUT · NO ACCOUNT NEEDED</p>
+          <p class="checkout-modal__eyebrow">GUEST CHECKOUT ┬╖ NO ACCOUNT NEEDED</p>
           <h3>Complete your order</h3>
           <div class="checkout-modal__summary" data-checkout-summary></div>
           <form data-checkout-form>
@@ -1322,7 +1338,8 @@ function ensureCheckoutModal(){
               <label>City<input type="text" name="city" required /></label>
               <label>Postal code<input type="text" name="postcode" required /></label>
             </div>
-            <button type="submit" class="button button--primary checkout-modal__submit" data-checkout-submit>Place order <span data-checkout-total>— €0</span></button>
+            <p class="checkout-modal__note" style="margin-bottom: 8px;">Total price includes applicable VAT. Shipping costs are calculated based on your delivery method.</p>
+            <button type="submit" class="button button--primary checkout-modal__submit" data-checkout-submit>zahlungspflichtig bestellen <span data-checkout-total></span></button>
             <p class="checkout-modal__note">No account required. VISA / MASTERCARD / PAYPAL / KLARNA.</p>
           </form>
         </div>
@@ -1355,13 +1372,13 @@ function openCheckout(){
   const subtotal=state.cart.reduce((a,b)=>a+products[b.id].price*b.qty,0);
   const summary=$('[data-checkout-summary]',modal), submit=$('[data-checkout-submit]',modal);
   if(!state.cart.length){
-    summary.innerHTML='<p class="checkout-modal__empty">Your bag is empty — add an object before checking out.</p>';
+    summary.innerHTML='<p class="checkout-modal__empty">Your bag is empty ΓÇö add an object before checking out.</p>';
     submit.disabled=true;
   } else {
-    summary.innerHTML=state.cart.map(i=>`<div class="checkout-modal__line"><span>${products[i.id].name} × ${i.qty}</span><b>${money(products[i.id].price*i.qty)}</b></div>`).join('');
+    summary.innerHTML=state.cart.map(i=>`<div class="checkout-modal__line"><span>${products[i.id].name} ├ù ${i.qty}</span><b>${money(products[i.id].price*i.qty)}</b></div>`).join('');
     submit.disabled=false;
   }
-  $('[data-checkout-total]',modal).textContent=`— ${money(subtotal)}`;
+  $('[data-checkout-total]',modal).textContent=`ΓÇö ${money(subtotal)}`;
   modal.querySelector('[data-checkout-step="form"]').hidden=false;
   modal.querySelector('[data-checkout-step="success"]').hidden=true;
   closeDrawer();
@@ -1372,43 +1389,6 @@ function closeCheckout(){
   modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); lock(false);
 }
 
-// --- Login (optional — guest checkout always available) ---
-function ensureLoginModal(){
-  if($('[data-login-modal]')) return;
-  document.body.insertAdjacentHTML('beforeend',`
-    <div class="login-modal" data-login-modal aria-hidden="true">
-      <div class="login-modal__scrim" data-login-close></div>
-      <div class="login-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Log in">
-        <button type="button" class="login-modal__close" data-login-close aria-label="Close login">×</button>
-        <p class="login-modal__eyebrow">WELCOME BACK</p>
-        <h3>Log in</h3>
-        <form data-login-form>
-          <label>Email<input type="email" name="email" required /></label>
-          <label>Password<input type="password" name="password" required /></label>
-          <button type="submit" class="button button--primary login-modal__submit">Log in</button>
-        </form>
-        <div class="login-modal__divider"><span>or</span></div>
-        <button type="button" class="login-modal__guest" data-login-guest>Continue as guest <span>↗</span></button>
-        <p class="login-modal__note">No account needed to shop or check out — <a href="#" data-login-guest-inline>skip straight to guest checkout</a>.</p>
-      </div>
-    </div>`);
-  const modal=$('[data-login-modal]');
-  $$('[data-login-close]',modal).forEach(el=>el.onclick=closeLogin);
-  $('[data-login-form]',modal).addEventListener('submit',e=>{e.preventDefault();closeLogin();toast('Logged in — welcome back.');e.target.reset()});
-  const guest=()=>{closeLogin();openCheckout()};
-  $('[data-login-guest]',modal).onclick=guest;
-  $('[data-login-guest-inline]',modal).onclick=e=>{e.preventDefault();guest()};
-}
-function openLogin(){
-  ensureLoginModal();
-  const modal=$('[data-login-modal]');
-  closeDrawer();
-  modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); lock(true);
-}
-function closeLogin(){
-  const modal=$('[data-login-modal]'); if(!modal) return;
-  modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); lock(false);
-}
 
 // --- Trusted Origin Scrolling Ribbon (Placed Above Footer) ---
 (function initOriginRibbon(){
@@ -1478,7 +1458,7 @@ function closeLogin(){
             <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z"/></svg>
             <div class="origin-badge__text">
               <strong>GERMANY</strong>
-              <small>HABÄNE Studio</small>
+              <small>HAB├äNE Studio</small>
             </div>
           </div>
         </div>
@@ -1538,7 +1518,7 @@ function closeLogin(){
             <svg class="origin-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M18 6L22 4L26 5L28 8L26 11L30 13L32 17L30 21L34 25L32 29L28 32L26 36L22 35L19 32L15 34L12 30L14 26L10 24L8 20L11 16L9 12L13 9L15 11L18 6Z"/></svg>
             <div class="origin-badge__text">
               <strong>GERMANY</strong>
-              <small>HABÄNE Studio</small>
+              <small>HAB├äNE Studio</small>
             </div>
           </div>
         </div>
@@ -1549,18 +1529,18 @@ function closeLogin(){
   footer.insertAdjacentHTML('beforebegin',ribbonHTML);
 })();
 
-$$('[data-login-open]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openLogin()}));
+
 
 // --- Category quick-menu (beside login) ---
 function ensureCategoryMenu(){
   if($('[data-category-menu]')) return $('[data-category-menu]');
   document.body.insertAdjacentHTML('beforeend',`
     <div class="category-menu" data-category-menu aria-hidden="true">
-      <a href="shop.html?category=luggage" class="category-menu__link" data-nav-category>Luggage <i>→</i></a>
-      <a href="shop.html?category=carry" class="category-menu__link" data-nav-category>Carry <i>→</i></a>
-      <a href="shop.html?category=system" class="category-menu__link" data-nav-category>System <i>→</i></a>
-      <a href="shop.html?category=accessory" class="category-menu__link" data-nav-category>Accessories <i>→</i></a>
-      <button type="button" class="category-menu__join" data-join-open>Join community <span>→</span></button>
+      <a href="shop.html?category=luggage" class="category-menu__link" data-nav-category>Luggage <i>ΓåÆ</i></a>
+      <a href="shop.html?category=carry" class="category-menu__link" data-nav-category>Carry <i>ΓåÆ</i></a>
+      <a href="shop.html?category=system" class="category-menu__link" data-nav-category>System <i>ΓåÆ</i></a>
+      <a href="shop.html?category=accessory" class="category-menu__link" data-nav-category>Accessories <i>ΓåÆ</i></a>
+      <button type="button" class="category-menu__join" data-join-open>Join community <span>ΓåÆ</span></button>
     </div>`);
   return $('[data-category-menu]');
 }
@@ -1632,7 +1612,7 @@ function renderPassport(canvas,{name,email,country}){
   ctx.strokeRect(16,16,W-32,H-32);
   ctx.fillStyle='#36D8FF';
   ctx.font='700 22px Arial';
-  ctx.fillText('HABÄNE', 48, 66);
+  ctx.fillText('HAB├äNE', 48, 66);
   ctx.fillStyle='rgba(255,255,255,.55)';
   ctx.font='400 12px Arial';
   ctx.fillText('MOVEMENT PASSPORT', 48, 88);
@@ -1646,7 +1626,7 @@ function renderPassport(canvas,{name,email,country}){
     ctx.fillText(label.toUpperCase(), 48, y);
     ctx.fillStyle='#fff';
     ctx.font='600 22px Arial';
-    ctx.fillText(value||'—', 48, y+28);
+    ctx.fillText(value||'ΓÇö', 48, y+28);
   }
   field('Member name', name, 165);
   field('Member ID', memberId, 235);
@@ -1664,10 +1644,10 @@ function ensureJoinModal(){
   document.body.insertAdjacentHTML('beforeend',`
     <div class="join-modal" data-join-modal aria-hidden="true">
       <div class="join-modal__scrim" data-join-close></div>
-      <div class="join-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Join the HABÄNE community">
-        <button type="button" class="join-modal__close" data-join-close aria-label="Close">×</button>
+      <div class="join-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Join the HAB├äNE community">
+        <button type="button" class="join-modal__close" data-join-close aria-label="Close">├ù</button>
         <div data-join-panel="form">
-          <p class="join-modal__eyebrow">HABÄNE COMMUNITY</p>
+          <p class="join-modal__eyebrow">HAB├äNE COMMUNITY</p>
           <h3>Join the movement</h3>
           <form data-join-form>
             <label>Full name<input type="text" name="name" required /></label>
@@ -1677,12 +1657,12 @@ function ensureJoinModal(){
           </form>
         </div>
         <div data-join-panel="passport" class="is-hidden">
-          <p class="join-modal__eyebrow">WELCOME TO HABÄNE</p>
+          <p class="join-modal__eyebrow">WELCOME TO HAB├äNE</p>
           <h3>Your passport is ready</h3>
           <canvas data-passport-canvas width="900" height="560"></canvas>
           <div class="join-modal__passport-actions">
             <button type="button" class="button button--primary join-modal__submit" data-passport-download>Download passport</button>
-            <button type="button" class="login-modal__guest" data-join-done>Done <span>↗</span></button>
+            <button type="button" class="login-modal__guest" data-join-done>Done <span>Γåù</span></button>
           </div>
         </div>
       </div>
@@ -1725,3 +1705,293 @@ document.addEventListener('click',e=>{
   if(trigger){ e.preventDefault(); openJoin(); }
 });
 
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HABÄNE — Backend Integration Layer
+   Connects the static frontend to the Ember Commerce REST API (api.js).
+   Requires: assets/api.js loaded BEFORE assets/app.js
+═══════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  if (typeof window.habaneApi === 'undefined') {
+    console.warn('[HABÄNE] api.js not loaded — backend features disabled.');
+    return;
+  }
+  var api  = window.habaneApi;
+  var cart = window.habaneCart;
+  var auth = window.habaneAuth;
+  var fmt  = window.habaneFormatPrice;
+
+  function qs(sel, root) { return (root || document).querySelector(sel); }
+  function qsa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+  function bestImage(p) {
+    if (p.card_image) return p.card_image;
+    if (p.images && p.images.length) return p.images[0];
+    var name = p.name.replace(/\s+/g, '_');
+    return 'assets/new_products/' + name + '/' + name.toLowerCase() + '_1.png';
+  }
+
+  function buildProductCard(p, index, total) {
+    var img   = bestImage(p);
+    var price = fmt(p.price, p.currency || 'EUR');
+    var badge = p.badge ? '<span class="product-badge">' + p.badge + '</span>' : '';
+    var num   = String(index + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    var code  = p.code || 'OBJ / ' + String(index + 1).padStart(2, '0');
+    var oos   = !p.in_stock ? ' product-card--out-of-stock' : '';
+    return '<article class="product-card' + oos + '" data-category="' + p.category + '" data-api-slug="' + p.slug + '" data-product-card="' + p.id + '">' +
+      '<div class="product-card__media">' + badge +
+        '<button class="product-favourite" type="button" aria-label="Save ' + p.name + '">♡</button>' +
+        '<img class="product-photo" src="' + img + '" alt="' + p.name + '" loading="lazy" />' +
+        '<div class="product-code"><span>' + code + '</span><span>' + num + '</span></div>' +
+      '</div>' +
+      '<div class="product-card__body"><div><h3>' + p.name + '</h3><p>' + (p.subtitle || '') + '</p></div><strong>' + price + '</strong></div>' +
+      '<div class="product-card__actions">' +
+        '<button type="button" data-api-open="' + p.slug + '">View product</button>' +
+        (p.in_stock
+          ? '<button type="button" data-api-add="' + p.id + '" data-api-name="' + p.name.replace(/"/g, '&quot;') + '" data-api-price="' + p.price + '" data-api-img="' + img + '" data-api-slug="' + p.slug + '" aria-label="Add ' + p.name + ' to bag">+</button>'
+          : '<button type="button" disabled class="is-out-of-stock">Sold out</button>') +
+      '</div></article>';
+  }
+
+  function bindApiCards(container) {
+    qsa('[data-api-open]', container).forEach(function (b) {
+      b.onclick = function () { location.href = 'product.html?slug=' + encodeURIComponent(b.dataset.apiOpen); };
+    });
+    qsa('[data-api-add]', container).forEach(function (b) {
+      b.onclick = function () {
+        cart.add({ product_id: b.dataset.apiAdd, quantity: 1, name: b.dataset.apiName, price: parseFloat(b.dataset.apiPrice) || 0, image: b.dataset.apiImg || null, slug: b.dataset.apiSlug || null });
+        syncApiCart(); openDrawer('cart'); toast(b.dataset.apiName + ' added');
+      };
+    });
+    qsa('[data-product-card] .product-card__media', container).forEach(function (m) {
+      m.onclick = function (e) {
+        if (e.target.closest('.product-favourite')) return;
+        var card = m.closest('[data-api-slug]');
+        if (card) location.href = 'product.html?slug=' + encodeURIComponent(card.dataset.apiSlug);
+      };
+    });
+    qsa('.product-favourite', container).forEach(function (b) {
+      b.onclick = function () { b.classList.toggle('is-saved'); b.textContent = b.classList.contains('is-saved') ? '♥' : '♡'; toast(b.classList.contains('is-saved') ? 'Saved to your movement list' : 'Removed from movement list'); };
+    });
+  }
+
+  function renderGridSkeleton(n) {
+    var h = '';
+    for (var i = 0; i < n; i++) h += '<article class="product-card product-card--skeleton"><div class="product-card__media"><div style="height:280px;border-radius:4px;background:rgba(255,255,255,0.07);animation:skPulse 1.4s ease-in-out infinite alternate"></div></div><div class="product-card__body"><div><div style="height:14px;width:70%;background:rgba(255,255,255,0.07);margin-bottom:8px;border-radius:3px;animation:skPulse 1.4s ease-in-out infinite alternate"></div><div style="height:10px;width:45%;background:rgba(255,255,255,0.07);border-radius:3px;animation:skPulse 1.4s ease-in-out infinite alternate"></div></div><div style="height:14px;width:30%;background:rgba(255,255,255,0.07);border-radius:3px;animation:skPulse 1.4s ease-in-out infinite alternate"></div></div></article>';
+    return h;
+  }
+  (function () {
+    if (document.getElementById('hb-sk')) return;
+    var s = document.createElement('style'); s.id = 'hb-sk';
+    s.textContent = '@keyframes skPulse{from{opacity:.4}to{opacity:.85}}';
+    document.head.appendChild(s);
+  })();
+
+  var _allApiProducts = null;
+
+  function loadProductGrid(grid, params) {
+    if (!grid) return;
+    var limit = parseInt(grid.dataset.limit, 10) || 50;
+    grid.innerHTML = renderGridSkeleton(Math.min(limit, 8));
+    api.getProducts(Object.assign({ limit: limit }, params || {}))
+      .then(function (r) {
+        if (!r.items || !r.items.length) {
+          grid.innerHTML = '<div class="empty-state" style="padding:3rem;text-align:center;grid-column:1/-1"><span>00</span><h3>No products found.</h3><p>Try a different filter.</p></div>';
+          return;
+        }
+        _allApiProducts = r.items;
+        var total = r.items.length;
+        grid.innerHTML = r.items.map(function (p, i) { return buildProductCard(p, i, total); }).join('');
+        bindApiCards(grid);
+        qsa('[data-filter="all"]').forEach(function (b) { b.textContent = 'All / ' + r.total; });
+      })
+      .catch(function () {
+        if (typeof createProductCards === 'function') { try { createProductCards(); } catch (e) {} }
+      });
+  }
+
+  function wireFilterButtons(grid) {
+    qsa('[data-filter]').forEach(function (btn) {
+      btn.onclick = function () {
+        qsa('[data-filter]').forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var cat = btn.dataset.filter;
+        loadProductGrid(grid, cat === 'all' ? {} : { category: cat });
+      };
+    });
+  }
+
+  var _searchDebounce = null;
+  function setupApiSearch() {
+    var inp = qs('#site-search');
+    if (!inp) return;
+    inp.addEventListener('input', function () {
+      clearTimeout(_searchDebounce);
+      var q = inp.value.trim();
+      _searchDebounce = setTimeout(function () {
+        if (!q) { renderApiSearchResults(_allApiProducts ? _allApiProducts.slice(0, 6) : []); return; }
+        if (_allApiProducts) {
+          renderApiSearchResults(_allApiProducts.filter(function (p) {
+            return (p.name + ' ' + (p.subtitle || '') + ' ' + p.code).toLowerCase().indexOf(q.toLowerCase()) !== -1;
+          }).slice(0, 6));
+        }
+        api.getProducts({ search: q, limit: 6 }).then(function (r) { renderApiSearchResults(r.items || []); }).catch(function () {});
+      }, 200);
+    });
+  }
+
+  function renderApiSearchResults(items) {
+    var el = qs('[data-search-results]');
+    if (!el) return;
+    if (!items.length) { el.innerHTML = '<p style="opacity:.5;padding:1rem">No results for this query.</p>'; return; }
+    el.innerHTML = items.map(function (p) {
+      return '<button type="button" data-api-search-go="' + p.slug + '"><small>' + p.code + ' / ' + p.category + '</small><b>' + p.name + '</b><span>' + fmt(p.price) + '</span></button>';
+    }).join('');
+    qsa('[data-api-search-go]', el).forEach(function (b) {
+      b.onclick = function () { location.href = 'product.html?slug=' + encodeURIComponent(b.dataset.apiSearchGo); };
+    });
+  }
+
+  function syncApiCart() {
+    var items = cart.get(), count = cart.count(), subtotal = cart.subtotal();
+    qsa('[data-cart-count]').forEach(function (el) { el.textContent = count; });
+    var itemsEl = qs('[data-cart-items]'), summaryEl = qs('[data-cart-summary]');
+    if (!itemsEl) return;
+    if (!count) {
+      itemsEl.innerHTML = '<div class="empty-state"><span>00</span><h3>Your movement system is empty.</h3><button type="button" data-empty-shop>Explore the objects →</button></div>';
+      if (summaryEl) summaryEl.hidden = true;
+      var prog = qs('[data-cart-progress]'), lbl = qs('[data-cart-progress-label]');
+      if (prog) prog.style.width = '0%';
+      if (lbl) lbl.textContent = 'Add €250 for complimentary EU delivery.';
+      var es = qs('[data-empty-shop]');
+      if (es) es.onclick = function () { closeDrawer(); location.hash = 'shop'; };
+      return;
+    }
+    itemsEl.innerHTML = items.map(function (item, idx) {
+      var img = item.image ? '<img src="' + item.image + '" alt="' + item.name + '" loading="lazy" />' : '';
+      var meta = [item.color, item.size].filter(Boolean).join(' / ') || '—';
+      return '<article class="cart-item"><div class="cart-item__image">' + img + '</div><div><h3>' + item.name + '</h3><p>' + meta + '</p><div class="cart-item__qty"><button data-api-dec="' + idx + '">−</button><span>' + item.quantity + '</span><button data-api-inc="' + idx + '">+</button></div></div><div class="cart-item__end"><strong>' + fmt(item.price * item.quantity) + '</strong><button data-api-remove="' + idx + '">Remove</button></div></article>';
+    }).join('');
+    if (summaryEl) {
+      summaryEl.hidden = false;
+      var se = qs('[data-cart-subtotal]'); if (se) se.textContent = fmt(subtotal);
+      var p2 = qs('[data-cart-progress]'), l2 = qs('[data-cart-progress-label]');
+      if (p2) p2.style.width = Math.min(100, subtotal / 250 * 100) + '%';
+      if (l2) l2.textContent = subtotal >= 250 ? 'Complimentary EU delivery unlocked.' : 'Add ' + fmt(250 - subtotal) + ' for complimentary EU delivery.';
+    }
+    qsa('[data-api-inc]', itemsEl).forEach(function (b) { b.onclick = function () { cart.setQty(+b.dataset.apiInc, items[+b.dataset.apiInc].quantity + 1); syncApiCart(); }; });
+    qsa('[data-api-dec]', itemsEl).forEach(function (b) { b.onclick = function () { cart.setQty(+b.dataset.apiDec, items[+b.dataset.apiDec].quantity - 1); syncApiCart(); }; });
+    qsa('[data-api-remove]', itemsEl).forEach(function (b) { b.onclick = function () { cart.remove(+b.dataset.apiRemove); syncApiCart(); }; });
+  }
+  window.syncApiCart = syncApiCart;
+
+  qsa('[data-checkout]').forEach(function (btn) {
+    btn.onclick = function () { if (!cart.count()) { toast('Your bag is empty'); return; } location.href = 'checkout.html'; };
+  });
+
+  function syncAuthUI() {
+    var user = auth.getUser();
+    qsa('[data-login-open]').forEach(function (btn) {
+      var label = btn.querySelector('.prebook-button__label');
+      if (label) label.textContent = user ? (user.email ? user.email.split('@')[0] : 'Account') : 'Log in';
+    });
+  }
+  auth.onAuthChange(function () { syncAuthUI(); });
+  syncAuthUI();
+
+  function ensureLoginModal() {
+    if (qs('[data-login-modal]')) return;
+    var div = document.createElement('div');
+    div.innerHTML = '<div class="join-modal" data-login-modal aria-hidden="true" style="z-index:9002"><div class="join-modal__scrim" data-login-modal-close></div><div class="join-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="HABÄNE Account"><button type="button" class="join-modal__close" data-login-modal-close aria-label="Close">×</button><div data-login-panel="form"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Log in</h3><p id="hb-login-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-login-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="current-password" /></label><button type="submit" class="button button--primary join-modal__submit" data-login-submit>Log in <span>→</span></button></form><p style="margin-top:1rem;text-align:center;font-size:13px;opacity:.7">No account? <button type="button" data-login-switch style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Create one</button></p><button type="button" class="login-modal__guest" data-login-modal-close>Continue as guest <span>→</span></button></div><div data-login-panel="register" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Create account</h3><p id="hb-reg-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-register-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="new-password" placeholder="Min. 8 characters" /></label><button type="submit" class="button button--primary join-modal__submit" data-register-submit>Create account <span>→</span></button></form><p style="margin-top:1rem;text-align:center;font-size:13px;opacity:.7">Already have one? <button type="button" data-register-switch style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Log in</button></p></div><div data-login-panel="account" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Welcome back</h3><p data-account-email style="opacity:.7;font-size:14px;margin-bottom:1.5rem"></p><a href="track-order.html" class="button button--primary" style="display:block;text-align:center;margin-bottom:1rem">Track an order →</a><a href="withdrawal.html" class="button button--light" style="display:block;text-align:center;margin-bottom:1.5rem">Returns &amp; withdrawals →</a><button type="button" class="login-modal__guest" data-logout>Log out <span>→</span></button></div></div></div>';
+    document.body.appendChild(div.firstChild);
+    var modal = qs('[data-login-modal]');
+    function closeLoginModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); if (typeof lock === 'function') lock(false); }
+    function showPanel(name) { qsa('[data-login-panel]', modal).forEach(function (p) { p.style.display = 'none'; }); var panel = qs('[data-login-panel="' + name + '"]', modal); if (panel) panel.style.display = ''; }
+    qsa('[data-login-modal-close]', modal).forEach(function (el) { el.onclick = closeLoginModal; });
+    var sw1 = qs('[data-login-switch]', modal); if (sw1) sw1.onclick = function () { showPanel('register'); };
+    var sw2 = qs('[data-register-switch]', modal); if (sw2) sw2.onclick = function () { showPanel('form'); };
+    qs('[data-login-form]', modal).onsubmit = function (e) {
+      e.preventDefault();
+      var d = new FormData(e.target), errEl = qs('#hb-login-err', modal), btn = qs('[data-login-submit]', modal);
+      btn.disabled = true; btn.textContent = 'Logging in…'; errEl.style.display = 'none';
+      auth.signIn(d.get('email'), d.get('password')).then(function () {
+        syncAuthUI();
+        var user = auth.getUser(); var ae = qs('[data-account-email]', modal); if (ae && user) ae.textContent = user.email;
+        showPanel('account'); toast('Welcome back!');
+      }).catch(function (err) { errEl.textContent = err.message || 'Login failed.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = 'Log in →'; });
+    };
+    qs('[data-register-form]', modal).onsubmit = function (e) {
+      e.preventDefault();
+      var d = new FormData(e.target), errEl = qs('#hb-reg-err', modal), btn = qs('[data-register-submit]', modal);
+      btn.disabled = true; btn.textContent = 'Creating…'; errEl.style.display = 'none';
+      auth.signUp(d.get('email'), d.get('password')).then(function () {
+        toast('Account created! Check your email to confirm.'); showPanel('form'); btn.disabled = false; btn.textContent = 'Create account →';
+      }).catch(function (err) { errEl.textContent = err.message || 'Sign-up failed.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = 'Create account →'; });
+    };
+    var logoutBtn = qs('[data-logout]', modal);
+    if (logoutBtn) logoutBtn.onclick = function () { auth.signOut().then(function () { syncAuthUI(); closeLoginModal(); toast('Logged out'); }); };
+    modal._close = closeLoginModal; modal._showPanel = showPanel;
+  }
+
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('[data-login-open]');
+    if (!trigger) return;
+    e.preventDefault();
+    ensureLoginModal();
+    var modal = qs('[data-login-modal]');
+    var user = auth.getUser();
+    if (user) { var ae = qs('[data-account-email]', modal); if (ae) ae.textContent = user.email; modal._showPanel('account'); }
+    else modal._showPanel('form');
+    modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
+    if (typeof lock === 'function') lock(true);
+  });
+
+  // Newsletter forms (footer forms etc.)
+  qsa('form').forEach(function (form) {
+    if (form.closest('[data-join-modal]') || form.closest('[data-login-modal]')) return;
+    var emailInput = form.querySelector('input[type="email"]');
+    if (!emailInput) return;
+    var btn = form.querySelector('[type="submit"]');
+    // Only auto-wire if the form doesn't already have a submit handler
+    if (form.dataset.newsletterWired) return;
+    form.dataset.newsletterWired = '1';
+    // Check if this is a newsletter form (has no action attribute or has newsletter-ish class)
+    var isNewsletter = !form.action || form.action === window.location.href || form.classList.contains('newsletter-form') || form.closest('.newsletter') || form.closest('[data-newsletter]');
+    if (!isNewsletter) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = emailInput.value.trim();
+      if (!email) return;
+      var orig = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Subscribing…'; }
+      api.subscribeNewsletter({ email: email, consent_text: 'I agree to receive the HABÄNE newsletter.', source: 'footer' })
+        .then(function () { toast('You\'re subscribed!'); emailInput.value = ''; if (btn) { btn.disabled = false; btn.textContent = orig; } })
+        .catch(function (err) { toast(err.code === 'rate_limited' ? 'Too many attempts — try again shortly.' : (err.message || 'Subscription failed.')); if (btn) { btn.disabled = false; btn.textContent = orig; } });
+    });
+  });
+
+  // Listen for cart changes
+  cart.onChange(function () { syncApiCart(); });
+
+  // Init product grid if present
+  var apiGrid = qs('[data-product-grid]');
+  if (apiGrid) {
+    var urlCat = new URLSearchParams(location.search).get('category');
+    loadProductGrid(apiGrid, urlCat ? { category: urlCat } : {});
+    wireFilterButtons(apiGrid);
+  }
+
+  // Init search
+  setupApiSearch();
+
+  // Sync cart drawer on load
+  syncApiCart();
+
+  // Fetch and apply store settings
+  api.getStoreSettings().then(function (store) {
+    var threshold = store.free_shipping_threshold || 250;
+    qsa('[data-store-email]').forEach(function (el) { el.textContent = store.support_email; if (el.tagName === 'A') el.href = 'mailto:' + store.support_email; });
+  }).catch(function () {});
+
+})();
