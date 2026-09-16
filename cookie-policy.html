@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=85" />
+  <link rel="stylesheet" href="assets/styles.css?v=150" />
   <style>
     .legal-page {
       padding: 60px var(--gutter) 100px;
@@ -202,7 +202,10 @@
 
       <div class="legal-card">
         <h2>6. Right of Withdrawal & Browser Settings</h2>
-        <p>If you have given your consent, you have the right to withdraw it at any time with effect for the future (<strong>Art. 7 Abs. 3 GDPR</strong>) via the cookie settings button on our website, or by clearing your browser storage. You can also configure your browser to reject cookies generally or to notify you before a cookie is set. Please note that disabling essential cookies may restrict the functionality of this website.</p>
+        <p>If you have given your consent, you have the right to withdraw it at any time with effect for the future (<strong>Art. 7 Abs. 3 GDPR</strong>) via the cookie settings button below, the "Cookie Settings" link in the footer of every page, or by clearing your browser storage. You can also configure your browser to reject cookies generally or to notify you before a cookie is set. Please note that disabling essential cookies may restrict the functionality of this website.</p>
+        <p>
+          <button type="button" data-cookie-settings style="font-family: var(--font-tech); font-size: 12px; letter-spacing: 0.04em; background: var(--midnight); color: #fff; border: 0; border-radius: 8px; padding: 12px 20px; cursor: pointer;">CHANGE COOKIE SETTINGS</button>
+        </p>
       </div>
 
       <div class="legal-card">
@@ -406,6 +409,7 @@
           <a href="shipping.html"><span>Shipping Policy</span><i>→</i></a>
           <a href="returns.html"><span>Returns &amp; Refunds</span><i>→</i></a>
           <a href="withdrawal.html"><span>Right of Withdrawal</span><i>→</i></a>
+          <a href="#" data-cookie-settings><span>Cookie Settings</span><i>→</i></a>
       </div>
     </div>
     </div>
@@ -434,7 +438,7 @@
   <div class="toast" data-toast role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="assets/app.js?v=85"></script>
+  <script src="assets/app.js?v=150"></script>
 
 </body>
 </html>

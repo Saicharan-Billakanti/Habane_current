@@ -1086,6 +1086,35 @@ document.addEventListener('click',e=>{
     }
   });
 
+  // Reflect the stored choice in the settings toggles so the panel opens
+  // showing what is currently active rather than everything unchecked.
+  function primeToggles(){
+    const prefs=getConsent();
+    OPTIONAL_CATEGORIES.forEach(cat=>{
+      const input=card.querySelector(`[data-cookie-toggle="${cat}"]`);
+      if(input) input.checked=!!(prefs&&prefs[cat]);
+    });
+  }
+
+  /**
+   * Reopen the banner so a visitor can change or withdraw consent at any time.
+   * GDPR Art. 7(3) requires withdrawing consent to be as easy as giving it.
+   */
+  function openConsent(showSettings){
+    primeToggles();
+    switchPanel(showSettings?'settings':'main');
+    card.classList.add('is-open');
+  }
+  window.habaneOpenCookieSettings=()=>openConsent(true);
+
+  // Any element marked [data-cookie-settings] reopens the panel.
+  document.addEventListener('click',(e)=>{
+    const trigger=e.target.closest('[data-cookie-settings]');
+    if(!trigger) return;
+    e.preventDefault();
+    openConsent(true);
+  });
+
   if(!getConsent()){
     requestAnimationFrame(()=>card.classList.add('is-open'));
   }
