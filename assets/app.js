@@ -129,11 +129,25 @@ const products = {
   }
 };
 
+/**
+ * Consent gate for optional client-side storage.
+ * § 25 Abs. 1 TTDSG covers any storage on the user's device, not just cookies,
+ * so the comparison list is only persisted once functional consent is given.
+ */
+function habaneConsent(){
+  try{ return JSON.parse(localStorage.getItem('habane_cookie_consent')||'null'); }
+  catch(e){ return null; }
+}
+function habaneHasConsent(category){
+  const prefs=habaneConsent();
+  return !!(prefs&&prefs[category]);
+}
+
 const state = {
   activeProduct:'p1',
   pdpQty:1,
   cart:JSON.parse(localStorage.getItem('habane_cart')||'[]'),
-  compare:JSON.parse(localStorage.getItem('habane_compare')||'[]'),
+  compare:habaneHasConsent('functional')?JSON.parse(localStorage.getItem('habane_compare')||'[]'):[],
   matcher:{duration:'short',mode:'air',mood:'focused'},
   packSelected:new Set(),
   playlistMood:'focused',
@@ -373,7 +387,9 @@ function recommend(){
 
 function addCompare(id){if(state.compare.includes(id)){openDrawer('compare');return}if(state.compare.length>=3){toast('Compare up to three objects');return}state.compare.push(id);updateCompare();openDrawer('compare')}
 function updateCompare(){
-  localStorage.setItem('habane_compare',JSON.stringify(state.compare));
+  if(habaneHasConsent('functional')){
+    localStorage.setItem('habane_compare',JSON.stringify(state.compare));
+  }
   $$('[data-compare-count]').forEach(el=>el.textContent=state.compare.length);
   const wrap=$('[data-compare-content]');
   if(!state.compare.length){wrap.innerHTML='<div class="compare-empty"><h3>No objects selected.</h3><p>Add up to three objects from any product experience.</p></div>';return}
@@ -1054,6 +1070,11 @@ document.addEventListener('click',e=>{
   }
   function applyConsent(prefs){
     saveConsent(prefs);
+    // Withdrawing a category must also remove what it stored, otherwise
+    // revoking consent would leave the data in place (Art. 7(3) GDPR).
+    if(!prefs.functional){
+      try{ localStorage.removeItem('habane_compare'); }catch(e){}
+    }
     // Hook point: only initialize the matching third-party script once its
     // category is true, e.g. if(prefs.analytics) loadGoogleAnalytics();
   }
