@@ -997,7 +997,7 @@ document.addEventListener('click',e=>{
   card.innerHTML=`
     <div class="cookie-consent__panel" data-cookie-panel="main">
       <h3 class="cookie-consent__title">We value your privacy</h3>
-      <p class="cookie-consent__text">We use cookies to ensure this website functions correctly. With your consent, we also use optional cookies for convenience features and analytics (Google Analytics) to understand how visitors use our site and improve your experience. If you are under 16, please ask a parent or legal guardian before consenting to optional cookies.</p>
+      <p class="cookie-consent__text">We use cookies to ensure this website functions correctly. With your consent, we would also use optional cookies for convenience features and analytics. No analytics or marketing cookies are currently set on this site. If you are under 16, please ask a parent or legal guardian before consenting to optional cookies.</p>
       <div class="cookie-consent__links"><a href="privacy.html">Privacy Policy</a><span>|</span><a href="cookie-policy.html">Cookie Policy</a><span>|</span><a href="impressum.html">Imprint</a></div>
       <div class="cookie-consent__actions">
         <button type="button" class="cookie-consent__btn cookie-consent__btn--primary" data-cookie-action="accept-all">Accept all</button>
@@ -1026,7 +1026,7 @@ document.addEventListener('click',e=>{
           <span class="cookie-toggle-row__label">Analytics</span>
           <label class="cookie-toggle"><input type="checkbox" data-cookie-toggle="analytics" /><span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span></label>
         </div>
-        <p class="cookie-toggle-row__desc">Google Analytics (_ga, _gid) helps us understand site usage. Optional.</p>
+        <p class="cookie-toggle-row__desc">Would help us understand site usage. No analytics cookies are currently set. Optional.</p>
       </div>
       <div class="cookie-toggle-row">
         <div class="cookie-toggle-row__head">
@@ -1340,7 +1340,7 @@ function ensureCheckoutModal(){
             </div>
             <p class="checkout-modal__note" style="margin-bottom: 8px;">Total price includes applicable VAT. Shipping costs are calculated based on your delivery method.</p>
             <button type="submit" class="button button--primary checkout-modal__submit" data-checkout-submit>zahlungspflichtig bestellen <span data-checkout-total></span></button>
-            <p class="checkout-modal__note">No account required. VISA / MASTERCARD / PAYPAL / KLARNA.</p>
+            <p class="checkout-modal__note">No account required. SECURE PAYMENT VIA STRIPE.</p>
           </form>
         </div>
         <div data-checkout-step="success" hidden>
