@@ -274,34 +274,54 @@ function renderRelated(id){
 }
 
 /**
- * Adds left/right arrow controls to the PDP thumbnail strip so it can be
- * stepped through without relying on drag-scroll, and keeps them disabled
- * at the ends. Safe to call repeatedly (e.g. on every product change).
+ * Renders the PDP thumbnail strip for a set of images and wires up three
+ * ways to move through them: clicking a thumbnail, the small scroll arrows
+ * on the strip itself, and the left/right arrows on the main photo. All
+ * three stay in sync through one selectImage() call. Safe to call again on
+ * product change — it replaces the gallery's contents each time.
  */
-function setupGalleryArrows(gallery){
-  // Arrows are absolutely positioned children of .pdp-gallery itself (which
-  // is position:relative), not flex items, so they don't join the scroll
-  // track or get pushed off by thumbnails.
-  let prevBtn=gallery.querySelector('[data-gallery-prev]');
-  let nextBtn=gallery.querySelector('[data-gallery-next]');
-  if(!prevBtn){
-    prevBtn=document.createElement('button');
-    prevBtn.type='button';
-    prevBtn.className='pdp-gallery__arrow pdp-gallery__arrow--prev';
-    prevBtn.setAttribute('data-gallery-prev','');
-    prevBtn.setAttribute('aria-label','Previous image');
-    prevBtn.innerHTML='&larr;';
-    gallery.appendChild(prevBtn);
+function setupImageGallery(images,shape,gallery,scene){
+  const set=(images&&images.length)?images:[shape.src];
+  let active=0;
+
+  gallery.innerHTML=set.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}" aria-label="image ${i+1}"><img src="${src}" alt="view ${i+1}" loading="lazy" /></button>`).join('');
+  const thumbs=$$('[data-gallery-thumb]',gallery);
+
+  function selectImage(i,opts){
+    active=(i+set.length)%set.length;
+    shape.src=set[active];
+    thumbs.forEach((b,x)=>b.classList.toggle('is-active',x===active));
+    if(!opts||!opts.skipScroll){
+      thumbs[active]&&thumbs[active].scrollIntoView({behavior:'smooth',inline:'nearest',block:'nearest'});
+    }
   }
-  if(!nextBtn){
-    nextBtn=document.createElement('button');
-    nextBtn.type='button';
-    nextBtn.className='pdp-gallery__arrow pdp-gallery__arrow--next';
-    nextBtn.setAttribute('data-gallery-next','');
-    nextBtn.setAttribute('aria-label','Next image');
-    nextBtn.innerHTML='&rarr;';
-    gallery.appendChild(nextBtn);
+  thumbs.forEach((btn,i)=>btn.onclick=()=>selectImage(i));
+
+  // Main-photo prev/next — only shown (via CSS) when there's more than one image.
+  if(scene){
+    scene.classList.toggle('has-multiple-images',set.length>1);
+    const photoPrev=scene.querySelector('[data-photo-prev]');
+    const photoNext=scene.querySelector('[data-photo-next]');
+    if(photoPrev) photoPrev.onclick=()=>selectImage(active-1);
+    if(photoNext) photoNext.onclick=()=>selectImage(active+1);
   }
+
+  // Small scroll arrows on the thumbnail strip itself. The innerHTML= above
+  // already wiped any arrows from a previous call, so these are built fresh
+  // every time rather than searched for and reused.
+  const prevBtn=document.createElement('button');
+  prevBtn.type='button';
+  prevBtn.className='pdp-gallery__arrow pdp-gallery__arrow--prev';
+  prevBtn.setAttribute('aria-label','Scroll thumbnails left');
+  prevBtn.innerHTML='&larr;';
+  gallery.appendChild(prevBtn);
+
+  const nextBtn=document.createElement('button');
+  nextBtn.type='button';
+  nextBtn.className='pdp-gallery__arrow pdp-gallery__arrow--next';
+  nextBtn.setAttribute('aria-label','Scroll thumbnails right');
+  nextBtn.innerHTML='&rarr;';
+  gallery.appendChild(nextBtn);
   const thumbWidth=110; // 92px thumb + 10px gap, rounded up
   function scrollBy(dir){ gallery.scrollBy({left:dir*thumbWidth*2,behavior:'smooth'}); }
   function refreshArrowState(){
@@ -341,17 +361,7 @@ function openProduct(id){
   if(swatches) swatches.innerHTML=p.colors.map((c,i)=>`<button type="button" class="${i===0?'is-active':''}" style="background:${c.hex}" aria-label="${c.name}"></button>`).join('');
   const shape=$('[data-product-shape]'); shape.src=p.image; shape.alt=p.name;
   const gallery=$('[data-pdp-gallery]');
-  if(gallery){
-    const gallerySet=p.images&&p.images.length?p.images:[p.image];
-    gallery.innerHTML=gallerySet.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}" aria-label="${p.name} angle ${i+1}"><img src="${src}" alt="${p.name} view ${i+1}" loading="lazy" /></button>`).join('');
-    $$('[data-gallery-thumb]',gallery).forEach(btn=>btn.onclick=()=>{
-      shape.src=btn.dataset.galleryThumb;
-      $$('[data-gallery-thumb]',gallery).forEach(b=>b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      btn.scrollIntoView({behavior:'smooth',inline:'nearest',block:'nearest'});
-    });
-    setupGalleryArrows(gallery);
-  }
+  if(gallery) setupImageGallery(p.images,shape,gallery,$('[data-scene]'));
   $('[data-product-specs]').innerHTML=p.specs.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('');
   $('[data-product-mood-label]').textContent=p.mood.label;
   $('[data-dna-quiet]').style.width=`${p.mood.quiet}%`;
@@ -397,7 +407,12 @@ function renderPlaylist(){
   if($('[data-mood-selector]')) $$('[data-mood]', $('[data-mood-selector]')).forEach(b=>b.classList.toggle('is-active',b.dataset.mood===state.playlistMood));
 }
 function setScene(scene){
-  const el=$('[data-scene]'); el.className=`product-scene product-scene--${scene}`;
+  // classList add/remove rather than a full className overwrite, so other
+  // state classes (e.g. has-multiple-images, set by setupImageGallery) survive
+  // a scene switch instead of being silently wiped.
+  const el=$('[data-scene]');
+  el.classList.remove('product-scene--airport','product-scene--night','product-scene--quiet');
+  el.classList.add(`product-scene--${scene}`);
   $('[data-scene-label]').textContent=scene==='airport'?'AIRPORT / 05:42':scene==='night'?'NIGHT CITY / 23:14':'QUIET HOTEL / 08:20';
   $$('[data-scene-option]').forEach(b=>b.classList.toggle('is-active',b.dataset.sceneOption===scene));
 }
@@ -636,17 +651,7 @@ if($('[data-product-name]')){
       // Thumbnail strip — previously never populated on this code path, so a
       // product opened via ?slug= showed a single hero image and no minis.
       const gallery=$('[data-pdp-gallery]');
-      const gallerySet=(p.images&&p.images.length)?p.images:[img];
-      if(gallery){
-        gallery.innerHTML=gallerySet.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}" aria-label="${p.name} angle ${i+1}"><img src="${src}" alt="${p.name} view ${i+1}" loading="lazy" /></button>`).join('');
-        $$('[data-gallery-thumb]',gallery).forEach(btn=>btn.onclick=()=>{
-          if(mainImg) mainImg.src=btn.dataset.galleryThumb;
-          $$('[data-gallery-thumb]',gallery).forEach(b=>b.classList.remove('is-active'));
-          btn.classList.add('is-active');
-          btn.scrollIntoView({behavior:'smooth',inline:'nearest',block:'nearest'});
-        });
-        setupGalleryArrows(gallery);
-      }
+      if(gallery && mainImg) setupImageGallery(p.images,mainImg,gallery,$('[data-scene]'));
 
       // Local catalogue entry supplies the pack list and blueprint callouts
       // the API response does not carry. The API has no `pN` ids and the
@@ -681,7 +686,6 @@ if($('[data-product-name]')){
           window.habaneCart.add({ product_id: p.id, quantity: q, name: p.name, price: p.price, image: img, slug: p.slug });
           if(window.syncApiCart) window.syncApiCart();
           if(addToBagBox) addToBagBox.classList.add('is-added');
-          openDrawer('cart');
           toast(p.name + ' added to bag');
         };
       }
@@ -1890,7 +1894,7 @@ document.addEventListener('click',e=>{
     qsa('[data-api-add]', container).forEach(function (b) {
       b.onclick = function () {
         cart.add({ product_id: b.dataset.apiAdd, quantity: 1, name: b.dataset.apiName, price: parseFloat(b.dataset.apiPrice) || 0, image: b.dataset.apiImg || null, slug: b.dataset.apiSlug || null });
-        syncApiCart(); openDrawer('cart'); toast(b.dataset.apiName + ' added');
+        syncApiCart(); toast(b.dataset.apiName + ' added');
       };
     });
     qsa('[data-product-card] .product-card__media', container).forEach(function (m) {
