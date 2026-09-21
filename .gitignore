@@ -4,6 +4,8 @@ __pycache__/
 *.txt
 *.ps1
 *.mp3
+# ...except the footer "pronounce HABÄNE" chime, which the site actually loads.
+!assets/audio/brand-sound.mp3
 abstract-luxury-gradient*
 preview-*.png
 ChatGPT*
