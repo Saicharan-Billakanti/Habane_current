@@ -161,12 +161,52 @@
     // ── Checkout ──────────────────────────────────
 
     /**
-     * POST /api/v1/checkout — creates order + Stripe session
-     * @param {CheckoutInputBody} input  (OrderInputBody + success_url + cancel_url)
-     * @returns Promise<CheckoutSessionResult>  { checkout_url, order_number, totals… }
+     * POST /api/v1/checkout — creates order + a payment session with the chosen gateway.
+     * @param {CheckoutInputBody} input  (OrderInputBody + success_url + cancel_url +
+     *   optional payment_provider: "stripe" | "razorpay" | "slice", default "stripe")
+     * @returns Promise<CheckoutSessionResult>
+     *   Stripe/Slice: { payment_provider, checkout_url, order_number, totals… } — redirect to checkout_url.
+     *   Razorpay: { payment_provider: "razorpay", razorpay_order_id, razorpay_key_id, order_number, totals… }
+     *   — pass these into habaneApi.openRazorpayCheckout() instead of redirecting.
      */
     createCheckout: function (input) {
       return apiCall('POST', '/checkout', { body: input });
+    },
+
+    /**
+     * Loads the Razorpay Checkout widget (if not already loaded) and opens it.
+     * Call this with the result of createCheckout() when payment_provider is "razorpay".
+     * @param {{ razorpay_order_id, razorpay_key_id, order_number, total, currency }} session
+     * @param {{ email?: string, name?: string, contact?: string }} prefill
+     * @returns Promise<{ razorpay_payment_id, razorpay_order_id, razorpay_signature }>
+     */
+    openRazorpayCheckout: function (session, prefill) {
+      function loadScript() {
+        if (global.Razorpay) return Promise.resolve();
+        return new Promise(function (resolve, reject) {
+          var script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.onload = resolve;
+          script.onerror = function () { reject(new Error('Failed to load Razorpay checkout script')); };
+          document.head.appendChild(script);
+        });
+      }
+      return loadScript().then(function () {
+        return new Promise(function (resolve, reject) {
+          var rzp = new global.Razorpay({
+            key: session.razorpay_key_id,
+            order_id: session.razorpay_order_id,
+            amount: Math.round(session.total * 100),
+            currency: session.currency || 'EUR',
+            name: 'HABÄNE',
+            description: 'Order ' + session.order_number,
+            prefill: prefill || {},
+            handler: function (response) { resolve(response); },
+            modal: { ondismiss: function () { reject(new Error('Payment cancelled')); } },
+          });
+          rzp.open();
+        });
+      });
     },
 
     // ── Returns ───────────────────────────────────
