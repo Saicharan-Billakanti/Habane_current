@@ -8,7 +8,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['Passport & boarding pass','Wallet & keys','Phone & charger cable','Sunglasses case','Spare tag loop'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -24,7 +24,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['500ml water bottle sleeve','USB-C charging cable','Electrolyte tablets','Collapsible cup','Bottle brush'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -40,7 +40,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['USB-C charging cable','Spare blades / filters','Neck strap','Travel pouch','Portable power bank'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -56,7 +56,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['Spare coin cell battery','Luggage strap','Adhesive mount pad','Carabiner clip','Backup SIM tool'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -72,7 +72,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['Passport','Boarding pass / e-ticket','Vaccination card','Pen for customs forms','Spare passport photos'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -88,7 +88,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['Phone & wallet','Compact camera','Travel documents','Sunglasses','Portable charger'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -104,7 +104,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['Spare batteries','Rain cover','Wrist strap pouch','Travel-size cleaning cloth','Compact case'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -120,7 +120,7 @@ const products = {
     specs:[['Material','Premium materials'],['Warranty','Lifetime']],
     mood:{label:'Modern / Essential',quiet:50,urban:60,trip:70},
     passportData:{material:'Premium',service:'Standard',care:'Wipe clean',role:'Essential'},
-    pack:[],
+    pack:['3–4 outfits','Toiletry kit','Shoes (2 pairs)','Packing cubes','Laundry bag'],
     blueprint:[],
     dimensions:[],
     playlists:{
@@ -273,6 +273,69 @@ function renderRelated(id){
   $$('[data-related-products] .product-card').forEach(card=>card.onclick=()=>location.href=`product.html?id=${card.dataset.productCard}`);
 }
 
+/**
+ * Renders the PDP thumbnail strip for a set of images and wires up three
+ * ways to move through them: clicking a thumbnail, the small scroll arrows
+ * on the strip itself, and the left/right arrows on the main photo. All
+ * three stay in sync through one selectImage() call. Safe to call again on
+ * product change — it replaces the gallery's contents each time.
+ */
+function setupImageGallery(images,shape,gallery,scene){
+  const set=(images&&images.length)?images:[shape.src];
+  let active=0;
+
+  gallery.innerHTML=set.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}" aria-label="image ${i+1}"><img src="${src}" alt="view ${i+1}" loading="lazy" /></button>`).join('');
+  const thumbs=$$('[data-gallery-thumb]',gallery);
+
+  function selectImage(i,opts){
+    active=(i+set.length)%set.length;
+    shape.src=set[active];
+    thumbs.forEach((b,x)=>b.classList.toggle('is-active',x===active));
+    if(!opts||!opts.skipScroll){
+      thumbs[active]&&thumbs[active].scrollIntoView({behavior:'smooth',inline:'nearest',block:'nearest'});
+    }
+  }
+  thumbs.forEach((btn,i)=>btn.onclick=()=>selectImage(i));
+
+  // Main-photo prev/next — only shown (via CSS) when there's more than one image.
+  if(scene){
+    scene.classList.toggle('has-multiple-images',set.length>1);
+    const photoPrev=scene.querySelector('[data-photo-prev]');
+    const photoNext=scene.querySelector('[data-photo-next]');
+    if(photoPrev) photoPrev.onclick=()=>selectImage(active-1);
+    if(photoNext) photoNext.onclick=()=>selectImage(active+1);
+  }
+
+  // Small scroll arrows on the thumbnail strip itself. The innerHTML= above
+  // already wiped any arrows from a previous call, so these are built fresh
+  // every time rather than searched for and reused.
+  const prevBtn=document.createElement('button');
+  prevBtn.type='button';
+  prevBtn.className='pdp-gallery__arrow pdp-gallery__arrow--prev';
+  prevBtn.setAttribute('aria-label','Scroll thumbnails left');
+  prevBtn.innerHTML='&larr;';
+  gallery.appendChild(prevBtn);
+
+  const nextBtn=document.createElement('button');
+  nextBtn.type='button';
+  nextBtn.className='pdp-gallery__arrow pdp-gallery__arrow--next';
+  nextBtn.setAttribute('aria-label','Scroll thumbnails right');
+  nextBtn.innerHTML='&rarr;';
+  gallery.appendChild(nextBtn);
+  const thumbWidth=110; // 92px thumb + 10px gap, rounded up
+  function scrollBy(dir){ gallery.scrollBy({left:dir*thumbWidth*2,behavior:'smooth'}); }
+  function refreshArrowState(){
+    const max=gallery.scrollWidth-gallery.clientWidth;
+    prevBtn.disabled=gallery.scrollLeft<=2;
+    nextBtn.disabled=gallery.scrollLeft>=max-2;
+    gallery.classList.toggle('has-overflow',max>4);
+  }
+  prevBtn.onclick=()=>scrollBy(-1);
+  nextBtn.onclick=()=>scrollBy(1);
+  gallery.onscroll=refreshArrowState;
+  requestAnimationFrame(refreshArrowState);
+}
+
 function openProduct(id){
   const p=products[id]; if(!p)return;
   state.activeProduct=id; state.packSelected=new Set(); state.playlistMood='focused';
@@ -298,16 +361,7 @@ function openProduct(id){
   if(swatches) swatches.innerHTML=p.colors.map((c,i)=>`<button type="button" class="${i===0?'is-active':''}" style="background:${c.hex}" aria-label="${c.name}"></button>`).join('');
   const shape=$('[data-product-shape]'); shape.src=p.image; shape.alt=p.name;
   const gallery=$('[data-pdp-gallery]');
-  if(gallery){
-    const gallerySet=p.images&&p.images.length?p.images:[p.image];
-    gallery.innerHTML=gallerySet.map((src,i)=>`<button type="button" class="${i===0?'is-active':''}" data-gallery-thumb="${src}" aria-label="${p.name} angle ${i+1}"><img src="${src}" alt="${p.name} view ${i+1}" loading="lazy" /></button>`).join('');
-    $$('[data-gallery-thumb]',gallery).forEach(btn=>btn.onclick=()=>{
-      shape.src=btn.dataset.galleryThumb;
-      $$('[data-gallery-thumb]',gallery).forEach(b=>b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      btn.scrollIntoView({behavior:'smooth',inline:'nearest',block:'nearest'});
-    });
-  }
+  if(gallery) setupImageGallery(p.images,shape,gallery,$('[data-scene]'));
   $('[data-product-specs]').innerHTML=p.specs.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('');
   $('[data-product-mood-label]').textContent=p.mood.label;
   $('[data-dna-quiet]').style.width=`${p.mood.quiet}%`;
@@ -353,7 +407,12 @@ function renderPlaylist(){
   if($('[data-mood-selector]')) $$('[data-mood]', $('[data-mood-selector]')).forEach(b=>b.classList.toggle('is-active',b.dataset.mood===state.playlistMood));
 }
 function setScene(scene){
-  const el=$('[data-scene]'); el.className=`product-scene product-scene--${scene}`;
+  // classList add/remove rather than a full className overwrite, so other
+  // state classes (e.g. has-multiple-images, set by setupImageGallery) survive
+  // a scene switch instead of being silently wiped.
+  const el=$('[data-scene]');
+  el.classList.remove('product-scene--airport','product-scene--night','product-scene--quiet');
+  el.classList.add(`product-scene--${scene}`);
   $('[data-scene-label]').textContent=scene==='airport'?'AIRPORT / 05:42':scene==='night'?'NIGHT CITY / 23:14':'QUIET HOTEL / 08:20';
   $$('[data-scene-option]').forEach(b=>b.classList.toggle('is-active',b.dataset.sceneOption===scene));
 }
@@ -555,24 +614,17 @@ function playBrandChime(onDone){
   let done=false;
   const finish=()=>{ if(!done){ done=true; if(onDone) onDone(); } };
   try{
+    // Single tracked asset — the previous root-level WhatsApp export was
+    // excluded by the *.mp3 gitignore rule and 404'd in production.
     if(!speakerAudioInstance){
-      speakerAudioInstance = new Audio('whatsapp-video-2026-08-03-at-115719-pm-1_LhSeMIej.mp3');
+      speakerAudioInstance = new Audio('assets/audio/brand-sound.mp3');
     }
     speakerAudioInstance.currentTime = 0;
     speakerAudioInstance.volume = 1.0;
     speakerAudioInstance.onended = finish;
-    speakerAudioInstance.onerror = () => {
-      const fb = new Audio('assets/audio/brand-sound.mp3');
-      fb.onended = finish;
-      fb.onerror = finish;
-      fb.play().catch(finish);
-    };
+    speakerAudioInstance.onerror = finish;
     const p = speakerAudioInstance.play();
-    if(p && p.catch) p.catch(() => {
-      const fb = new Audio('assets/audio/brand-sound.mp3');
-      fb.onended = finish;
-      fb.play().catch(finish);
-    });
+    if(p && p.catch) p.catch(finish);
   }catch(e){ finish(); }
   setTimeout(finish, 3500);
 }
@@ -591,26 +643,57 @@ if($('[data-product-name]')){
       $$('[data-product-description]').forEach(el=>el.textContent=p.description);
       $$('[data-product-price]').forEach(el=>el.textContent=money(p.price));
       if($('[data-dialog-price]')) $('[data-dialog-price]').textContent=money(p.price);
-      
+
       const img = p.images && p.images[0] ? p.images[0] : p.card_image;
       const mainImg = $('[data-product-shape]');
       if(mainImg) mainImg.src = img;
-      
+
+      // Thumbnail strip — previously never populated on this code path, so a
+      // product opened via ?slug= showed a single hero image and no minis.
+      const gallery=$('[data-pdp-gallery]');
+      if(gallery && mainImg) setupImageGallery(p.images,mainImg,gallery,$('[data-scene]'));
+
+      // Local catalogue entry supplies the pack list and blueprint callouts
+      // the API response does not carry. The API has no `pN` ids and the
+      // local data has no slug field, so match on the normalised name —
+      // the one value both sides share (e.g. "Bag Tags" -> "bag-tags").
+      const nameSlug=(p.name||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+      const local=products[p.id]||products[slug]||Object.values(products).find(x=>
+        x.name.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')===(p.slug||nameSlug)
+      );
+      if(local){
+        state.activeProduct=local.id;
+        state.packSelected=new Set();
+        renderPackItems();
+        renderBlueprint(local);
+      }
+
+      state.pdpQty=1;
       const qtyValue = $('[data-qty-value]');
       if(qtyValue) qtyValue.textContent = '1';
-      
+      const addToBagBox=$('.add-to-bag-box');
+      if(addToBagBox) addToBagBox.classList.remove('is-added');
+
+      const qtyDec=$('[data-qty-dec]'), qtyInc=$('[data-qty-inc]');
+      function refreshSlugQty(){ if(qtyValue) qtyValue.textContent=state.pdpQty; }
+      if(qtyDec) qtyDec.onclick=()=>{ state.pdpQty=Math.max(1,state.pdpQty-1); refreshSlugQty(); };
+      if(qtyInc) qtyInc.onclick=()=>{ state.pdpQty=Math.min(9,state.pdpQty+1); refreshSlugQty(); };
+
       const addBtn = $('[data-dialog-add]');
       if(addBtn) {
         addBtn.onclick = () => {
-          const q = parseInt($('[data-qty-value]')?.textContent||'1', 10);
+          const q = state.pdpQty||1;
           window.habaneCart.add({ product_id: p.id, quantity: q, name: p.name, price: p.price, image: img, slug: p.slug });
           if(window.syncApiCart) window.syncApiCart();
-          openDrawer('cart');
+          if(addToBagBox) addToBagBox.classList.add('is-added');
           toast(p.name + ' added to bag');
         };
       }
     }).catch(err => {
       console.error('Failed to load product:', err);
+      // Fall back to the local catalogue rather than leaving the page blank.
+      const requestedId=new URLSearchParams(location.search).get('id');
+      openProduct(products[requestedId]?requestedId:'p1');
     });
   } else {
     const requestedId=new URLSearchParams(location.search).get('id');
@@ -1811,7 +1894,7 @@ document.addEventListener('click',e=>{
     qsa('[data-api-add]', container).forEach(function (b) {
       b.onclick = function () {
         cart.add({ product_id: b.dataset.apiAdd, quantity: 1, name: b.dataset.apiName, price: parseFloat(b.dataset.apiPrice) || 0, image: b.dataset.apiImg || null, slug: b.dataset.apiSlug || null });
-        syncApiCart(); openDrawer('cart'); toast(b.dataset.apiName + ' added');
+        syncApiCart(); toast(b.dataset.apiName + ' added');
       };
     });
     qsa('[data-product-card] .product-card__media', container).forEach(function (m) {
