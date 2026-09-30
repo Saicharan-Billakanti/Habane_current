@@ -416,8 +416,8 @@
      Auth — Supabase session (guest + logged-in)
      Uses the public anon key; never stores secrets.
   ───────────────────────────────────────────── */
-  var SUPABASE_URL = 'https://vyjrrsnjvgyppcyfwnta.supabase.co';
-  var SUPABASE_ANON_KEY = 'sb_publishable_cmP3t8zSpupGVFyDOt2bvw_t4He4WCP';
+  var SUPABASE_URL = (cfg.supabaseUrl || 'https://vyjrrsnjvgyppcyfwnta.supabase.co').replace(/\/+$/, '');
+  var SUPABASE_ANON_KEY = cfg.supabaseAnonKey || 'sb_publishable_cmP3t8zSpupGVFyDOt2bvw_t4He4WCP';
   var SESSION_KEY = 'habane_session';
 
   var habaneAuth = {
