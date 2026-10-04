@@ -277,6 +277,33 @@
       return apiCall('GET', '/store');
     },
 
+    // ── Content (announcements, FAQ, navigation) ───
+
+    /**
+     * GET /api/v1/announcements
+     * @returns Promise<{ announcements: Array<{id, message, link_text, link_url, background_color, text_color, position}> }>
+     */
+    getAnnouncements: function () {
+      return apiCall('GET', '/announcements');
+    },
+
+    /**
+     * GET /api/v1/faq
+     * @returns Promise<{ items: Array<{id, question, answer, category, position}> }>
+     */
+    getFaqItems: function () {
+      return apiCall('GET', '/faq');
+    },
+
+    /**
+     * GET /api/v1/navigation/:location
+     * @param {string} location  e.g. "header", "footer"
+     * @returns Promise<{ location, items: Array }>
+     */
+    getNavigation: function (location) {
+      return apiCall('GET', '/navigation/' + encodeURIComponent(location));
+    },
+
     // ── Health ────────────────────────────────────
 
     /**
@@ -413,100 +440,77 @@
   };
 
   /* ─────────────────────────────────────────────
-     Auth — Supabase session (guest + logged-in)
-     Uses the public anon key; never stores secrets.
+     Auth — Google / Email OTP / Phone OTP / guest
+     Backed by the real Supabase JS SDK (loaded via CDN before this file),
+     not raw fetch — the SDK handles token refresh, session persistence and
+     the OAuth redirect/PKCE flow safely. Uses the public anon key only.
   ───────────────────────────────────────────── */
   var SUPABASE_URL = (cfg.supabaseUrl || 'https://vyjrrsnjvgyppcyfwnta.supabase.co').replace(/\/+$/, '');
   var SUPABASE_ANON_KEY = cfg.supabaseAnonKey || 'sb_publishable_cmP3t8zSpupGVFyDOt2bvw_t4He4WCP';
-  var SESSION_KEY = 'habane_session';
+
+  var _sb = global.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  });
+
+  // Cached current user, kept in sync via onAuthStateChange so callers
+  // (e.g. syncAuthUI()) can keep calling habaneAuth.getUser() synchronously.
+  var _currentUser = null;
+  _sb.auth.getSession().then(function (r) { _currentUser = (r.data.session && r.data.session.user) || null; habaneAuth._notifyAuth(); });
+  _sb.auth.onAuthStateChange(function (_event, session) {
+    _currentUser = (session && session.user) || null;
+    habaneAuth._notifyAuth();
+  });
+
+  function authError(error) {
+    if (!error) return null;
+    throw new Error(error.message || String(error));
+  }
 
   var habaneAuth = {
 
-    /** Returns stored session or null */
-    getSession: function () {
-      try {
-        return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
-      } catch (e) { return null; }
-    },
-
     /** Returns currently logged-in user object or null */
     getUser: function () {
-      var s = habaneAuth.getSession();
-      return s ? s.user : null;
+      return _currentUser;
     },
 
     /** True if a user is logged in */
     isLoggedIn: function () {
-      return !!habaneAuth.getUser();
+      return !!_currentUser;
     },
 
-    /**
-     * Sign up with email + password.
-     * @returns Promise<{user, session}>
-     */
-    signUp: function (email, password) {
-      return fetch(SUPABASE_URL + '/auth/v1/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY
-        },
-        body: JSON.stringify({ email: email, password: password })
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data.error) throw new Error(data.error.message || data.error);
-        habaneAuth._saveSession(data);
-        return data;
-      });
+    /** Redirect to Google's consent screen; returns to the current page on completion. */
+    signInWithGoogle: function () {
+      return _sb.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+      }).then(function (r) { return authError(r.error); });
     },
 
-    /**
-     * Sign in with email + password.
-     * @returns Promise<{user, session}>
-     */
-    signIn: function (email, password) {
-      return fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY
-        },
-        body: JSON.stringify({ email: email, password: password })
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data.error) throw new Error(data.error.message || data.error);
-        habaneAuth._saveSession(data);
-        return data;
-      });
+    /** Sends a 6-digit OTP code to the given email. Auto-creates the account on first use. */
+    sendEmailOtp: function (email) {
+      return _sb.auth.signInWithOtp({ email: email }).then(function (r) { return authError(r.error); });
+    },
+
+    /** Verifies the emailed OTP code and completes sign-in. */
+    verifyEmailOtp: function (email, token) {
+      return _sb.auth.verifyOtp({ email: email, token: token, type: 'email' })
+        .then(function (r) { authError(r.error); return r.data; });
+    },
+
+    /** Sends a 6-digit OTP code via SMS to the given E.164 phone number. */
+    sendPhoneOtp: function (phone) {
+      return _sb.auth.signInWithOtp({ phone: phone }).then(function (r) { return authError(r.error); });
+    },
+
+    /** Verifies the texted OTP code and completes sign-in. */
+    verifyPhoneOtp: function (phone, token) {
+      return _sb.auth.verifyOtp({ phone: phone, token: token, type: 'sms' })
+        .then(function (r) { authError(r.error); return r.data; });
     },
 
     /** Sign out and clear session */
     signOut: function () {
-      var s = habaneAuth.getSession();
-      var token = s && s.access_token;
-      localStorage.removeItem(SESSION_KEY);
-      habaneAuth._notifyAuth();
-      if (!token) return Promise.resolve();
-      return fetch(SUPABASE_URL + '/auth/v1/logout', {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': 'Bearer ' + token
-        }
-      }).catch(function () {});
-    },
-
-    /** Save session to localStorage */
-    _saveSession: function (data) {
-      // Supabase returns { user, access_token, refresh_token, ... }
-      // or { session: { user, access_token, ... } }
-      var session = data.session || data;
-      if (session && session.access_token) {
-        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-        habaneAuth._notifyAuth();
-      }
+      return _sb.auth.signOut().then(function (r) { return authError(r.error); });
     },
 
     _listeners: [],

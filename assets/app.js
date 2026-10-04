@@ -2033,35 +2033,102 @@ document.addEventListener('click',e=>{
   auth.onAuthChange(function () { syncAuthUI(); });
   syncAuthUI();
 
+  var ICON_GOOGLE = '<svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 6 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 7 29.6 5 24 5c-7.6 0-14.1 4.3-17.4 10.6z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.6c-2 1.5-4.6 2.4-7.6 2.4-5.3 0-9.7-3.4-11.3-8.1l-6.6 5.1C9.8 39.6 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.6 5.6C40.9 36.6 44 31 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>';
+  var ICON_MAIL = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg>';
+  var ICON_PHONE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 3a2 2 0 0 1-.5 2.1L8 10.1a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c1 .3 2 .5 3 .7a2 2 0 0 1 1.7 2z"/></svg>';
+
   function ensureLoginModal() {
     if (qs('[data-login-modal]')) return;
     var div = document.createElement('div');
-    div.innerHTML = '<div class="join-modal" data-login-modal aria-hidden="true" style="z-index:9002"><div class="join-modal__scrim" data-login-modal-close></div><div class="join-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="HABÄNE Account"><button type="button" class="join-modal__close" data-login-modal-close aria-label="Close">×</button><div data-login-panel="form"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Log in</h3><p id="hb-login-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-login-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="current-password" /></label><button type="submit" class="button button--primary join-modal__submit" data-login-submit>Log in <span>→</span></button></form><p style="margin-top:1rem;text-align:center;font-size:13px;opacity:.7">No account? <button type="button" data-login-switch style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Create one</button></p><button type="button" class="login-modal__guest" data-login-modal-close>Continue as guest <span>→</span></button></div><div data-login-panel="register" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Create account</h3><p id="hb-reg-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-register-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="new-password" placeholder="Min. 8 characters" /></label><button type="submit" class="button button--primary join-modal__submit" data-register-submit>Create account <span>→</span></button></form><p style="margin-top:1rem;text-align:center;font-size:13px;opacity:.7">Already have one? <button type="button" data-register-switch style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Log in</button></p></div><div data-login-panel="account" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Welcome back</h3><p data-account-email style="opacity:.7;font-size:14px;margin-bottom:1.5rem"></p><a href="track-order.html" class="button button--primary" style="display:block;text-align:center;margin-bottom:1rem">Track an order →</a><a href="withdrawal.html" class="button button--light" style="display:block;text-align:center;margin-bottom:1.5rem">Returns &amp; withdrawals →</a><button type="button" class="login-modal__guest" data-logout>Log out <span>→</span></button></div></div></div>';
+    div.innerHTML = '<div class="join-modal" data-login-modal aria-hidden="true" style="z-index:9002"><div class="join-modal__scrim" data-login-modal-close></div><div class="join-modal__card" data-lenis-prevent role="dialog" aria-modal="true" aria-label="HABÄNE Account"><button type="button" class="join-modal__close" data-login-modal-close aria-label="Close">×</button>' +
+
+      '<div data-login-panel="choose"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Log in</h3>' +
+      '<button type="button" class="login-modal__guest" data-auth-google>' + ICON_GOOGLE + ' Continue with Google</button>' +
+      '<p class="login-modal__divider">or</p>' +
+      '<button type="button" class="login-modal__guest" data-login-switch="email-request">' + ICON_MAIL + ' Continue with email</button>' +
+      '<button type="button" class="login-modal__guest" data-login-switch="phone-request" style="margin-top:10px">' + ICON_PHONE + ' Continue with phone</button>' +
+      '<p id="hb-choose-err" style="color:#ff6b6b;font-size:13px;margin-top:.75rem;display:none"></p>' +
+      '<button type="button" class="login-modal__guest" data-login-modal-close style="margin-top:1.5rem">Continue as guest <span>→</span></button></div>' +
+
+      '<div data-login-panel="email-request" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Continue with email</h3><p id="hb-email-req-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-email-request-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><button type="submit" class="button button--primary join-modal__submit" data-email-request-submit>Send code <span>→</span></button></form><p class="login-modal__note"><button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Back</button></p></div>' +
+
+      '<div data-login-panel="email-verify" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Enter code</h3><p class="login-modal__note" data-email-verify-sent-to style="margin:0 0 1rem;text-align:left"></p><p id="hb-email-verify-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-email-verify-form><label>6-digit code<input type="text" name="token" inputmode="numeric" pattern="[0-9]*" maxlength="6" required autocomplete="one-time-code" /></label><button type="submit" class="button button--primary join-modal__submit" data-email-verify-submit>Verify <span>→</span></button></form><p class="login-modal__note"><button type="button" data-email-resend style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Resend code</button> · <button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Use a different method</button></p></div>' +
+
+      '<div data-login-panel="phone-request" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Continue with phone</h3><p id="hb-phone-req-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-phone-request-form><label>Phone number<input type="tel" name="phone" required placeholder="+491701234567" autocomplete="tel" /></label><button type="submit" class="button button--primary join-modal__submit" data-phone-request-submit>Send code <span>→</span></button></form><p class="login-modal__note"><button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Back</button></p></div>' +
+
+      '<div data-login-panel="phone-verify" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Enter code</h3><p class="login-modal__note" data-phone-verify-sent-to style="margin:0 0 1rem;text-align:left"></p><p id="hb-phone-verify-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-phone-verify-form><label>6-digit code<input type="text" name="token" inputmode="numeric" pattern="[0-9]*" maxlength="6" required autocomplete="one-time-code" /></label><button type="submit" class="button button--primary join-modal__submit" data-phone-verify-submit>Verify <span>→</span></button></form><p class="login-modal__note"><button type="button" data-phone-resend style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Resend code</button> · <button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Use a different method</button></p></div>' +
+
+      '<div data-login-panel="account" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Welcome back</h3><p data-account-email style="opacity:.7;font-size:14px;margin-bottom:1.5rem"></p><a href="track-order.html" class="button button--primary" style="display:block;text-align:center;margin-bottom:1rem">Track an order →</a><a href="withdrawal.html" class="button button--light" style="display:block;text-align:center;margin-bottom:1.5rem">Returns &amp; withdrawals →</a><button type="button" class="login-modal__guest" data-logout>Log out <span>→</span></button></div>' +
+
+      '</div></div>';
     document.body.appendChild(div.firstChild);
     var modal = qs('[data-login-modal]');
+    var pendingEmail = '', pendingPhone = '';
+
     function closeLoginModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); if (typeof lock === 'function') lock(false); }
     function showPanel(name) { qsa('[data-login-panel]', modal).forEach(function (p) { p.style.display = 'none'; }); var panel = qs('[data-login-panel="' + name + '"]', modal); if (panel) panel.style.display = ''; }
+    function setErr(id, message) { var el = qs('#' + id, modal); if (!el) return; if (message) { el.textContent = message; el.style.display = 'block'; } else { el.style.display = 'none'; } }
+
     qsa('[data-login-modal-close]', modal).forEach(function (el) { el.onclick = closeLoginModal; });
-    var sw1 = qs('[data-login-switch]', modal); if (sw1) sw1.onclick = function () { showPanel('register'); };
-    var sw2 = qs('[data-register-switch]', modal); if (sw2) sw2.onclick = function () { showPanel('form'); };
-    qs('[data-login-form]', modal).onsubmit = function (e) {
+    qsa('[data-login-switch]', modal).forEach(function (el) { el.onclick = function () { showPanel(el.getAttribute('data-login-switch')); }; });
+
+    var googleBtn = qs('[data-auth-google]', modal);
+    if (googleBtn) googleBtn.onclick = function () {
+      setErr('hb-choose-err', '');
+      googleBtn.disabled = true;
+      auth.signInWithGoogle().catch(function (err) { setErr('hb-choose-err', err.message || 'Google sign-in is not available yet.'); googleBtn.disabled = false; });
+    };
+
+    qs('[data-email-request-form]', modal).onsubmit = function (e) {
       e.preventDefault();
-      var d = new FormData(e.target), errEl = qs('#hb-login-err', modal), btn = qs('[data-login-submit]', modal);
-      btn.disabled = true; btn.textContent = 'Logging in…'; errEl.style.display = 'none';
-      auth.signIn(d.get('email'), d.get('password')).then(function () {
+      var email = new FormData(e.target).get('email'), btn = qs('[data-email-request-submit]', modal);
+      btn.disabled = true; btn.textContent = 'Sending…'; setErr('hb-email-req-err', '');
+      auth.sendEmailOtp(email).then(function () {
+        pendingEmail = email;
+        qs('[data-email-verify-sent-to]', modal).textContent = 'Code sent to ' + email;
+        btn.disabled = false; btn.textContent = 'Send code →';
+        showPanel('email-verify');
+      }).catch(function (err) { setErr('hb-email-req-err', err.message || 'Could not send code.'); btn.disabled = false; btn.textContent = 'Send code →'; });
+    };
+    qs('[data-email-verify-form]', modal).onsubmit = function (e) {
+      e.preventDefault();
+      var token = new FormData(e.target).get('token'), btn = qs('[data-email-verify-submit]', modal);
+      btn.disabled = true; btn.textContent = 'Verifying…'; setErr('hb-email-verify-err', '');
+      auth.verifyEmailOtp(pendingEmail, token).then(function () {
         syncAuthUI();
         var user = auth.getUser(); var ae = qs('[data-account-email]', modal); if (ae && user) ae.textContent = user.email;
         showPanel('account'); toast('Welcome back!');
-      }).catch(function (err) { errEl.textContent = err.message || 'Login failed.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = 'Log in →'; });
+      }).catch(function (err) { setErr('hb-email-verify-err', err.message || 'Invalid code.'); btn.disabled = false; btn.textContent = 'Verify →'; });
     };
-    qs('[data-register-form]', modal).onsubmit = function (e) {
+    var emailResend = qs('[data-email-resend]', modal);
+    if (emailResend) emailResend.onclick = function () { if (pendingEmail) auth.sendEmailOtp(pendingEmail).then(function () { toast('Code resent'); }); };
+
+    qs('[data-phone-request-form]', modal).onsubmit = function (e) {
       e.preventDefault();
-      var d = new FormData(e.target), errEl = qs('#hb-reg-err', modal), btn = qs('[data-register-submit]', modal);
-      btn.disabled = true; btn.textContent = 'Creating…'; errEl.style.display = 'none';
-      auth.signUp(d.get('email'), d.get('password')).then(function () {
-        toast('Account created! Check your email to confirm.'); showPanel('form'); btn.disabled = false; btn.textContent = 'Create account →';
-      }).catch(function (err) { errEl.textContent = err.message || 'Sign-up failed.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = 'Create account →'; });
+      var phone = new FormData(e.target).get('phone'), btn = qs('[data-phone-request-submit]', modal);
+      setErr('hb-phone-req-err', '');
+      if (!/^\+[0-9]{8,15}$/.test(phone)) { setErr('hb-phone-req-err', 'Enter a full number with country code, e.g. +491701234567'); return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      auth.sendPhoneOtp(phone).then(function () {
+        pendingPhone = phone;
+        qs('[data-phone-verify-sent-to]', modal).textContent = 'Code sent to ' + phone;
+        btn.disabled = false; btn.textContent = 'Send code →';
+        showPanel('phone-verify');
+      }).catch(function (err) { setErr('hb-phone-req-err', err.message || 'Could not send code.'); btn.disabled = false; btn.textContent = 'Send code →'; });
     };
+    qs('[data-phone-verify-form]', modal).onsubmit = function (e) {
+      e.preventDefault();
+      var token = new FormData(e.target).get('token'), btn = qs('[data-phone-verify-submit]', modal);
+      btn.disabled = true; btn.textContent = 'Verifying…'; setErr('hb-phone-verify-err', '');
+      auth.verifyPhoneOtp(pendingPhone, token).then(function () {
+        syncAuthUI();
+        var user = auth.getUser(); var ae = qs('[data-account-email]', modal); if (ae && user) ae.textContent = (user && (user.email || user.phone)) || '';
+        showPanel('account'); toast('Welcome back!');
+      }).catch(function (err) { setErr('hb-phone-verify-err', err.message || 'Invalid code.'); btn.disabled = false; btn.textContent = 'Verify →'; });
+    };
+    var phoneResend = qs('[data-phone-resend]', modal);
+    if (phoneResend) phoneResend.onclick = function () { if (pendingPhone) auth.sendPhoneOtp(pendingPhone).then(function () { toast('Code resent'); }); };
+
     var logoutBtn = qs('[data-logout]', modal);
     if (logoutBtn) logoutBtn.onclick = function () { auth.signOut().then(function () { syncAuthUI(); closeLoginModal(); toast('Logged out'); }); };
     modal._close = closeLoginModal; modal._showPanel = showPanel;
@@ -2074,8 +2141,8 @@ document.addEventListener('click',e=>{
     ensureLoginModal();
     var modal = qs('[data-login-modal]');
     var user = auth.getUser();
-    if (user) { var ae = qs('[data-account-email]', modal); if (ae) ae.textContent = user.email; modal._showPanel('account'); }
-    else modal._showPanel('form');
+    if (user) { var ae = qs('[data-account-email]', modal); if (ae) ae.textContent = (user.email || user.phone || ''); modal._showPanel('account'); }
+    else modal._showPanel('choose');
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
     if (typeof lock === 'function') lock(true);
   });
