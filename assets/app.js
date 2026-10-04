@@ -2035,7 +2035,8 @@ document.addEventListener('click',e=>{
 
   var ICON_GOOGLE = '<svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 6 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 7 29.6 5 24 5c-7.6 0-14.1 4.3-17.4 10.6z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.6c-2 1.5-4.6 2.4-7.6 2.4-5.3 0-9.7-3.4-11.3-8.1l-6.6 5.1C9.8 39.6 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.6 5.6C40.9 36.6 44 31 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>';
   var ICON_MAIL = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg>';
-  var ICON_PHONE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 3a2 2 0 0 1-.5 2.1L8 10.1a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c1 .3 2 .5 3 .7a2 2 0 0 1 1.7 2z"/></svg>';
+  // ICON_PHONE / phone-OTP UI removed for now (no SMS provider configured yet —
+  // see assets/api.js's sendPhoneOtp/verifyPhoneOtp, still intact for when it's added).
 
   function ensureLoginModal() {
     if (qs('[data-login-modal]')) return;
@@ -2046,7 +2047,6 @@ document.addEventListener('click',e=>{
       '<button type="button" class="login-modal__guest" data-auth-google>' + ICON_GOOGLE + ' Continue with Google</button>' +
       '<p class="login-modal__divider">or</p>' +
       '<button type="button" class="login-modal__guest" data-login-switch="email-request">' + ICON_MAIL + ' Continue with email</button>' +
-      '<button type="button" class="login-modal__guest" data-login-switch="phone-request" style="margin-top:10px">' + ICON_PHONE + ' Continue with phone</button>' +
       '<p id="hb-choose-err" style="color:#ff6b6b;font-size:13px;margin-top:.75rem;display:none"></p>' +
       '<button type="button" class="login-modal__guest" data-login-modal-close style="margin-top:1.5rem">Continue as guest <span>→</span></button></div>' +
 
@@ -2054,16 +2054,12 @@ document.addEventListener('click',e=>{
 
       '<div data-login-panel="email-verify" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Enter code</h3><p class="login-modal__note" data-email-verify-sent-to style="margin:0 0 1rem;text-align:left"></p><p id="hb-email-verify-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-email-verify-form><label>6-digit code<input type="text" name="token" inputmode="numeric" pattern="[0-9]*" maxlength="6" required autocomplete="one-time-code" /></label><button type="submit" class="button button--primary join-modal__submit" data-email-verify-submit>Verify <span>→</span></button></form><p class="login-modal__note"><button type="button" data-email-resend style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Resend code</button> · <button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Use a different method</button></p></div>' +
 
-      '<div data-login-panel="phone-request" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Continue with phone</h3><p id="hb-phone-req-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-phone-request-form><label>Phone number<input type="tel" name="phone" required placeholder="+491701234567" autocomplete="tel" /></label><button type="submit" class="button button--primary join-modal__submit" data-phone-request-submit>Send code <span>→</span></button></form><p class="login-modal__note"><button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Back</button></p></div>' +
-
-      '<div data-login-panel="phone-verify" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Enter code</h3><p class="login-modal__note" data-phone-verify-sent-to style="margin:0 0 1rem;text-align:left"></p><p id="hb-phone-verify-err" style="color:#ff6b6b;font-size:13px;margin-bottom:.5rem;display:none"></p><form data-phone-verify-form><label>6-digit code<input type="text" name="token" inputmode="numeric" pattern="[0-9]*" maxlength="6" required autocomplete="one-time-code" /></label><button type="submit" class="button button--primary join-modal__submit" data-phone-verify-submit>Verify <span>→</span></button></form><p class="login-modal__note"><button type="button" data-phone-resend style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Resend code</button> · <button type="button" data-login-switch="choose" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline">Use a different method</button></p></div>' +
-
       '<div data-login-panel="account" style="display:none"><p class="join-modal__eyebrow">HABÄNE ACCOUNT</p><h3>Welcome back</h3><p data-account-email style="opacity:.7;font-size:14px;margin-bottom:1.5rem"></p><a href="track-order.html" class="button button--primary" style="display:block;text-align:center;margin-bottom:1rem">Track an order →</a><a href="withdrawal.html" class="button button--light" style="display:block;text-align:center;margin-bottom:1.5rem">Returns &amp; withdrawals →</a><button type="button" class="login-modal__guest" data-logout>Log out <span>→</span></button></div>' +
 
       '</div></div>';
     document.body.appendChild(div.firstChild);
     var modal = qs('[data-login-modal]');
-    var pendingEmail = '', pendingPhone = '';
+    var pendingEmail = '';
 
     function closeLoginModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); if (typeof lock === 'function') lock(false); }
     function showPanel(name) { qsa('[data-login-panel]', modal).forEach(function (p) { p.style.display = 'none'; }); var panel = qs('[data-login-panel="' + name + '"]', modal); if (panel) panel.style.display = ''; }
@@ -2102,32 +2098,6 @@ document.addEventListener('click',e=>{
     };
     var emailResend = qs('[data-email-resend]', modal);
     if (emailResend) emailResend.onclick = function () { if (pendingEmail) auth.sendEmailOtp(pendingEmail).then(function () { toast('Code resent'); }); };
-
-    qs('[data-phone-request-form]', modal).onsubmit = function (e) {
-      e.preventDefault();
-      var phone = new FormData(e.target).get('phone'), btn = qs('[data-phone-request-submit]', modal);
-      setErr('hb-phone-req-err', '');
-      if (!/^\+[0-9]{8,15}$/.test(phone)) { setErr('hb-phone-req-err', 'Enter a full number with country code, e.g. +491701234567'); return; }
-      btn.disabled = true; btn.textContent = 'Sending…';
-      auth.sendPhoneOtp(phone).then(function () {
-        pendingPhone = phone;
-        qs('[data-phone-verify-sent-to]', modal).textContent = 'Code sent to ' + phone;
-        btn.disabled = false; btn.textContent = 'Send code →';
-        showPanel('phone-verify');
-      }).catch(function (err) { setErr('hb-phone-req-err', err.message || 'Could not send code.'); btn.disabled = false; btn.textContent = 'Send code →'; });
-    };
-    qs('[data-phone-verify-form]', modal).onsubmit = function (e) {
-      e.preventDefault();
-      var token = new FormData(e.target).get('token'), btn = qs('[data-phone-verify-submit]', modal);
-      btn.disabled = true; btn.textContent = 'Verifying…'; setErr('hb-phone-verify-err', '');
-      auth.verifyPhoneOtp(pendingPhone, token).then(function () {
-        syncAuthUI();
-        var user = auth.getUser(); var ae = qs('[data-account-email]', modal); if (ae && user) ae.textContent = (user && (user.email || user.phone)) || '';
-        showPanel('account'); toast('Welcome back!');
-      }).catch(function (err) { setErr('hb-phone-verify-err', err.message || 'Invalid code.'); btn.disabled = false; btn.textContent = 'Verify →'; });
-    };
-    var phoneResend = qs('[data-phone-resend]', modal);
-    if (phoneResend) phoneResend.onclick = function () { if (pendingPhone) auth.sendPhoneOtp(pendingPhone).then(function () { toast('Code resent'); }); };
 
     var logoutBtn = qs('[data-logout]', modal);
     if (logoutBtn) logoutBtn.onclick = function () { auth.signOut().then(function () { syncAuthUI(); closeLoginModal(); toast('Logged out'); }); };
