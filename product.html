@@ -15,7 +15,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=151" />
+  <link rel="stylesheet" href="assets/styles.css?v=152" />
 </head>
 
 <body>
@@ -321,6 +321,26 @@
       </div>
       <div class="pdp-reviews__grid" data-pdp-reviews-grid>
         <p class="pdp-reviews__empty">Loading reviews…</p>
+      </div>
+
+      <div class="pdp-review-form-wrap">
+        <button type="button" class="pdp-review-form__toggle" data-write-review-toggle>WRITE A REVIEW</button>
+        <form class="pdp-review-form" data-write-review-form hidden>
+          <div class="pdp-review-form__stars" data-review-stars aria-label="Your rating">
+            <button type="button" data-star="1" aria-label="1 star">★</button>
+            <button type="button" data-star="2" aria-label="2 stars">★</button>
+            <button type="button" data-star="3" aria-label="3 stars">★</button>
+            <button type="button" data-star="4" aria-label="4 stars">★</button>
+            <button type="button" data-star="5" aria-label="5 stars">★</button>
+          </div>
+          <label>Title (optional)<input type="text" name="title" maxlength="120" /></label>
+          <label>Your review<textarea name="body" required minlength="10" rows="4" placeholder="What did you think?"></textarea></label>
+          <label>Name<input type="text" name="name" required /></label>
+          <label>Email<input type="email" name="email" required /></label>
+          <label>Order number (optional — confirms a verified purchase)<input type="text" name="order_number" placeholder="e.g. HB-2026-000003" /></label>
+          <button type="submit" class="pdp-review-form__submit">Submit review</button>
+          <p class="pdp-review-form__note" data-review-form-note></p>
+        </form>
       </div>
     </section>
 
@@ -768,7 +788,7 @@
   <script>window.HABANE_CONFIG = { baseUrl: "https://habane-backend.my3-digital-in.workers.dev", imageBaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co/storage/v1/object/public/product-images", supabaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co", supabaseAnonKey: "sb_publishable_aiNrhOGAPThDrf6PsEbGHg_lQ1_2N6R" };</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="assets/api.js?v=154"></script>
-  <script src="assets/app.js?v=155"></script>
+  <script src="assets/app.js?v=156"></script>
 
   <script src="assets/d3-array.min.js"></script>
   <script src="assets/d3-geo.min.js"></script>

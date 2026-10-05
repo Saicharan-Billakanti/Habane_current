@@ -737,6 +737,7 @@ if($('[data-product-name]')){
       renderBlueprint({ blueprint: bp.callouts||[], dimensions: bp.dimensions||[] });
       activateTab('overview');
 
+      state.currentProductId = p.id;
       renderProductReviews(p.id, img);
 
       state.pdpQty=1;
@@ -2078,6 +2079,87 @@ document.addEventListener('click',e=>{
     }).catch(function () { grid.innerHTML = '<p class="pdp-reviews__empty">Reviews are unavailable right now.</p>'; });
   }
   renderHomepageReviews();
+
+  // "Write a review" form (product.html only — no-ops elsewhere since the
+  // elements don't exist). Submits straight to POST /api/v1/reviews; the
+  // review lands as 'pending' and only appears once an admin approves it.
+  (function wireReviewForm(){
+    var form = qs('[data-write-review-form]');
+    var toggle = qs('[data-write-review-toggle]');
+    if(!form || !toggle) return;
+
+    toggle.onclick = function(){
+      var hidden = form.hasAttribute('hidden');
+      if(hidden){
+        form.removeAttribute('hidden');
+        var user = auth.getUser();
+        if(user){
+          var nameInput = form.querySelector('[name="name"]');
+          var emailInput = form.querySelector('[name="email"]');
+          var fullName = (user.user_metadata && (user.user_metadata.full_name || user.user_metadata.name)) || '';
+          if(nameInput && !nameInput.value) nameInput.value = fullName;
+          if(emailInput && !emailInput.value) emailInput.value = user.email || '';
+        }
+      } else {
+        form.setAttribute('hidden', '');
+      }
+    };
+
+    var rating = 0;
+    var starButtons = qsa('[data-star]', form);
+    starButtons.forEach(function(btn){
+      btn.onclick = function(){
+        rating = Number(btn.dataset.star);
+        starButtons.forEach(function(b){ b.classList.toggle('is-active', Number(b.dataset.star) <= rating); });
+      };
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var note = qs('[data-review-form-note]', form);
+      function setNote(text, cls){
+        if(!note) return;
+        note.textContent = text || '';
+        note.className = 'pdp-review-form__note' + (cls ? ' ' + cls : '');
+      }
+
+      var productId = state.currentProductId;
+      if(!productId){ setNote('Could not determine which product this review is for.', 'is-error'); return; }
+      if(!rating){ setNote('Please select a star rating.', 'is-error'); return; }
+
+      var title = form.querySelector('[name="title"]').value.trim();
+      var body = form.querySelector('[name="body"]').value.trim();
+      var name = form.querySelector('[name="name"]').value.trim();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var orderNumber = form.querySelector('[name="order_number"]').value.trim();
+
+      if(body.length < 10){ setNote('Please write a few more words about your experience.', 'is-error'); return; }
+
+      var submitBtn = form.querySelector('.pdp-review-form__submit');
+      submitBtn.disabled = true; submitBtn.textContent = 'Submitting…';
+      setNote('');
+
+      function send(orderId){
+        var payload = { product_id: productId, customer_name: name, customer_email: email, rating: rating, body: body };
+        if(title) payload.title = title;
+        if(orderId) payload.order_id = orderId;
+        return api.submitReview(payload);
+      }
+
+      var lookup = orderNumber ? api.getOrder(orderNumber, email).then(function(o){ return o.id; }).catch(function(){ return null; }) : Promise.resolve(null);
+
+      lookup.then(send).then(function(){
+        setNote('Thanks! Your review has been submitted and will appear once approved.', 'is-success');
+        form.reset();
+        rating = 0;
+        starButtons.forEach(function(b){ b.classList.remove('is-active'); });
+      }).catch(function(err){
+        setNote(err.message || 'Could not submit your review. Please try again.', 'is-error');
+      }).then(function(){
+        submitBtn.disabled = false; submitBtn.textContent = 'Submit review';
+      });
+    });
+  })();
 
   function renderGridSkeleton(n) {
     var h = '';
