@@ -312,6 +312,69 @@
      */
     getHealth: function () {
       return apiCall('GET', '/health');
+    },
+
+    // ── Cart/checkout tracking (drives the admin Abandoned Carts page) ──
+
+    /**
+     * POST /api/v1/track/cart — fire-and-forget; failures never block the UI.
+     * @param {'add_to_cart'|'remove_from_cart'|'checkout_started'|'checkout_completed'} eventType
+     * @param {Object} [extra]  { product_id, product_name, quantity, unit_price, cart_total, cart_items, checkout_stage }
+     */
+    trackCart: function (eventType, extra) {
+      var user = (global.habaneAuth && global.habaneAuth.getUser()) || null;
+      var payload = Object.assign({
+        session_id: habaneSession.id(),
+        event_type: eventType,
+        customer_email: user ? user.email : undefined
+      }, extra || {});
+      return apiCall('POST', '/track/cart', { body: payload }).catch(function () {});
+    },
+
+    // ── Wishlist (requires a signed-in customer email) ───────────────
+
+    /**
+     * GET /api/v1/wishlist?customer_email=…
+     * @returns Promise<{ items: Array<{id, product_id, product_name, variant_id, created_at}> }>
+     */
+    getWishlist: function (customerEmail) {
+      return apiCall('GET', '/wishlist', { query: { customer_email: customerEmail } });
+    },
+
+    /**
+     * POST /api/v1/wishlist
+     * @param {{ customer_email, product_id, product_name, variant_id? }} input
+     * @returns Promise<WishlistRow>
+     */
+    addWishlist: function (input) {
+      return apiCall('POST', '/wishlist', { body: input });
+    },
+
+    /**
+     * DELETE /api/v1/wishlist/:id
+     */
+    removeWishlist: function (id) {
+      return apiCall('DELETE', '/wishlist/' + encodeURIComponent(id));
+    }
+  };
+
+  /* ─────────────────────────────────────────────
+     Session id — a stable per-browser id so cart/checkout events can be
+     grouped into one session for the admin Abandoned Carts page.
+  ───────────────────────────────────────────── */
+  var habaneSession = {
+    id: function () {
+      try {
+        var existing = localStorage.getItem('habane_session_id');
+        if (existing) return existing;
+        var fresh = (global.crypto && global.crypto.randomUUID)
+          ? global.crypto.randomUUID()
+          : 'sess-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+        localStorage.setItem('habane_session_id', fresh);
+        return fresh;
+      } catch (e) {
+        return 'sess-' + Date.now();
+      }
     }
   };
 
@@ -377,6 +440,14 @@
         });
       }
       habaneCart._save(items);
+      habaneApi.trackCart('add_to_cart', {
+        product_id: item.product_id,
+        product_name: item.name,
+        quantity: item.quantity || 1,
+        unit_price: item.price || 0,
+        cart_total: habaneCart.subtotal(),
+        cart_items: habaneCart.get()
+      });
     },
 
     /**
@@ -384,8 +455,17 @@
      */
     remove: function (index) {
       var items = habaneCart.get();
+      var removed = items[index];
       items.splice(index, 1);
       habaneCart._save(items);
+      if (removed) {
+        habaneApi.trackCart('remove_from_cart', {
+          product_id: removed.product_id,
+          product_name: removed.name,
+          cart_total: habaneCart.subtotal(),
+          cart_items: habaneCart.get()
+        });
+      }
     },
 
     /**

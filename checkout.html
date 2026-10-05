@@ -251,7 +251,7 @@
 
   <script>window.HABANE_CONFIG = { baseUrl: "https://habane-backend.my3-digital-in.workers.dev", imageBaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co/storage/v1/object/public/product-images", supabaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co", supabaseAnonKey: "sb_publishable_aiNrhOGAPThDrf6PsEbGHg_lQ1_2N6R" };</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/api.js?v=152"></script>
+  <script src="assets/api.js?v=153"></script>
   <script>
     (function () {
       var api  = window.habaneApi;
@@ -287,6 +287,16 @@
       }
 
       renderSummary();
+
+      // Drives the admin Abandoned Carts page — a session with this event
+      // and no later checkout_completed becomes "abandoned" after 30 minutes.
+      if (cart && cart.get().length) {
+        api.trackCart('checkout_started', {
+          cart_total: cart.subtotal(),
+          cart_items: cart.get(),
+          checkout_stage: 'checkout_page'
+        });
+      }
 
       // ── Discount code validation ──────────────────────────────────
       var _discountAmount = 0;
@@ -380,6 +390,12 @@
             try { sessionStorage.setItem('habane_last_order', session.order_number); } catch (e) {}
             try { sessionStorage.setItem('habane_last_email', input.email); } catch (e) {}
 
+            api.trackCart('checkout_completed', {
+              cart_total: cart.subtotal(),
+              cart_items: cart.get(),
+              checkout_stage: 'completed'
+            });
+
             if (session.checkout_url) {
               // Stripe redirect
               cart.clear();
@@ -404,6 +420,11 @@
               var plainInput = Object.assign({}, input);
               delete plainInput.success_url; delete plainInput.cancel_url;
               api.createOrder(plainInput).then(function (order) {
+                api.trackCart('checkout_completed', {
+                  cart_total: cart.subtotal(),
+                  cart_items: cart.get(),
+                  checkout_stage: 'completed'
+                });
                 cart.clear();
                 window.location.href = 'checkout-success.html?order=' + encodeURIComponent(order.order_number) + '&email=' + encodeURIComponent(input.email) + '&no_stripe=1';
               }).catch(function () {});

@@ -1895,9 +1895,10 @@ document.addEventListener('click',e=>{
     var num   = String(index + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
     var code  = p.code || 'OBJ / ' + String(index + 1).padStart(2, '0');
     var oos   = !p.in_stock ? ' product-card--out-of-stock' : '';
+    var saved = wishlistMap[p.id] ? ' is-saved' : '';
     return '<article class="product-card' + oos + '" data-category="' + p.category + '" data-api-slug="' + p.slug + '" data-product-card="' + p.id + '">' +
       '<div class="product-card__media">' + badge +
-        '<button class="product-favourite" type="button" aria-label="Save ' + p.name + '">♡</button>' +
+        '<button class="product-favourite' + saved + '" type="button" data-wishlist-id="' + p.id + '" data-wishlist-name="' + p.name.replace(/"/g, '&quot;') + '" aria-label="Save ' + p.name + '">' + (saved ? '♥' : '♡') + '</button>' +
         '<img class="product-photo" src="' + img + '" alt="' + p.name + '" loading="lazy" />' +
         '<div class="product-code"><span>' + code + '</span><span>' + num + '</span></div>' +
       '</div>' +
@@ -1928,9 +1929,60 @@ document.addEventListener('click',e=>{
       };
     });
     qsa('.product-favourite', container).forEach(function (b) {
-      b.onclick = function () { b.classList.toggle('is-saved'); b.textContent = b.classList.contains('is-saved') ? '♥' : '♡'; toast(b.classList.contains('is-saved') ? 'Saved to your movement list' : 'Removed from movement list'); };
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var pid = b.dataset.wishlistId;
+        if (!pid) { b.classList.toggle('is-saved'); b.textContent = b.classList.contains('is-saved') ? '♥' : '♡'; return; }
+        var user = auth.getUser();
+        if (!user) {
+          var loginTrigger = qs('[data-login-open]');
+          if (loginTrigger) loginTrigger.click();
+          toast('Sign in to save items to your wishlist');
+          return;
+        }
+        var existingRowId = wishlistMap[pid];
+        b.disabled = true;
+        if (existingRowId) {
+          api.removeWishlist(existingRowId).then(function () {
+            delete wishlistMap[pid];
+            b.classList.remove('is-saved'); b.textContent = '♡';
+            toast('Removed from your wishlist');
+          }).catch(function (err) { toast(err.message || 'Could not remove'); })
+            .then(function () { b.disabled = false; });
+        } else {
+          api.addWishlist({ customer_email: user.email, product_id: pid, product_name: b.dataset.wishlistName || '' }).then(function (row) {
+            wishlistMap[pid] = row.id;
+            b.classList.add('is-saved'); b.textContent = '♥';
+            toast('Saved to your wishlist');
+          }).catch(function (err) { toast(err.message || 'Could not save'); })
+            .then(function () { b.disabled = false; });
+        }
+      };
     });
   }
+
+  // Product id → wishlist row id, for the signed-in customer. Populated from
+  // the real wishlists table (not local-only state) so hearts stay correct
+  // across devices/sessions.
+  var wishlistMap = {};
+  function applyWishlistState() {
+    qsa('.product-favourite').forEach(function (b) {
+      var saved = !!wishlistMap[b.dataset.wishlistId];
+      b.classList.toggle('is-saved', saved);
+      b.textContent = saved ? '♥' : '♡';
+    });
+  }
+  function refreshWishlist() {
+    var user = auth.getUser();
+    if (!user) { wishlistMap = {}; applyWishlistState(); return; }
+    api.getWishlist(user.email).then(function (r) {
+      wishlistMap = {};
+      (r.items || []).forEach(function (i) { wishlistMap[i.product_id] = i.id; });
+      applyWishlistState();
+    }).catch(function () {});
+  }
+  refreshWishlist();
+  if (auth.onAuthChange) auth.onAuthChange(refreshWishlist);
 
   function renderGridSkeleton(n) {
     var h = '';

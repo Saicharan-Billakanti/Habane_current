@@ -20,3 +20,4 @@ update_social_icons.js
 HABANE_ecommerce_standalone.html
 HABANE_ecommerce_v2_standalone.html
 .live_*
+.wrangler/
