@@ -341,6 +341,26 @@
       return apiCall('POST', '/reviews', { body: input });
     },
 
+    /**
+     * POST /api/v1/reviews/photos — uploads one customer review photo.
+     * Multipart, so it bypasses the JSON apiCall() helper.
+     * @param {File} file
+     * @returns Promise<{ url: string }>
+     */
+    uploadReviewPhoto: function (file) {
+      var fd = new FormData();
+      fd.append('file', file);
+      return fetch(API_URL + '/reviews/photos', { method: 'POST', body: fd })
+        .then(function (res) {
+          return res.json().then(function (payload) {
+            if (!payload.success) {
+              throw new HabaneApiError(payload.error.message, payload.error.code, res.status, payload.error.details);
+            }
+            return payload.data;
+          });
+        });
+    },
+
     // ── Cart/checkout tracking (drives the admin Abandoned Carts page) ──
 
     /**

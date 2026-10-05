@@ -15,7 +15,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=152" />
+  <link rel="stylesheet" href="assets/styles.css?v=153" />
 </head>
 
 <body>
@@ -338,6 +338,8 @@
           <label>Name<input type="text" name="name" required /></label>
           <label>Email<input type="email" name="email" required /></label>
           <label>Order number (optional — confirms a verified purchase)<input type="text" name="order_number" placeholder="e.g. HB-2026-000003" /></label>
+          <label>Add a photo (optional — up to 3)<input type="file" name="photos" accept="image/png,image/jpeg,image/webp,image/gif" multiple data-review-photo-input /></label>
+          <div class="pdp-review-form__photo-previews" data-review-photo-previews></div>
           <button type="submit" class="pdp-review-form__submit">Submit review</button>
           <p class="pdp-review-form__note" data-review-form-note></p>
         </form>
@@ -787,8 +789,8 @@
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script>window.HABANE_CONFIG = { baseUrl: "https://habane-backend.my3-digital-in.workers.dev", imageBaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co/storage/v1/object/public/product-images", supabaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co", supabaseAnonKey: "sb_publishable_aiNrhOGAPThDrf6PsEbGHg_lQ1_2N6R" };</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/api.js?v=154"></script>
-  <script src="assets/app.js?v=156"></script>
+  <script src="assets/api.js?v=155"></script>
+  <script src="assets/app.js?v=157"></script>
 
   <script src="assets/d3-array.min.js"></script>
   <script src="assets/d3-geo.min.js"></script>

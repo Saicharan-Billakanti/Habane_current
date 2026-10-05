@@ -418,6 +418,9 @@ function renderProductReviews(productId, productImg){
       const rating=Math.max(0,Math.min(5,Number(rv.rating)||0));
       const stars='★'.repeat(rating)+'☆'.repeat(5-rating);
       const title = rv.title ? `<h3>${escapeHtml(rv.title)}</h3>` : '';
+      // A photo the reviewer actually uploaded takes priority; only fall
+      // back to the product's own photo when they didn't attach one.
+      const cardImg = (rv.photos && rv.photos[0]) ? window.habaneImageUrl(rv.photos[0]) : productImg;
       return `<article class="review-card">
         <div class="review-card__body">
           <div class="review-card__stars" aria-hidden="true">${stars}</div>
@@ -427,7 +430,7 @@ function renderProductReviews(productId, productImg){
             <div><b>${escapeHtml(rv.customer_name)}</b><small>${rv.is_verified_purchase ? 'Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg>' : 'Customer'}</small></div>
           </div>
         </div>
-        ${productImg ? `<img class="review-card__photo" src="${escapeHtml(productImg)}" alt="" loading="lazy" />` : ''}
+        ${cardImg ? `<img class="review-card__photo" src="${escapeHtml(cardImg)}" alt="" loading="lazy" />` : ''}
       </article>`;
     }).join('');
   }).catch(()=>{ grid.innerHTML='<p class="pdp-reviews__empty">Reviews are unavailable right now.</p>'; });
@@ -2063,7 +2066,10 @@ document.addEventListener('click',e=>{
         var rating = Math.max(0, Math.min(5, Number(rv.rating) || 0));
         var stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
         var title = rv.title ? '<h3>' + escapeHtml(rv.title) + '</h3>' : '';
-        var img = rv.products && rv.products.card_image ? window.habaneImageUrl(rv.products.card_image) : null;
+        // A photo the reviewer actually uploaded takes priority; only fall
+        // back to the product's own photo when they didn't attach one.
+        var img = (rv.photos && rv.photos[0]) ? window.habaneImageUrl(rv.photos[0])
+          : (rv.products && rv.products.card_image ? window.habaneImageUrl(rv.products.card_image) : null);
         return '<article class="review-card">' +
           '<div class="review-card__body">' +
             '<div class="review-card__stars" aria-hidden="true">' + stars + '</div>' +
@@ -2114,6 +2120,29 @@ document.addEventListener('click',e=>{
       };
     });
 
+    var photoInput = qs('[data-review-photo-input]', form);
+    var photoPreviews = qs('[data-review-photo-previews]', form);
+    if(photoInput){
+      photoInput.onchange = function(){
+        var files = Array.prototype.slice.call(photoInput.files || []).slice(0, 3);
+        if(photoInput.files && photoInput.files.length > 3){
+          // DataTransfer lets us trim the input's own file list down to 3.
+          var dt = new DataTransfer();
+          files.forEach(function(f){ dt.items.add(f); });
+          photoInput.files = dt.files;
+        }
+        if(photoPreviews){
+          photoPreviews.innerHTML = '';
+          files.forEach(function(f){
+            var img = document.createElement('img');
+            img.src = URL.createObjectURL(f);
+            img.alt = '';
+            photoPreviews.appendChild(img);
+          });
+        }
+      };
+    }
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var note = qs('[data-review-form-note]', form);
@@ -2139,20 +2168,30 @@ document.addEventListener('click',e=>{
       submitBtn.disabled = true; submitBtn.textContent = 'Submitting…';
       setNote('');
 
-      function send(orderId){
+      var selectedPhotos = (photoInput && photoInput.files) ? Array.prototype.slice.call(photoInput.files) : [];
+      var photosUpload = selectedPhotos.length
+        ? (submitBtn.textContent = 'Uploading photos…',
+           Promise.all(selectedPhotos.map(function(f){ return api.uploadReviewPhoto(f).then(function(r){ return r.url; }); })))
+        : Promise.resolve([]);
+
+      function send(args){
+        var orderId = args[0], photoUrls = args[1];
+        submitBtn.textContent = 'Submitting…';
         var payload = { product_id: productId, customer_name: name, customer_email: email, rating: rating, body: body };
         if(title) payload.title = title;
         if(orderId) payload.order_id = orderId;
+        if(photoUrls && photoUrls.length) payload.photos = photoUrls;
         return api.submitReview(payload);
       }
 
       var lookup = orderNumber ? api.getOrder(orderNumber, email).then(function(o){ return o.id; }).catch(function(){ return null; }) : Promise.resolve(null);
 
-      lookup.then(send).then(function(){
+      Promise.all([lookup, photosUpload]).then(send).then(function(){
         setNote('Thanks! Your review has been submitted and will appear once approved.', 'is-success');
         form.reset();
         rating = 0;
         starButtons.forEach(function(b){ b.classList.remove('is-active'); });
+        if(photoPreviews) photoPreviews.innerHTML = '';
       }).catch(function(err){
         setNote(err.message || 'Could not submit your review. Please try again.', 'is-error');
       }).then(function(){
