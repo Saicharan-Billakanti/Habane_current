@@ -388,14 +388,19 @@ function renderBlueprint(p){
 }
 
 function activateTab(tab){$$('[data-tab]').forEach(b=>b.classList.toggle('is-active',b.dataset.tab===tab));$$('[data-panel]').forEach(p=>p.classList.toggle('is-active',p.dataset.panel===tab))}
-function renderPackItems(){
-  const p=products[state.activeProduct];
-  $('[data-pack-items]').innerHTML=p.pack.map((item,i)=>`<button type="button" data-pack-item="${i}">${item}</button>`).join('');
+// `items`, when passed, is the pack-list array straight from the live API
+// product (p.pack_items). With no argument, falls back to the local
+// hardcoded catalogue lookup — the path openProduct() (local ?id= pages)
+// still uses.
+function renderPackItems(items){
+  const list = items || (products[state.activeProduct] && products[state.activeProduct].pack) || [];
+  state.activePackItems = list;
+  $('[data-pack-items]').innerHTML=list.map((item,i)=>`<button type="button" data-pack-item="${i}">${item}</button>`).join('');
   $('[data-pack-used]').textContent='0'; $('[data-capacity-fill]').style.width='0%'; $('[data-capacity-message]').textContent='Select items to test the fit.';
   $$('[data-pack-item]').forEach(btn=>btn.onclick=()=>{const i=Number(btn.dataset.packItem);state.packSelected.has(i)?state.packSelected.delete(i):state.packSelected.add(i);btn.classList.toggle('is-active');updateCapacity()});
 }
 function updateCapacity(){
-  const p=products[state.activeProduct]; const count=state.packSelected.size; const usage=Math.min(100,Math.round((count/Math.max(4,p.pack.length))*100));
+  const list=state.activePackItems||[]; const count=state.packSelected.size; const usage=Math.min(100,Math.round((count/Math.max(4,list.length))*100));
   $('[data-pack-used]').textContent=usage; $('[data-capacity-fill]').style.width=`${usage}%`;
   $('[data-capacity-message]').textContent=usage<45?'Room remains for the unexpected.':usage<80?'Balanced for this object.':'Near capacityΓÇöconsider a larger object or remove one layer.';
 }
@@ -653,20 +658,32 @@ if($('[data-product-name]')){
       const gallery=$('[data-pdp-gallery]');
       if(gallery && mainImg) setupImageGallery(p.images,mainImg,gallery,$('[data-scene]'));
 
-      // Local catalogue entry supplies the pack list and blueprint callouts
-      // the API response does not carry. The API has no `pN` ids and the
-      // local data has no slug field, so match on the normalised name —
-      // the one value both sides share (e.g. "Bag Tags" -> "bag-tags").
-      const nameSlug=(p.name||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-      const local=products[p.id]||products[slug]||Object.values(products).find(x=>
-        x.name.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')===(p.slug||nameSlug)
-      );
-      if(local){
-        state.activeProduct=local.id;
-        state.packSelected=new Set();
-        renderPackItems();
-        renderBlueprint(local);
-      }
+      // Mood DNA, Passport tab and the three accordion sections now come
+      // straight from the live product record (mood/pack_items/passport_*/
+      // materials/care_instructions/product_story) instead of matching the
+      // old local hardcoded catalogue by normalised name.
+      const mood=p.mood||{};
+      if($('[data-product-mood-label]')) $('[data-product-mood-label]').textContent=mood.label||'';
+      if($('[data-dna-quiet]')) $('[data-dna-quiet]').style.width=`${mood.quiet||0}%`;
+      if($('[data-dna-urban]')) $('[data-dna-urban]').style.width=`${mood.urban||0}%`;
+      if($('[data-dna-trip]')) $('[data-dna-trip]').style.width=`${mood.trip||0}%`;
+
+      if($('[data-passport-id]')) $('[data-passport-id]').textContent=p.passport_code||'';
+      if($('[data-passport-material]')) $('[data-passport-material]').textContent=p.materials||'';
+      if($('[data-passport-service]')) $('[data-passport-service]').textContent=p.passport_service||'';
+      if($('[data-passport-care]')) $('[data-passport-care]').textContent=p.care_instructions||'';
+      if($('[data-passport-role]')) $('[data-passport-role]').textContent=p.passport_role||'';
+
+      if($('[data-accordion-details]')) $('[data-accordion-details]').textContent=p.product_story||p.description||'';
+      if($('[data-accordion-materials]')) $('[data-accordion-materials]').textContent=p.materials||'';
+      if($('[data-accordion-care]')) $('[data-accordion-care]').textContent=p.care_instructions||'';
+      if($('[data-accordion-care-faq]')) $('[data-accordion-care-faq]').textContent=p.care_instructions||'';
+
+      state.packSelected=new Set();
+      renderPackItems(p.pack_items||[]);
+      const bp=p.blueprint||{};
+      renderBlueprint({ blueprint: bp.callouts||[], dimensions: bp.dimensions||[] });
+      activateTab('overview');
 
       state.pdpQty=1;
       const qtyValue = $('[data-qty-value]');
