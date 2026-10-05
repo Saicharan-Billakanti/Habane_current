@@ -1930,8 +1930,12 @@ document.addEventListener('click',e=>{
   function qsa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
 
   function bestImage(p) {
-    if (p.card_image) return p.card_image;
-    if (p.images && p.images.length) return p.images[0];
+    // card_image/images[] may be a bucket-relative path from the admin's
+    // upload form (e.g. "suitcase/gallery-xxx.png") rather than an absolute
+    // URL like the seeded catalogue's — must resolve or the shop grid shows
+    // a broken/blank image for anything uploaded through Inventory.
+    if (p.card_image) return window.habaneImageUrl(p.card_image);
+    if (p.images && p.images.length) return window.habaneImageUrl(p.images[0]);
     var name = p.name.replace(/\s+/g, '_');
     return 'assets/new_products/' + name + '/' + name.toLowerCase() + '_1.png';
   }
