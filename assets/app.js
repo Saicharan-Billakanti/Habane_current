@@ -756,13 +756,21 @@ if($('[data-product-name]')){
 
       const addBtn = $('[data-dialog-add]');
       if(addBtn) {
-        addBtn.onclick = () => {
-          const q = state.pdpQty||1;
-          window.habaneCart.add({ product_id: p.id, quantity: q, name: p.name, price: p.price, image: img, slug: p.slug });
-          if(window.syncApiCart) window.syncApiCart();
-          if(addToBagBox) addToBagBox.classList.add('is-added');
-          toast(p.name + ' added to bag');
-        };
+        if(p.in_stock){
+          addBtn.disabled = false;
+          addBtn.textContent = addBtn.dataset.defaultLabel || addBtn.textContent;
+          addBtn.onclick = () => {
+            const q = state.pdpQty||1;
+            window.habaneCart.add({ product_id: p.id, quantity: q, name: p.name, price: p.price, image: img, slug: p.slug });
+            if(window.syncApiCart) window.syncApiCart();
+            if(addToBagBox) addToBagBox.classList.add('is-added');
+            toast(p.name + ' added to bag');
+          };
+        } else {
+          addBtn.dataset.defaultLabel = addBtn.dataset.defaultLabel || addBtn.textContent;
+          addBtn.textContent = 'Notify me when back in stock';
+          addBtn.onclick = () => { if(window.notifyBackInStock) window.notifyBackInStock(p.id, p.name); };
+        }
       }
     }).catch(err => {
       console.error('Failed to load product:', err);
@@ -1389,7 +1397,24 @@ document.addEventListener('click',e=>{
     });
   }
 });
-if($('[data-newsletter-form]')) $('[data-newsletter-form]').onsubmit=e=>{e.preventDefault();$('[data-newsletter-status]').textContent='You are inside the movement.';e.target.reset()};
+// "Join the movement" hero form — previously cosmetic only (reset the form
+// and showed a static message with no API call at all). Now genuinely
+// subscribes the email, and additionally registers for early access when
+// that interest checkbox is ticked, both against the real backend.
+if($('[data-newsletter-form]')) $('[data-newsletter-form]').onsubmit=e=>{
+  e.preventDefault();
+  const form=e.target;
+  const statusEl=$('[data-newsletter-status]',form);
+  const emailInput=$('#newsletter-email',form);
+  const email=emailInput?emailInput.value.trim():'';
+  if(!email || !window.habaneApi){ if(statusEl) statusEl.textContent='Please enter a valid email.'; return; }
+  const wantsEarlyAccess=$$('input[name="interest"]',form).some(c=>c.value==='early'&&c.checked);
+  if(statusEl) statusEl.textContent='Joining…';
+  window.habaneApi.subscribeNewsletter({ email, consent_text:'I agree to receive HABÄNE updates.', source:'newsletter-hero' })
+    .then(()=> wantsEarlyAccess ? window.habaneApi.registerEarlyAccess({ email, source:'newsletter-hero' }).catch(()=>{}) : null)
+    .then(()=>{ if(statusEl) statusEl.textContent='You are inside the movement.'; form.reset(); })
+    .catch(err=>{ if(statusEl) statusEl.textContent=(err && err.message) || 'Could not join right now.'; });
+};
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('[data-search-overlay]').classList.contains('is-open'))closeSearch();else if($('[data-cart-drawer]').classList.contains('is-open')||$('[data-compare-drawer]').classList.contains('is-open'))closeDrawer();else if($('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()}});
 
@@ -1963,7 +1988,7 @@ document.addEventListener('click',e=>{
         '<button type="button" data-api-open="' + p.slug + '">View product</button>' +
         (p.in_stock
           ? '<button type="button" data-api-add="' + p.id + '" data-api-name="' + p.name.replace(/"/g, '&quot;') + '" data-api-price="' + p.price + '" data-api-img="' + img + '" data-api-slug="' + p.slug + '" aria-label="Add ' + p.name + ' to bag">+</button>'
-          : '<button type="button" disabled class="is-out-of-stock">Sold out</button>') +
+          : '<button type="button" class="is-out-of-stock" data-notify-id="' + p.id + '" data-notify-name="' + p.name.replace(/"/g, '&quot;') + '">Notify me</button>') +
       '</div></article>';
   }
 
@@ -1982,6 +2007,12 @@ document.addEventListener('click',e=>{
         if (e.target.closest('.product-favourite')) return;
         var card = m.closest('[data-api-slug]');
         if (card) location.href = 'product.html?slug=' + encodeURIComponent(card.dataset.apiSlug);
+      };
+    });
+    qsa('[data-notify-id]', container).forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        notifyBackInStock(b.dataset.notifyId, b.dataset.notifyName || '');
       };
     });
     qsa('.product-favourite', container).forEach(function (b) {
@@ -2039,6 +2070,23 @@ document.addEventListener('click',e=>{
   }
   refreshWishlist();
   if (auth.onAuthChange) auth.onAuthChange(refreshWishlist);
+
+  // "Notify me" on out-of-stock products — real POST /api/v1/back-in-stock,
+  // shared by the shop grid and the PDP add-to-bag area (exposed on window
+  // since the live-API product-detail handler runs outside this IIFE).
+  window.notifyBackInStock = notifyBackInStock;
+  function notifyBackInStock(productId, productName){
+    var user = auth.getUser();
+    var email = window.prompt('Enter your email and we will let you know when ' + (productName || 'this item') + ' is back in stock:', (user && user.email) || '');
+    if(!email) return;
+    email = email.trim();
+    if(!email) return;
+    api.registerBackInStock({ email: email, product_id: productId }).then(function(){
+      toast('We will email you when it is back.');
+    }).catch(function(err){
+      toast((err && err.message) || 'Could not save your request.');
+    });
+  }
 
   // Homepage "Customer Reviews" section (index.html) — real average rating,
   // review count, happy-customer/photo counts and the review grid itself,

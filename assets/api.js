@@ -245,6 +245,24 @@
       return apiCall('POST', '/newsletter/unsubscribe', { body: input });
     },
 
+    // ── Back in stock / Early access ──────────────
+
+    /**
+     * POST /api/v1/back-in-stock
+     * @param {{ email, product_id, variant_id? }} input
+     */
+    registerBackInStock: function (input) {
+      return apiCall('POST', '/back-in-stock', { body: input });
+    },
+
+    /**
+     * POST /api/v1/early-access
+     * @param {{ email, drop_id?, product_id?, source? }} input
+     */
+    registerEarlyAccess: function (input) {
+      return apiCall('POST', '/early-access', { body: input });
+    },
+
     // ── Contact ───────────────────────────────────
 
     /**
@@ -265,6 +283,14 @@
      */
     validateDiscount: function (code, subtotal) {
       return apiCall('POST', '/discounts/validate', { body: { code: code, subtotal: subtotal } });
+    },
+
+    /**
+     * GET /api/v1/promotions — currently-active site promotions, for display.
+     * @returns Promise<{ promotions: Array }>
+     */
+    getPromotions: function () {
+      return apiCall('GET', '/promotions');
     },
 
     // ── Store settings ────────────────────────────
@@ -424,6 +450,35 @@
       }
     }
   };
+
+  /* ─────────────────────────────────────────────
+     UTM capture — last-touch attribution for the admin Campaigns page.
+     If the current URL carries any utm_* param, it replaces whatever was
+     stored before; otherwise the last-seen set (if any) is kept so it
+     survives navigating on to another page and through to checkout.
+  ───────────────────────────────────────────── */
+  (function captureUtm() {
+    try {
+      var params = new URLSearchParams(location.search);
+      var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+      var found = {};
+      var any = false;
+      keys.forEach(function (k) {
+        var v = params.get(k);
+        if (v) { found[k] = v; any = true; }
+      });
+      if (any) localStorage.setItem('habane_utm', JSON.stringify(found));
+    } catch (e) {}
+  })();
+
+  function habaneUtm() {
+    try {
+      var raw = localStorage.getItem('habane_utm');
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
 
   /* ─────────────────────────────────────────────
      Cart — localStorage-based guest cart
@@ -661,6 +716,7 @@
   // Convenience helpers
   global.habaneFormatPrice = formatPrice;
   global.habaneImageUrl    = imageUrl;
+  global.habaneUtm         = habaneUtm;
 
   // Expose config values for other scripts
   global.HABANE_API_URL     = API_URL;

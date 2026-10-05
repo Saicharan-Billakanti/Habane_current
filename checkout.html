@@ -190,6 +190,10 @@
 
           <div class="checkout-divider"></div>
 
+          <!-- Active promotion banner — informational only, applied for real
+               server-side in priceCart() so this always matches the total. -->
+          <p class="checkout-section__title" id="co-promo-banner" hidden style="color:#4ade80;margin-bottom:8px"></p>
+
           <!-- Discount code -->
           <div class="checkout-section">
             <p class="checkout-section__title">Discount code</p>
@@ -251,7 +255,7 @@
 
   <script>window.HABANE_CONFIG = { baseUrl: "https://habane-backend.my3-digital-in.workers.dev", imageBaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co/storage/v1/object/public/product-images", supabaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co", supabaseAnonKey: "sb_publishable_aiNrhOGAPThDrf6PsEbGHg_lQ1_2N6R" };</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/api.js?v=155"></script>
+  <script src="assets/api.js?v=156"></script>
   <script>
     (function () {
       var api  = window.habaneApi;
@@ -287,6 +291,24 @@
       }
 
       renderSummary();
+
+      // Shows whichever currently-active promotion exists — purely
+      // informational, since priceCart() on the server decides for real
+      // whether/how it applies (and won't stack with a manual code).
+      if (api.getPromotions) {
+        api.getPromotions().then(function (r) {
+          var promo = (r && r.promotions && r.promotions[0]) || null;
+          if (!promo) return;
+          var el = document.getElementById('co-promo-banner');
+          if (!el) return;
+          var detail = promo.type === 'percent' ? promo.value + '% off'
+            : promo.type === 'fixed' ? fmt(promo.value) + ' off'
+            : promo.type === 'free_shipping' ? 'free shipping'
+            : '';
+          el.textContent = '🎉 ' + promo.name + (detail ? ' — ' + detail : '') + (promo.description ? ' · ' + promo.description : '');
+          el.hidden = false;
+        }).catch(function () {});
+      }
 
       // Drives the admin Abandoned Carts page — a session with this event
       // and no later checkout_completed becomes "abandoned" after 30 minutes.
@@ -373,6 +395,7 @@
           phone:       document.getElementById('co-phone').value.trim() || undefined
         };
 
+        var utm = window.habaneUtm ? window.habaneUtm() : {};
         var input = {
           items:              items,
           email:              document.getElementById('co-email').value.trim(),
@@ -381,7 +404,11 @@
           newsletter_opt_in:  document.getElementById('co-newsletter').checked,
           gdpr_consent_text:  'Privacy policy and Terms & Conditions accepted at checkout.',
           success_url:        location.origin + location.pathname.replace('checkout.html', '') + 'checkout-success.html?order={CHECKOUT_SESSION_ID}',
-          cancel_url:         location.origin + location.pathname.replace('checkout.html', '') + 'checkout.html'
+          cancel_url:         location.origin + location.pathname.replace('checkout.html', '') + 'checkout.html',
+          utm_source:         utm.utm_source,
+          utm_medium:         utm.utm_medium,
+          utm_campaign:       utm.utm_campaign,
+          utm_content:        utm.utm_content
         };
 
         api.createCheckout(input)
