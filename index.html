@@ -790,145 +790,19 @@
 
         <p>Real reviews from real journeys.</p>
 
-        <div class="reviews__score"><strong>4.9</strong><span class="reviews__stars" aria-hidden="true">★★★★★</span>
+        <div class="reviews__score"><strong data-reviews-average>4.9</strong><span class="reviews__stars" aria-hidden="true">★★★★★</span>
 
         </div>
 
-        <p class="reviews__count">Based on 1,248 reviews</p>
+        <p class="reviews__count" data-reviews-count>Based on 1,248 reviews</p>
 
         <a class="reviews__cta" href="#footer">SEE ALL REVIEWS <span>→</span></a>
 
       </div>
 
-      <div class="reviews__grid">
+      <div class="reviews__grid" data-reviews-grid>
 
-        <article class="review-card">
-
-          <div class="review-card__body">
-
-            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
-
-            <h3>Perfect travel companion!</h3>
-
-            <p>Took the Metropolitan on a weekend trip—it fits everything I need and looks incredible.</p>
-
-            <div class="review-card__author">
-
-              <span class="review-card__avatar" style="background:#0A0F5A">AK</span>
-
-              <div><b>Arjun K.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-
-                    stroke-width="2">
-
-                    <circle cx="12" cy="12" r="9" />
-
-                    <path d="M8 12l3 3 5-6" />
-
-                  </svg></small></div>
-
-            </div>
-
-          </div>
-
-          <img class="review-card__photo" src="assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png" alt="Electric Water Bottle" loading="lazy" />
-
-        </article>
-
-        <article class="review-card">
-
-          <div class="review-card__body">
-
-            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
-
-            <h3>Stylish &amp; sturdy</h3>
-
-            <p>The Olive bag is both rugged and classy. Got so many compliments!</p>
-
-            <div class="review-card__author">
-
-              <span class="review-card__avatar" style="background:#36D8FF;color:#060935">NP</span>
-
-              <div><b>Neha P.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-
-                    stroke-width="2">
-
-                    <circle cx="12" cy="12" r="9" />
-
-                    <path d="M8 12l3 3 5-6" />
-
-                  </svg></small></div>
-
-            </div>
-
-          </div>
-
-          <img class="review-card__photo" src="assets/new_products/Suitcases/suitcases_1.png" alt="Suitcase" loading="lazy" />
-
-        </article>
-
-        <article class="review-card">
-
-          <div class="review-card__body">
-
-            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
-
-            <h3>Built for weekends</h3>
-
-            <p>Used the Weekender for a road trip—super spacious and the material is top-notch.</p>
-
-            <div class="review-card__author">
-
-              <span class="review-card__avatar" style="background:#5a6b3f">RS</span>
-
-              <div><b>Rohit S.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-
-                    stroke-width="2">
-
-                    <circle cx="12" cy="12" r="9" />
-
-                    <path d="M8 12l3 3 5-6" />
-
-                  </svg></small></div>
-
-            </div>
-
-          </div>
-
-          <img class="review-card__photo" src="assets/new_products/Luggage_Tracker/luggage_tracker_1.png" alt="Luggage Tracker" loading="lazy" />
-
-        </article>
-
-        <article class="review-card">
-
-          <div class="review-card__body">
-
-            <div class="review-card__stars" aria-hidden="true">★★★★★</div>
-
-            <h3>My go-to duffel</h3>
-
-            <p>Compact, lightweight and perfect for short getaways. The Voyager is a winner!</p>
-
-            <div class="review-card__author">
-
-              <span class="review-card__avatar" style="background:#0A0F5A">SM</span>
-
-              <div><b>Sneha M.</b><small>Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-
-                    stroke-width="2">
-
-                    <circle cx="12" cy="12" r="9" />
-
-                    <path d="M8 12l3 3 5-6" />
-
-                  </svg></small></div>
-
-            </div>
-
-          </div>
-
-          <img class="review-card__photo" src="assets/new_products/Smart_Umbrella/smart_umbrella_1.png" alt="Smart Umbrella" loading="lazy" />
-
-        </article>
+        <p class="pdp-reviews__empty">Loading reviews…</p>
 
       </div>
 
@@ -940,7 +814,7 @@
 
           </svg>
 
-          <div><b>4.9/5</b><span>Average Rating</span></div>
+          <div><b data-stat-average>4.9/5</b><span>Average Rating</span></div>
 
         </div>
 
@@ -954,7 +828,7 @@
 
           </svg>
 
-          <div><b>1,248+</b><span>Happy Customers</span></div>
+          <div><b data-stat-customers>1,248+</b><span>Happy Customers</span></div>
 
         </div>
 
@@ -970,7 +844,7 @@
 
           </svg>
 
-          <div><b>890+</b><span>Photos Shared</span></div>
+          <div><b data-stat-photos>890+</b><span>Photos Shared</span></div>
 
         </div>
 
@@ -2316,9 +2190,9 @@
 
   <script>window.HABANE_CONFIG = { baseUrl: "https://habane-backend.my3-digital-in.workers.dev", imageBaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co/storage/v1/object/public/product-images", supabaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co", supabaseAnonKey: "sb_publishable_aiNrhOGAPThDrf6PsEbGHg_lQ1_2N6R" };</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/api.js?v=153"></script>
+  <script src="assets/api.js?v=154"></script>
 
-  <script src="assets/app.js?v=153"></script>
+  <script src="assets/app.js?v=154"></script>
 
 
 

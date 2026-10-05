@@ -314,6 +314,33 @@
       return apiCall('GET', '/health');
     },
 
+    // ── Reviews ───────────────────────────────────
+
+    /**
+     * GET /api/v1/reviews?product_id=…
+     * @param {{ product_id?: string, limit?: number, offset?: number }} [params]
+     * @returns Promise<{ reviews: Array, total: number }>
+     */
+    getReviews: function (params) {
+      return apiCall('GET', '/reviews', { query: params || {} });
+    },
+
+    /**
+     * GET /api/v1/reviews/stats?product_id=…  (omit product_id for site-wide)
+     * @returns Promise<{ average, count, photos_count, distribution, happy_customers_count? }>
+     */
+    getReviewStats: function (productId) {
+      return apiCall('GET', '/reviews/stats', { query: productId ? { product_id: productId } : {} });
+    },
+
+    /**
+     * POST /api/v1/reviews
+     * @param {{ product_id, customer_name, customer_email, rating, title?, body, order_id? }} input
+     */
+    submitReview: function (input) {
+      return apiCall('POST', '/reviews', { body: input });
+    },
+
     // ── Cart/checkout tracking (drives the admin Abandoned Carts page) ──
 
     /**

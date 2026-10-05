@@ -387,6 +387,52 @@ function renderBlueprint(p){
   el.innerHTML=callouts+dims;
 }
 
+function reviewInitials(name){
+  return (name||'?').trim().split(/\s+/).map(s=>s[0]).join('').slice(0,2).toUpperCase();
+}
+// .review-card__avatar has no default background in CSS (the hardcoded demo
+// cards always supplied one inline) — derive a stable one per name instead.
+function reviewAvatarStyle(name){
+  var palette=[['#0A0F5A','#fff'],['#36D8FF','#060935'],['#5a6b3f','#fff'],['#8a4f2b','#fff'],['#6b2f6b','#fff']];
+  var sum=0; for(var i=0;i<(name||'').length;i++) sum+=name.charCodeAt(i);
+  var pair=palette[sum%palette.length];
+  return 'background:'+pair[0]+';color:'+pair[1];
+}
+// Review text/name/title come straight from customer-submitted content via
+// the public API — must be escaped before going into innerHTML.
+function escapeHtml(str){
+  return String(str==null?'':str).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+// Pulls real approved reviews for the product being viewed from the live API
+// (GET /api/v1/reviews?product_id=...) — no hardcoded testimonials. The photo
+// shown is always the product currently on screen, not whatever path (if
+// any) the reviewer attached, per the "image should be the one when product
+// selected" requirement.
+function renderProductReviews(productId, productImg){
+  const grid=$('[data-pdp-reviews-grid]');
+  if(!grid || !window.habaneApi || !window.habaneApi.getReviews) return;
+  window.habaneApi.getReviews({ product_id: productId }).then(r=>{
+    const list=(r && r.reviews) || [];
+    if(!list.length){ grid.innerHTML='<p class="pdp-reviews__empty">No reviews yet for this object — be the first to share yours.</p>'; return; }
+    grid.innerHTML = list.slice(0,6).map(rv=>{
+      const rating=Math.max(0,Math.min(5,Number(rv.rating)||0));
+      const stars='★'.repeat(rating)+'☆'.repeat(5-rating);
+      const title = rv.title ? `<h3>${escapeHtml(rv.title)}</h3>` : '';
+      return `<article class="review-card">
+        <div class="review-card__body">
+          <div class="review-card__stars" aria-hidden="true">${stars}</div>
+          ${title}
+          <p>${escapeHtml(rv.body)}</p>
+          <div class="review-card__author"><span class="review-card__avatar" style="${reviewAvatarStyle(rv.customer_name)}">${escapeHtml(reviewInitials(rv.customer_name))}</span>
+            <div><b>${escapeHtml(rv.customer_name)}</b><small>${rv.is_verified_purchase ? 'Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg>' : 'Customer'}</small></div>
+          </div>
+        </div>
+        ${productImg ? `<img class="review-card__photo" src="${escapeHtml(productImg)}" alt="" loading="lazy" />` : ''}
+      </article>`;
+    }).join('');
+  }).catch(()=>{ grid.innerHTML='<p class="pdp-reviews__empty">Reviews are unavailable right now.</p>'; });
+}
+
 function activateTab(tab){$$('[data-tab]').forEach(b=>b.classList.toggle('is-active',b.dataset.tab===tab));$$('[data-panel]').forEach(p=>p.classList.toggle('is-active',p.dataset.panel===tab))}
 // `items`, when passed, is the pack-list array straight from the live API
 // product (p.pack_items). With no argument, falls back to the local
@@ -690,6 +736,8 @@ if($('[data-product-name]')){
       const bp=p.blueprint||{};
       renderBlueprint({ blueprint: bp.callouts||[], dimensions: bp.dimensions||[] });
       activateTab('overview');
+
+      renderProductReviews(p.id, img);
 
       state.pdpQty=1;
       const qtyValue = $('[data-qty-value]');
@@ -1983,6 +2031,49 @@ document.addEventListener('click',e=>{
   }
   refreshWishlist();
   if (auth.onAuthChange) auth.onAuthChange(refreshWishlist);
+
+  // Homepage "Customer Reviews" section (index.html) — real average rating,
+  // review count, happy-customer/photo counts and the review grid itself,
+  // each card's photo being that review's actual product image.
+  function renderHomepageReviews() {
+    var grid = qs('[data-reviews-grid]');
+    if (!grid) return;
+
+    api.getReviewStats().then(function (stats) {
+      var avg = Number(stats.average || 0);
+      var avgEl = qs('[data-reviews-average]'); if (avgEl) avgEl.textContent = avg.toFixed(1);
+      var countEl = qs('[data-reviews-count]');
+      if (countEl) countEl.textContent = 'Based on ' + Number(stats.count || 0).toLocaleString() + ' review' + (stats.count === 1 ? '' : 's');
+      var statAvg = qs('[data-stat-average]'); if (statAvg) statAvg.textContent = avg.toFixed(1) + '/5';
+      var statCustomers = qs('[data-stat-customers]');
+      if (statCustomers && stats.happy_customers_count != null) statCustomers.textContent = Number(stats.happy_customers_count).toLocaleString() + '+';
+      var statPhotos = qs('[data-stat-photos]');
+      if (statPhotos) statPhotos.textContent = Number(stats.photos_count || 0).toLocaleString() + '+';
+    }).catch(function () {});
+
+    api.getReviews({ limit: 8 }).then(function (r) {
+      var list = (r && r.reviews) || [];
+      if (!list.length) { grid.innerHTML = '<p class="pdp-reviews__empty">No reviews yet — be the first to share yours.</p>'; return; }
+      grid.innerHTML = list.map(function (rv) {
+        var rating = Math.max(0, Math.min(5, Number(rv.rating) || 0));
+        var stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        var title = rv.title ? '<h3>' + escapeHtml(rv.title) + '</h3>' : '';
+        var img = rv.products && rv.products.card_image ? window.habaneImageUrl(rv.products.card_image) : null;
+        return '<article class="review-card">' +
+          '<div class="review-card__body">' +
+            '<div class="review-card__stars" aria-hidden="true">' + stars + '</div>' +
+            title +
+            '<p>' + escapeHtml(rv.body) + '</p>' +
+            '<div class="review-card__author"><span class="review-card__avatar" style="' + reviewAvatarStyle(rv.customer_name) + '">' + escapeHtml(reviewInitials(rv.customer_name)) + '</span>' +
+              '<div><b>' + escapeHtml(rv.customer_name) + '</b><small>' + (rv.is_verified_purchase ? 'Verified Buyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></svg>' : 'Customer') + '</small></div>' +
+            '</div>' +
+          '</div>' +
+          (img ? '<img class="review-card__photo" src="' + escapeHtml(img) + '" alt="" loading="lazy" />' : '') +
+        '</article>';
+      }).join('');
+    }).catch(function () { grid.innerHTML = '<p class="pdp-reviews__empty">Reviews are unavailable right now.</p>'; });
+  }
+  renderHomepageReviews();
 
   function renderGridSkeleton(n) {
     var h = '';
