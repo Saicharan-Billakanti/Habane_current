@@ -649,14 +649,20 @@ if($('[data-product-name]')){
       $$('[data-product-price]').forEach(el=>el.textContent=money(p.price));
       if($('[data-dialog-price]')) $('[data-dialog-price]').textContent=money(p.price);
 
-      const img = p.images && p.images[0] ? p.images[0] : p.card_image;
+      // Image paths from the admin's upload form are storage-relative
+      // (e.g. "suitcase/gallery-xxx.png"), not absolute URLs like the
+      // seeded catalogue's — must resolve through habaneImageUrl() or the
+      // browser tries to load them relative to the current page and gets
+      // a broken image. Seeded absolute https:// URLs pass through unchanged.
+      const resolvedImages = (p.images || []).map(window.habaneImageUrl);
+      const img = resolvedImages[0] || window.habaneImageUrl(p.card_image);
       const mainImg = $('[data-product-shape]');
       if(mainImg) mainImg.src = img;
 
       // Thumbnail strip — previously never populated on this code path, so a
       // product opened via ?slug= showed a single hero image and no minis.
       const gallery=$('[data-pdp-gallery]');
-      if(gallery && mainImg) setupImageGallery(p.images,mainImg,gallery,$('[data-scene]'));
+      if(gallery && mainImg) setupImageGallery(resolvedImages,mainImg,gallery,$('[data-scene]'));
 
       // Mood DNA, Passport tab and the three accordion sections now come
       // straight from the live product record (mood/pack_items/passport_*/
