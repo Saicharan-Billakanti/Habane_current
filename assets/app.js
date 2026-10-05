@@ -170,7 +170,7 @@ if($$('[data-footer-time]').length){
   setInterval(updateFooterTime,1000);
 }
 
-const blogPosts=[
+let blogPosts=[
   {slug:'art-of-packing-light',tag:'PACKING',date:'12 JUL 2026',readTime:'4 min read',image:'assets/products/p1-olive-skyline-duffel.jpg',
     title:'The art of packing light, without leaving anything behind.',
     excerpt:'Three trips, one carry-on. How a tighter packing logic changes the way you move through an airport.',
@@ -196,6 +196,25 @@ const blogPosts=[
     excerpt:'What actually changes when your carry-on is built around the security line instead of around you.',
     body:['Eight minutes, door of the taxi to seated at the gate, security included. It only works with a specific kind of preparation: laptop sleeve that opens flat without unpacking anything else, no loose cables, one liquids pouch you can see through without opening.','The SMART DuffelΓÇÖs check-in panel and dedicated laptop compartment exist because of exactly this kind of trip ΓÇö the one where youΓÇÖre not touring, youΓÇÖre moving, and every extra motion at the tray table costs you time you donΓÇÖt have.','ItΓÇÖs a small, specific kind of design problem. Most luggage ignores it entirely.']}
 ];
+// Journal content is now served from the database (GET /api/v1/journal) —
+// blogPosts above only acts as an instant-paint fallback shown before that
+// fetch resolves, and if it ever fails. mapArticleToPost() reshapes a real
+// API article into the exact same {slug,tag,date,readTime,image,title,
+// excerpt,body} shape blogPosts always used, so the render functions below
+// don't need to know or care which source they came from.
+function mapArticleToPost(a){
+  const d=a.published_at?new Date(a.published_at):null;
+  return {
+    slug: a.slug,
+    tag: a.category||'FIELD NOTES',
+    date: d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase().replace(/ /g,' '):'',
+    readTime: a.read_time||'',
+    image: window.habaneImageUrl?window.habaneImageUrl(a.featured_image):a.featured_image,
+    title: a.title,
+    excerpt: a.excerpt||'',
+    body: (a.content||'').split('\n\n').filter(Boolean)
+  };
+}
 function renderBlogGrid(filter){
   const grid=$('[data-blog-grid]'); if(!grid) return;
   const list=filter&&filter!=='all'?blogPosts.filter(p=>p.tag===filter):blogPosts;
@@ -216,10 +235,17 @@ if($('[data-blog-grid]')){
     btn.classList.add('is-active');
     renderBlogGrid(btn.dataset.blogFilter);
   });
+  if(window.habaneApi && window.habaneApi.getJournalArticles){
+    window.habaneApi.getJournalArticles().then(r=>{
+      const list=(r&&r.articles)||[];
+      if(!list.length) return;
+      blogPosts=list.map(mapArticleToPost);
+      const activeBtn=$('[data-blog-filter].is-active');
+      renderBlogGrid(activeBtn?activeBtn.dataset.blogFilter:'all');
+    }).catch(()=>{});
+  }
 }
-if($('[data-blog-post]')){
-  const slug=new URLSearchParams(location.search).get('slug');
-  const post=blogPosts.find(p=>p.slug===slug)||blogPosts[0];
+function renderBlogPost(post, others){
   $('[data-blog-post-tag]').textContent=post.tag;
   $('[data-blog-post-date]').textContent=`${post.date} ┬╖ ${post.readTime}`;
   $('[data-blog-post-title]').textContent=post.title;
@@ -227,7 +253,6 @@ if($('[data-blog-post]')){
   $('[data-blog-post-image]').alt=post.title;
   $('[data-blog-post-body]').innerHTML=post.body.map(para=>`<p>${para}</p>`).join('');
   document.title=`${post.title} ΓÇö HAB├äNE Journal`;
-  const others=blogPosts.filter(p=>p.slug!==post.slug).slice(0,3);
   const moreEl=$('[data-blog-post-more]');
   if(moreEl) moreEl.innerHTML=others.map(p=>`<article class="blog-card">
     <a class="blog-card__media" href="blog-post.html?slug=${p.slug}"><span class="blog-card__tag">${p.tag}</span><img src="${p.image}" alt="${p.title}" loading="lazy"></a>
@@ -237,6 +262,17 @@ if($('[data-blog-post]')){
       <a class="blog-card__link" href="blog-post.html?slug=${p.slug}">Read the story <span>ΓåÆ</span></a>
     </div>
   </article>`).join('');
+}
+if($('[data-blog-post]')){
+  const slug=new URLSearchParams(location.search).get('slug');
+  const fallbackPost=blogPosts.find(p=>p.slug===slug)||blogPosts[0];
+  renderBlogPost(fallbackPost, blogPosts.filter(p=>p.slug!==fallbackPost.slug).slice(0,3));
+  if(window.habaneApi && window.habaneApi.getJournalArticle && slug){
+    window.habaneApi.getJournalArticle(slug).then(r=>{
+      if(!r || !r.article) return;
+      renderBlogPost(mapArticleToPost(r.article), (r.related||[]).map(mapArticleToPost));
+    }).catch(()=>{});
+  }
 }
 
 function productPhoto(product,extraClass,src){return `<img class="product-photo${extraClass?' '+extraClass:''}" src="${src||product.image}" alt="${product.name}" loading="lazy">`}
@@ -1353,12 +1389,19 @@ if($('[data-product-name]')){
   if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
   if($('[data-passport-save]')) $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
 }
-$$('[data-accordion-toggle]').forEach(toggle=>toggle.onclick=()=>{
-  const panel=toggle.nextElementSibling;
-  const open=toggle.getAttribute('aria-expanded')==='true';
-  toggle.setAttribute('aria-expanded',String(!open));
-  panel.style.maxHeight=open?'0px':panel.scrollHeight+'px';
-});
+// Exposed on window and re-callable: FAQ sections render dynamically from
+// the API after this initial pass, so their accordion buttons need the
+// same click binding applied again once that content lands.
+function wireAccordionToggles(root){
+  $$('[data-accordion-toggle]',root||document).forEach(toggle=>toggle.onclick=()=>{
+    const panel=toggle.nextElementSibling;
+    const open=toggle.getAttribute('aria-expanded')==='true';
+    toggle.setAttribute('aria-expanded',String(!open));
+    panel.style.maxHeight=open?'0px':panel.scrollHeight+'px';
+  });
+}
+window.wireAccordionToggles=wireAccordionToggles;
+wireAccordionToggles();
 
 if($('[data-cart-open]')) $('[data-cart-open]').onclick=()=>openDrawer('cart');
 if($('[data-cart-close]')) $('[data-cart-close]').onclick=closeDrawer;
@@ -1448,15 +1491,46 @@ if($('[data-prebook]')){
   else $('[data-prebook]').onclick=()=>toast('Pre-booking opens soon ΓÇö join the movement to get notified.');
 }
 
-if($('[data-hero-carousel]')){
-  const heroSlidesData=[
-    {eyebrow:'01 / SIGNATURE CARRY',heading:'Travel<br><em>Intelligently.</em>',sub:'Fifteen objects engineered as one coherent movement system.'},
-    {eyebrow:'02 / CITY TO CITY',heading:'Travel<br><em>Intelligently.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.'},
-    {eyebrow:'03 / DEPARTURE READY',heading:'Travel<br><em>Intelligently.</em>',sub:'Modular systems that adapt from a weekend to a full departure.'}
-  ];
+// The 3 slides in the HTML (and heroSlidesData below) are the no-JS/instant
+// -paint fallback. If GET /api/v1/homepage returns real hero_slides, the DOM
+// is rebuilt from that data (same elements/classes, just a different count
+// and content) before the carousel logic below ever reads a single element
+// — so whichever source wins, initHeroCarousel() always runs exactly once,
+// against whatever is currently in the DOM.
+function rebuildHeroSlidesDom(slides){
+  const anchor=$('.hero-carousel__grid');
+  const thumbsWrap=$('[data-hero-thumbs]');
+  if(!anchor||!thumbsWrap) return false;
+  $$('[data-hero-slide]').forEach(el=>el.remove());
+  $$('[data-hero-thumb]').forEach(el=>el.remove());
+  slides.forEach((s,i)=>{
+    const slideEl=document.createElement('div');
+    slideEl.className='hero-carousel__slide'+(i===0?' is-active':'');
+    slideEl.setAttribute('data-hero-slide','');
+    const img=document.createElement('img');
+    img.src=window.habaneImageUrl?window.habaneImageUrl(s.image_url):s.image_url;
+    img.alt='HABÄNE';
+    img.loading=i===0?'eager':'lazy';
+    slideEl.appendChild(img);
+    anchor.parentNode.insertBefore(slideEl,anchor);
+
+    const thumb=document.createElement('button');
+    thumb.type='button';
+    if(i===0) thumb.className='is-active';
+    thumb.setAttribute('data-hero-thumb',String(i));
+    thumb.setAttribute('aria-label','Show slide '+(i+1));
+    const thumbImg=document.createElement('img');
+    thumbImg.src=img.src; thumbImg.alt=''; thumbImg.loading='lazy';
+    thumb.appendChild(thumbImg);
+    thumbsWrap.appendChild(thumb);
+  });
+  return true;
+}
+function initHeroCarousel(heroSlidesData){
   const heroSlides=$$('[data-hero-slide]');
   const heroThumbs=$$('[data-hero-thumb]');
   const heroThumbsIndex=$('[data-hero-thumbs-index]');
+  if(!heroSlides.length||heroSlides.length!==heroThumbs.length) return;
   let heroIndex=0,heroTimer,heroFadeTimer;
   function replayHeroReveal(){
     const content=$('.hero-carousel__content'); if(!content) return;
@@ -1525,6 +1599,29 @@ if($('[data-hero-carousel]')){
     replayHeroReveal();
   }
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) restartHeroTimer();
+}
+// Shared by the hero carousel, the homepage reviews count and the featured-
+// products grid below — one fetch, three consumers, instead of three
+// separate round trips to the same endpoint.
+window._homepageDataPromise = (window.habaneApi && window.habaneApi.getHomepage)
+  ? window.habaneApi.getHomepage().catch(()=>null)
+  : Promise.resolve(null);
+
+if($('[data-hero-carousel]')){
+  const defaultHeroSlidesData=[
+    {eyebrow:'01 / SIGNATURE CARRY',heading:'Travel<br><em>Intelligently.</em>',sub:'Fifteen objects engineered as one coherent movement system.'},
+    {eyebrow:'02 / CITY TO CITY',heading:'Travel<br><em>Intelligently.</em>',sub:'Water-repellent canvas, vault-grade hardware, lifetime service paths.'},
+    {eyebrow:'03 / DEPARTURE READY',heading:'Travel<br><em>Intelligently.</em>',sub:'Modular systems that adapt from a weekend to a full departure.'}
+  ];
+  function startDefaultHero(){ initHeroCarousel(defaultHeroSlidesData); }
+  window._homepageDataPromise.then(r=>{
+    const slides=(r&&r.hero_slides)||[];
+    if(slides.length && rebuildHeroSlidesDom(slides)){
+      initHeroCarousel(slides.map(s=>({eyebrow:s.eyebrow||'',heading:s.heading||'',sub:s.sub||''})));
+    } else {
+      startDefaultHero();
+    }
+  }).catch(startDefaultHero);
 }
 
 // --- Smooth scroll (Lenis ΓÇö the same engine veonn.framer.website runs) ---
@@ -2107,7 +2204,10 @@ document.addEventListener('click',e=>{
       if (statPhotos) statPhotos.textContent = Number(stats.photos_count || 0).toLocaleString() + '+';
     }).catch(function () {});
 
-    api.getReviews({ limit: 8 }).then(function (r) {
+    (window._homepageDataPromise || Promise.resolve(null)).catch(function () { return null; }).then(function (hp) {
+      var reviewsLimit = (hp && hp.reviews_count) || 8;
+      return api.getReviews({ limit: reviewsLimit });
+    }).then(function (r) {
       var list = (r && r.reviews) || [];
       if (!list.length) { grid.innerHTML = '<p class="pdp-reviews__empty">No reviews yet — be the first to share yours.</p>'; return; }
       grid.innerHTML = list.map(function (rv) {
@@ -2133,6 +2233,39 @@ document.addEventListener('click',e=>{
     }).catch(function () { grid.innerHTML = '<p class="pdp-reviews__empty">Reviews are unavailable right now.</p>'; });
   }
   renderHomepageReviews();
+
+  // FAQ — homepage shows all 5 "general" items with their icon badges;
+  // the PDP's first two accordion items (delivery/returns, generic across
+  // every product) reuse the same two, leaving its third (care) item alone
+  // since that's already populated per-product from product data elsewhere.
+  var FAQ_ICONS = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="14" height="10" rx="1" /><path d="M15 10h4l3 3v4h-7z" /><circle cx="6" cy="19" r="1.6" /><circle cx="17.5" cy="19" r="1.6" /></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z" /><path d="M3 9v7l9 5 9-5V9" /><path d="M8.5 13.5l-2 2 2 2" /><path d="M6.5 15.5H10" /></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16L16 3l5 5-13 13H3v-5z" /><path d="M13 6l5 5" /><path d="M9 10l1.5 1.5M6 13l1.5 1.5" /></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10z" /><path d="M17 5l1 1.6-1 1.6" /><path d="M19.5 4.4l.7 1.2-.7 1.2" /></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18M4.5 7.5h15M4.5 16.5h15" /></svg>'
+  ];
+  function renderFaqList(container, items, withIcons){
+    if(!container || !items.length) return;
+    container.innerHTML = items.map(function (f, i) {
+      var badge = withIcons ? '<span class="accordion-item__icon-badge" aria-hidden="true">' + FAQ_ICONS[i % FAQ_ICONS.length] + '</span>' : '';
+      var qText = withIcons ? '<span class="accordion-item__q">' + escapeHtml(f.question) + '</span>' : escapeHtml(f.question);
+      return '<div class="accordion-item">' +
+        '<button class="accordion-item__toggle" type="button" data-accordion-toggle aria-expanded="false">' + badge + qText + '<span class="accordion-item__icon" aria-hidden="true"><i></i><i></i></span></button>' +
+        '<div class="accordion-item__panel" data-accordion-panel><p>' + escapeHtml(f.answer) + '</p></div>' +
+      '</div>';
+    }).join('');
+    wireAccordionToggles(container);
+  }
+  var homeFaqList = qs('[data-faq-list]');
+  var pdpFaqGeneral = qs('[data-pdp-faq-general]');
+  if ((homeFaqList || pdpFaqGeneral) && api.getFaqItems) {
+    api.getFaqItems({ category: 'general' }).then(function (r) {
+      var items = (r && r.faqs) || [];
+      if (homeFaqList) renderFaqList(homeFaqList, items, true);
+      if (pdpFaqGeneral) renderFaqList(pdpFaqGeneral, items.slice(0, 2), false);
+    }).catch(function () {});
+  }
 
   // "Write a review" form (product.html only — no-ops elsewhere since the
   // elements don't exist). Submits straight to POST /api/v1/reviews; the
@@ -2483,12 +2616,29 @@ document.addEventListener('click',e=>{
   // Listen for cart changes
   cart.onChange(function () { syncApiCart(); });
 
-  // Init product grid if present
+  // Init product grid if present. On the homepage specifically (identified
+  // by the hero carousel, since shop.html uses this same [data-product-grid]
+  // hook for full-catalogue browsing), an admin-curated featured-products
+  // list from the homepage CMS takes over rendering instead of the default
+  // "whatever's live" grid — but only when no category filter is active and
+  // the admin has actually picked something.
   var apiGrid = qs('[data-product-grid]');
   if (apiGrid) {
     var urlCat = new URLSearchParams(location.search).get('category');
-    loadProductGrid(apiGrid, urlCat ? { category: urlCat } : {});
-    wireFilterButtons(apiGrid);
+    var isHomepage = !!qs('[data-hero-carousel]');
+    if (isHomepage && !urlCat && window._homepageDataPromise) {
+      window._homepageDataPromise.then(function (hp) {
+        var featured = (hp && hp.featured_products) || [];
+        if (!featured.length) { loadProductGrid(apiGrid, {}); wireFilterButtons(apiGrid); return; }
+        var total = featured.length;
+        _allApiProducts = featured;
+        apiGrid.innerHTML = featured.map(function (p, i) { return buildProductCard(p, i, total); }).join('');
+        bindApiCards(apiGrid);
+      }).catch(function () { loadProductGrid(apiGrid, {}); wireFilterButtons(apiGrid); });
+    } else {
+      loadProductGrid(apiGrid, urlCat ? { category: urlCat } : {});
+      wireFilterButtons(apiGrid);
+    }
   }
 
   // Init search

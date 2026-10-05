@@ -314,11 +314,35 @@
     },
 
     /**
-     * GET /api/v1/faq
-     * @returns Promise<{ items: Array<{id, question, answer, category, position}> }>
+     * GET /api/v1/faq?category=&product_id=
+     * @returns Promise<{ faqs: Array<{id, question, answer, category, position}> }>
      */
-    getFaqItems: function () {
-      return apiCall('GET', '/faq');
+    getFaqItems: function (params) {
+      return apiCall('GET', '/faq', { query: params || {} });
+    },
+
+    /**
+     * GET /api/v1/homepage
+     * @returns Promise<{ hero_slides, reviews_count, featured_products }>
+     */
+    getHomepage: function () {
+      return apiCall('GET', '/homepage');
+    },
+
+    /**
+     * GET /api/v1/journal?category=
+     * @returns Promise<{ articles: Array }>
+     */
+    getJournalArticles: function (params) {
+      return apiCall('GET', '/journal', { query: params || {} });
+    },
+
+    /**
+     * GET /api/v1/journal/:slug
+     * @returns Promise<{ article, related: Array }>
+     */
+    getJournalArticle: function (slug) {
+      return apiCall('GET', '/journal/' + encodeURIComponent(slug));
     },
 
     /**
