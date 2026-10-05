@@ -301,8 +301,8 @@
           if (!promo) return;
           var el = document.getElementById('co-promo-banner');
           if (!el) return;
-          var detail = promo.type === 'percent' ? promo.value + '% off'
-            : promo.type === 'fixed' ? fmt(promo.value) + ' off'
+          var detail = (promo.type === 'percent' && promo.value != null) ? promo.value + '% off'
+            : (promo.type === 'fixed' && promo.value != null) ? fmt(promo.value) + ' off'
             : promo.type === 'free_shipping' ? 'free shipping'
             : '';
           el.textContent = '🎉 ' + promo.name + (detail ? ' — ' + detail : '') + (promo.description ? ' · ' + promo.description : '');
