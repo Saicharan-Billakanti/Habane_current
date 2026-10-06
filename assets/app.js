@@ -777,6 +777,7 @@ if($('[data-product-name]')){
       activateTab('overview');
 
       state.currentProductId = p.id;
+      if(window.habaneApi && window.habaneApi.trackProductView) window.habaneApi.trackProductView(p.id);
       renderProductReviews(p.id, img);
 
       state.pdpQty=1;

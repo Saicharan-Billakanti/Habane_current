@@ -256,6 +256,25 @@
     },
 
     /**
+     * POST /api/v1/track/view — fire-and-forget; drives the admin Products
+     * analytics "views" column and the funnel's product_views count.
+     * @param {string} productId
+     */
+    trackProductView: function (productId) {
+      var utm = window.habaneUtm ? window.habaneUtm() : {};
+      return apiCall('POST', '/track/view', {
+        body: {
+          product_id: productId,
+          session_id: habaneSession.id(),
+          referrer: document.referrer || undefined,
+          utm_source: utm.utm_source,
+          utm_medium: utm.utm_medium,
+          utm_campaign: utm.utm_campaign
+        }
+      }).catch(function () {});
+    },
+
+    /**
      * POST /api/v1/early-access
      * @param {{ email, drop_id?, product_id?, source? }} input
      */
