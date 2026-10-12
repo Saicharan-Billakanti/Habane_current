@@ -723,6 +723,25 @@ if($('[data-product-grid]')) createProductCards();
 updateCart(); updateCompare();
 if($('[data-matcher-group]')) recommend();
 
+// Legacy ?id=p1 links (cards, search, matcher) point at the hardcoded local
+// catalogue, which has placeholder specs/colours/sizes. Resolve the local
+// product to its live record by name and switch to the real ?slug= page so the
+// backend's specs, colours and sizes are shown; fall back to the local copy
+// only if the lookup fails or finds nothing.
+function openLegacyProduct(){
+  const requestedId=new URLSearchParams(location.search).get('id');
+  const id=products[requestedId]?requestedId:'p1';
+  const local=products[id];
+  const api=window.habaneApi;
+  if(!api||!api.getProducts||!local){ openProduct(id); return; }
+  api.getProducts({limit:100}).then(r=>{
+    const want=String(local.name).trim().toLowerCase();
+    const live=((r&&r.items)||[]).find(x=>String(x.name).trim().toLowerCase()===want);
+    if(live&&live.slug){ location.replace('product.html?slug='+encodeURIComponent(live.slug)); }
+    else openProduct(id);
+  }).catch(()=>openProduct(id));
+}
+
 if($('[data-product-name]')){
   const slug=new URLSearchParams(location.search).get('slug');
   if(slug && window.habaneApi && window.habaneApi.getProduct) {
@@ -849,8 +868,7 @@ if($('[data-product-name]')){
       openProduct(products[requestedId]?requestedId:'p1');
     });
   } else {
-    const requestedId=new URLSearchParams(location.search).get('id');
-    openProduct(products[requestedId]?requestedId:'p1');
+    openLegacyProduct();
   }
 }
 
