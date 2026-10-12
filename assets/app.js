@@ -734,6 +734,39 @@ if($('[data-product-name]')){
       $$('[data-product-price]').forEach(el=>el.textContent=money(p.price));
       if($('[data-dialog-price]')) $('[data-dialog-price]').textContent=money(p.price);
 
+      // Specs / colours / sizes come straight from the product record
+      // (admin: Inventory → edit item). Built with DOM nodes, not innerHTML,
+      // because these are free-text admin fields.
+      const specGrid=$('[data-product-specs]');
+      if(specGrid){
+        specGrid.textContent='';
+        Object.entries(p.specs||{}).forEach(([k,v])=>{
+          if(v===null||v===undefined||String(v).trim()==='') return;
+          const cell=document.createElement('div'), label=document.createElement('small'), value=document.createElement('b');
+          label.textContent=String(k).replace(/[_-]+/g,' ').replace(/^./,c=>c.toUpperCase());
+          value.textContent=String(v);
+          cell.append(label,value);
+          specGrid.appendChild(cell);
+        });
+      }
+      const fillChips=(rowSel,boxSel,items,withDot)=>{
+        const row=$(rowSel), box=$(boxSel);
+        if(!row||!box) return;
+        box.textContent='';
+        items.forEach(it=>{
+          const name=typeof it==='string'?it:(it&&it.name)||'';
+          if(!name) return;
+          const chip=document.createElement('span');
+          chip.className='option-chip';
+          if(withDot&&it.hex){ const dot=document.createElement('i'); dot.style.background=it.hex; chip.appendChild(dot); }
+          chip.appendChild(document.createTextNode(name));
+          box.appendChild(chip);
+        });
+        row.hidden=box.children.length===0;
+      };
+      fillChips('[data-option-colors]','[data-product-colors]',p.colors||[],true);
+      fillChips('[data-option-sizes]','[data-product-sizes]',p.sizes||[],false);
+
       // Image paths from the admin's upload form are storage-relative
       // (e.g. "suitcase/gallery-xxx.png"), not absolute URLs like the
       // seeded catalogue's — must resolve through habaneImageUrl() or the

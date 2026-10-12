@@ -1981,3 +1981,5 @@ h1,h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;l
     grid-template-columns: 1fr;
   }
 }
+
+.option-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line);margin-top:14px;font-size:10px;font-weight:700}.option-row+.option-row{margin-top:0}.option-row[hidden]{display:none}.option-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.option-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;font-size:11px;font-weight:600;color:var(--midnight)}.option-chip i{width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 1px var(--line)}
