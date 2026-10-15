@@ -724,9 +724,9 @@ updateCart(); updateCompare();
 if($('[data-matcher-group]')) recommend();
 
 // Legacy ?id=p1 links (cards, search, matcher) point at the hardcoded local
-// catalogue, which has placeholder specs/colours/sizes. Resolve the local
+// catalogue, which has placeholder specs. Resolve the local
 // product to its live record by name and switch to the real ?slug= page so the
-// backend's specs, colours and sizes are shown; fall back to the local copy
+// backend's specs and song are shown; fall back to the local copy
 // only if the lookup fails or finds nothing.
 function openLegacyProduct(){
   const requestedId=new URLSearchParams(location.search).get('id');
@@ -753,9 +753,9 @@ if($('[data-product-name]')){
       $$('[data-product-price]').forEach(el=>el.textContent=money(p.price));
       if($('[data-dialog-price]')) $('[data-dialog-price]').textContent=money(p.price);
 
-      // Specs / colours / sizes come straight from the product record
-      // (admin: Inventory → edit item). Built with DOM nodes, not innerHTML,
-      // because these are free-text admin fields.
+      // Specs come straight from the product record (admin: Inventory → edit
+      // item). Built with DOM nodes, not innerHTML, because they are free-text
+      // admin fields.
       const specGrid=$('[data-product-specs]');
       if(specGrid){
         specGrid.textContent='';
@@ -768,23 +768,6 @@ if($('[data-product-name]')){
           specGrid.appendChild(cell);
         });
       }
-      const fillChips=(rowSel,boxSel,items,withDot)=>{
-        const row=$(rowSel), box=$(boxSel);
-        if(!row||!box) return;
-        box.textContent='';
-        items.forEach(it=>{
-          const name=typeof it==='string'?it:(it&&it.name)||'';
-          if(!name) return;
-          const chip=document.createElement('span');
-          chip.className='option-chip';
-          if(withDot&&it.hex){ const dot=document.createElement('i'); dot.style.background=it.hex; chip.appendChild(dot); }
-          chip.appendChild(document.createTextNode(name));
-          box.appendChild(chip);
-        });
-        row.hidden=box.children.length===0;
-      };
-      fillChips('[data-option-colors]','[data-product-colors]',p.colors||[],true);
-      fillChips('[data-option-sizes]','[data-product-sizes]',p.sizes||[],false);
 
       // Image paths from the admin's upload form are storage-relative
       // (e.g. "suitcase/gallery-xxx.png"), not absolute URLs like the
@@ -831,6 +814,7 @@ if($('[data-product-name]')){
       state.currentProductId = p.id;
       if(window.habaneApi && window.habaneApi.trackProductView) window.habaneApi.trackProductView(p.id);
       renderProductReviews(p.id, img);
+      if(window.setPdpSong) window.setPdpSong({title:p.song_title,artist:p.song_artist,artwork:p.song_artwork_url,preview:p.song_preview_url,url:p.song_url});
 
       state.pdpQty=1;
       const qtyValue = $('[data-qty-value]');
@@ -1109,12 +1093,6 @@ $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.prev
 
 // --- In-Page PDP Spotify Navy Card Music Player ---
 (function initPdpSpotifyCard() {
-  const CONFIG = {
-    trackName: "An Ending (Ascent)",
-    artistName: "Brian Eno",
-    spotifyTrackUrl: "https://open.spotify.com/track/0EmagfvhCcCB6VtsBRA6qE"
-  };
-
   const audio = document.getElementById('pdp-spotify-audio');
   const playBtn = document.getElementById('pdp-spotify-play');
   const playIcon = document.getElementById('pdp-spotify-play-icon');
@@ -1126,44 +1104,46 @@ $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.prev
   const titleEl = document.getElementById('pdp-spotify-title');
   const artistLink = document.getElementById('pdp-spotify-artist');
   const saveBtn = document.getElementById('pdp-spotify-save');
+  const wrap = document.querySelector('[data-pdp-sound]');
 
   if (!audio || !playBtn) return;
 
-  if (saveBtn) saveBtn.onclick = () => window.open(CONFIG.spotifyTrackUrl, '_blank');
-  if (artistLink) artistLink.href = CONFIG.spotifyTrackUrl;
+  let trackUrl = '';
 
-  let previewUrl = null;
-
-  async function loadPreview() {
-    try {
-      const q = encodeURIComponent(CONFIG.trackName + ' ' + CONFIG.artistName);
-      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=song&limit=1');
-      const data = await res.json();
-      if (data.results && data.results[0]) {
-        const track = data.results[0];
-        previewUrl = track.previewUrl;
-        if (titleEl) titleEl.textContent = track.trackName;
-        if (artistLink) artistLink.textContent = track.artistName;
-        if (artworkEl) artworkEl.src = track.artworkUrl100.replace('100x100', '300x300');
-        audio.src = previewUrl;
-        if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
-      }
-    } catch (err) {
-      if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+  // The song is chosen per product in the admin (Inventory → Specs & Song) and
+  // arrives with the product record. No song selected → the player stays hidden.
+  window.setPdpSong = function (song) {
+    audio.pause();
+    if (progressFill) progressFill.style.width = '0%';
+    if (!song || !song.preview) {
+      audio.removeAttribute('src');
+      if (wrap) wrap.style.display = 'none';
+      return;
     }
-  }
+    trackUrl = song.url || '';
+    if (titleEl) titleEl.textContent = song.title || '';
+    if (artistLink) {
+      artistLink.textContent = song.artist || '';
+      if (trackUrl) artistLink.href = trackUrl;
+    }
+    if (artworkEl && song.artwork) artworkEl.src = song.artwork;
+    if (saveBtn) saveBtn.style.display = trackUrl ? '' : 'none';
+    audio.src = song.preview;
+    if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+    if (wrap) wrap.style.display = '';
+  };
 
-  loadPreview();
+  if (saveBtn) saveBtn.onclick = () => { if (trackUrl) window.open(trackUrl, '_blank'); };
 
   function togglePlay() {
+    if (!audio.src) return;
     if (!audio.paused) {
       audio.pause();
     } else {
-      if (!audio.src && previewUrl) audio.src = previewUrl;
       const playPromise = audio.play();
       if (playPromise && playPromise.catch) {
         playPromise.catch(() => {
-          window.open(CONFIG.spotifyTrackUrl, '_blank');
+          if (trackUrl) window.open(trackUrl, '_blank');
         });
       }
     }

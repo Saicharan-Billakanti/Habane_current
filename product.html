@@ -15,16 +15,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=156" />
-  <style>
-    /* Colour / Size rows (kept inline so they never depend on a cached styles.css) */
-    .option-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line,#dfe3ec);margin-top:14px;font-size:10px;font-weight:700}
-    .option-row+.option-row{margin-top:0}
-    .option-row[hidden]{display:none}
-    .option-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
-    .option-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line,#dfe3ec);border-radius:999px;font-size:11px;font-weight:600;color:var(--midnight,#001f54)}
-    .option-chip i{width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 1px var(--line,#dfe3ec)}
-  </style>
+  <link rel="stylesheet" href="assets/styles.css?v=157" />
 </head>
 
 <body>
@@ -193,7 +184,7 @@
         </div>
 
         <!-- In-Page Spotify Navy Card Music Player -->
-        <div class="pdp-sound" data-pdp-sound>
+        <div class="pdp-sound" data-pdp-sound style="display:none">
           <p class="pdp-sound__label">Get into the mood</p>
           <div class="pdp-sound__card" data-pdp-sound-card>
             <div class="pdp-sound__art-wrap">
@@ -237,12 +228,6 @@
           <h2 data-product-name>HABÄNE X1 CABIN</h2>
           <p data-product-description></p>
           <div><strong data-product-price>€899</strong><span>VAT included. Delivery calculated at checkout.</span></div>
-        </div>
-        <div class="option-row" data-option-colors hidden><span>Colour</span>
-          <div class="option-chips" data-product-colors></div>
-        </div>
-        <div class="option-row" data-option-sizes hidden><span>Size</span>
-          <div class="option-chips" data-product-sizes></div>
         </div>
         <div class="experience-tabs" role="tablist"><button class="is-active" role="tab" type="button"
             data-tab="overview">Overview</button><button role="tab" type="button" data-tab="pack">Pack
@@ -804,7 +789,7 @@
   <script>window.HABANE_CONFIG = { baseUrl: "https://habane-backend.my3-digital-in.workers.dev", imageBaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co/storage/v1/object/public/product-images", supabaseUrl: "https://ocssuiuxxdybrjnguoop.supabase.co", supabaseAnonKey: "sb_publishable_aiNrhOGAPThDrf6PsEbGHg_lQ1_2N6R" };</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="assets/api.js?v=157"></script>
-  <script src="assets/app.js?v=161"></script>
+  <script src="assets/app.js?v=162"></script>
 
   <script src="assets/d3-array.min.js"></script>
   <script src="assets/d3-geo.min.js"></script>
