@@ -2371,14 +2371,35 @@ document.addEventListener('click',e=>{
   }
 
   function wireFilterButtons(grid) {
-    qsa('[data-filter]').forEach(function (btn) {
+    function bind(btn) {
       btn.onclick = function () {
         qsa('[data-filter]').forEach(function (b) { b.classList.remove('is-active'); });
         btn.classList.add('is-active');
         var cat = btn.dataset.filter;
         loadProductGrid(grid, cat === 'all' ? {} : { category: cat });
       };
-    });
+    }
+    qsa('[data-filter]').forEach(bind);
+
+    // Categories added in the admin get a filter button automatically.
+    if (!api.getCategories) return;
+    api.getCategories().then(function (r) {
+      var buttons = qsa('[data-filter]');
+      if (!buttons.length) return;
+      var last = buttons[buttons.length - 1];
+      var have = {};
+      buttons.forEach(function (b) { have[b.dataset.filter] = true; });
+      (r.items || []).forEach(function (name) {
+        if (have[name]) return;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.dataset.filter = name;
+        btn.textContent = name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ');
+        last.insertAdjacentElement('afterend', btn);
+        last = btn;
+        bind(btn);
+      });
+    }).catch(function () {});
   }
 
   var _searchDebounce = null;

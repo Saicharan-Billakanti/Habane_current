@@ -117,6 +117,16 @@
   ───────────────────────────────────────────── */
   var habaneApi = {
 
+    // ── Categories ────────────────────────────────
+
+    /**
+     * GET /api/v1/categories
+     * @returns Promise<{ items: string[] }>
+     */
+    getCategories: function () {
+      return apiCall('GET', '/categories');
+    },
+
     // ── Products ──────────────────────────────────
 
     /**
