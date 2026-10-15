@@ -814,7 +814,7 @@ if($('[data-product-name]')){
       state.currentProductId = p.id;
       if(window.habaneApi && window.habaneApi.trackProductView) window.habaneApi.trackProductView(p.id);
       renderProductReviews(p.id, img);
-      if(window.setPdpSong) window.setPdpSong({title:p.song_title,artist:p.song_artist,artwork:p.song_artwork_url,preview:p.song_preview_url,url:p.song_url});
+      if(window.setPdpSong) window.setPdpSong(p.song_url);
 
       state.pdpQty=1;
       const qtyValue = $('[data-qty-value]');
@@ -1091,100 +1091,22 @@ window.addEventListener('resize',()=>{if($('[data-mobile-menu]') && $('[data-mob
 $$('[data-social]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
 $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();toast('More options coming soon')}));
 
-// --- In-Page PDP Spotify Navy Card Music Player ---
-(function initPdpSpotifyCard() {
-  const audio = document.getElementById('pdp-spotify-audio');
-  const playBtn = document.getElementById('pdp-spotify-play');
-  const playIcon = document.getElementById('pdp-spotify-play-icon');
-  const pauseIcon = document.getElementById('pdp-spotify-pause-icon');
-  const progressFill = document.getElementById('pdp-spotify-progress-fill');
-  const progressTrack = document.getElementById('pdp-spotify-progress-track');
-  const statusEl = document.getElementById('pdp-spotify-status');
-  const artworkEl = document.getElementById('pdp-spotify-art');
-  const titleEl = document.getElementById('pdp-spotify-title');
-  const artistLink = document.getElementById('pdp-spotify-artist');
-  const saveBtn = document.getElementById('pdp-spotify-save');
+// --- PDP Spotify player ---
+// The song is chosen per product in the admin (Inventory -> Specs & Song) and
+// arrives as the product's Spotify track link. No song selected -> hidden.
+window.setPdpSong = function (songUrl) {
   const wrap = document.querySelector('[data-pdp-sound]');
-
-  if (!audio || !playBtn) return;
-
-  let trackUrl = '';
-
-  // The song is chosen per product in the admin (Inventory → Specs & Song) and
-  // arrives with the product record. No song selected → the player stays hidden.
-  window.setPdpSong = function (song) {
-    audio.pause();
-    if (progressFill) progressFill.style.width = '0%';
-    if (!song || !song.preview) {
-      audio.removeAttribute('src');
-      if (wrap) wrap.style.display = 'none';
-      return;
-    }
-    trackUrl = song.url || '';
-    if (titleEl) titleEl.textContent = song.title || '';
-    if (artistLink) {
-      artistLink.textContent = song.artist || '';
-      if (trackUrl) artistLink.href = trackUrl;
-    }
-    if (artworkEl && song.artwork) artworkEl.src = song.artwork;
-    if (saveBtn) saveBtn.style.display = trackUrl ? '' : 'none';
-    audio.src = song.preview;
-    if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
-    if (wrap) wrap.style.display = '';
-  };
-
-  if (saveBtn) saveBtn.onclick = () => { if (trackUrl) window.open(trackUrl, '_blank'); };
-
-  function togglePlay() {
-    if (!audio.src) return;
-    if (!audio.paused) {
-      audio.pause();
-    } else {
-      const playPromise = audio.play();
-      if (playPromise && playPromise.catch) {
-        playPromise.catch(() => {
-          if (trackUrl) window.open(trackUrl, '_blank');
-        });
-      }
-    }
+  const frame = document.querySelector('[data-pdp-spotify]');
+  if (!wrap || !frame) return;
+  const m = /track\/([A-Za-z0-9]{22})/.exec(songUrl || '');
+  if (!m) {
+    frame.removeAttribute('src');
+    wrap.style.display = 'none';
+    return;
   }
-
-  playBtn.onclick = togglePlay;
-
-  if (progressTrack) {
-    progressTrack.onclick = (e) => {
-      if (!audio.duration) return;
-      const rect = progressTrack.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      audio.currentTime = pct * audio.duration;
-    };
-  }
-
-  audio.addEventListener('play', () => {
-    if (playIcon) playIcon.style.display = 'none';
-    if (pauseIcon) pauseIcon.style.display = 'block';
-  });
-
-  audio.addEventListener('pause', () => {
-    if (playIcon) playIcon.style.display = 'block';
-    if (pauseIcon) pauseIcon.style.display = 'none';
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-      const pct = (audio.currentTime / audio.duration) * 100;
-      if (progressFill) progressFill.style.width = pct + '%';
-      if (statusEl) statusEl.textContent = Math.floor(audio.currentTime) + 's / ' + Math.floor(audio.duration) + 's preview';
-    }
-  });
-
-  audio.addEventListener('ended', () => {
-    if (playIcon) playIcon.style.display = 'block';
-    if (pauseIcon) pauseIcon.style.display = 'none';
-    if (progressFill) progressFill.style.width = '0%';
-    if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
-  });
-})();
+  frame.src = 'https://open.spotify.com/embed/track/' + m[1] + '?utm_source=generator&theme=0';
+  wrap.style.display = '';
+};
 $$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');lock(false)});
 
 if($('[data-matcher-group]')){
