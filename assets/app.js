@@ -510,12 +510,14 @@ function setScene(scene){
 function recommendFromAdmin(){
   const cfg=state.matcherCfg, live=state.matcherProducts;
   if(!cfg||!live) return false;
-  const {duration,mode,mood}=state.matcher;
-  const rule=(cfg.rules||[]).find(r=>r.product_id&&(!r.duration||r.duration===duration)&&(!r.mode||r.mode===mode)&&(!r.mood||r.mood===mood));
+  const answers=state.matcher;
+  const rule=(cfg.rules||[]).find(r=>r.product_id&&Object.keys(r.conditions||{}).every(k=>!r.conditions[k]||answers[k]===r.conditions[k]));
   const p=live.find(x=>x.id===((rule&&rule.product_id)||cfg.default_product_id));
   if(!p) return false;
   $('[data-match-code]').textContent=p.code; $('[data-match-name]').textContent=p.name; $('[data-match-price]').textContent=money(p.price);
-  $('[data-match-reason]').textContent=(rule&&rule.reason)||`Best for ${duration==='short'?'short':duration==='medium'?'medium-length':'extended'}, ${mood} ${mode} travel.`;
+  const {duration,mode,mood}=answers;
+  const classic=duration&&mode&&mood;
+  $('[data-match-reason]').textContent=(rule&&rule.reason)||(classic?`Best for ${duration==='short'?'short':duration==='medium'?'medium-length':'extended'}, ${mood} ${mode} travel.`:'Our pick for your answers.');
   const s=$('[data-match-shape]');
   const img=(window.habaneImageUrl&&window.habaneImageUrl(p.card_image||(p.images&&p.images[0])))||'';
   if(img) s.src=img; s.alt=p.name;
@@ -1672,32 +1674,67 @@ window._homepageDataPromise = (window.habaneApi && window.habaneApi.getHomepage)
   ? window.habaneApi.getHomepage().catch(()=>null)
   : Promise.resolve(null);
 
-// --- Find Your Object: copy, questions and recommendation rules are managed in the
-// admin (Content -> Find Your Object). With no saved config the page keeps its built-in text.
+// --- Find Your Object: the questions, answers and recommendation rules are managed in the
+// admin (Content -> Find Your Object). With no saved config the page keeps its built-in questions.
+function buildMatcherFromConfig(cfg){
+  const steps=document.querySelector('.matcher__steps');
+  const questions=(cfg&&cfg.questions)||[];
+  if(!steps||!Array.isArray(questions)||!questions.length) return false;
+  // Older saved shape: { duration:{title,options:{short:'..'}}, ... }
+  const list=questions.map?questions:[];
+  const setLast=(el,text)=>{ const n=el&&el.lastChild; if(n&&n.nodeType===3) n.textContent=text; };
+  const existing={};
+  $$('[data-matcher-group]',steps).forEach(g=>{ existing[g.dataset.matcherGroup]=g; });
+  const template=Object.values(existing)[0];
+  if(!template) return false;
+  const used={};
+  list.forEach((q,idx)=>{
+    let group=existing[q.id];
+    if(!group){
+      group=template.cloneNode(true);
+      group.dataset.matcherGroup=q.id;
+      group.querySelectorAll('svg').forEach(x=>x.remove());
+      steps.appendChild(group);
+    }
+    used[q.id]=true;
+    setLast(group.querySelector('.matcher__legend'),q.title||'');
+    const num=group.querySelector('legend > span'); if(num) num.textContent=String(idx+1).padStart(2,'0');
+    const btnTemplate=group.querySelector('button[data-value]');
+    const current=[...group.querySelectorAll('button[data-value]')];
+    (q.options||[]).forEach(o=>{
+      let b=group.querySelector('button[data-value="'+o.value+'"]');
+      if(!b){
+        b=btnTemplate.cloneNode(true);
+        b.querySelectorAll('svg').forEach(x=>x.remove());
+        b.dataset.value=o.value; b.classList.remove('is-active');
+        group.appendChild(b);
+      }
+      setLast(b,o.label||'');
+    });
+    current.forEach(b=>{ if(!(q.options||[]).some(o=>o.value===b.dataset.value)) b.remove(); });
+    (q.options||[]).forEach(o=>group.appendChild(group.querySelector('button[data-value="'+o.value+'"]')));
+    if(!group.querySelector('button.is-active')){ const f=group.querySelector('button[data-value]'); if(f) f.classList.add('is-active'); }
+  });
+  Object.keys(existing).forEach(id=>{ if(!used[id]) existing[id].remove(); });
+  list.forEach(q=>{ const g=steps.querySelector('[data-matcher-group="'+q.id+'"]'); if(g) steps.appendChild(g); });
+  // answers state + click handling for every question (old and new)
+  state.matcher={};
+  $$('[data-matcher-group]',steps).forEach(group=>{
+    const act=group.querySelector('button.is-active'); state.matcher[group.dataset.matcherGroup]=act?act.dataset.value:'';
+    $$('button',group).forEach(btn=>btn.onclick=()=>{
+      $$('button',group).forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      state.matcher[group.dataset.matcherGroup]=btn.dataset.value;
+      recommend();
+    });
+  });
+  return true;
+}
 if($('[data-matcher-group]')){
   window._homepageDataPromise.then(hp=>{
     const cfg=hp&&hp.matcher;
-    if(!cfg) return;
-    const setText=(el,text)=>{ if(el&&typeof text==='string') el.textContent=text; };
-    setText($('[data-matcher-eyebrow]'),cfg.eyebrow);
-    const label=$('[data-matcher-label]');
-    if(label&&typeof cfg.label==='string'){ const i=label.querySelector('i'); label.textContent=''; if(i) label.appendChild(i); label.appendChild(document.createTextNode(' '+cfg.label)); }
-    const h=$('[data-matcher-heading]');
-    if(h&&(cfg.heading_1||cfg.heading_2||cfg.heading_accent)){
-      h.textContent='';
-      h.appendChild(document.createTextNode(cfg.heading_1||''));
-      h.appendChild(document.createElement('br'));
-      h.appendChild(document.createTextNode((cfg.heading_2||'')+' '));
-      const em=document.createElement('em'); em.textContent=cfg.heading_accent||''; h.appendChild(em);
-    }
-    setText($('[data-matcher-description]'),cfg.description);
-    const lastText=(el,text)=>{ const n=el&&el.lastChild; if(n&&n.nodeType===3&&typeof text==='string') n.textContent=text; };
-    Object.keys(cfg.questions||{}).forEach(g=>{
-      const q=cfg.questions[g], group=document.querySelector(`[data-matcher-group="${g}"]`);
-      if(!q||!group) return;
-      lastText(group.querySelector('.matcher__legend'),q.title);
-      Object.keys(q.options||{}).forEach(k=>lastText(group.querySelector(`button[data-value="${k}"]`),q.options[k]));
-    });
+    if(!cfg||!Array.isArray(cfg.questions)) return;
+    if(!buildMatcherFromConfig(cfg)) return;
     state.matcherCfg=cfg;
     if(window.habaneApi&&window.habaneApi.getProducts&&((cfg.rules||[]).length||cfg.default_product_id)){
       window.habaneApi.getProducts({limit:100}).then(r=>{ state.matcherProducts=(r&&r.items)||[]; recommend(); }).catch(()=>{});
