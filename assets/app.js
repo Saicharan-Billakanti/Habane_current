@@ -2638,6 +2638,51 @@ document.addEventListener('click',e=>{
   // Sync cart drawer on load
   syncApiCart();
 
+  // Announcement bar — the messages are managed in the admin (Homepage → Announcement bar).
+  // If the request fails, the static messages already in the page stay as they are.
+  (function applyAnnouncements() {
+    var bar = qs('[data-announcement]'), box = qs('[data-announcement-rotator]');
+    if (!bar || !box || !api.getAnnouncements) return;
+    function safeUrl(u) {
+      if (!u) return '';
+      try {
+        var parsed = new URL(u, location.href);
+        return /^(https?:|mailto:)$/.test(parsed.protocol) ? u : '';
+      } catch (e) { return ''; }
+    }
+    api.getAnnouncements().then(function (r) {
+      var list = (r && r.announcements) || [];
+      if (!list.length) {
+        bar.classList.add('is-hidden');
+        document.documentElement.style.setProperty('--announcement-h', '0px');
+        return;
+      }
+      box.textContent = '';
+      box.classList.add('announcement__rotator--dynamic');
+      list.forEach(function (a, i) {
+        var slide = document.createElement('span');
+        slide.className = 'announcement__slide' + (i === 0 ? ' is-active' : '');
+        slide.appendChild(document.createTextNode(a.message));
+        var href = safeUrl(a.link_url);
+        if (href) {
+          var link = document.createElement('a');
+          link.href = href;
+          link.textContent = a.link_text || 'Shop now';
+          slide.appendChild(link);
+        }
+        box.appendChild(slide);
+      });
+      var slides = box.children, current = 0;
+      if (slides.length > 1) {
+        setInterval(function () {
+          slides[current].classList.remove('is-active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('is-active');
+        }, 4500);
+      }
+    }).catch(function () {});
+  })();
+
   // Fetch and apply store settings
   api.getStoreSettings().then(function (store) {
     var threshold = store.free_shipping_threshold || 250;
