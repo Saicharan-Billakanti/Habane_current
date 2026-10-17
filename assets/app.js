@@ -507,7 +507,24 @@ function setScene(scene){
   $$('[data-scene-option]').forEach(b=>b.classList.toggle('is-active',b.dataset.sceneOption===scene));
 }
 
+function recommendFromAdmin(){
+  const cfg=state.matcherCfg, live=state.matcherProducts;
+  if(!cfg||!live) return false;
+  const {duration,mode,mood}=state.matcher;
+  const rule=(cfg.rules||[]).find(r=>r.product_id&&(!r.duration||r.duration===duration)&&(!r.mode||r.mode===mode)&&(!r.mood||r.mood===mood));
+  const p=live.find(x=>x.id===((rule&&rule.product_id)||cfg.default_product_id));
+  if(!p) return false;
+  $('[data-match-code]').textContent=p.code; $('[data-match-name]').textContent=p.name; $('[data-match-price]').textContent=money(p.price);
+  $('[data-match-reason]').textContent=(rule&&rule.reason)||`Best for ${duration==='short'?'short':duration==='medium'?'medium-length':'extended'}, ${mood} ${mode} travel.`;
+  const s=$('[data-match-shape]');
+  const img=(window.habaneImageUrl&&window.habaneImageUrl(p.card_image||(p.images&&p.images[0])))||'';
+  if(img) s.src=img; s.alt=p.name;
+  const open=$('[data-match-open]'); open.dataset.matchSlug=p.slug; delete open.dataset.matchId;
+  return true;
+}
+
 function recommend(){
+  if(recommendFromAdmin()) return;
   const {duration,mode,mood}=state.matcher;
   let id='p1';
   if(duration==='long') id='p13';
@@ -1205,7 +1222,7 @@ $$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList
 
 if($('[data-matcher-group]')){
   $$('[data-matcher-group]').forEach(group=>$$('button',group).forEach(btn=>btn.onclick=()=>{$$('button',group).forEach(b=>b.classList.remove('is-active'));btn.classList.add('is-active');state.matcher[group.dataset.matcherGroup]=btn.dataset.value;recommend()}));
-  if($('[data-match-open]')) $('[data-match-open]').onclick=e=>location.href=`product.html?id=${e.currentTarget.dataset.matchId||'p1'}`;
+  if($('[data-match-open]')) $('[data-match-open]').onclick=e=>{const d=e.currentTarget.dataset; location.href=d.matchSlug?`product.html?slug=${encodeURIComponent(d.matchSlug)}`:`product.html?id=${d.matchId||'p1'}`;};
 }
 
 function applyShopCategoryFilter(category){
@@ -1654,6 +1671,39 @@ function initHeroCarousel(heroSlidesData){
 window._homepageDataPromise = (window.habaneApi && window.habaneApi.getHomepage)
   ? window.habaneApi.getHomepage().catch(()=>null)
   : Promise.resolve(null);
+
+// --- Find Your Object: copy, questions and recommendation rules are managed in the
+// admin (Content -> Find Your Object). With no saved config the page keeps its built-in text.
+if($('[data-matcher-group]')){
+  window._homepageDataPromise.then(hp=>{
+    const cfg=hp&&hp.matcher;
+    if(!cfg) return;
+    const setText=(el,text)=>{ if(el&&typeof text==='string') el.textContent=text; };
+    setText($('[data-matcher-eyebrow]'),cfg.eyebrow);
+    const label=$('[data-matcher-label]');
+    if(label&&typeof cfg.label==='string'){ const i=label.querySelector('i'); label.textContent=''; if(i) label.appendChild(i); label.appendChild(document.createTextNode(' '+cfg.label)); }
+    const h=$('[data-matcher-heading]');
+    if(h&&(cfg.heading_1||cfg.heading_2||cfg.heading_accent)){
+      h.textContent='';
+      h.appendChild(document.createTextNode(cfg.heading_1||''));
+      h.appendChild(document.createElement('br'));
+      h.appendChild(document.createTextNode((cfg.heading_2||'')+' '));
+      const em=document.createElement('em'); em.textContent=cfg.heading_accent||''; h.appendChild(em);
+    }
+    setText($('[data-matcher-description]'),cfg.description);
+    const lastText=(el,text)=>{ const n=el&&el.lastChild; if(n&&n.nodeType===3&&typeof text==='string') n.textContent=text; };
+    Object.keys(cfg.questions||{}).forEach(g=>{
+      const q=cfg.questions[g], group=document.querySelector(`[data-matcher-group="${g}"]`);
+      if(!q||!group) return;
+      lastText(group.querySelector('.matcher__legend'),q.title);
+      Object.keys(q.options||{}).forEach(k=>lastText(group.querySelector(`button[data-value="${k}"]`),q.options[k]));
+    });
+    state.matcherCfg=cfg;
+    if(window.habaneApi&&window.habaneApi.getProducts&&((cfg.rules||[]).length||cfg.default_product_id)){
+      window.habaneApi.getProducts({limit:100}).then(r=>{ state.matcherProducts=(r&&r.items)||[]; recommend(); }).catch(()=>{});
+    }
+  }).catch(()=>{});
+}
 
 if($('[data-hero-carousel]')){
   const defaultHeroSlidesData=[
