@@ -1547,11 +1547,66 @@ if($$('[data-region]').length){
   let fallbackCode=(loc.split('-')[1]||'DE').toUpperCase();
   if(!fallbackCode||fallbackCode.length!==2) fallbackCode='DE';
   setRegion(fallbackCode,loc);
-  fetch('https://get.geojs.io/v1/ip/geo.json',{signal:AbortSignal.timeout?AbortSignal.timeout(4000):undefined})
-    .then(r=>r.ok?r.json():Promise.reject())
-    .then(data=>{ if(data&&data.country_code) setRegion(data.country_code,loc); })
-    .catch(()=>{ setRegion('DE','de-DE'); });
-  regionBtns.forEach(btn=>btn.onclick=()=>toast(`Shipping region set to ${regionName}`));
+
+  // The flag is detected automatically from the visitor's location, but clicking it lets
+  // them pick a country instead; that choice is remembered (and can be reset to automatic).
+  const REGION_KEY='habane_region';
+  const REGION_CODES='DE AT CH FR NL BE IT ES PT IE LU PL CZ SK HU RO BG GR HR SI EE LV LT MT CY DK SE NO FI IS GB US CA MX BR AR CL AU NZ IN JP KR CN HK SG AE SA IL TR ZA EG NG'.split(' ');
+  const readSaved=()=>{ try{ return localStorage.getItem(REGION_KEY); }catch(e){ return null; } };
+  const writeSaved=code=>{ try{ if(code) localStorage.setItem(REGION_KEY,code); else localStorage.removeItem(REGION_KEY); }catch(e){} };
+
+  function detectRegion(){
+    fetch('https://get.geojs.io/v1/ip/geo.json',{signal:AbortSignal.timeout?AbortSignal.timeout(4000):undefined})
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(data=>{ if(data&&data.country_code&&!readSaved()) setRegion(data.country_code,loc); })
+      .catch(()=>{ if(!readSaved()) setRegion('DE','de-DE'); });
+  }
+
+  const saved=readSaved();
+  if(saved) setRegion(saved,loc); else detectRegion();
+
+  let picker=null;
+  function buildPicker(){
+    let names;
+    try{ names=new Intl.DisplayNames([loc],{type:'region'}); }catch(e){ names={of:c=>c}; }
+    const entries=REGION_CODES.map(c=>({code:c,name:names.of(c)||c})).sort((a,b)=>a.name.localeCompare(b.name));
+    picker=document.createElement('div');
+    picker.className='region-picker';
+    picker.hidden=true;
+    picker.innerHTML='<div class="region-picker__scrim" data-region-close></div>'
+      +'<div class="region-picker__panel" role="dialog" aria-modal="true" aria-label="Choose your country">'
+      +'<div class="region-picker__head"><strong>Shipping region</strong><button type="button" data-region-close aria-label="Close">×</button></div>'
+      +'<input type="search" class="region-picker__search" placeholder="Search country" aria-label="Search country" />'
+      +'<button type="button" class="region-picker__auto" data-region-auto>Detect automatically</button>'
+      +'<ul class="region-picker__list"></ul></div>';
+    const list=picker.querySelector('.region-picker__list');
+    entries.forEach(e=>{
+      const li=document.createElement('li'); const b=document.createElement('button'); b.type='button'; b.dataset.code=e.code;
+      const img=document.createElement('img'); img.src='https://flagcdn.com/w40/'+e.code.toLowerCase()+'.png'; img.alt=''; img.width=20; img.height=15; img.loading='lazy';
+      b.appendChild(img); b.appendChild(document.createTextNode(e.name)); li.appendChild(b); list.appendChild(li);
+    });
+    const search=picker.querySelector('.region-picker__search');
+    search.addEventListener('input',()=>{
+      const q=search.value.trim().toLowerCase();
+      list.querySelectorAll('li').forEach(li=>{ li.hidden=!!q&&li.textContent.toLowerCase().indexOf(q)===-1; });
+    });
+    picker.addEventListener('click',e=>{
+      if(e.target.closest('[data-region-close]')){ closePicker(); return; }
+      if(e.target.closest('[data-region-auto]')){ writeSaved(null); detectRegion(); closePicker(); toast('Shipping region: detecting automatically'); return; }
+      const b=e.target.closest('button[data-code]');
+      if(b){ writeSaved(b.dataset.code); setRegion(b.dataset.code,loc); closePicker(); toast('Shipping region set to '+regionName); }
+    });
+    document.body.appendChild(picker);
+  }
+  function openPicker(){
+    if(!picker) buildPicker();
+    picker.hidden=false;
+    const s=picker.querySelector('.region-picker__search'); s.value=''; s.dispatchEvent(new Event('input'));
+    setTimeout(()=>s.focus(),0);
+  }
+  function closePicker(){ if(picker) picker.hidden=true; }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePicker(); });
+  regionBtns.forEach(btn=>btn.onclick=openPicker);
 }
 if($('[data-prebook]')){
   if($('[data-product-name]')) $('[data-prebook]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
