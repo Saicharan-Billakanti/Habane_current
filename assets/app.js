@@ -845,6 +845,22 @@ if($('[data-product-name]')){
           addBtn.onclick = () => { if(window.notifyBackInStock) window.notifyBackInStock(p.id, p.name); };
         }
       }
+
+      // "Checkout" = buy this product now: make sure it is in the bag (without
+      // doubling up if "Add to bag" was already clicked), then go to the same
+      // checkout page the cart uses.
+      const buyNow=$('[data-dialog-checkout]');
+      if(buyNow){
+        buyNow.onclick=()=>{
+          if(!p.in_stock){ toast(p.name + ' is out of stock'); return; }
+          const inBag=window.habaneCart.get().some(i=>i.product_id===p.id);
+          if(!inBag){
+            window.habaneCart.add({ product_id: p.id, quantity: state.pdpQty||1, name: p.name, price: p.price, image: img, slug: p.slug });
+            if(window.syncApiCart) window.syncApiCart();
+          }
+          location.href='checkout.html';
+        };
+      }
     }).catch(err => {
       console.error('Failed to load product:', err);
       // Fall back to the local catalogue rather than leaving the page blank.
@@ -1340,7 +1356,7 @@ if($('[data-product-name]')){
     if(item){ item.qty=state.pdpQty; updateCart(); }
     refreshQty();
   };
-  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);openCheckout()};
+  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);location.href='checkout.html'};
   if($('[data-passport-save]')) $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
 }
 // Exposed on window and re-callable: FAQ sections render dynamically from
