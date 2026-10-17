@@ -814,7 +814,7 @@ if($('[data-product-name]')){
       state.currentProductId = p.id;
       if(window.habaneApi && window.habaneApi.trackProductView) window.habaneApi.trackProductView(p.id);
       renderProductReviews(p.id, img);
-      if(window.setPdpSong) window.setPdpSong(p.song_url);
+      if(window.setPdpSong) window.setPdpSong({title:p.song_title,artist:p.song_artist,artwork:p.song_artwork_url,url:p.song_url});
 
       state.pdpQty=1;
       const qtyValue = $('[data-qty-value]');
@@ -1107,22 +1107,100 @@ window.addEventListener('resize',()=>{if($('[data-mobile-menu]') && $('[data-mob
 $$('[data-social]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
 $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();toast('More options coming soon')}));
 
-// --- PDP Spotify player ---
-// The song is chosen per product in the admin (Inventory -> Specs & Song) and
-// arrives as the product's Spotify track link. No song selected -> hidden.
-window.setPdpSong = function (songUrl) {
+// --- PDP song card ---
+// The song is chosen per product in the admin (Inventory -> Specs & Song). Title,
+// artist, artwork and the Spotify link come with the product; the 30-second
+// preview audio is looked up from the title + artist. No song -> card hidden.
+(function initPdpSongCard() {
   const wrap = document.querySelector('[data-pdp-sound]');
-  const frame = document.querySelector('[data-pdp-spotify]');
-  if (!wrap || !frame) return;
-  const m = /track\/([A-Za-z0-9]{22})/.exec(songUrl || '');
-  if (!m) {
-    frame.removeAttribute('src');
-    wrap.style.display = 'none';
-    return;
+  const audio = document.getElementById('pdp-spotify-audio');
+  const playBtn = document.getElementById('pdp-spotify-play');
+  if (!wrap || !audio || !playBtn) return;
+  const playIcon = document.getElementById('pdp-spotify-play-icon');
+  const pauseIcon = document.getElementById('pdp-spotify-pause-icon');
+  const progressFill = document.getElementById('pdp-spotify-progress-fill');
+  const progressTrack = document.getElementById('pdp-spotify-progress-track');
+  const statusEl = document.getElementById('pdp-spotify-status');
+  const artworkEl = document.getElementById('pdp-spotify-art');
+  const titleEl = document.getElementById('pdp-spotify-title');
+  const artistLink = document.getElementById('pdp-spotify-artist');
+  const saveBtn = document.getElementById('pdp-spotify-save');
+
+  let spotifyUrl = '';
+  let previewUrl = '';
+  let loadToken = 0;
+
+  function resetUi() {
+    audio.pause();
+    audio.removeAttribute('src');
+    previewUrl = '';
+    if (progressFill) progressFill.style.width = '0%';
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
   }
-  frame.src = 'https://open.spotify.com/embed/track/' + m[1] + '?utm_source=generator&theme=0';
-  wrap.style.display = '';
-};
+
+  window.setPdpSong = function (song) {
+    resetUi();
+    if (!song || !song.url) { wrap.style.display = 'none'; return; }
+    spotifyUrl = song.url;
+    if (titleEl) titleEl.textContent = song.title || 'Spotify';
+    if (artistLink) { artistLink.textContent = song.artist || ''; artistLink.href = spotifyUrl; }
+    if (artworkEl) {
+      if (song.artwork) { artworkEl.src = song.artwork; artworkEl.style.visibility = ''; }
+      else artworkEl.style.visibility = 'hidden';
+    }
+    if (statusEl) statusEl.textContent = 'Tap play to listen';
+    wrap.style.display = '';
+
+    // 30-second preview audio — single tracks only (albums/playlists open Spotify).
+    if (!/\/track\//.test(spotifyUrl)) return;
+    const token = ++loadToken;
+    const cleanTitle = String(song.title || '').split(' - ')[0].replace(/\s*\(.*?remaster.*?\)\s*/i, '').trim();
+    const term = encodeURIComponent((cleanTitle + ' ' + (song.artist || '')).trim());
+    fetch('https://itunes.apple.com/search?term=' + term + '&media=music&entity=song&limit=1')
+      .then((r) => r.json())
+      .then((d) => {
+        const hit = d && d.results && d.results[0];
+        if (token !== loadToken || !hit || !hit.previewUrl) return;
+        previewUrl = hit.previewUrl;
+        audio.src = previewUrl;
+        if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+      })
+      .catch(() => {});
+  };
+
+  function openSpotify() { if (spotifyUrl) window.open(spotifyUrl, '_blank', 'noopener'); }
+  if (saveBtn) saveBtn.onclick = openSpotify;
+
+  playBtn.onclick = () => {
+    if (!previewUrl) { openSpotify(); return; }
+    if (!audio.paused) { audio.pause(); return; }
+    const p = audio.play();
+    if (p && p.catch) p.catch(openSpotify);
+  };
+
+  if (progressTrack) {
+    progressTrack.onclick = (e) => {
+      if (!audio.duration) return;
+      const rect = progressTrack.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+    };
+  }
+  audio.addEventListener('play', () => { if (playIcon) playIcon.style.display = 'none'; if (pauseIcon) pauseIcon.style.display = 'block'; });
+  audio.addEventListener('pause', () => { if (playIcon) playIcon.style.display = 'block'; if (pauseIcon) pauseIcon.style.display = 'none'; });
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    if (progressFill) progressFill.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+    if (statusEl) statusEl.textContent = Math.floor(audio.currentTime) + 's / ' + Math.floor(audio.duration) + 's preview';
+  });
+  audio.addEventListener('ended', () => {
+    if (progressFill) progressFill.style.width = '0%';
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+    if (statusEl) statusEl.textContent = '0:00 / 0:30 preview';
+  });
+})();
 $$('.mobile-menu a').forEach(a=>a.onclick=()=>{$('[data-mobile-menu]').classList.remove('is-open');lock(false)});
 
 if($('[data-matcher-group]')){
