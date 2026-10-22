@@ -1533,6 +1533,7 @@ if($$('[data-region]').length){
   let regionName='Germany';
   function setRegion(code,loc){
     const cleanCode=(code||'DE').toUpperCase().replace(/[^A-Z]/g,'').slice(0,2)||'DE';
+    window.__habaneCountry=cleanCode;
     try{ regionName=new Intl.DisplayNames([loc||'en'],{type:'region'}).of(cleanCode)||cleanCode; }catch(e){ regionName=cleanCode; }
     const flagSrc=`https://flagcdn.com/w40/${cleanCode.toLowerCase()}.png`;
     regionBtns.forEach(btn=>{
@@ -1728,6 +1729,44 @@ function initHeroCarousel(heroSlidesData){
 window._homepageDataPromise = (window.habaneApi && window.habaneApi.getHomepage)
   ? window.habaneApi.getHomepage().catch(()=>null)
   : Promise.resolve(null);
+
+// --- Visitor insights: time on page + scroll depth ---------------------------------
+// Only for visitors who accepted "Analytics" in the cookie banner. One visit = one page
+// load; chunks of time are sent when the page is hidden/left and summed server-side.
+(function trackPageVisit(){
+  if(!habaneHasConsent('analytics')) return;
+  const api=window.habaneApi;
+  if(!api||!api.trackPageVisit||!window.habaneSession) return;
+  const file=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  const TYPES={'index.html':'home','shop.html':'shop','product.html':'product','checkout.html':'checkout','checkout-success.html':'checkout','blog.html':'journal','blog-post.html':'journal'};
+  const pageType=TYPES[file]||'info';
+  const visitId=Math.random().toString(36).slice(2)+Date.now().toString(36);
+  const ua=navigator.userAgent||'';
+  const device=/iPad|Tablet/i.test(ua)?'tablet':/Mobi|Android|iPhone/i.test(ua)?'mobile':'desktop';
+  let shownAt=document.visibilityState==='visible'?Date.now():0, accMs=0, sentMs=0, maxScroll=0, sentOnce=false;
+  function scrollPct(){
+    const el=document.documentElement, total=el.scrollHeight-window.innerHeight;
+    if(total<=0) return 100;
+    return Math.min(100,Math.round((window.scrollY/total)*100));
+  }
+  window.addEventListener('scroll',()=>{ maxScroll=Math.max(maxScroll,scrollPct()); },{passive:true});
+  function flush(){
+    if(shownAt){ accMs+=Date.now()-shownAt; shownAt=0; }
+    const deltaSec=Math.round((accMs-sentMs)/1000);
+    if(sentOnce&&deltaSec<1) return;
+    sentMs+=deltaSec*1000; sentOnce=true;
+    api.trackPageVisit({
+      visit_id:visitId, session_id:window.habaneSession.id(), page_type:pageType, path:'/'+file,
+      product_id:pageType==='product'?(state.currentProductId||null):null,
+      seconds:deltaSec, max_scroll:Math.max(maxScroll,scrollPct()),
+      referrer:document.referrer||null, device, country_code:window.__habaneCountry||null
+    });
+  }
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState==='hidden') flush(); else shownAt=Date.now();
+  });
+  window.addEventListener('pagehide',flush);
+})();
 
 // --- Find Your Object: the questions, answers and recommendation rules are managed in the
 // admin (Content -> Find Your Object). With no saved config the page keeps its built-in questions.

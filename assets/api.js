@@ -457,6 +457,20 @@
       return apiCall('POST', '/track/cart', { body: payload }).catch(function () {});
     },
 
+    /**
+     * POST /api/v1/track/page — time on page + scroll depth. Sent as the page is left,
+     * so it uses sendBeacon (falls back to a keepalive fetch). text/plain avoids a CORS
+     * preflight; the server parses the body as JSON either way.
+     */
+    trackPageVisit: function (payload) {
+      var url = API_URL + '/track/page';
+      var body = JSON.stringify(payload);
+      try {
+        if (navigator.sendBeacon && navigator.sendBeacon(url, new Blob([body], { type: 'text/plain' }))) return;
+      } catch (e) {}
+      try { fetch(url, { method: 'POST', body: body, keepalive: true, headers: { 'Content-Type': 'text/plain' } }); } catch (e) {}
+    },
+
     // ── Wishlist (requires a signed-in customer email) ───────────────
 
     /**
@@ -763,6 +777,7 @@
   ───────────────────────────────────────────── */
   global.habaneApi    = habaneApi;
   global.habaneCart   = habaneCart;
+  global.habaneSession = habaneSession;
   global.habaneAuth   = habaneAuth;
   global.HabaneApiError = HabaneApiError;
 
