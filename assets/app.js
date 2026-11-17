@@ -869,8 +869,38 @@ if($('[data-product-name]')){
 
       const qtyDec=$('[data-qty-dec]'), qtyInc=$('[data-qty-inc]');
       function refreshSlugQty(){ if(qtyValue) qtyValue.textContent=state.pdpQty; }
-      if(qtyDec) qtyDec.onclick=()=>{ state.pdpQty=Math.max(1,state.pdpQty-1); refreshSlugQty(); };
-      if(qtyInc) qtyInc.onclick=()=>{ state.pdpQty=Math.min(9,state.pdpQty+1); refreshSlugQty(); };
+      // Once the item is in the bag the stepper edits the bag line. Minus at 1 removes it and
+      // brings back the plain "Add to bag" button (the stepper hides again).
+      const bagIndex=()=>window.habaneCart.get().findIndex(i=>i.product_id===p.id);
+      const isAdded=()=>!!(addToBagBox && addToBagBox.classList.contains('is-added'));
+      if(qtyDec) qtyDec.onclick=()=>{
+        if(isAdded()){
+          const idx=bagIndex();
+          if(state.pdpQty<=1){
+            if(idx>=0) window.habaneCart.remove(idx);
+            if(window.syncApiCart) window.syncApiCart();
+            addToBagBox.classList.remove('is-added');
+            state.pdpQty=1; refreshSlugQty();
+            toast(p.name + ' removed from bag');
+            return;
+          }
+          state.pdpQty--;
+          if(idx>=0) window.habaneCart.setQty(idx,state.pdpQty);
+          if(window.syncApiCart) window.syncApiCart();
+        }else{
+          state.pdpQty=Math.max(1,state.pdpQty-1);
+        }
+        refreshSlugQty();
+      };
+      if(qtyInc) qtyInc.onclick=()=>{
+        state.pdpQty=Math.min(9,state.pdpQty+1);
+        if(isAdded()){
+          const idx=bagIndex();
+          if(idx>=0) window.habaneCart.setQty(idx,state.pdpQty);
+          if(window.syncApiCart) window.syncApiCart();
+        }
+        refreshSlugQty();
+      };
 
       const addBtn = $('[data-dialog-add]');
       if(addBtn) {
