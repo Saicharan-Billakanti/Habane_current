@@ -1,7 +1,7 @@
 const products = {
   p1: {
     id:'p1', code:'OBJ / 01', passport:'HB-P1-001', name:'Bag Tags', price:89, category:'system', badge:'Flagship',
-    image:'assets/new_products/Bag_Tags/bag_tags_1.png', cardImage:'assets/new_products/Bag_Tags/bag_tags_1.png', images:["assets/new_products/Bag_Tags/bag_tags_1.png", "assets/new_products/Bag_Tags/bag_tags_2.png", "assets/new_products/Bag_Tags/bag_tags_3.png", "assets/new_products/Bag_Tags/bag_tags_4.png", "assets/new_products/Bag_Tags/bag_tags_5.png", "assets/new_products/Bag_Tags/bag_tags_6.png", "assets/new_products/Bag_Tags/bag_tags_7.png", "assets/new_products/Bag_Tags/bag_tags_8.jpeg", "assets/new_products/Bag_Tags/bag_tags_9.jpeg"],
+    image:'assets/new_products/Bag_Tags/bag_tags_1.webp', cardImage:'assets/new_products/Bag_Tags/bag_tags_1.webp', images:["assets/new_products/Bag_Tags/bag_tags_1.webp", "assets/new_products/Bag_Tags/bag_tags_2.webp", "assets/new_products/Bag_Tags/bag_tags_3.webp", "assets/new_products/Bag_Tags/bag_tags_4.webp", "assets/new_products/Bag_Tags/bag_tags_5.webp", "assets/new_products/Bag_Tags/bag_tags_6.webp", "assets/new_products/Bag_Tags/bag_tags_7.webp", "assets/new_products/Bag_Tags/bag_tags_8.webp", "assets/new_products/Bag_Tags/bag_tags_9.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Bag Tags', kicker:'Smart essentials',
     description:'Engineered for precision. The new Bag Tags brings intelligent design to your daily routine.',
@@ -17,7 +17,7 @@ const products = {
   },
   p2: {
     id:'p2', code:'OBJ / 02', passport:'HB-P2-001', name:'Electric Water Bottles', price:99, category:'system', badge:'City Object',
-    image:'assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png', cardImage:'assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png', images:["assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_2.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_3.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_4.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_5.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_6.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_7.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_8.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_9.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_10.png", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_11.png"],
+    image:'assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.webp', cardImage:'assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.webp', images:["assets/new_products/Electric_Water_Bottles/electric_water_bottles_1.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_2.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_3.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_4.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_5.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_6.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_7.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_8.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_9.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_10.webp", "assets/new_products/Electric_Water_Bottles/electric_water_bottles_11.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Electric Water Bottles', kicker:'Smart essentials',
     description:'Engineered for precision. The new Electric Water Bottles brings intelligent design to your daily routine.',
@@ -33,7 +33,7 @@ const products = {
   },
   p3: {
     id:'p3', code:'OBJ / 03', passport:'HB-P3-001', name:'Fans', price:109, category:'system', badge:'Travel kit',
-    image:'assets/new_products/Fans/fans_1.png', cardImage:'assets/new_products/Fans/fans_1.png', images:["assets/new_products/Fans/fans_1.png", "assets/new_products/Fans/fans_2.png", "assets/new_products/Fans/fans_3.png", "assets/new_products/Fans/fans_4.png", "assets/new_products/Fans/fans_5.png", "assets/new_products/Fans/fans_6.png", "assets/new_products/Fans/fans_7.png", "assets/new_products/Fans/fans_8.png", "assets/new_products/Fans/fans_9.png", "assets/new_products/Fans/fans_10.png"],
+    image:'assets/new_products/Fans/fans_1.webp', cardImage:'assets/new_products/Fans/fans_1.webp', images:["assets/new_products/Fans/fans_1.webp", "assets/new_products/Fans/fans_2.webp", "assets/new_products/Fans/fans_3.webp", "assets/new_products/Fans/fans_4.webp", "assets/new_products/Fans/fans_5.webp", "assets/new_products/Fans/fans_6.webp", "assets/new_products/Fans/fans_7.webp", "assets/new_products/Fans/fans_8.webp", "assets/new_products/Fans/fans_9.webp", "assets/new_products/Fans/fans_10.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Fans', kicker:'Smart essentials',
     description:'Engineered for precision. The new Fans brings intelligent design to your daily routine.',
@@ -49,7 +49,7 @@ const products = {
   },
   p4: {
     id:'p4', code:'OBJ / 04', passport:'HB-P4-001', name:'Luggage Tracker', price:119, category:'system', badge:'Tech Layer',
-    image:'assets/new_products/Luggage_Tracker/luggage_tracker_1.png', cardImage:'assets/new_products/Luggage_Tracker/luggage_tracker_1.png', images:["assets/new_products/Luggage_Tracker/luggage_tracker_1.png", "assets/new_products/Luggage_Tracker/luggage_tracker_2.png", "assets/new_products/Luggage_Tracker/luggage_tracker_3.png", "assets/new_products/Luggage_Tracker/luggage_tracker_4.png", "assets/new_products/Luggage_Tracker/luggage_tracker_5.png", "assets/new_products/Luggage_Tracker/luggage_tracker_6.png", "assets/new_products/Luggage_Tracker/luggage_tracker_7.png", "assets/new_products/Luggage_Tracker/luggage_tracker_8.png", "assets/new_products/Luggage_Tracker/luggage_tracker_9.png", "assets/new_products/Luggage_Tracker/luggage_tracker_10.png", "assets/new_products/Luggage_Tracker/luggage_tracker_11.png", "assets/new_products/Luggage_Tracker/luggage_tracker_12.png"],
+    image:'assets/new_products/Luggage_Tracker/luggage_tracker_1.webp', cardImage:'assets/new_products/Luggage_Tracker/luggage_tracker_1.webp', images:["assets/new_products/Luggage_Tracker/luggage_tracker_1.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_2.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_3.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_4.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_5.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_6.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_7.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_8.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_9.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_10.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_11.webp", "assets/new_products/Luggage_Tracker/luggage_tracker_12.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Luggage Tracker', kicker:'Smart essentials',
     description:'Engineered for precision. The new Luggage Tracker brings intelligent design to your daily routine.',
@@ -65,7 +65,7 @@ const products = {
   },
   p5: {
     id:'p5', code:'OBJ / 05', passport:'HB-P5-001', name:'Passport Cover', price:129, category:'system', badge:'Extended',
-    image:'assets/new_products/Passport_Cover/passport_cover_1.png', cardImage:'assets/new_products/Passport_Cover/passport_cover_1.png', images:["assets/new_products/Passport_Cover/passport_cover_1.png", "assets/new_products/Passport_Cover/passport_cover_2.png", "assets/new_products/Passport_Cover/passport_cover_3.png", "assets/new_products/Passport_Cover/passport_cover_4.png", "assets/new_products/Passport_Cover/passport_cover_5.png", "assets/new_products/Passport_Cover/passport_cover_6.png", "assets/new_products/Passport_Cover/passport_cover_7.png", "assets/new_products/Passport_Cover/passport_cover_8.png", "assets/new_products/Passport_Cover/passport_cover_9.png", "assets/new_products/Passport_Cover/passport_cover_10.png", "assets/new_products/Passport_Cover/passport_cover_11.png", "assets/new_products/Passport_Cover/passport_cover_12.png", "assets/new_products/Passport_Cover/passport_cover_13.png", "assets/new_products/Passport_Cover/passport_cover_14.png", "assets/new_products/Passport_Cover/passport_cover_15.png", "assets/new_products/Passport_Cover/passport_cover_16.png", "assets/new_products/Passport_Cover/passport_cover_17.png"],
+    image:'assets/new_products/Passport_Cover/passport_cover_1.webp', cardImage:'assets/new_products/Passport_Cover/passport_cover_1.webp', images:["assets/new_products/Passport_Cover/passport_cover_1.webp", "assets/new_products/Passport_Cover/passport_cover_2.webp", "assets/new_products/Passport_Cover/passport_cover_3.webp", "assets/new_products/Passport_Cover/passport_cover_4.webp", "assets/new_products/Passport_Cover/passport_cover_5.webp", "assets/new_products/Passport_Cover/passport_cover_6.webp", "assets/new_products/Passport_Cover/passport_cover_7.webp", "assets/new_products/Passport_Cover/passport_cover_8.webp", "assets/new_products/Passport_Cover/passport_cover_9.webp", "assets/new_products/Passport_Cover/passport_cover_10.webp", "assets/new_products/Passport_Cover/passport_cover_11.webp", "assets/new_products/Passport_Cover/passport_cover_12.webp", "assets/new_products/Passport_Cover/passport_cover_13.webp", "assets/new_products/Passport_Cover/passport_cover_14.webp", "assets/new_products/Passport_Cover/passport_cover_15.webp", "assets/new_products/Passport_Cover/passport_cover_16.webp", "assets/new_products/Passport_Cover/passport_cover_17.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Passport Cover', kicker:'Smart essentials',
     description:'Engineered for precision. The new Passport Cover brings intelligent design to your daily routine.',
@@ -81,7 +81,7 @@ const products = {
   },
   p6: {
     id:'p6', code:'OBJ / 06', passport:'HB-P6-001', name:'Sling Bag', price:139, category:'system', badge:'Daily system',
-    image:'assets/new_products/Sling_Bag/sling_bag_1.png', cardImage:'assets/new_products/Sling_Bag/sling_bag_1.png', images:["assets/new_products/Sling_Bag/sling_bag_1.png", "assets/new_products/Sling_Bag/sling_bag_2.png", "assets/new_products/Sling_Bag/sling_bag_3.png"],
+    image:'assets/new_products/Sling_Bag/sling_bag_1.webp', cardImage:'assets/new_products/Sling_Bag/sling_bag_1.webp', images:["assets/new_products/Sling_Bag/sling_bag_1.webp", "assets/new_products/Sling_Bag/sling_bag_2.webp", "assets/new_products/Sling_Bag/sling_bag_3.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Sling Bag', kicker:'Smart essentials',
     description:'Engineered for precision. The new Sling Bag brings intelligent design to your daily routine.',
@@ -97,7 +97,7 @@ const products = {
   },
   p7: {
     id:'p7', code:'OBJ / 07', passport:'HB-P7-001', name:'Smart Umbrella', price:149, category:'system', badge:'Module',
-    image:'assets/new_products/Smart_Umbrella/smart_umbrella_1.png', cardImage:'assets/new_products/Smart_Umbrella/smart_umbrella_1.png', images:["assets/new_products/Smart_Umbrella/smart_umbrella_1.png", "assets/new_products/Smart_Umbrella/smart_umbrella_2.png", "assets/new_products/Smart_Umbrella/smart_umbrella_3.png", "assets/new_products/Smart_Umbrella/smart_umbrella_4.png", "assets/new_products/Smart_Umbrella/smart_umbrella_5.png", "assets/new_products/Smart_Umbrella/smart_umbrella_6.png"],
+    image:'assets/new_products/Smart_Umbrella/smart_umbrella_1.webp', cardImage:'assets/new_products/Smart_Umbrella/smart_umbrella_1.webp', images:["assets/new_products/Smart_Umbrella/smart_umbrella_1.webp", "assets/new_products/Smart_Umbrella/smart_umbrella_2.webp", "assets/new_products/Smart_Umbrella/smart_umbrella_3.webp", "assets/new_products/Smart_Umbrella/smart_umbrella_4.webp", "assets/new_products/Smart_Umbrella/smart_umbrella_5.webp", "assets/new_products/Smart_Umbrella/smart_umbrella_6.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Smart Umbrella', kicker:'Smart essentials',
     description:'Engineered for precision. The new Smart Umbrella brings intelligent design to your daily routine.',
@@ -113,7 +113,7 @@ const products = {
   },
   p8: {
     id:'p8', code:'OBJ / 08', passport:'HB-P8-001', name:'Suitcases', price:159, category:'system', badge:'Space system',
-    image:'assets/new_products/Suitcases/suitcases_1.png', cardImage:'assets/new_products/Suitcases/suitcases_1.png', images:["assets/new_products/Suitcases/suitcases_1.png", "assets/new_products/Suitcases/suitcases_2.png", "assets/new_products/Suitcases/suitcases_3.png", "assets/new_products/Suitcases/suitcases_4.png", "assets/new_products/Suitcases/suitcases_5.png", "assets/new_products/Suitcases/suitcases_6.png", "assets/new_products/Suitcases/suitcases_7.png", "assets/new_products/Suitcases/suitcases_8.png", "assets/new_products/Suitcases/suitcases_9.png", "assets/new_products/Suitcases/suitcases_10.png"],
+    image:'assets/new_products/Suitcases/suitcases_1.webp', cardImage:'assets/new_products/Suitcases/suitcases_1.webp', images:["assets/new_products/Suitcases/suitcases_1.webp", "assets/new_products/Suitcases/suitcases_2.webp", "assets/new_products/Suitcases/suitcases_3.webp", "assets/new_products/Suitcases/suitcases_4.webp", "assets/new_products/Suitcases/suitcases_5.webp", "assets/new_products/Suitcases/suitcases_6.webp", "assets/new_products/Suitcases/suitcases_7.webp", "assets/new_products/Suitcases/suitcases_8.webp", "assets/new_products/Suitcases/suitcases_9.webp", "assets/new_products/Suitcases/suitcases_10.webp"],
     colors:[{name:'Standard',hex:'#000000'}], sizes:['Standard'],
     subtitle:'Premium Suitcases', kicker:'Smart essentials',
     description:'Engineered for precision. The new Suitcases brings intelligent design to your daily routine.',
@@ -171,27 +171,27 @@ if($$('[data-footer-time]').length){
 }
 
 let blogPosts=[
-  {slug:'art-of-packing-light',tag:'PACKING',date:'12 JUL 2026',readTime:'4 min read',image:'assets/products/p1-olive-skyline-duffel.jpg',
+  {slug:'art-of-packing-light',tag:'PACKING',date:'12 JUL 2026',readTime:'4 min read',image:'assets/products/p1-olive-skyline-duffel.webp',
     title:'The art of packing light, without leaving anything behind.',
     excerpt:'Three trips, one carry-on. How a tighter packing logic changes the way you move through an airport.',
     body:['Packing light isnΓÇÖt about owning less ΓÇö itΓÇÖs about knowing exactly what earns its place in the bag. Every object in the HAB├äNE system was designed around that idea: modular compartments, compression points, and a shape that forces a decision at the zipper rather than at the check-in counter.','Start with the base layer: two days of clothing, repeatable and neutral. Add the wildcard ΓÇö one item that only makes sense for this specific trip. Everything else is negotiable.','The result isnΓÇÖt a smaller trip. ItΓÇÖs a faster one ΓÇö through security, across a platform, into a taxi ΓÇö because the bag was never fighting you in the first place.']},
-  {slug:'inside-the-workshop',tag:'CRAFT',date:'02 JUL 2026',readTime:'5 min read',image:'assets/products/p2-navy-metropolitan-duffel.jpg',
+  {slug:'inside-the-workshop',tag:'CRAFT',date:'02 JUL 2026',readTime:'5 min read',image:'assets/products/p2-navy-metropolitan-duffel.webp',
     title:'Inside the workshop: what a lifetime zipper actually means.',
     excerpt:'A close look at the vault-grade hardware and stitching decisions that sit behind every HAB├äNE warranty.',
     body:['A zipper fails in one of three ways: the teeth, the pull, or the tape itΓÇÖs sewn to. Most warranties only cover one of those. Ours covers all three, because a bag thatΓÇÖs otherwise perfect is useless the moment its zipper gives out on a jet bridge.','Vault-grade hardware means oversized teeth, a reinforced pull with a secondary stitch point, and tape sewn with a box-and-cross pattern rather than a single straight line. It costs more per unit. It also means the zipper is very rarely the reason an object comes back to us.','This is the part of the object nobody photographs. ItΓÇÖs also the part that decides whether it survives ten trips or two hundred.']},
-  {slug:'five-cities-metropolitan',tag:'FIELD NOTES',date:'24 JUN 2026',readTime:'6 min read',image:'assets/products/p2-navy-metropolitan-duffel.jpg',
+  {slug:'five-cities-metropolitan',tag:'FIELD NOTES',date:'24 JUN 2026',readTime:'6 min read',image:'assets/products/p2-navy-metropolitan-duffel.webp',
     title:'Five cities that are made for the Metropolitan Duffel.',
     excerpt:'Cabin-friendly, city-first ΓÇö a short list of departures where this object earns its name.',
     body:['Some objects are built for a single kind of trip. The Metropolitan was built for the 48-hour city loop: one cabin bag, no checked luggage, a schedule dense enough that you donΓÇÖt want to think about logistics twice.','Tokyo, for the way it rewards a bag that fits in a coin locker. Lisbon, for hills that punish anything with bad straps. Amsterdam, for a city built at bicycle scale. New York, obviously. And Berlin, where the Metropolitan was first sketched, on a napkin, on a train that was eleven minutes late.','None of this is a rule. ItΓÇÖs just where the object has quietly proven itself, trip after trip.']},
-  {slug:'carry-vs-luggage',tag:'GUIDE',date:'15 JUN 2026',readTime:'4 min read',image:'assets/products/p6-midnight-rolltop.png',
+  {slug:'carry-vs-luggage',tag:'GUIDE',date:'15 JUN 2026',readTime:'4 min read',image:'assets/products/p6-midnight-rolltop.webp',
     title:'Carry or luggage? How to actually decide.',
     excerpt:'A short framework for choosing between the carry and luggage categories ΓÇö before you fall for the wrong bag.',
     body:['The honest answer is: itΓÇÖs rarely about capacity. Most people who buy luggage for a 3-day trip end up filling it anyway, because empty space invites more packing, not less.','Ask instead: does this trip involve more than one mode of movement? A carry object ΓÇö duffel, backpack, sling ΓÇö is built for trips where youΓÇÖre walking with the bag more than wheeling it. Luggage is built for the opposite: long transfers, hard floors, one main haul from door to gate.','If youΓÇÖre still unsure, our matcher on the homepage will ask you three questions and get there faster than this article will.']},
-  {slug:'science-of-a-lifetime-zipper',tag:'CRAFT',date:'03 JUN 2026',readTime:'3 min read',image:'assets/products/p3-navy-voyager-duffel.jpg',
+  {slug:'science-of-a-lifetime-zipper',tag:'CRAFT',date:'03 JUN 2026',readTime:'3 min read',image:'assets/products/p3-navy-voyager-duffel.webp',
     title:'Why we test every zipper to 20,000 cycles.',
     excerpt:'The unglamorous engineering behind a claim we make on every single product page.',
     body:['Twenty thousand cycles is roughly what a well-used travel bag sees over a decade of regular trips. We test to that number before a zipper ever ships on a HAB├äNE object, and we test it under load, not just open-and-close in a vacuum.','ItΓÇÖs a slow, repetitive, unglamorous part of the process. ItΓÇÖs also the reason we can put "lifetime zipper" on a product page without a line of small print underneath it.']},
-  {slug:'airport-to-boarding-in-8-minutes',tag:'FIELD NOTES',date:'21 MAY 2026',readTime:'5 min read',image:'assets/products/p4-smart-duffel-ivory.jpg',
+  {slug:'airport-to-boarding-in-8-minutes',tag:'FIELD NOTES',date:'21 MAY 2026',readTime:'5 min read',image:'assets/products/p4-smart-duffel-ivory.webp',
     title:'Field notes: airport to boarding gate in eight minutes.',
     excerpt:'What actually changes when your carry-on is built around the security line instead of around you.',
     body:['Eight minutes, door of the taxi to seated at the gate, security included. It only works with a specific kind of preparation: laptop sleeve that opens flat without unpacking anything else, no loose cables, one liquids pouch you can see through without opening.','The SMART DuffelΓÇÖs check-in panel and dedicated laptop compartment exist because of exactly this kind of trip ΓÇö the one where youΓÇÖre not touring, youΓÇÖre moving, and every extra motion at the tray table costs you time you donΓÇÖt have.','ItΓÇÖs a small, specific kind of design problem. Most luggage ignores it entirely.']}
@@ -477,8 +477,34 @@ function activateTab(tab){$$('[data-tab]').forEach(b=>b.classList.toggle('is-act
 // product (p.pack_items). With no argument, falls back to the local
 // hardcoded catalogue lookup — the path openProduct() (local ?id= pages)
 // still uses.
-function renderPackItems(items){
-  const list = items || (products[state.activeProduct] && products[state.activeProduct].pack) || [];
+// What a customer would realistically pack with or around each kind of object.
+// Matched on the product name/slug so live (backend) products get a sensible
+// list even when no pack_items were entered in the admin.
+const PACK_PRESETS = [
+  [/tag/, ['Cabin bag','Checked suitcase','Backpack','Laptop bag','Gym / duffel bag','Camera bag']],
+  [/bottle|flask|tumbler/, ['500ml water bottle','Electrolyte tablets','Collapsible cup','Bottle brush','USB-C charging cable','Travel pouch']],
+  [/fan/, ['USB-C charging cable','Portable power bank','Neck strap','Travel pouch','Spare filters','Cooling towel']],
+  [/track|finder|locator/, ['Spare coin cell battery','Luggage strap','Adhesive mount pad','Carabiner clip','Backup SIM tool','Spare tag loop']],
+  [/passport|wallet|cardholder|document/, ['Passport','Boarding pass / e-ticket','Visa & vaccination card','Pen for customs forms','Spare passport photos','Foreign currency']],
+  [/sling|crossbody|belt|waist|pouch/, ['Phone & wallet','Compact camera','Travel documents','Sunglasses','Portable charger','Earbuds']],
+  [/umbrella|rain/, ['Rain cover','Wrist strap pouch','Compact towel','Spare batteries','Travel-size cleaning cloth','Light rain jacket']],
+  [/suitcase|luggage|trolley|cabin|carry|duffel|trunk/, ['3–4 outfits','Toiletry kit','Shoes (2 pairs)','Packing cubes','Laundry bag','Laptop & tablet']]
+];
+const DEFAULT_PACK = ['Clothes','Toiletries','Shoes','Tech & chargers','Travel documents'];
+// `items`: pack-list from the live API (p.pack_items), if any. `meta`: the live
+// product ({name, slug, category}) used to pick a fitting list when `items` is empty.
+function renderPackItems(items, meta){
+  const local = products[state.activeProduct];
+  const label = ((meta && (meta.name || meta.slug)) || (local && local.name) || '').toLowerCase();
+  let list = (items && items.length ? items : null);
+  if(!list){
+    const hit = PACK_PRESETS.find(([re]) => re.test(label));
+    list = hit ? hit[1] : (local && local.pack) || DEFAULT_PACK;
+  }
+  list = list.filter(x => x && String(x).trim());
+  if(!list.length) list = DEFAULT_PACK;
+  // "Essentials" always comes last.
+  list = list.filter(x => String(x).trim().toLowerCase() !== 'essentials').concat('Essentials');
   state.activePackItems = list;
   $('[data-pack-items]').innerHTML=list.map((item,i)=>`<button type="button" data-pack-item="${i}">${item}</button>`).join('');
   $('[data-pack-used]').textContent='0'; $('[data-capacity-fill]').style.width='0%'; $('[data-capacity-message]').textContent='Select items to test the fit.';
@@ -825,7 +851,7 @@ if($('[data-product-name]')){
       if($('[data-accordion-care-faq]')) $('[data-accordion-care-faq]').textContent=p.care_instructions||'';
 
       state.packSelected=new Set();
-      renderPackItems(p.pack_items||[]);
+      renderPackItems(p.pack_items||[], p);
       const bp=p.blueprint||{};
       renderBlueprint({ blueprint: bp.callouts||[], dimensions: bp.dimensions||[] });
       activateTab('overview');
@@ -850,7 +876,12 @@ if($('[data-product-name]')){
       if(addBtn) {
         if(p.in_stock){
           addBtn.disabled = false;
-          addBtn.textContent = addBtn.dataset.defaultLabel || addBtn.textContent;
+          // Only undo the "Notify me" state. Writing textContent here used to flatten the
+          // label/price <span>/<b> pair into one run of text ("Add to bag109 €").
+          if(addBtn.dataset.defaultHtml){
+            addBtn.innerHTML = addBtn.dataset.defaultHtml;
+            const priceEl=$('[data-dialog-price]'); if(priceEl) priceEl.textContent=money(p.price);
+          }
           addBtn.onclick = () => {
             const q = state.pdpQty||1;
             window.habaneCart.add({ product_id: p.id, quantity: q, name: p.name, price: p.price, image: img, slug: p.slug });
@@ -859,7 +890,7 @@ if($('[data-product-name]')){
             toast(p.name + ' added to bag');
           };
         } else {
-          addBtn.dataset.defaultLabel = addBtn.dataset.defaultLabel || addBtn.textContent;
+          addBtn.dataset.defaultHtml = addBtn.dataset.defaultHtml || addBtn.innerHTML;
           addBtn.textContent = 'Notify me when back in stock';
           addBtn.onclick = () => { if(window.notifyBackInStock) window.notifyBackInStock(p.id, p.name); };
         }
@@ -872,12 +903,11 @@ if($('[data-product-name]')){
       if(buyNow){
         buyNow.onclick=()=>{
           if(!p.in_stock){ toast(p.name + ' is out of stock'); return; }
-          const inBag=window.habaneCart.get().some(i=>i.product_id===p.id);
-          if(!inBag){
-            window.habaneCart.add({ product_id: p.id, quantity: state.pdpQty||1, name: p.name, price: p.price, image: img, slug: p.slug });
-            if(window.syncApiCart) window.syncApiCart();
-          }
-          location.href='checkout.html';
+          // Buy-now: hand just this product to the checkout page without putting it
+          // in the bag, so the bag/cart count is left untouched (stays 0).
+          try{ sessionStorage.setItem('habane_buynow', JSON.stringify({ product_id: p.id, quantity: state.pdpQty||1, name: p.name, price: p.price, image: img, slug: p.slug })); }
+          catch(e){ window.habaneCart.add({ product_id: p.id, quantity: state.pdpQty||1, name: p.name, price: p.price, image: img, slug: p.slug }); location.href='checkout.html'; return; }
+          location.href='checkout.html?buynow=1';
         };
       }
     }).catch(err => {
@@ -1123,7 +1153,7 @@ if($('[data-menu-open]')) $('[data-menu-open]').onclick=()=>{$('[data-mobile-men
 if($('[data-menu-close]')) $('[data-menu-close]').onclick=closeMobileMenu;
 if($('[data-scrim]')) $('[data-scrim]').addEventListener('click',()=>{if($('[data-mobile-menu]') && $('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()});
 window.addEventListener('resize',()=>{if($('[data-mobile-menu]') && $('[data-mobile-menu]').classList.contains('is-open'))positionMobileMenu()});
-$$('[data-social]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
+$$('[data-social]').forEach(a=>a.addEventListener('click',e=>{if((a.getAttribute('href')||'#')!=='#')return;e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
 $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();toast('More options coming soon')}));
 
 // --- PDP song card ---
@@ -1453,7 +1483,7 @@ if($('[data-product-name]')){
     if(item){ item.qty=state.pdpQty; updateCart(); }
     refreshQty();
   };
-  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{addToCart(state.activeProduct);location.href='checkout.html'};
+  if($('[data-dialog-checkout]')) $('[data-dialog-checkout]').onclick=()=>{const lp=products[state.activeProduct]; if(lp){try{sessionStorage.setItem('habane_buynow',JSON.stringify({product_id:lp.id,quantity:state.pdpQty||1,name:lp.name,price:lp.price,image:lp.card_image,slug:lp.slug}));location.href='checkout.html?buynow=1';return}catch(e){}} addToCart(state.activeProduct);location.href='checkout.html'};
   if($('[data-passport-save]')) $('[data-passport-save]').onclick=()=>toast('Product passport saved to demo account');
 }
 // Exposed on window and re-callable: FAQ sections render dynamically from

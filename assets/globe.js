@@ -160,9 +160,23 @@
     // the user left it.
     let dragging = false;
     let lastPointer = null;
+    let vx = 0, vy = 0, lastMoveAt = 0, glideId = 0;
+    // Throw: let go mid-swipe and the globe keeps turning, easing to a stop.
+    function glide() {
+      const id = ++glideId;
+      (function step() {
+        if (id !== glideId || dragging || (Math.abs(vx) < 0.02 && Math.abs(vy) < 0.02)) return;
+        manualRotate[0] += vx;
+        manualRotate[1] = Math.max(-80, Math.min(80, manualRotate[1] + vy));
+        vx *= 0.94; vy *= 0.94;
+        render();
+        requestAnimationFrame(step);
+      })();
+    }
     svg.style.touchAction = 'none';
     svg.addEventListener('pointerdown', (e) => {
       dragging = true;
+      glideId++; vx = vy = 0;
       paused = true;
       lastPointer = { x: e.clientX, y: e.clientY };
       svg.setPointerCapture(e.pointerId);
@@ -173,6 +187,7 @@
       const dx = e.clientX - lastPointer.x;
       const dy = e.clientY - lastPointer.y;
       lastPointer = { x: e.clientX, y: e.clientY };
+      vx = dx * 0.35; vy = -dy * 0.35; lastMoveAt = performance.now();
       manualRotate[0] += dx * 0.35;
       manualRotate[1] = Math.max(-80, Math.min(80, manualRotate[1] - dy * 0.35));
       render();
@@ -183,6 +198,7 @@
       // Keep rotation stopped if a marker is currently pinned.
       paused = !!selectedMarker;
       svg.classList.remove('is-dragging');
+      if (performance.now() - lastMoveAt < 80) glide();
       if (e && e.pointerId !== undefined) {
         try { svg.releasePointerCapture(e.pointerId); } catch (err) { /* noop */ }
       }

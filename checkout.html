@@ -6,11 +6,11 @@
   <title>Checkout — HABÄNE</title>
   <meta name="description" content="Complete your HABÄNE order. Secure checkout powered by Stripe." />
   <meta name="robots" content="noindex" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=155" />
+  <link rel="stylesheet" href="assets/styles.css?v=158" />
   <style>
     .checkout-page { min-height: 100vh; background: var(--color-midnight, #060935); color: #fff; padding: 120px 24px 80px; }
     .checkout-page__inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 48px; }
@@ -260,6 +260,26 @@
     (function () {
       var api  = window.habaneApi;
       var cart = window.habaneCart;
+
+      // "Buy now" from a product page: check out just that product from a temporary
+      // one-item cart, leaving the real bag (and its navbar count) untouched.
+      (function () {
+        var wantsBuyNow = /[?&]buynow=1(&|$)/.test(location.search);
+        var item = null;
+        try { item = JSON.parse(sessionStorage.getItem('habane_buynow') || 'null'); } catch (e) {}
+        if (!wantsBuyNow) { try { sessionStorage.removeItem('habane_buynow'); } catch (e) {} return; }
+        if (!item || !item.product_id) return;
+        item.quantity = Math.max(1, Math.min(20, item.quantity || 1));
+        var line = { product_id: item.product_id, quantity: item.quantity, size: item.size || null, color: item.color || null,
+                     name: item.name || '', price: item.price || 0, image: item.image || null, slug: item.slug || null };
+        var cleared = false;
+        cart = {
+          get: function () { return cleared ? [] : [line]; },
+          subtotal: function () { return cleared ? 0 : line.price * line.quantity; },
+          toApiItems: function () { return cleared ? [] : [{ product_id: line.product_id, quantity: line.quantity, size: line.size || undefined, color: line.color || undefined }]; },
+          clear: function () { cleared = true; try { sessionStorage.removeItem('habane_buynow'); } catch (e) {} }
+        };
+      })();
       var fmt  = window.habaneFormatPrice || function (n) { return '€' + Number(n).toFixed(2); };
       var toast = function (msg) { var el = document.querySelector('[data-toast]'); if (!el) return; el.textContent = msg; el.classList.add('is-visible'); clearTimeout(toast._t); toast._t = setTimeout(function () { el.classList.remove('is-visible'); }, 2400); };
 
