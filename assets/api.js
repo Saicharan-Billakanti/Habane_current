@@ -35,7 +35,12 @@
    */
   function imageUrl(path) {
     if (!path) return null;
-    if (/^https?:\/\//i.test(path)) return path;
+    if (/^https?:\/\//i.test(path)) {
+      // The backend still stores .png/.jpeg addresses for the site's own images; they are
+      // served as WebP now. A version tag makes browsers drop any stale cached copy.
+      if (/^https?:\/\/(www\.)?habaene\.com\/assets\/[^?#]*\.(png|jpe?g)$/i.test(path)) return path + '?v=webp1';
+      return path;
+    }
     return IMAGE_BASE_URL + '/' + path.replace(/^\/+/, '');
   }
 
