@@ -1183,6 +1183,17 @@ if($('[data-menu-open]')) $('[data-menu-open]').onclick=()=>{$('[data-mobile-men
 if($('[data-menu-close]')) $('[data-menu-close]').onclick=closeMobileMenu;
 if($('[data-scrim]')) $('[data-scrim]').addEventListener('click',()=>{if($('[data-mobile-menu]') && $('[data-mobile-menu]').classList.contains('is-open'))closeMobileMenu()});
 window.addEventListener('resize',()=>{if($('[data-mobile-menu]') && $('[data-mobile-menu]').classList.contains('is-open'))positionMobileMenu()});
+// Email links: the mailto: still opens the visitor's mail app, but many desktops have none
+// configured (the click then looks dead), so the address is also copied and a message shown.
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('a[href^="mailto:"]'); if(!a) return;
+  const addr=decodeURIComponent((a.getAttribute('href')||'').replace(/^mailto:/i,'').split('?')[0]); if(!addr) return;
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr).then(()=>{ if($('[data-toast]')) toast(addr+' copied'); }).catch(()=>{});
+    }
+  }catch(err){}
+});
 $$('[data-social]').forEach(a=>a.addEventListener('click',e=>{if((a.getAttribute('href')||'#')!=='#')return;e.preventDefault();toast(`${a.dataset.social} coming soon`)}));
 $$('[data-pdp-sound-more]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();toast('More options coming soon')}));
 
