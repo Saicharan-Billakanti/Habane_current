@@ -1985,3 +1985,22 @@ h1,h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;l
     grid-template-columns: 1fr;
   }
 }
+
+/* Close the @media (max-width: 992px) block that was left open above, so the rules below apply at all widths. */
+}
+
+/* FOOTER LAYOUT GRID — brand + 3 link columns on one evenly spaced row, fixed clearance
+   before the globe, globe aligned to the content edge and to the top of the first row. */
+@media(min-width:961px){
+  .footer__globe-wrap{right:var(--gutter)}
+  .footer__top{display:grid;grid-template-columns:minmax(240px,280px) repeat(3,max-content);justify-content:space-between;align-items:start;column-gap:32px;row-gap:40px;padding-right:348px}
+  .footer__brand{margin-right:0}
+  .footer__top>div:not(.footer__brand):first-of-type{margin-left:0}
+}
+@media(min-width:961px) and (max-width:1300px){
+  .footer__top{padding-right:288px}
+}
+@media(min-width:961px) and (max-width:1249px){
+  .footer__top{grid-template-columns:repeat(3,max-content)}
+  .footer__brand{grid-column:1/-1;max-width:none}
+}
