@@ -1,0 +1,10 @@
+# Long browser/CDN caching for images and fonts, so repeat visits and page-to-page
+# navigation do not re-download them. (Change an image => give it a new file name.)
+/assets/*.webp
+  Cache-Control: public, max-age=2592000
+/assets/*.svg
+  Cache-Control: public, max-age=2592000
+/assets/*.mp3
+  Cache-Control: public, max-age=2592000
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
