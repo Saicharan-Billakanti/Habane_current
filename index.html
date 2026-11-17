@@ -16,12 +16,13 @@
 
   <title>HABÄNE — Travel, Intelligently.</title>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.webp" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
 
-  <link rel="icon" type="image/png" sizes="256x256" href="assets/brand/favicon-256.webp" />
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/brand/favicon-256.png" />
 
-  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.webp" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
 
+  <link rel="preload" as="image" href="assets/new_hero/Homepage_Images/hero_1_clean.webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,7 +33,7 @@
 
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/styles.css?v=158" />
+  <link rel="stylesheet" href="assets/styles.css?v=159" />
 
 </head>
 
@@ -310,7 +311,7 @@
 
       <div class="hero-carousel__slide is-active" data-hero-slide>
 
-        <img src="assets/new_hero/Homepage_Images/hero_1_clean.webp" alt="HABÄNE" loading="eager" />
+        <img src="assets/new_hero/Homepage_Images/hero_1_clean.webp" alt="HABÄNE" loading="eager" fetchpriority="high" decoding="async" />
 
       </div>
 
@@ -2199,13 +2200,13 @@
 
 
 
-  <script src="assets/d3-array.min.js"></script>
+  <script src="assets/d3-array.min.js" defer></script>
 
-  <script src="assets/d3-geo.min.js"></script>
+  <script src="assets/d3-geo.min.js" defer></script>
 
-  <script src="assets/topojson-client.min.js"></script>
+  <script src="assets/topojson-client.min.js" defer></script>
 
-  <script src="assets/world-atlas-data.js"></script>
+  <script src="assets/world-atlas-data.js" defer></script>
 
   <script src="assets/globe.js?v=22" defer></script>
 

@@ -1,9 +1,6 @@
 # Old image addresses (stored in the backend database / old links) still work:
 # each .png/.jpg/.jpeg that was converted to WebP is served from its .webp file.
 /assets/Pi7_Habane_Bag_2.png /assets/Pi7_Habane_Bag_2.webp 200
-/assets/brand/apple-touch-icon.png /assets/brand/apple-touch-icon.webp 200
-/assets/brand/favicon-256.png /assets/brand/favicon-256.webp 200
-/assets/brand/favicon-32.png /assets/brand/favicon-32.webp 200
 /assets/brand/icon-navy.png /assets/brand/icon-navy.webp 200
 /assets/brand/icon-white.png /assets/brand/icon-white.webp 200
 /assets/brand/wordmark-navy.png /assets/brand/wordmark-navy.webp 200
